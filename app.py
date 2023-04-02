@@ -1,6 +1,27 @@
-from flask import Flask
+from flask import Flask, request
 from db import db
 app = Flask(__name__)
+
+authors = {
+    "justinianus": 1,
+    "gaius": 2
+}
+
+texts = {1: "abc", 2: 'cdb'}
+
+
+@app.get("/authors")
+def get_authors():
+    return {"authors": authors}
+
+
+@app.post("/authors")
+def get_authors_works():
+    author = request.get_json()
+    if author["author"] in authors:
+        return texts[author["author"]], 201
+    else:
+        return {"message": "author not found"}
 
 
 if __name__ == "__main__":
