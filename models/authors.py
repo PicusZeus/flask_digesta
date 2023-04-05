@@ -9,5 +9,6 @@ class AuthorModel(db.Model):
     description = db.Column(db.String)
     flourished_start = db.Column(db.Integer)
     flourished_end = db.Column(db.Integer)
-    digesta = db.relationship("DigestaModel", back_populates="author", lazy="dynamic")
+    paragraphs = db.relationship("DigestaParagraph", back_populates="author", lazy="dynamic")
+    opera = db.relationship("OperaModel", back_populates="author", lazy="dynamic")
 

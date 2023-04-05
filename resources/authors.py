@@ -10,11 +10,13 @@ from schemas import AuthorSchema
 
 blp = Blueprint("digesta", __name__, description="Operations on authors")
 
+
 @blp.route("/authors")
 class AuthorsAll(MethodView):
     @blp.response(200, AuthorSchema(many=True))
     def get(self):
         return AuthorModel.query.all()
+
 
 @blp.route("/authors/<str:author_name>")
 class Author(MethodView):
@@ -28,6 +30,5 @@ class Author(MethodView):
 class AuthorByAge(MethodView):
     @blp.response(200, AuthorSchema(many=True))
     def get(self, start, end):
-        authors = AuthorModel.query.filter_by( > )
-        author_m = AuthorModel.query.filter_by(name=author).first_or_404()
-        return author_m.digesta
+        authors = AuthorModel.query.filter(db.authors.flourished_start >= start, db.authors.flourished_end <= end).all()
+        return authors
