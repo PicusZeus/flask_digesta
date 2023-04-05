@@ -1,14 +1,18 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from db import db
-from flask_smorest import abort
+from flask_smorest import abort, Api
+from flask_jwt_extended import JWTManager
 app = Flask(__name__)
+from flask_migrate import Migrate
+from dotenv import load_dotenv
 
-authors = {
-    "justinianus": 1,
-    "gaius": 2
-}
+import os
 
-texts = {1: "abc", 2: 'cdb'}
+from db import db
+import models
+from schemas import AuthorSchema, DigestaBookSchema, DigestaParagraphSchema, DigestaSectionSchema, OperaSchema
+
+
 
 
 @app.get("/authors")

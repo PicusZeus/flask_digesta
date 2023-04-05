@@ -4,7 +4,7 @@ from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 from db import db
-from models import DigestaModel, AuthorModel
+from models import AuthorModel, OperaModel
 from schemas import AuthorSchema
 
 
@@ -20,7 +20,7 @@ class AuthorsAll(MethodView):
 
 @blp.route("/authors/<str:author_name>")
 class Author(MethodView):
-    @blp.response(200, AuthorSchema)
+    @blp.response(200, AuthorSchema())
     def get(self, author_name):
         author = AuthorModel.query.filter_by(name=author_name).first_or_404()
         return author

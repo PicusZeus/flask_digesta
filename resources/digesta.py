@@ -6,24 +6,25 @@ from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 from db import db
-from models import DigestaModel, AuthorModel
-from schemas import DigestaSchema
+from models import DigestaBookModel, DigestaParagraphModel, DigestaSectionModel, AuthorModel
+from schemas import DigestaBookSchema, DigestaParagraphSchema, DigestaSectionSchema
 
 
 blp = Blueprint("digesta", __name__, description="Operations on digesta")
 
 
-@blp.route("/digesta/<str:book>/<str:section>/<str:paragraph>")
-class Digesta(MethodView):
-    @blp.response(200, DigestaSchema)
-    def get(self, book, section, paragraph):
-        paragraph_data = DigestaModel.query.filter_by(book=book, section=section, paragraph=paragraph).first_or_404()
+@blp.route("/digesta/paragraph/<int:paragraph_id>")
+class DigestaParagraph(MethodView):
+    @blp.response(200, DigestaParagraphSchema())
+    def get(self, paragraph_id):
+        paragraph_data = DigestaParagraphModel.query.get_or_404(paragraph_id)
         return paragraph_data
 
 
-@blp.route("/digesta/<str:author>")
-class DigestaByAuthor(MethodView):
-    @blp.response(200, DigestaSchema(many=True))
-    def get(self, author):
-        author_m = AuthorModel.query.filter_by(name=author).first_or_404()
-        return author_m.digesta
+@blp.route("/digesta/section/<int:section_id>")
+class DigestaSection(MethodView):
+    @blp.response(200, DigestaSectionSchema())
+    def get(self, section_id):
+        section_data = DigestaSectionModel.query.get_or_404(section_id)
+        return section_data
+
