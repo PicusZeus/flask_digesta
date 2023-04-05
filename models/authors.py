@@ -1,5 +1,5 @@
-from sqlalchemy import ForeignKey
 from db import db
+
 
 class AuthorModel(db.Model):
     __tablename__ = "authors"
