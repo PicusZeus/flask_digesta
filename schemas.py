@@ -7,17 +7,20 @@ class PlainDigestaBookSchema(Schema):
     book_polish_name = fields.Str(dump_only=True)
 
 
-class PlainDigestaSectionSchema(Schema):
+class PlainDigestaTitulusSchema(Schema):
     id = fields.Int(dump_only=True)
     number = fields.Int(dump_only=True)
     title_lat = fields.Str()
     title_pl = fields.Str()
 
 
-class PlainDigestaParagraphSchema(Schema):
+class PlainDigestaLexSchema(Schema):
     id = fields.Int(dump_only=True)
+    address_lat = fields.Str()
+    address_pl = fields.Str()
     text_lat = fields.Str()
     text_pl = fields.Str()
+    lex_nr = fields.Int()
 
 
 class PlainAuthorSchema(Schema):
@@ -36,24 +39,25 @@ class PlainOperaSchema(Schema):
 
 
 class DigestaBookSchema(PlainDigestaBookSchema):
-    sections = fields.List(fields.Nested(PlainDigestaSectionSchema()), dump_only=True)
+    tituli = fields.List(fields.Nested(PlainDigestaTitulusSchema()), dump_only=True)
 
 
-class DigestaSectionSchema(PlainDigestaSectionSchema):
+class DigestaTitulusSchema(PlainDigestaTitulusSchema):
     book = fields.Nested(PlainDigestaBookSchema())
+    leges = fields.List(fields.Nested(PlainDigestaLexSchema()))
 
 
-class DigestaParagraphSchema(PlainDigestaParagraphSchema):
-    section = fields.Nested(PlainDigestaSectionSchema())
+class DigestaLexSchema(PlainDigestaLexSchema):
+    titulus = fields.Nested(PlainDigestaTitulusSchema())
     author = fields.Nested(PlainAuthorSchema())
     opus = fields.Nested(PlainOperaSchema())
 
 
 class OperaSchema(PlainOperaSchema):
-    paragraph = fields.List(fields.Nested(PlainDigestaParagraphSchema()))
+    leges = fields.List(fields.Nested(PlainDigestaLexSchema()))
     author = fields.Nested(PlainAuthorSchema())
 
 
 class AuthorSchema(PlainAuthorSchema):
-    paragraphs = fields.List(fields.Nested(PlainDigestaParagraphSchema()))
+    leges = fields.List(fields.Nested(PlainDigestaLexSchema()))
     opera = fields.List(fields.Nested(PlainOperaSchema()))

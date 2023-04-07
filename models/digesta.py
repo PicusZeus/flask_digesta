@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, UniqueConstraint
 from db import db
 
 
@@ -18,7 +18,8 @@ class DigestaTitulusModel(db.Model):
     title_pl = db.Column(db.String(256), nullable=False)
     book_id = db.Column(db.Integer, db.ForeignKey("digesta_books.id"), unique=False, nullable=False)
     book = db.relationship("DigestaBookModel", back_populates="tituli")
-    leges = db.relationship("DigestaLexModel", back_populates="titlus", lazy="dynamic")
+    leges = db.relationship("DigestaLexModel", back_populates="titulus", lazy="dynamic")
+    __table_args__ = (UniqueConstraint('number', 'book_id'),)
 
 
 class DigestaLexModel(db.Model):
@@ -29,11 +30,12 @@ class DigestaLexModel(db.Model):
     address_pl = db.Column(db.Text, nullable=False)
     text_lat = db.Column(db.Text, nullable=False)
     text_pl = db.Column(db.Text, nullable=False)
-    lex_nr = db.Column(db.Ingeger, nullable=False)
+    lex_nr = db.Column(db.Integer, nullable=False)
     titulus_id = db.Column(db.Integer, db.ForeignKey("digesta_tituli.id"), unique=False, nullable=False)
     titulus = db.relationship("DigestaTitulusModel", back_populates="leges")
     author_id = db.Column(db.Integer, db.ForeignKey("authors.id"), unique=False, nullable=False)
     author = db.relationship("AuthorModel", back_populates="leges")
     opus_id = db.Column(db.Integer, db.ForeignKey("opera.id"), unique=False, nullable=False)
     opus = db.relationship("OperaModel", back_populates="leges")
+    __table_args__ = (UniqueConstraint('lex_nr', 'titulus_id'),)
 

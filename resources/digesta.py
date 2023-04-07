@@ -6,25 +6,25 @@ from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 from db import db
-from models import DigestaBookModel, DigestaParagraphModel, DigestaSectionModel, AuthorModel
-from schemas import DigestaBookSchema, DigestaParagraphSchema, DigestaSectionSchema
+from models import DigestaBookModel, DigestaLexModel, DigestaTitulusModel, AuthorModel
+from schemas import DigestaBookSchema, DigestaLexSchema, DigestaTitulusSchema
 
 
 blp = Blueprint("digesta", __name__, description="Operations on digesta")
 
 
-@blp.route("/digesta/paragraph/<int:paragraph_id>")
+@blp.route("/digesta/leges/<int:lex_id>")
 class DigestaParagraph(MethodView):
-    @blp.response(200, DigestaParagraphSchema())
-    def get(self, paragraph_id):
-        paragraph_data = DigestaParagraphModel.query.get_or_404(paragraph_id)
+    @blp.response(200, DigestaLexSchema())
+    def get(self, lex_id):
+        paragraph_data = DigestaLexModel.query.get_or_404(lex_id)
         return paragraph_data
 
 
-@blp.route("/digesta/section/<int:section_id>")
+@blp.route("/digesta/tituli/<int:titulus_id>")
 class DigestaSection(MethodView):
-    @blp.response(200, DigestaSectionSchema())
-    def get(self, section_id):
-        section_data = DigestaSectionModel.query.get_or_404(section_id)
+    @blp.response(200, DigestaTitulusSchema())
+    def get(self, titulus_id):
+        section_data = DigestaTitulusModel.query.get_or_404(titulus_id)
         return section_data
 

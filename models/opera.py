@@ -1,5 +1,5 @@
 from db import db
-
+from sqlalchemy import UniqueConstraint
 
 class OperaModel(db.Model):
     # works of jurists that were used in Digesta
@@ -14,3 +14,4 @@ class OperaModel(db.Model):
     leges = db.relationship("DigestaLexModel", back_populates="opus")
     author_id = db.Column(db.Integer, db.ForeignKey("authors.id"), unique=False, nullable=False)
     author = db.relationship("AuthorModel", back_populates="opera")
+    __table_args__ = (UniqueConstraint('title_lat', 'author_id', 'book'),)
