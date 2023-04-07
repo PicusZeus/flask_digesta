@@ -1,7 +1,12 @@
 from resources import roman_num, roman_ordinal_numeral, rom_ord_num_to_num
 import re
+import pickle
 int_pat = "^[0-9]*$"
 int_p = re.compile(int_pat)
+
+work_title_pattern = "[a-ząęźżćłńśó ]*([A-Z].*)"
+
+work_title_p = re.compile(work_title_pattern)
 
 
 def extract_text_data_from_plain_text(file_name):
@@ -35,13 +40,13 @@ def extract_text_data_from_plain_text(file_name):
             title_title = lat_lines[index + 1]
             title_nr = roman_numerals_list.index(l) + 1
 
-            book[title_nr] = {'title_lat': title_title, 'paragraphs': {}}
+            book[title_nr] = {'title_lat': title_title, 'leges': {}}
         elif title_nr and l and l != title_title and l not in roman_numerals_list:
             text = l.split(':', 1)
             first_line = text[0]
-            print(first_line)
 
-            paragraph_nr = first_line.split(' ', 1)[0]
+
+            lex_nr = int(first_line.split(' ', 1)[0])
             jurist = first_line.split('libro', 1)[0].split(' ', 1)[1]
             work = first_line.split('libro', 1)[1]
             opus_liber = []
@@ -56,8 +61,8 @@ def extract_text_data_from_plain_text(file_name):
             opus_title = ' '.join(opus_title)
 
             content = text[1]
-            book[title_nr]['paragraphs'][paragraph_nr] = {'address_lat': first_line.strip(), 'jurist': jurist.strip(),
-                                                          'opus': {'title': opus_title.strip(),
+            book[title_nr]['leges'][lex_nr] = {'address_lat': first_line.strip(), 'jurist': jurist.strip(),
+                                                          'opus': {'title_lat': opus_title.strip(),
                                                                    'liber': int(opus_liber_int)},
                                                           'content_lat': content.strip()}
 
@@ -77,15 +82,22 @@ def extract_text_data_from_plain_text(file_name):
             text = l.split(':', 1)
             first_line = text[0]
 
-            paragraph_nr = first_line.split(' ', 1)[0]
-            content = text[1]
-            book[title_nr]['paragraphs'][paragraph_nr]['address_pl'] = first_line
-            book[title_nr]['paragraphs'][paragraph_nr]['content_pl'] = content
+            opus = first_line.split("w księdze")[1]
+            opus_title_pl = work_title_p.match(opus)[1]
 
-    return book
+            lex_nr = int(first_line.split(' ', 1)[0])
+            content = text[1]
+            book[title_nr]['leges'][lex_nr]['address_pl'] = first_line
+            book[title_nr]['leges'][lex_nr]['content_pl'] = content
+            book[title_nr]['leges'][lex_nr]['opus']['title_pl'] = opus_title_pl
+
+    with open(file_name + "_extracted.pickle", 'wb') as file:
+        pickle.dump(book, file)
+
 
 
 if __name__ == '__main__':
 
     book = extract_text_data_from_plain_text('populate/Data/digestaplikiend/d1.txt')
-    print(book)
+
+
