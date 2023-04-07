@@ -14,5 +14,5 @@ class OperaModel(db.Model):
     # if not given, or the work is singlebook, expected value is zero
     book = db.Column(db.Integer, nullable=False)
     paragraphs = db.relationship("DigestaParagraphModel", back_populates="opus")
-    author_id = db.Column(db.Ingeger, db.ForeignKey("authors.id"), unique=False, nullable=False)
+    author_id = db.Column(db.Integer, db.ForeignKey("authors.id"), unique=False, nullable=False)
     author = db.relationship("AuthorModel", back_populates="opera")

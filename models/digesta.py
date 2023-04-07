@@ -7,7 +7,7 @@ class DigestaBookModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     book_latin_name = db.Column(db.String(256), unique=True, nullable=False)
     book_polish_name = db.Column(db.String(256), unique=True, nullable=False)
-    sections = db.relationship("DigestaSectionModel", back_populate="book", lazy="dynamic")
+    sections = db.relationship("DigestaSectionModel", back_populates="book", lazy="dynamic")
 
 
 class DigestaSectionModel(db.Model):

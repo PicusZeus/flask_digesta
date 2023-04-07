@@ -8,7 +8,7 @@ from models import AuthorModel, OperaModel
 from schemas import AuthorSchema
 
 
-blp = Blueprint("digesta", __name__, description="Operations on authors")
+blp = Blueprint("authors", __name__, description="Operations on authors")
 
 
 @blp.route("/authors")
@@ -18,11 +18,11 @@ class AuthorsAll(MethodView):
         return AuthorModel.query.all()
 
 
-@blp.route("/authors/<str:author_name>")
+@blp.route("/authors/<int:author_id>")
 class Author(MethodView):
     @blp.response(200, AuthorSchema())
-    def get(self, author_name):
-        author = AuthorModel.query.filter_by(name=author_name).first_or_404()
+    def get(self, author_id):
+        author = AuthorModel.query.get_or_404(author_id)
         return author
 
 
