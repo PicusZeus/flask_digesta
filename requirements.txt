@@ -13,3 +13,8 @@ SQLAlchemy==2.0.8
 typing_extensions==4.5.0
 webargs==8.2.0
 Werkzeug==2.2.3
+passlib
+gunicorn==20.1.0
+psycopg2==2.9.5
+flask-jwt-extended
+flask-migrate

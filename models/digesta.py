@@ -37,5 +37,6 @@ class DigestaLexModel(db.Model):
     author = db.relationship("AuthorModel", back_populates="leges")
     opus_id = db.Column(db.Integer, db.ForeignKey("opera.id"), unique=False, nullable=False)
     opus = db.relationship("OperaModel", back_populates="leges")
+    comments = db.relationship("CommentModel", back_populates='lex', lazy="dynamic")
     __table_args__ = (UniqueConstraint('lex_nr', 'titulus_id'),)
 

@@ -38,6 +38,10 @@ class PlainOperaSchema(Schema):
     book = fields.Int(dump_only=True)
 
 
+class PlainCommentSchema(Schema):
+    id = fields.Int(dump_only=True)
+
+
 class DigestaBookSchema(PlainDigestaBookSchema):
     tituli = fields.List(fields.Nested(PlainDigestaTitulusSchema()), dump_only=True)
 
@@ -61,3 +65,13 @@ class OperaSchema(PlainOperaSchema):
 class AuthorSchema(PlainAuthorSchema):
     leges = fields.List(fields.Nested(PlainDigestaLexSchema()))
     opera = fields.List(fields.Nested(PlainOperaSchema()))
+
+
+class UserSchema(Schema):
+    id = fields.Int(dump_only=True)
+    username = fields.Str(required=True)
+    password = fields.Str(required=True)
+
+
+class UserRegisterSchema(UserSchema):
+    email = fields.Str(required=True)

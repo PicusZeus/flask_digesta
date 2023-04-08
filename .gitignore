@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+
 *$py.class
 .flaskenv
 *.db
@@ -9,6 +10,8 @@ populate/Data/digestaplikiend
 # C extensions
 *.so
 venv
+env
+.env
 # Distribution / packaging
 .Python
 build/
