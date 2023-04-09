@@ -1,0 +1,184 @@
+
+.main_header {
+    min-height: 4rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #8F8D98;
+    padding: 0.5rem 1rem;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid black
+}
+
+.toggle_button {
+    width: 3rem;
+    background: transparent;
+    border: none;
+    /*cursor: pointer;*/
+    padding-top: 0;
+    padding-bottom: 0;
+    vertical-align: middle;
+}
+
+.toggle_button:focus {
+    outline: none;
+}
+
+.toggle_button__bar {
+    width: 100%;
+    height: 0.2rem;
+    background: black;
+    display: block;
+    margin: 0.6rem 0;
+}
+
+.main_header__brand {
+    color: #0e4f1f;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.main_header__brand img {
+    height: 2.5rem;
+    width: 2.5rem;
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
+.main_nav {
+    display: none;
+}
+
+.main_nav__items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+}
+
+.main_nav__item,
+.main_nav__login,
+.main_nav__logout {
+    margin: 0 1rem;
+}
+
+.main_nav__item a,
+.mobile_nav__item a {
+    text-decoration: none;
+    color: #0e4f1f;
+    font-weight: bold;
+    padding: 0.2rem 0.5rem;
+    border: solid black 1px;
+    border-radius: 3px;
+    background: #a1a1a1;
+}
+.main_nav__logout a,
+.mobile_nav__logout a,
+.main_nav__login a,
+.mobile_nav__login a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    padding: 0.2rem 0.5rem;
+    border: solid black 1px;
+    border-radius: 3px;
+    background: lightblue;
+}
+
+
+.main_nav__item a:hover,
+.main_nav__item a:active,
+.mobile_nav__item a:hover,
+.mobile_nav__item a:active {
+    background: white;
+    /*border: none;*/
+}
+.main_nav__logout a:hover,
+.main_nav__logout a:active,
+.mobile_nav__logout a:hover,
+.mobile_nav__logout a:active,
+.main_nav__login a:hover,
+.main_nav__login a:active,
+.mobile_nav__login a:hover,
+.mobile_nav__login a:active {
+    background: #f4eeff;
+    cursor: pointer;
+}
+
+@media (min-width: 40rem) {
+    .toggle_button {
+        display: none;
+    }
+
+    .main_nav {
+        display: flex;
+    }
+}
+
+.mobile_nav {
+    display: none;
+    position: fixed;
+    z-index: 101;
+    top: 0;
+    left: 0;
+    background: white;
+    width: 80%;
+    height: 100vh;
+}
+
+.mobile_nav__items {
+    width: 90%;
+    height: 100%;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.mobile_nav__item, .mobile-nav__login, .mobile-nav__logout {
+    margin: 1rem 0;
+}
+
+.mobile_nav__item a, .mobile-nav__login a, .mobile-nav__logout a {
+    font-size: 1.5rem;
+}
+
+.button {
+    background: #0e4f1f;
+    color: white;
+    font: inherit;
+    border: 1px solid #0e4f1f;
+    padding: 0.5rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button:hover,
+.button:active {
+    background: white;
+    color: #0e4f1f;
+}
+
+.button:focus {
+    outline: none;
+}
+
+.button[disabled] {
+    cursor: not-allowed;
+    border: #a1a1a1;
+    background: #ccc;
+    color: #a1a1a1;
+}
+
+.open {
+    display: block !important;
+}
+
