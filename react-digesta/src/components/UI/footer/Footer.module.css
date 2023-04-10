@@ -4,6 +4,8 @@
     padding: 2rem;
     margin-top: 0.1rem;
     min-height: 5rem;
+    /*height: 50px;*/
+    /*!*margin-top: -50px;*!*/
 }
 
 .main_footer__links {

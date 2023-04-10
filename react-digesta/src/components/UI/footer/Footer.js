@@ -1,8 +1,8 @@
-import classes from "./BottomBar.module.css"
+import classes from "./Footer.module.css"
 
 
 
-const BottomBar = (props) => {
+const Footer = (props) => {
 
     return (
         <footer className={classes.main_footer}>
@@ -21,4 +21,4 @@ const BottomBar = (props) => {
     )
 }
 
-export default BottomBar
+export default Footer
