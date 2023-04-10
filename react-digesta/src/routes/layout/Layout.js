@@ -8,9 +8,9 @@ const Layout = (props) => {
         <>
             <div>HELLO</div>
             <MenuBar/>
-            <main className={classes.main}>
+
                 <Outlet/>
-            </main>
+
             <Footer/>
         </>
 

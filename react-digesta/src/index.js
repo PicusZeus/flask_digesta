@@ -5,7 +5,9 @@ import './index.css';
 
 import Main from "./routes/main/Main";
 import Layout from "./routes/layout/Layout";
-// import reportWebVitals from './reportWebVitals';
+import DigestaAuth from "./routes/digesta_AUTH/DigestaAuth";
+import DigestaTrad from "./routes/digesta_TRAD/DigestaTrad";
+import DigestaLookUp from "./routes/digesta_LOOKUP/DigestaLookUp";
 
 const router = createBrowserRouter(
     [
@@ -16,6 +18,18 @@ const router = createBrowserRouter(
                 {
                     path: '/',
                     element: <Main/>
+                },
+                {
+                    path: '/jurysci',
+                    element: <DigestaAuth/>
+                },
+                {
+                    path: '/digesta',
+                    element: <DigestaTrad/>
+                },
+                {
+                    path: '/wyszukaj',
+                    element: <DigestaLookUp/>
                 }
             ]
 

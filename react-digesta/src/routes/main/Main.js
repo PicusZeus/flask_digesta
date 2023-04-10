@@ -1,9 +1,9 @@
-
+import classes from "./Main.module.css"
 
 const Main = () => {
 
     return (
-        <div>MAIN</div>
+        <main>MAIN</main>
     )
 }
 
