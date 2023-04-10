@@ -7,22 +7,23 @@ const MenuBar = (props) => {
     const [registering, setRegistering] = useState(false)
     const [logging, setLogging] = useState(false)
 
-
     const loginToggleHandler = () => {
         setLogging((prevState) => !prevState)
     }
 
     const registerToggleHandler = () => {
+        console.log('close')
         setRegistering((prevState) => !prevState)
+        console.log(registering)
     }
 
 
 
     return (
         <>
-            {logging ? <Login/>: null}
+            {logging ? <Login onClose={loginToggleHandler}/>: null}
 
-            {registering ? <Register/>: null}
+            {registering ? <Register onClose={registerToggleHandler}/>: null}
             <header className={classes.main_header}>
 
                 <div>
