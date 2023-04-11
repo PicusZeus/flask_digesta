@@ -3,12 +3,19 @@ import {Link} from "react-router-dom";
 import {useState} from "react";
 import Login from "../../authorization/login/Login";
 import Register from "../../authorization/register/Register"
+import {useSelector, useDispatch} from "react-redux";
+
+
 const MenuBar = (props) => {
+
+    const logging_a = useSelector(state => state.logging)
+    const dispatch = useDispatch()
     const [registering, setRegistering] = useState(false)
     const [logging, setLogging] = useState(false)
 
     const loginToggleHandler = () => {
-        setLogging((prevState) => !prevState)
+        // setLogging((prevState) => !prevState)
+        dispatch({type: "loggingToggle"})
     }
 
     const registerToggleHandler = () => {
@@ -21,7 +28,7 @@ const MenuBar = (props) => {
 
     return (
         <>
-            {logging ? <Login onClose={loginToggleHandler}/>: null}
+            {logging_a ? <Login onClose={loginToggleHandler}/>: null}
 
             {registering ? <Register onClose={registerToggleHandler}/>: null}
             <header className={classes.main_header}>

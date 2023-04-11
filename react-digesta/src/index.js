@@ -2,7 +2,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-
+import { Provider } from "react-redux";
+import store from "./store/index";
 import Main from "./routes/main/Main";
 import Layout from "./routes/layout/Layout";
 import DigestaAuth from "./routes/digesta_AUTH/DigestaAuth";
@@ -42,7 +43,9 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+      <Provider store={store}>
+          <RouterProvider router={router}/>
+      </Provider>
   </React.StrictMode>
 );
 
