@@ -11,6 +11,8 @@ from sqlalchemy.exc import IntegrityError
 FILE_PICKLE_LIBER_1 = "populate/Data/digestaplikiend/d1.txt_extracted.pickle"
 
 
+
+
 def insert_books(lat, pl):
     lat = 'LIBER PRIMUS'
     pl = "KSIĘGA PIERWSZA"

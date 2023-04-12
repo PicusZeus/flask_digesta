@@ -1,11 +1,14 @@
 import classes from "./Register.module.css"
 import Modal from "../../UI/modal/Modal";
-import {Form} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {uiActions} from "../../../store/ui-slice";
 
 const Register = (props) => {
-    const registeringHandler = (event) => {
+    const dispatch = useDispatch()
+    const closeModalHandler = (event) => {
         event.preventDefault()
-        console.log(event)
+        dispatch(uiActions.registeringToggle())
+
     }
     return (
         <Modal onClose={props.onClose}>
@@ -27,10 +30,10 @@ const Register = (props) => {
                     <input type="password" id="password_2" required/>
                 </p>
                 <p className={classes.actions}>
-                    <button className={classes.button} onClick={props.onClose}>
+                    <button className={classes.button} onClick={event=>closeModalHandler(event)}>
                         Zamknij
                     </button>
-                    <button onClick={(event) => registeringHandler(event)}>Submit</button>
+                    <button onClick={(event) => closeModalHandler(event)}>Submit</button>
                 </p>
             </form>
         </Modal>

@@ -2,7 +2,7 @@ import os
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from passlib.hash import pbkdf2_sha256
-
+from flask_cors import cross_origin, CORS
 from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,
@@ -46,6 +46,7 @@ class UserRegister(MethodView):
 
 @blp.route("/login")
 class UserLogin(MethodView):
+    @cross_origin()
     @blp.arguments(UserSchema)
     def post(self, user_data):
         user = UserModel.query.filter(
@@ -72,7 +73,7 @@ class TokenRefresh(MethodView):
 @blp.route("/logout")
 class UserLogout(MethodView):
     @jwt_required()
-    def post(self):
+    def get(self):
         jti = get_jwt()["jti"]
         BLOCKLIST.add(jti)
         return {"message": "Successfully logged out."}

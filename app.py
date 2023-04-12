@@ -1,4 +1,5 @@
 import os
+from flask_cors import cross_origin, CORS
 
 from flask import Flask, jsonify
 from flask_smorest import Api
@@ -16,6 +17,7 @@ from resources.users import blp as users_blp
 
 def create_app(db_url=None):
     app = Flask(__name__)
+    CORS(app)
     load_dotenv()
 
     app.config["PROPAGATE_EXCEPTIONS"] = True
@@ -36,7 +38,7 @@ def create_app(db_url=None):
     api.register_blueprint(opera_blp)
     api.register_blueprint(users_blp)
 
-    app.config["JWT_SECRET_KEY"] = "jose"
+    app.config["JWT_SECRET_KEY"] = "picus"
     jwt = JWTManager(app)
 
     @jwt.token_in_blocklist_loader
