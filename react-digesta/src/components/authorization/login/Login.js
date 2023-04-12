@@ -4,9 +4,15 @@ import Modal from "../../UI/modal/Modal";
 import {Form} from "react-router-dom";
 
 const Login = (props) => {
+
+    const registerHandler = (event) => {
+        event.preventDefault()
+        console.log('registering')
+        console.log(event)
+    }
     return (
         <Modal onClose={props.onClose}>
-            <Form method='post' className={classes.form}>
+            <form className={classes.form}>
                 <p>
                     <label htmlFor="username">Nazwa użytkownika</label>
                     <input id="username" name="username" required/>
@@ -17,12 +23,12 @@ const Login = (props) => {
                 </p>
 
                 <p className={classes.actions}>
-                    <div className={classes.button} onClick={props.onClose}>
+                    <button className={classes.button} onClick={props.onClose}>
                         Zamknij
-                    </div>
-                    <button>Submit</button>
+                    </button>
+                    <button onClick={(event) => registerHandler(event)}>Submit</button>
                 </p>
-            </Form>
+            </form>
         </Modal>
     )
 }

@@ -4,18 +4,22 @@ import {useState} from "react";
 import Login from "../../authorization/login/Login";
 import Register from "../../authorization/register/Register"
 import {useSelector, useDispatch} from "react-redux";
-
+import { authorizationActions } from "../../../store";
 
 const MenuBar = (props) => {
 
-    const logging_a = useSelector(state => state.logging)
     const dispatch = useDispatch()
+    const logging = useSelector((state) => state.authorization.logging)
+
     const [registering, setRegistering] = useState(false)
-    const [logging, setLogging] = useState(false)
+    // const [logging, setLogging] = useState(false)
 
     const loginToggleHandler = () => {
         // setLogging((prevState) => !prevState)
-        dispatch({type: "loggingToggle"})
+        // dispatch({type: "loggingToggle"})
+        console.log('loggingToggle')
+        console.log(logging, 'log_a')
+        dispatch(authorizationActions.loggingToggle())
     }
 
     const registerToggleHandler = () => {
@@ -28,7 +32,7 @@ const MenuBar = (props) => {
 
     return (
         <>
-            {logging_a ? <Login onClose={loginToggleHandler}/>: null}
+            {logging ? <Login onClose={loginToggleHandler}/>: null}
 
             {registering ? <Register onClose={registerToggleHandler}/>: null}
             <header className={classes.main_header}>

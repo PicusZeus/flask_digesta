@@ -3,9 +3,13 @@ import Modal from "../../UI/modal/Modal";
 import {Form} from "react-router-dom";
 
 const Register = (props) => {
+    const registeringHandler = (event) => {
+        event.preventDefault()
+        console.log(event)
+    }
     return (
         <Modal onClose={props.onClose}>
-            <Form method='post' className={classes.form}>
+            <form method='post' className={classes.form}>
                 <p>
                     <label htmlFor="username">Nazwa użytkownika</label>
                     <input id="username" name="username" required/>
@@ -23,12 +27,12 @@ const Register = (props) => {
                     <input type="password" id="password_2" required/>
                 </p>
                 <p className={classes.actions}>
-                    <div className={classes.button} onClick={props.onClose} type="button">
+                    <button className={classes.button} onClick={props.onClose}>
                         Zamknij
-                    </div>
-                    <button>Submit</button>
+                    </button>
+                    <button onClick={(event) => registeringHandler(event)}>Submit</button>
                 </p>
-            </Form>
+            </form>
         </Modal>
 
     )

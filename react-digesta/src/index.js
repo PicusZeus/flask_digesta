@@ -1,42 +1,12 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { Provider } from "react-redux";
 import store from "./store/index";
-import Main from "./routes/main/Main";
-import Layout from "./routes/layout/Layout";
-import DigestaAuth from "./routes/digesta_AUTH/DigestaAuth";
-import DigestaTrad from "./routes/digesta_TRAD/DigestaTrad";
-import DigestaLookUp from "./routes/digesta_LOOKUP/DigestaLookUp";
 
-const router = createBrowserRouter(
-    [
-        {
-            path: '/',
-            element: <Layout/>,
-            children: [
-                {
-                    path: '/',
-                    element: <Main/>
-                },
-                {
-                    path: '/jurysci',
-                    element: <DigestaAuth/>
-                },
-                {
-                    path: '/digesta',
-                    element: <DigestaTrad/>
-                },
-                {
-                    path: '/wyszukaj',
-                    element: <DigestaLookUp/>
-                }
-            ]
 
-        }
-    ]
-)
+import App from "./App";
 
 
 
@@ -44,7 +14,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
       <Provider store={store}>
-          <RouterProvider router={router}/>
+          <App/>
       </Provider>
   </React.StrictMode>
 );
