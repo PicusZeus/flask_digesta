@@ -7,7 +7,7 @@ class DigestaBookModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     book_latin_name = db.Column(db.String(256), unique=True, nullable=False)
     book_polish_name = db.Column(db.String(256), unique=True, nullable=False)
-    tituli = db.relationship("DigestaTitulusModel", back_populates="book", lazy="dynamic")
+    tituli = db.relationship("DigestaTitulusModel", back_populates="book")
 
 
 class DigestaTitulusModel(db.Model):
@@ -17,8 +17,8 @@ class DigestaTitulusModel(db.Model):
     title_lat = db.Column(db.String(256), nullable=False)
     title_pl = db.Column(db.String(256), nullable=False)
     book_id = db.Column(db.Integer, db.ForeignKey("digesta_books.id"), unique=False, nullable=False)
-    book = db.relationship("DigestaBookModel", back_populates="tituli")
-    leges = db.relationship("DigestaLexModel", back_populates="titulus", lazy="dynamic")
+    book = db.relationship("DigestaBookModel", back_populates="tituli",  order_by="DigestaBookModel.id")
+    leges = db.relationship("DigestaLexModel", back_populates="titulus",  order_by="DigestaLexModel.lex_nr")
     __table_args__ = (UniqueConstraint('number', 'book_id'),)
 
 

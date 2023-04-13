@@ -14,6 +14,18 @@ class PlainDigestaTitulusSchema(Schema):
     title_pl = fields.Str()
 
 
+
+
+
+class PlainDigestaTOCLexSchema(Schema):
+    id = fields.Int(dump_only=True)
+    address_lat = fields.Str()
+    address_pl = fields.Str()
+    # text_lat = fields.Str()
+    # text_pl = fields.Str()
+    lex_nr = fields.Int()
+
+
 class PlainDigestaLexSchema(Schema):
     id = fields.Int(dump_only=True)
     address_lat = fields.Str()
@@ -48,7 +60,12 @@ class DigestaBookSchema(PlainDigestaBookSchema):
 
 class DigestaTitulusSchema(PlainDigestaTitulusSchema):
     book = fields.Nested(PlainDigestaBookSchema())
-    leges = fields.List(fields.Nested(PlainDigestaLexSchema()))
+    leges = fields.List(fields.Nested(PlainDigestaTOCLexSchema()))
+
+
+class DigestaBookTOCSchema(PlainDigestaBookSchema):
+    tituli = fields.List(fields.Nested(DigestaTitulusSchema()), dump_only=True)
+    titulus = fields.Nested(DigestaTitulusSchema())
 
 
 class DigestaLexSchema(PlainDigestaLexSchema):
@@ -58,12 +75,12 @@ class DigestaLexSchema(PlainDigestaLexSchema):
 
 
 class OperaSchema(PlainOperaSchema):
-    leges = fields.List(fields.Nested(PlainDigestaLexSchema()))
+    leges = fields.List(fields.Nested(PlainDigestaTOCLexSchema()))
     author = fields.Nested(PlainAuthorSchema())
 
 
 class AuthorSchema(PlainAuthorSchema):
-    leges = fields.List(fields.Nested(PlainDigestaLexSchema()))
+    leges = fields.List(fields.Nested(PlainDigestaTOCLexSchema()))
     opera = fields.List(fields.Nested(PlainOperaSchema()))
 
 
