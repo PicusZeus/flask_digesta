@@ -7,6 +7,8 @@ import {useSelector, useDispatch} from "react-redux";
 import uiSlice, {uiActions} from "../../../store/ui-slice";
 import {authActions} from "../../../store/auth-slice";
 import {logout} from "../../../store/auth-actions";
+import Notification from "../Notification/Notification";
+
 const MenuBar = (props) => {
 
     const loggedIn = useSelector((state) => state.auth.loggedIn)
@@ -14,6 +16,7 @@ const MenuBar = (props) => {
     const registering = useSelector((state) => state.ui.registering)
     const token = useSelector(state => state.auth.tokens.access_token)
     const dispatch = useDispatch()
+    const notification = useSelector(state => state.ui.notification)
 
     const logingToggleHandler = () => {
         console.log(loggedIn)
@@ -34,11 +37,16 @@ const MenuBar = (props) => {
 
     return (
         <>
-            {logging ? <Login onClose={logingToggleHandler}/>: null}
+            {logging ? <Login onClose={logingToggleHandler}/> : null}
 
-            {registering ? <Register onClose={registerToggleHandler}/>: null}
+            {registering ? <Register onClose={registerToggleHandler}/> : null}
             <header className={classes.main_header}>
-
+                {notification &&
+                    <Notification
+                        status={notification.status}
+                        title={notification.title}
+                        message={notification.message}/>
+                }
                 <div>
                     <Link to="/" className={classes.toggle_button}>
                         <span className={classes.toggle_button__bar}></span>
@@ -58,9 +66,9 @@ const MenuBar = (props) => {
                             <button onClick={logingToggleHandler}>Zaloguj się</button>
                         </li>}
 
-                        <li className={classes.main_nav__login}>
+                        {!loggedIn && <li className={classes.main_nav__login}>
                             <button onClick={registerToggleHandler}>Zarejestruj się</button>
-                        </li>
+                        </li>}
 
                         <li className={classes.main_nav__item}>
                             <Link to={"/digesta"}>Digesta - tekst oryginalny i tłumaczenie</Link>

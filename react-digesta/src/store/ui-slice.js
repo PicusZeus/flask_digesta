@@ -20,13 +20,15 @@ const uiSlice = createSlice({
                 state.registering = !state.registering
             },
             setNotification(state, action) {
-                console.log('setting')
 
                 state.notification = {
                     status: action.payload.status,
                     title: action.payload.title,
                     message: action.payload.message
                 }
+            },
+            resetNotification(state) {
+               state.notification = null
             }
         }
     }
