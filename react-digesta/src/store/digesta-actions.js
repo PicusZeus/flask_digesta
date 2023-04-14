@@ -27,3 +27,48 @@ export const loadTOC = () => {
 
 
 }
+
+
+export const loadJurists = () => {
+    return async (dispatch) => {
+        const loadingJurists = async () => {
+            const response = await fetch("http://127.0.0.1:5001/authors")
+
+            if (!response.ok) {throw new Error('sth went wrong')}
+
+            const data = await response
+            return data.json()
+        }
+
+        try {
+            const jurists = await loadingJurists();
+            dispatch(digestaActions.setJurists(jurists))
+        }
+        catch (error) {
+            console.log(error)
+        }
+
+
+    }
+}
+
+export const loadLex = (lexId) => {
+    return async (dispatch) => {
+        const loadingLex = async () => {
+            const response = await fetch("http://127.0.0.1:5001/digesta/leges/" + lexId)
+
+            if (!response.ok) {
+                throw new Error('sth went wrong')
+            }
+            const data = await response
+            return data.json()
+        }
+        try {
+            const lex = await loadingLex()
+            dispatch(digestaActions.setCurrentLex(lex))
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+}

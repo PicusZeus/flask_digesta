@@ -8,6 +8,7 @@ import React from "react";
 import {useEffect} from "react";
 import {loadTOC} from "./store/digesta-actions";
 import {useDispatch} from "react-redux";
+import DigestaSingleJurist from "./routes/digesta_AUTH/DigestSingleJurist/DigestaSingleJurist";
 
 
 const router = createBrowserRouter(
@@ -22,8 +23,16 @@ const router = createBrowserRouter(
                 },
                 {
                     path: '/jurysci',
-                    element: <DigestaAuth/>
+                    element: <DigestaAuth/>,
+                    children: [
+                        {
+                            path: ':jurysta',
+                            element: <DigestaSingleJurist/>
+                        }
+                    ]
                 },
+
+
                 {
                     path: '/digesta',
                     element: <DigestaTrad/>

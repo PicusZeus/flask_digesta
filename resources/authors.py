@@ -15,7 +15,7 @@ blp = Blueprint("authors", __name__, description="Operations on authors")
 class AuthorsAll(MethodView):
     @blp.response(200, AuthorSchema(many=True))
     def get(self):
-        return AuthorModel.query.all()
+        return AuthorModel.query.order_by(AuthorModel.name).all()
 
 
 @blp.route("/authors/<int:author_id>")
