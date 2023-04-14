@@ -52,6 +52,27 @@ export const loadJurists = () => {
     }
 }
 
+export const loadOpera = (authorId) => {
+    return async (dispatch) => {
+        const loadingOpera = async () => {
+            const response = await fetch("http://127.0.0.1:5001/authors/" + authorId)
+
+            if (!response.ok) {throw new Error('sth went wront')}
+
+            const data = await response
+            return data.json()
+        }
+
+        try {
+            const opera = await loadingOpera()
+            dispatch(digestaActions.setOpera(opera))
+        }
+        catch (error) {
+            console.log(error)
+        }
+
+    }
+}
 export const loadLex = (lexId) => {
     return async (dispatch) => {
         const loadingLex = async () => {

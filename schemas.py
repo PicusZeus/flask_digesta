@@ -24,6 +24,7 @@ class PlainDigestaTOCLexSchema(Schema):
     # text_lat = fields.Str()
     # text_pl = fields.Str()
     lex_nr = fields.Int()
+    author_id = fields.Int()
 
 
 class PlainDigestaLexSchema(Schema):
@@ -65,7 +66,7 @@ class DigestaTitulusSchema(PlainDigestaTitulusSchema):
 
 class DigestaBookTOCSchema(PlainDigestaBookSchema):
     tituli = fields.List(fields.Nested(DigestaTitulusSchema()), dump_only=True)
-    titulus = fields.Nested(DigestaTitulusSchema())
+    # titulus = fields.Nested(DigestaTitulusSchema())
 
 
 class DigestaLexSchema(PlainDigestaLexSchema):
@@ -81,6 +82,10 @@ class OperaSchema(PlainOperaSchema):
 
 class AuthorSchema(PlainAuthorSchema):
     leges = fields.List(fields.Nested(PlainDigestaTOCLexSchema()))
+    opera = fields.List(fields.Nested(PlainOperaSchema()))
+
+
+class AuthorOperaSchema(PlainAuthorSchema):
     opera = fields.List(fields.Nested(PlainOperaSchema()))
 
 

@@ -6,13 +6,15 @@ import {useSelector} from "react-redux";
 const DigestaTrad = () => {
 
     const lexId = useSelector(state=>state.digesta.lexId)
+    const toc = useSelector((state) => state.digesta.TOC)
+
     return (
         <>
             <h1>Digesta - po spisie treści</h1>
 
             <div className={classes.main}>
                 <section className={classes.toc}>
-                    <DigestaToc/>
+                    <DigestaToc toc={toc}/>
                 </section>
 
                 {lexId && <DigestaLexViewer/>}

@@ -26,7 +26,7 @@ const router = createBrowserRouter(
                     element: <DigestaAuth/>,
                     children: [
                         {
-                            path: ':jurysta',
+                            path: ':jurysta_id',
                             element: <DigestaSingleJurist/>
                         }
                     ]

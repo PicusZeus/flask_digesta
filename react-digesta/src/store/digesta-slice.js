@@ -5,7 +5,8 @@ const initialState = {
     TOC: null,
     lexId: null,
     currentLex: null,
-    jurists: null
+    jurists: null,
+    opera: null
 }
 
 
@@ -24,6 +25,9 @@ const digestaSlice = createSlice({
         },
         setJurists(state, action) {
             state.jurists = action.payload
+        },
+        setOpera(state, action) {
+            state.opera = action.payload
         }
     }
     }
