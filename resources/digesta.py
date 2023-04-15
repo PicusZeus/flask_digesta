@@ -17,16 +17,16 @@ blp = Blueprint("digesta", __name__, description="Operations on digesta")
 class DigestaParagraph(MethodView):
     @blp.response(200, DigestaLexSchema())
     def get(self, lex_id):
-        paragraph_data = DigestaLexModel.query.get_or_404(lex_id)
-        return paragraph_data
+        lex_data = DigestaLexModel.query.get_or_404(lex_id)
+        return lex_data
 
 
 @blp.route("/digesta/tituli/<int:titulus_id>")
 class DigestaSection(MethodView):
     @blp.response(200, DigestaTitulusSchema())
     def get(self, titulus_id):
-        section_data = DigestaTitulusModel.query.get_or_404(titulus_id)
-        return section_data
+        titulus_data = DigestaTitulusModel.query.get_or_404(titulus_id)
+        return titulus_data
 
 @blp.route("/digesta/book/<int:book_id>")
 class DigestaBookTOC(MethodView):
@@ -35,3 +35,22 @@ class DigestaBookTOC(MethodView):
         book_data = DigestaBookModel.query.filter(DigestaBookModel.id == book_id).order_by(DigestaBookModel.id).first()
 
         return book_data
+
+
+@blp.route("/digesta/lat/<string:word>")
+class DigestaLatinSearch(MethodView):
+
+    @blp.response(200, DigestaLexSchema(many=True))
+    def get(self, word):
+        word = f"%{word}%"
+        leges = DigestaLexModel.query.filter(DigestaLexModel.text_lat.like(word)).all()
+        return leges
+
+@blp.route("/digesta/pl/<string:word>")
+class DigestaLatinSearch(MethodView):
+
+    @blp.response(200, DigestaLexSchema(many=True))
+    def get(self, word):
+        word = f"%{word}%"
+        leges = DigestaLexModel.query.filter(DigestaLexModel.text_pl.like(word)).all()
+        return leges

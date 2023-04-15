@@ -12,6 +12,7 @@ import DigestaSingleJurist from "./routes/digesta_AUTH/DigestSingleJurist/Digest
 import DigestaJuristOpus from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpus";
 import {loader as opusLoader} from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpus";
 import {loader as lexLoader} from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpusLex/DigestaJuristOpusLex";
+import {loader as juristLexLoader} from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristDigesta/DigestaJuristDigesta";
 import DigestaJuristOpusLex
     from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpusLex/DigestaJuristOpusLex";
 import DigestaJuristDigesta from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristDigesta/DigestaJuristDigesta";
@@ -48,7 +49,8 @@ const router = createBrowserRouter(
                                 },
                                 {
                                     path: 'digesta/:jurysta_id',
-                                    element: <DigestaJuristDigesta/>
+                                    element: <DigestaJuristDigesta/>,
+                                    loader: juristLexLoader
                                 }
 
 

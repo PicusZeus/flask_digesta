@@ -3,7 +3,7 @@ import DigestaTitulus from "./DigestaTitulus/DigestaTitulus";
 
 const DigestaToc = (props) => {
     const toc = props.toc
-    console.log(toc, 'tutaj')
+
 
     return (
         <ul>
