@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {loadOpera} from "../../../store/digesta-actions";
-import DigestaOpus from "./DigestaOpus/DigestaOpus";
+import DigestaTocOpus from "./DigestaTocOpus/DigestaTocOpus";
 
 const DigestaTocOpera = (props) => {
     const dispatch = useDispatch()
@@ -10,7 +10,7 @@ const DigestaTocOpera = (props) => {
     // console.log(opera)
     return (
         <div>
-            { opera && opera.opera.map((opus) => {return <DigestaOpus key={opus.id} opus={opus} />}) }
+            { opera && opera.opera.map((opus) => {return <DigestaTocOpus key={opus.id} opus={opus} />}) }
         </div>
     )
 }

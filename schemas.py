@@ -73,6 +73,16 @@ class DigestaLexSchema(PlainDigestaLexSchema):
     titulus = fields.Nested(PlainDigestaTitulusSchema())
     author = fields.Nested(PlainAuthorSchema())
     opus = fields.Nested(PlainOperaSchema())
+    book = fields.Nested(PlainDigestaBookSchema())
+
+
+class DigestaLexSimpleSchema(Schema):
+    id = fields.Int(dump_only=True)
+    lex_nr = fields.Int()
+
+
+# class DigestaLegesSchema(Schema):
+#     leges = fields.List(fields.Nested(PlainDigestaLexSchema()))
 
 
 class OperaSchema(PlainOperaSchema):

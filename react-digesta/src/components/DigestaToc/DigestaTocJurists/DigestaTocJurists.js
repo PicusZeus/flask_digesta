@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import DigestaJurist from "../DigestaJurist/DigestaJurist";
+import DigestaTocJurist from "../DigestaTocJurist/DigestaTocJurist";
 
 const DigestaTocJurists = () => {
 
@@ -7,7 +7,7 @@ const DigestaTocJurists = () => {
     return (
         <ul>
             Juryści
-            {jurists && jurists.map((jurist)=>{return (<DigestaJurist jurist={jurist}/>)})}
+            {jurists && jurists.map((jurist)=>{return (<DigestaTocJurist key={jurist.id} jurist={jurist}/>)})}
         </ul>
     )
 }

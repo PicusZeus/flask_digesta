@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 
-const DigestaJurist = (props) => {
+const DigestaTocJurist = (props) => {
     return (
         <li key={props.jurist.id}>
             <Link to={props.jurist.id.toString()}>{props.jurist.name}</Link>
@@ -10,4 +10,4 @@ const DigestaJurist = (props) => {
 
 }
 
-export default DigestaJurist
+export default DigestaTocJurist

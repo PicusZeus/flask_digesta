@@ -8,6 +8,7 @@ class DigestaBookModel(db.Model):
     book_latin_name = db.Column(db.String(256), unique=True, nullable=False)
     book_polish_name = db.Column(db.String(256), unique=True, nullable=False)
     tituli = db.relationship("DigestaTitulusModel", back_populates="book")
+    leges = db.relationship("DigestaLexModel", back_populates="book")
 
 
 class DigestaTitulusModel(db.Model):
@@ -38,5 +39,7 @@ class DigestaLexModel(db.Model):
     opus_id = db.Column(db.Integer, db.ForeignKey("opera.id"), unique=False, nullable=False)
     opus = db.relationship("OperaModel", back_populates="leges")
     comments = db.relationship("CommentModel", back_populates='lex', lazy="dynamic")
+    book_id = db.Column(db.Integer, db.ForeignKey('digesta_books.id'), unique=False, nullable=False)
+    book = db.relationship('DigestaBookModel', back_populates='leges')
     __table_args__ = (UniqueConstraint('lex_nr', 'titulus_id'),)
 

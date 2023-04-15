@@ -3,10 +3,11 @@ import DigestaTitulus from "./DigestaTitulus/DigestaTitulus";
 
 const DigestaToc = (props) => {
     const toc = props.toc
-
+    console.log(toc, 'tutaj')
 
     return (
         <ul>
+
             {toc &&
                 toc.tituli.map((titulus) => {
                     return <DigestaTitulus title_pl={titulus.title_pl}

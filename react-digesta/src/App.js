@@ -9,7 +9,12 @@ import {useEffect} from "react";
 import {loadTOC} from "./store/digesta-actions";
 import {useDispatch} from "react-redux";
 import DigestaSingleJurist from "./routes/digesta_AUTH/DigestSingleJurist/DigestaSingleJurist";
-
+import DigestaJuristOpus from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpus";
+import {loader as opusLoader} from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpus";
+import {loader as lexLoader} from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpusLex/DigestaJuristOpusLex";
+import DigestaJuristOpusLex
+    from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpusLex/DigestaJuristOpusLex";
+import DigestaJuristDigesta from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristDigesta/DigestaJuristDigesta";
 
 const router = createBrowserRouter(
     [
@@ -27,7 +32,27 @@ const router = createBrowserRouter(
                     children: [
                         {
                             path: ':jurysta_id',
-                            element: <DigestaSingleJurist/>
+                            element: <DigestaSingleJurist/>,
+                            children: [
+                                {
+                                    path: ':opus_id',
+                                    element: <DigestaJuristOpus/>,
+                                    loader: opusLoader,
+                                    children: [
+                                        {
+                                            path: ':lex_id',
+                                            element: <DigestaJuristOpusLex/>,
+                                            loader: lexLoader
+                                        }
+                                    ]
+                                },
+                                {
+                                    path: 'digesta/:jurysta_id',
+                                    element: <DigestaJuristDigesta/>
+                                }
+
+
+                            ]
                         }
                     ]
                 },

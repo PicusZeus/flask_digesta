@@ -119,7 +119,8 @@ def insert_leges(file_name, book):
                                   lex_nr=lex_nr,
                                   titulus_id=titulus_id,
                                   author_id=author_id,
-                                  opus_id=opus_id)
+                                  opus_id=opus_id,
+                                  book_id=liber_id)
 
             db.session.add(lex)
             try:
@@ -135,3 +136,7 @@ if __name__ == "__main__":
     insert_authors(FILE_PICKLE_LIBER_1)
     insert_opera(FILE_PICKLE_LIBER_1)
     insert_leges(FILE_PICKLE_LIBER_1, 'LIBER PRIMUS')
+
+
+
+

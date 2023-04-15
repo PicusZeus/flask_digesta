@@ -1,12 +1,11 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 from db import db
-from models import AuthorModel, OperaModel
-from schemas import AuthorSchema, AuthorOperaSchema
-
+from models import AuthorModel, OperaModel, DigestaBookModel, DigestaLexModel, DigestaTitulusModel
+from schemas import AuthorSchema, AuthorOperaSchema, DigestaBookTOCSchema, DigestaLexSchema, \
+    DigestaLexSimpleSchema
 
 blp = Blueprint("authors", __name__, description="Operations on authors")
 
@@ -25,6 +24,13 @@ class Author(MethodView):
         author = AuthorModel.query.get_or_404(author_id)
         return author
 
+@blp.route("/authors/digesta/<int:author_id>")
+class AuthorDigesta(MethodView):
+    @blp.response(200, DigestaLexSchema(many=True))
+    def get(self, author_id):
+        # author_digesta = DigestaBookModel.query.filter(DigestaBookModel.tituli.any(DigestaTitulusModel.number == '1')).all()
+        author_digesta = DigestaLexModel.query.filter(DigestaLexModel.author_id == author_id).all()
+        return author_digesta
 
 @blp.route("/authors/<int:start>/<int:end>")
 class AuthorByAge(MethodView):
