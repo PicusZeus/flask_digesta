@@ -7,7 +7,6 @@ const DigestaTocJurist = (props) => {
         </li>
     )
 
-
 }
 
 export default DigestaTocJurist

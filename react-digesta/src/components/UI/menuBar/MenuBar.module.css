@@ -1,6 +1,6 @@
 
 .main_header {
-    min-height: 4rem;
+    min-height: 3rem;
     width: 100%;
     position: fixed;
     top: 0;
@@ -9,7 +9,6 @@
     padding: 0.5rem 1rem;
     z-index: 60;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     border: 1px solid black
@@ -44,8 +43,8 @@
 }
 
 .main_header__brand img {
-    height: 2.5rem;
-    width: 2.5rem;
+    height: 5.5rem;
+    width: 5.5rem;
     vertical-align: middle;
     border-radius: 50%;
 }
@@ -77,6 +76,7 @@
     border-radius: 3px;
     background: #a1a1a1;
 }
+
 .main_nav__logout a,
 .mobile_nav__logout a,
 .main_nav__login a,
@@ -98,6 +98,7 @@
     background: white;
     /*border: none;*/
 }
+
 .main_nav__logout a:hover,
 .main_nav__logout a:active,
 .mobile_nav__logout a:hover,

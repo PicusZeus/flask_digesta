@@ -1,11 +1,10 @@
 import classes from "./DigestaTrad.module.css";
 import DigestaToc from "../../components/DigestaToc/DigestaToc";
-import DigestaLexViewer from "../../components/DigestaLexViewer/DigestaLexViewer";
 import {useSelector} from "react-redux";
+import {Outlet} from "react-router-dom";
 
 const DigestaTrad = () => {
 
-    const lexId = useSelector(state=>state.digesta.lexId)
     const toc = useSelector((state) => state.digesta.TOC)
 
     return (
@@ -14,11 +13,9 @@ const DigestaTrad = () => {
 
             <div className={classes.main}>
                 <section className={classes.toc}>
-                    <DigestaToc toc={toc}/>
+                    {toc && <DigestaToc toc={toc}/>}
                 </section>
-
-                {lexId && <DigestaLexViewer/>}
-
+                <Outlet/>
 
             </div>
         </>

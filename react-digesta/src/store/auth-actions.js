@@ -73,30 +73,41 @@ export const loggingIn = (username, password) => {
         }
 
         try {
-            const tokens = await sendRequest()
-            dispatch(uiActions.setNotification({
-                status: "success",
-                title: "Zalogowano",
-                message: "Udane logowanie"
-            }))
-            dispatch(uiActions.logingToggle())
-            dispatch(authActions.setToken(tokens))
-            setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
+            const data = await sendRequest()
+            console.log(data, 'log')
+            if (data.code === 401) {
+                dispatch(uiActions.setNotification({
+                    status: "error",
+                    title: "Niepoprawne dane",
+                    message: "Nieudane logowanie"
+                }))
+
+                dispatch(uiActions.logingToggle())
+                setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
+            } else {
+                dispatch(uiActions.setNotification({
+                    status: "success",
+                    title: "Zalogowano",
+                    message: "Udane logowanie"
+                }))
+                dispatch(uiActions.logingToggle())
+                dispatch(authActions.setToken(data))
+                setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
+            }
 
 
-        } catch (error) {
+        } catch
+            (error) {
             dispatch(uiActions.setNotification({
                 status: "error",
                 title: "Wystąpił błąd",
                 message: "logowanie się nie powiodło"
             }))
-            dispatch(uiActions.logingToggle())
             setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
 
         }
     }
 }
-
 
 
 export const register = (username, password, email) => {

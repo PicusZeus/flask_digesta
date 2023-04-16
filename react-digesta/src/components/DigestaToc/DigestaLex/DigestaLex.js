@@ -1,17 +1,9 @@
-import {useDispatch} from "react-redux";
-import {digestaActions} from "../../../store/digesta-slice";
-
-
+import {Link} from "react-router-dom";
 
 const DigestaLex = (props) => {
-    const dispatch = useDispatch()
-    const openLexHandler = (id) => {
-
-        dispatch(digestaActions.setLexId(id))
-    }
 
     return (
-        <li onClick={()=>openLexHandler(props.id)}>{props.lex_nr}</li>
+        <li><Link to={props.id.toString()}>{props.lex_nr}</Link></li>
     )
 }
 

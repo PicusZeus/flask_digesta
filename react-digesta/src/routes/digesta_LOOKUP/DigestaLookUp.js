@@ -1,5 +1,5 @@
 import classes from "./DigestaLookUp.module.css";
-import {json, Outlet} from "react-router-dom";
+import {json} from "react-router-dom";
 import DigestaSearch from "../../components/DigestaSearch/DigestaSearch";
 import {useActionData} from "react-router-dom";
 import DigestaTocSearchLeges from "../../components/DigestaToc/DigestaTocSearchLeges/DigestaTocSearchLeges";
@@ -12,7 +12,6 @@ const DigestaLookUp = () => {
             <h1 className={classes.main_lookup}>Digesta Wyszukaj</h1>
             <DigestaSearch language="oryginalnym" lang="lat"></DigestaSearch>
             <DigestaSearch language="polskim" lang="pl"></DigestaSearch>
-            <Outlet/>
             {leges && <DigestaTocSearchLeges leges={leges}/>}
         </>
     )

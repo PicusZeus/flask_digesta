@@ -14,7 +14,6 @@ const DigestaAuth = () => {
     }, [dispatch])
 
 
-
     return (
         <>
             <h1>Digesta - po autorze</h1>
@@ -24,7 +23,6 @@ const DigestaAuth = () => {
                 </section>
 
                 <Outlet/>
-
 
             </div>
         </>

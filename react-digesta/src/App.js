@@ -4,24 +4,18 @@ import Main from "./routes/main/Main";
 import DigestaAuth from "./routes/digesta_AUTH/DigestaAuth";
 import DigestaTrad from "./routes/digesta_TRAD/DigestaTrad";
 import DigestaLookUp from "./routes/digesta_LOOKUP/DigestaLookUp";
-import React from "react";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {loadTOC} from "./store/digesta-actions";
 import {useDispatch} from "react-redux";
 import DigestaSingleJurist from "./routes/digesta_AUTH/DigestSingleJurist/DigestaSingleJurist";
-import DigestaJuristOpus from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpus";
-import {loader as opusLoader} from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpus";
-import {
-    loader as lexLoader
-} from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpusLex/DigestaJuristOpusLex";
-import {
-    loader as juristLexLoader
-} from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristDigesta/DigestaJuristDigesta";
-import DigestaJuristOpusLex
-    from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpusLex/DigestaJuristOpusLex";
-import DigestaJuristDigesta from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristDigesta/DigestaJuristDigesta";
+import DigestaJuristOpus, { loader as opusLoader } from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpus";
+import DigestaJuristDigesta, { loader as juristLexLoader } from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristDigesta/DigestaJuristDigesta";
 import ErrorPage from "./routes/Error/ErrorPage";
 import {action as searchTextAction} from "./routes/digesta_LOOKUP/DigestaLookUp"
+import DigestaLexViewer, { loader as lexLoader } from "./components/DigestaLexViewer/DigestaLexViewer";
+import DigestaJursitOpera, { loader as operaLoader } from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpera/DigestaJursitOpera";
+
+
 const router = createBrowserRouter(
     [
         {
@@ -32,7 +26,6 @@ const router = createBrowserRouter(
                 {
                     path: '/',
                     element: <Main/>,
-
                 },
                 {
                     path: '/jurysci',
@@ -43,21 +36,37 @@ const router = createBrowserRouter(
                             element: <DigestaSingleJurist/>,
                             children: [
                                 {
-                                    path: ':opus_id',
-                                    element: <DigestaJuristOpus/>,
-                                    loader: opusLoader,
+                                    path: "opera/:jurysta_id",
+                                    element: <DigestaJursitOpera/>,
+                                    loader: operaLoader,
                                     children: [
                                         {
-                                            path: ':lex_id',
-                                            element: <DigestaJuristOpusLex/>,
-                                            loader: lexLoader
-                                        }
+                                            path: ':opus_id',
+                                            element: <DigestaJuristOpus/>,
+                                            loader: opusLoader,
+                                            children: [
+                                                {
+                                                    path: ':lex_id',
+                                                    element: <DigestaLexViewer/>,
+                                                    loader: lexLoader
+                                                }
+                                            ]
+                                        },
                                     ]
                                 },
+
+
                                 {
                                     path: 'digesta/:jurysta_id',
                                     element: <DigestaJuristDigesta/>,
-                                    loader: juristLexLoader
+                                    loader: juristLexLoader,
+                                    children: [
+                                        {
+                                            path: ':lex_id',
+                                            element: <DigestaLexViewer/>,
+                                            loader: lexLoader
+                                        }
+                                    ]
                                 }
 
 
@@ -69,7 +78,15 @@ const router = createBrowserRouter(
 
                 {
                     path: '/digesta',
-                    element: <DigestaTrad/>
+                    element: <DigestaTrad/>,
+                    children: [
+                        {
+                            path: ':lex_id',
+                            element: <DigestaLexViewer/>,
+                            loader: lexLoader
+
+                        }
+                    ]
                 },
                 {
                     path: '/wyszukaj',

@@ -1,6 +1,7 @@
 import {Outlet, useLoaderData} from "react-router-dom";
 import {json} from "react-router-dom"
-import DigestaTocOpusLeges from "../../../../components/DigestaToc/DigestaTocOpusLeges/DigestaTocOpusLeges";
+import DigestaTocOpusLex
+    from "../../../../components/DigestaToc/DigestaTocOpusLeges/DigestaTocOpusLex/DigestaTocOpusLex";
 
 const DigestaJuristOpus = () => {
     const opus = useLoaderData()
@@ -8,7 +9,9 @@ const DigestaJuristOpus = () => {
     return (
         <>
         <div> {opus && opus.title_lat} </div>
-            <DigestaTocOpusLeges leges={opus.leges}/>
+
+            {opus.leges.map((lex)=>{return <DigestaTocOpusLex key={lex.id} lex_id={lex.id}/>})}
+
             <Outlet/>
 
         </>

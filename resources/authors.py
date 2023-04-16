@@ -34,6 +34,7 @@ class AuthorDigesta(MethodView):
         author_digesta = DigestaLexModel.query.filter(DigestaLexModel.author_id == author_id).all()
         return author_digesta
 
+
 @blp.route("/authors/<int:start>/<int:end>")
 class AuthorByAge(MethodView):
     @cross_origin()

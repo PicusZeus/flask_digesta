@@ -1,0 +1,83 @@
+
+.backdrop {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+
+
+.main-nav {
+    display: none;
+}
+
+.main-nav__items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+}
+
+.main-nav__item,
+.main-nav__login,
+.main-nav__logout {
+    margin: 0 1rem;
+}
+
+.main-nav__item a,
+.mobile-nav__item a {
+    text-decoration: none;
+    color: #0e4f1f;
+    font-weight: bold;
+    padding: 0.2rem 0.5rem;
+    border: solid black 1px;
+    border-radius: 3px;
+    background: #a1a1a1;
+}
+.main-nav__logout a,
+.mobile-nav__logout a,
+.main-nav__login a,
+.mobile-nav__login a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    padding: 0.2rem 0.5rem;
+    border: solid black 1px;
+    border-radius: 3px;
+    background: lightblue;
+}
+
+
+.main-nav__item a:hover,
+.main-nav__item a:active,
+.mobile-nav__item a:hover,
+.mobile-nav__item a:active {
+    background: white;
+    /*border: none;*/
+}
+.main-nav__logout a:hover,
+.main-nav__logout a:active,
+.mobile-nav__logout a:hover,
+.mobile-nav__logout a:active,
+.main-nav__login a:hover,
+.main-nav__login a:active,
+.mobile-nav__login a:hover,
+.mobile-nav__login a:active {
+    background: #f4eeff;
+    cursor: pointer;
+}
+
+@media (min-width: 40rem) {
+    .toggle-button {
+        display: none;
+    }
+
+    .main-nav {
+        display: flex;
+    }
+}

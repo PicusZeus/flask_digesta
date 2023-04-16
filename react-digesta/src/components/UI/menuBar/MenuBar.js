@@ -1,14 +1,12 @@
 import classes from "./MenuBar.module.css"
 import {Link} from "react-router-dom";
-import {useState} from "react";
 import Login from "../../authorization/login/Login";
 import Register from "../../authorization/register/Register"
 import {useSelector, useDispatch} from "react-redux";
-import uiSlice, {uiActions} from "../../../store/ui-slice";
-import {authActions} from "../../../store/auth-slice";
+import {uiActions} from "../../../store/ui-slice";
 import {logout} from "../../../store/auth-actions";
 import Notification from "../Notification/Notification";
-
+import logo from "./justynian.jpg"
 const MenuBar = (props) => {
 
     const loggedIn = useSelector((state) => state.auth.loggedIn)
@@ -29,8 +27,7 @@ const MenuBar = (props) => {
     }
 
     const logoutHandler = () => {
-        console.log('logging out')
-        console.log(token)
+
         dispatch(logout(token))
 
     }
@@ -53,7 +50,7 @@ const MenuBar = (props) => {
                         <span className={classes.toggle_button__bar}></span>
                         <span className={classes.toggle_button__bar}></span>
                     </Link>
-                    <a className={classes.main_header__brand} href="/"><img src="" alt="Digesta"/></a>
+                    <a className={classes.main_header__brand} href="/"><img src={logo} alt="Digesta"/></a>
                 </div>
                 <nav className={classes.main_nav}>
                     <ul className={classes.main_nav__items}>
