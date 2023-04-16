@@ -1,4 +1,5 @@
 from flask.views import MethodView
+from flask_cors import cross_origin
 from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
@@ -26,6 +27,7 @@ class Author(MethodView):
 
 @blp.route("/authors/digesta/<int:author_id>")
 class AuthorDigesta(MethodView):
+    @cross_origin()
     @blp.response(200, DigestaLexSchema(many=True))
     def get(self, author_id):
         # author_digesta = DigestaBookModel.query.filter(DigestaBookModel.tituli.any(DigestaTitulusModel.number == '1')).all()
@@ -34,6 +36,7 @@ class AuthorDigesta(MethodView):
 
 @blp.route("/authors/<int:start>/<int:end>")
 class AuthorByAge(MethodView):
+    @cross_origin()
     @blp.response(200, AuthorSchema(many=True))
     def get(self, start, end):
         authors = AuthorModel.query.filter(db.authors.flourished_start >= start, db.authors.flourished_end <= end).all()

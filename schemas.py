@@ -107,3 +107,7 @@ class UserSchema(Schema):
 
 class UserRegisterSchema(UserSchema):
     email = fields.Str(required=True)
+
+
+class SearchTermSchema(Schema):
+    searched_term = fields.Str(required=True)

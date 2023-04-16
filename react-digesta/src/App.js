@@ -11,21 +11,28 @@ import {useDispatch} from "react-redux";
 import DigestaSingleJurist from "./routes/digesta_AUTH/DigestSingleJurist/DigestaSingleJurist";
 import DigestaJuristOpus from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpus";
 import {loader as opusLoader} from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpus";
-import {loader as lexLoader} from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpusLex/DigestaJuristOpusLex";
-import {loader as juristLexLoader} from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristDigesta/DigestaJuristDigesta";
+import {
+    loader as lexLoader
+} from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpusLex/DigestaJuristOpusLex";
+import {
+    loader as juristLexLoader
+} from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristDigesta/DigestaJuristDigesta";
 import DigestaJuristOpusLex
     from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpusLex/DigestaJuristOpusLex";
 import DigestaJuristDigesta from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristDigesta/DigestaJuristDigesta";
-
+import ErrorPage from "./routes/Error/ErrorPage";
+import {action as searchTextAction} from "./routes/digesta_LOOKUP/DigestaLookUp"
 const router = createBrowserRouter(
     [
         {
             path: '/',
             element: <Layout/>,
+            errorElement: <ErrorPage/>,
             children: [
                 {
                     path: '/',
-                    element: <Main/>
+                    element: <Main/>,
+
                 },
                 {
                     path: '/jurysci',
@@ -66,7 +73,8 @@ const router = createBrowserRouter(
                 },
                 {
                     path: '/wyszukaj',
-                    element: <DigestaLookUp/>
+                    element: <DigestaLookUp/>,
+                    action: searchTextAction
                 }
             ]
 
@@ -77,7 +85,9 @@ const router = createBrowserRouter(
 
 const App = () => {
     const dispatch = useDispatch()
-    useEffect(()=>{dispatch(loadTOC())}, [dispatch])
+    useEffect(() => {
+        dispatch(loadTOC())
+    }, [dispatch])
     return (
         <RouterProvider router={router}/>
     )

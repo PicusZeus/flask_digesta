@@ -1,14 +1,14 @@
 import uuid
 from flask import request
 from flask.views import MethodView
+from flask_cors import cross_origin, CORS
 from flask_smorest import Blueprint, abort
 
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 from db import db
 from models import DigestaBookModel, DigestaLexModel, DigestaTitulusModel, AuthorModel
-from schemas import DigestaBookSchema, DigestaLexSchema, DigestaTitulusSchema, DigestaBookTOCSchema
-
+from schemas import DigestaBookSchema, DigestaLexSchema, DigestaTitulusSchema, DigestaBookTOCSchema, SearchTermSchema
 
 blp = Blueprint("digesta", __name__, description="Operations on digesta")
 
@@ -37,20 +37,24 @@ class DigestaBookTOC(MethodView):
         return book_data
 
 
-@blp.route("/digesta/lat/<string:word>")
+@blp.route("/digesta/lat")
 class DigestaLatinSearch(MethodView):
-
+    @cross_origin()
+    @blp.arguments(SearchTermSchema)
     @blp.response(200, DigestaLexSchema(many=True))
-    def get(self, word):
-        word = f"%{word}%"
-        leges = DigestaLexModel.query.filter(DigestaLexModel.text_lat.like(word)).all()
+    def post(self, data):
+        searched_term = data["searched_term"]
+        searched_term = f"%{searched_term}%"
+        leges = DigestaLexModel.query.filter(DigestaLexModel.text_lat.like(searched_term)).all()
         return leges
 
-@blp.route("/digesta/pl/<string:word>")
+@blp.route("/digesta/pl")
 class DigestaLatinSearch(MethodView):
-
+    @cross_origin()
+    @blp.arguments(SearchTermSchema)
     @blp.response(200, DigestaLexSchema(many=True))
-    def get(self, word):
-        word = f"%{word}%"
-        leges = DigestaLexModel.query.filter(DigestaLexModel.text_pl.like(word)).all()
+    def post(self, data):
+        searched_term = data["searched_term"]
+        searched_term = f"%{searched_term}%"
+        leges = DigestaLexModel.query.filter(DigestaLexModel.text_pl.like(searched_term)).all()
         return leges

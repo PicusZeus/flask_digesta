@@ -25,7 +25,6 @@ const Login = (props) => {
     }
 
     const loginHandler = (event) => {
-        console.log('loging')
         event.preventDefault()
 
         dispatch(loggingIn(username, password))
