@@ -4,8 +4,8 @@ import {Link} from "react-router-dom";
 const Main = () => {
 
     return (
-        <>
-            <main>MAIN tain</main>
+
+
             <ul>
                 <li>
                     <Link to="digesta">Digesta</Link>
@@ -19,7 +19,7 @@ const Main = () => {
 
             </ul>
 
-        </>
+
 
     )
 }

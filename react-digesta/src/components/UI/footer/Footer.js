@@ -1,17 +1,17 @@
 import classes from "./Footer.module.css"
 
-const Footer = (props) => {
+const Footer = () => {
 
     return (
         <footer className={classes.main_footer}>
             <nav>
                 <ul className={classes.main_footer__links}>
                     <li className={classes.main_footer__link}>
-                        <button>Wydział prawa</button>
+                        <a href="">Wydział prawa</a>
                     </li>
 
                     <li className={classes.main_footer__email}>
-                        <button>Jeśli masz uwagi lub pytanie, pisz</button>
+                        <a href="mailto: picusdev@gmail.com">Jeśli masz uwagi lub pytanie, pisz</a>
                     </li>
                 </ul>
             </nav>

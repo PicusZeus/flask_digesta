@@ -7,6 +7,9 @@ import {uiActions} from "../../../store/ui-slice";
 import {logout} from "../../../store/auth-actions";
 import Notification from "../Notification/Notification";
 import logo from "./justynian.jpg"
+import MobileNav from "../mobileNav/MobileNav";
+import {useState} from "react";
+
 const MenuBar = (props) => {
 
     const loggedIn = useSelector((state) => state.auth.loggedIn)
@@ -16,8 +19,9 @@ const MenuBar = (props) => {
     const dispatch = useDispatch()
     const notification = useSelector(state => state.ui.notification)
 
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
     const logingToggleHandler = () => {
-        console.log(loggedIn)
         dispatch(uiActions.logingToggle())
     }
 
@@ -45,11 +49,11 @@ const MenuBar = (props) => {
                         message={notification.message}/>
                 }
                 <div>
-                    <Link to="/" className={classes.toggle_button}>
+                    <button onClick={()=>setMobileMenuOpen(!mobileMenuOpen)} className={classes.toggle_button}>
                         <span className={classes.toggle_button__bar}></span>
                         <span className={classes.toggle_button__bar}></span>
                         <span className={classes.toggle_button__bar}></span>
-                    </Link>
+                    </button>
                     <a className={classes.main_header__brand} href="/"><img src={logo} alt="Digesta"/></a>
                 </div>
                 <nav className={classes.main_nav}>
@@ -80,7 +84,16 @@ const MenuBar = (props) => {
 
 
                 </nav>
+
             </header>
+
+             <MobileNav open={mobileMenuOpen}
+                        onToggle={setMobileMenuOpen}
+                        onToggleLogging={logingToggleHandler}
+                        onToggleRegistering={registerToggleHandler}
+                        onLogout={logoutHandler}
+             />
+
         </>
 
     )

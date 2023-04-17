@@ -1,14 +1,16 @@
+import {Outlet} from "react-router-dom";
 import Footer from "../../components/UI/footer/Footer.js";
 import MenuBar from "../../components/UI/menuBar/MenuBar.js";
-import {Outlet} from "react-router-dom";
+import classes from "./Layout.module.css"
 
-
-const Layout = (props) => {
+const Layout = () => {
 
     return (
         <>
             <MenuBar/>
-            <Outlet/>
+            <main className={classes}>
+                <Outlet/>
+            </main>
             <Footer/>
         </>
 

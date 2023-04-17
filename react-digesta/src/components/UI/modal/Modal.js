@@ -2,7 +2,8 @@
 import classes from './Modal.module.css';
 
 function Modal(props) {
-const onClose = () => { console.log('closing')}
+
+
 
   return (
     <>

@@ -1,6 +1,6 @@
 
 .main_header {
-    min-height: 3rem;
+    min-height: 5rem;
     width: 100%;
     position: fixed;
     top: 0;
@@ -43,8 +43,8 @@
 }
 
 .main_header__brand img {
-    height: 5.5rem;
-    width: 5.5rem;
+    height: 3.5rem;
+    width: 3.5rem;
     vertical-align: middle;
     border-radius: 50%;
 }
@@ -121,36 +121,11 @@
     }
 }
 
-.mobile_nav {
-    display: none;
-    position: fixed;
-    z-index: 101;
-    top: 0;
-    left: 0;
-    background: white;
-    width: 80%;
-    height: 100vh;
-}
 
-.mobile_nav__items {
-    width: 90%;
-    height: 100%;
-    list-style: none;
-    margin: 0 auto;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
 
-.mobile_nav__item, .mobile-nav__login, .mobile-nav__logout {
-    margin: 1rem 0;
-}
 
-.mobile_nav__item a, .mobile-nav__login a, .mobile-nav__logout a {
-    font-size: 1.5rem;
-}
+
+
 
 .button {
     background: #0e4f1f;
