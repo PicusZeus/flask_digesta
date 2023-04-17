@@ -1,19 +1,20 @@
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Layout from "./routes/layout/Layout";
 import Main from "./routes/main/Main";
-import DigestaAuth from "./routes/digesta_AUTH/DigestaAuth";
+import DigestaJurists from "./routes/digesta_JURIST/DigestaJurists";
 import DigestaTrad from "./routes/digesta_TRAD/DigestaTrad";
 import DigestaLookUp from "./routes/digesta_LOOKUP/DigestaLookUp";
 import React, {useEffect} from "react";
 import {loadTOC} from "./store/digesta-actions";
 import {useDispatch} from "react-redux";
-import DigestaSingleJurist from "./routes/digesta_AUTH/DigestSingleJurist/DigestaSingleJurist";
-import DigestaJuristOpus, { loader as opusLoader } from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpus/DigestaJuristOpus";
-import DigestaJuristDigesta, { loader as juristLexLoader } from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristDigesta/DigestaJuristDigesta";
+import DigestaJurist from "./routes/digesta_JURIST/DigestaJurist/DigestaJurist";
+import DigestaJuristOpus, { loader as opusLoader } from "./routes/digesta_JURIST/DigestaJuristOpus/DigestaJuristOpus";
+import DigestaJuristDigesta, { loader as juristLexLoader } from "./routes/digesta_JURIST/DigestaJuristDigesta/DigestaJuristDigesta";
 import ErrorPage from "./routes/Error/ErrorPage";
 import {action as searchTextAction} from "./routes/digesta_LOOKUP/DigestaLookUp"
 import DigestaLexViewer, { loader as lexLoader } from "./components/DigestaLexViewer/DigestaLexViewer";
-import DigestaJursitOpera, { loader as operaLoader } from "./routes/digesta_AUTH/DigestSingleJurist/DigestaJuristOpera/DigestaJursitOpera";
+import DigestaJursitOpera, { loader as operaLoaderi } from "./routes/digesta_JURIST/DigestaJuristOpera/DigestaJursitOpera";
+import DigestaOpera, { loader as operaLoader } from "./routes/digesta_OPERA/DigestaOpera";
 
 
 const router = createBrowserRouter(
@@ -29,11 +30,11 @@ const router = createBrowserRouter(
                 },
                 {
                     path: '/jurysci',
-                    element: <DigestaAuth/>,
+                    element: <DigestaJurists/>,
                     children: [
                         {
                             path: ':jurysta_id',
-                            element: <DigestaSingleJurist/>,
+                            element: <DigestaJurist/>,
                             children: [
                                 {
                                     path: "opera/:jurysta_id",
@@ -87,6 +88,11 @@ const router = createBrowserRouter(
 
                         }
                     ]
+                },
+                {
+                    path: '/opera',
+                    element: <DigestaOpera/>,
+                    loader: operaLoader
                 },
                 {
                     path: '/wyszukaj',

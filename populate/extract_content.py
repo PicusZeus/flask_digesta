@@ -103,10 +103,10 @@ def extract_text_data_from_plain_text(file_name):
             book[title_nr]['leges'][lex_nr]['content_pl'] = content
             book[title_nr]['leges'][lex_nr]['opus']['title_pl'] = opus_title_pl
 
-    print(book[4]['leges'][2])
+    # print(book[4]['leges'][2])
     with open(file_name + "_extracted.pickle", 'wb') as file:
         pickle.dump(book, file)
 
 
 if __name__ == '__main__':
-    book = extract_text_data_from_plain_text('populate/Data/digestaplikiend/d1.txt')
+    extract_text_data_from_plain_text('populate/Data/digestaplikiend/d1.txt')

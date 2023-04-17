@@ -36,6 +36,19 @@ class DigestaBookTOC(MethodView):
 
         return book_data
 
+@blp.route("/digesta/books")
+class DigestaBooksToc(MethodView):
+    @blp.response(200, DigestaBookTOCSchema(many=True))
+    def get(self):
+        books_data = DigestaBookModel.query.order_by(DigestaBookModel.id).all()
+        return books_data
+
+# @blp.route("/digesta/books/author_id")
+# class DigestaBooksTocByAuthor(MethodView):
+#
+#     @blp.response(200, DigestaBookTOCSchema(many=True))
+#     def get(self):
+#
 
 @blp.route("/digesta/lat")
 class DigestaLatinSearch(MethodView):

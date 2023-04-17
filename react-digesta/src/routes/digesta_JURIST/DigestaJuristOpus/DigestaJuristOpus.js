@@ -1,7 +1,7 @@
 import {Outlet, useLoaderData} from "react-router-dom";
 import {json} from "react-router-dom"
 import DigestaTocOpusLex
-    from "../../../../components/DigestaToc/DigestaTocOpusLeges/DigestaTocOpusLex/DigestaTocOpusLex";
+    from "../../../components/DigestaToc/DigestaTocOpusLeges/DigestaTocOpusLex/DigestaTocOpusLex";
 
 const DigestaJuristOpus = () => {
     const opus = useLoaderData()

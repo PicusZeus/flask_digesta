@@ -5,6 +5,7 @@ from db import db
 class DigestaBookModel(db.Model):
     __tablename__ = "digesta_books"
     id = db.Column(db.Integer, primary_key=True)
+    book_nr = db.Column(db.Integer, unique=True, nullable=False)
     book_latin_name = db.Column(db.String(256), unique=True, nullable=False)
     book_polish_name = db.Column(db.String(256), unique=True, nullable=False)
     tituli = db.relationship("DigestaTitulusModel", back_populates="book")

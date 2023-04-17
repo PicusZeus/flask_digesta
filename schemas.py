@@ -5,6 +5,7 @@ class PlainDigestaBookSchema(Schema):
     id = fields.Int(dump_only=True)
     book_latin_name = fields.Str(dump_only=True)
     book_polish_name = fields.Str(dump_only=True)
+    book_nr = fields.Str()
 
 
 class PlainDigestaTitulusSchema(Schema):

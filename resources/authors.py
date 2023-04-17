@@ -6,14 +6,14 @@ from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 from db import db
 from models import AuthorModel, OperaModel, DigestaBookModel, DigestaLexModel, DigestaTitulusModel
 from schemas import AuthorSchema, AuthorOperaSchema, DigestaBookTOCSchema, DigestaLexSchema, \
-    DigestaLexSimpleSchema
+    DigestaLexSimpleSchema, PlainAuthorSchema
 
 blp = Blueprint("authors", __name__, description="Operations on authors")
 
 
 @blp.route("/authors")
 class AuthorsAll(MethodView):
-    @blp.response(200, AuthorSchema(many=True))
+    @blp.response(200, PlainAuthorSchema(many=True))
     def get(self):
         return AuthorModel.query.order_by(AuthorModel.name).all()
 

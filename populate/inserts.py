@@ -13,10 +13,10 @@ FILE_PICKLE_LIBER_1 = "populate/Data/digestaplikiend/d1.txt_extracted.pickle"
 
 
 
-def insert_books(lat, pl):
+def insert_books(lat, pl, nr):
     lat = 'LIBER PRIMUS'
     pl = "KSIĘGA PIERWSZA"
-    liber = DigestaBookModel(book_latin_name=lat, book_polish_name=pl)
+    liber = DigestaBookModel(book_latin_name=lat, book_polish_name=pl, book_nr=nr)
     db.session.add(liber)
     try:
         db.session.commit()
@@ -131,7 +131,7 @@ def insert_leges(file_name, book):
 
 
 if __name__ == "__main__":
-    insert_books(lat='LIBER PRIMUS', pl="KSIĘGA PIERWSZA")
+    insert_books(lat='LIBER PRIMUS', pl="KSIĘGA PIERWSZA", nr=1)
     insert_tituli("LIBER PRIMUS", "populate/Data/digestaplikiend/d1.txt_extracted.pickle")
     insert_authors(FILE_PICKLE_LIBER_1)
     insert_opera(FILE_PICKLE_LIBER_1)

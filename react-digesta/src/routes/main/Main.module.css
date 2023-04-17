@@ -1,0 +1,48 @@
+.main_items {
+    list-style: none;
+    padding: 2rem;
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 10rem);
+
+
+}
+
+.main_item {
+    border: black solid 1px;
+    border-radius: 15px;
+    margin: 1rem;
+
+}
+
+.main_item__container {
+    margin: 1rem;
+    text-align: center;
+    /*align-items: center;*/
+}
+
+.main_item__title {
+    font-size: 1.4rem;
+
+}
+
+
+.main_item__description {
+    text-align: justify;
+
+}
+
+.main_item_link {
+    text-decoration: none;
+    border: black solid 1px;
+    padding: 0.4rem;
+    justify-self: center;
+    /*margin: auto;*/
+    /*display: block;*/
+    min-width: 8rem;
+    border-radius: 5px;
+    color: black;
+    font-size: 1.1rem;
+
+}

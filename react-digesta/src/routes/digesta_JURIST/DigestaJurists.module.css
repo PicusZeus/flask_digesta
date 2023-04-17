@@ -1,20 +1,15 @@
-
-
-.trad_main {
+.auth_main {
     text-align: center;
+
 }
 
-.trad_main__title {
-
+.auth_main__title {
     padding: 1rem;
     font-size: 1.5rem;
     margin: auto;
 }
 
-
-.trad_main__container {
+.auth_main__container {
     display: flex;
     flex-direction: column;
-
 }
-
