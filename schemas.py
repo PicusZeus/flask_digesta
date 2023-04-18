@@ -17,7 +17,6 @@ class PlainDigestaTitulusSchema(Schema):
 
 
 
-
 class PlainDigestaTOCLexSchema(Schema):
     id = fields.Int(dump_only=True)
     address_lat = fields.Str()
@@ -56,6 +55,13 @@ class PlainCommentSchema(Schema):
     id = fields.Int(dump_only=True)
 
 
+class CommentsSchema(Schema):
+    id = fields.Int(dump_only=True)
+    comment = fields.Str()
+    private = fields.Bool()
+    # user_id = fields.Int()
+    lex_id = fields.Int()
+
 class DigestaBookSchema(PlainDigestaBookSchema):
     tituli = fields.List(fields.Nested(PlainDigestaTitulusSchema()), dump_only=True)
 
@@ -75,6 +81,7 @@ class DigestaLexSchema(PlainDigestaLexSchema):
     author = fields.Nested(PlainAuthorSchema())
     opus = fields.Nested(PlainOperaSchema())
     book = fields.Nested(PlainDigestaBookSchema())
+    comments = fields.List(fields.Nested(CommentsSchema()))
 
 
 class DigestaLexSimpleSchema(Schema):

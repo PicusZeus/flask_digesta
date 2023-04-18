@@ -13,6 +13,7 @@ from resources.authors import blp as authors_blp
 from resources.digesta import blp as digesta_blp
 from resources.opera import blp as opera_blp
 from resources.users import blp as users_blp
+from resources.comments import blp as comments_blp
 
 
 def create_app(db_url=None):
@@ -37,6 +38,7 @@ def create_app(db_url=None):
     api.register_blueprint(digesta_blp)
     api.register_blueprint(opera_blp)
     api.register_blueprint(users_blp)
+    api.register_blueprint(comments_blp)
 
     app.config["JWT_SECRET_KEY"] = "picus"
     jwt = JWTManager(app)
