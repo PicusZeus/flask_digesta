@@ -1,0 +1,18 @@
+
+.opera_main {
+    text-align: center;
+}
+
+.opera_main__title {
+
+    padding: 1rem;
+    font-size: 1.5rem;
+    margin: auto;
+}
+
+
+.opera_main__container {
+    display: flex;
+    flex-direction: column;
+
+}

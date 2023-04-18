@@ -8,13 +8,17 @@ import React, {useEffect} from "react";
 import {loadTOC} from "./store/digesta-actions";
 import {useDispatch} from "react-redux";
 import DigestaJurist from "./routes/digesta_JURIST/DigestaJurist/DigestaJurist";
-import DigestaJuristOpus, { loader as opusLoader } from "./routes/digesta_JURIST/DigestaJuristOpus/DigestaJuristOpus";
-import DigestaJuristDigesta, { loader as juristLexLoader } from "./routes/digesta_JURIST/DigestaJuristDigesta/DigestaJuristDigesta";
+import DigestaJuristOpus, {loader as opusLoader} from "./routes/digesta_JURIST/DigestaJuristOpus/DigestaJuristOpus";
+import DigestaJuristDigesta, {
+    loader as juristLexLoader
+} from "./routes/digesta_JURIST/DigestaJuristDigesta/DigestaJuristDigesta";
 import ErrorPage from "./routes/Error/ErrorPage";
 import {action as searchTextAction} from "./routes/digesta_LOOKUP/DigestaLookUp"
-import DigestaLexViewer, { loader as lexLoader } from "./components/DigestaLexViewer/DigestaLexViewer";
-import DigestaJursitOpera, { loader as operaLoaderi } from "./routes/digesta_JURIST/DigestaJuristOpera/DigestaJursitOpera";
-import DigestaOpera, { loader as operaLoader } from "./routes/digesta_OPERA/DigestaOpera";
+import DigestaLexViewer, {loader as lexLoader} from "./components/DigestaLexViewer/DigestaLexViewer";
+import DigestaJuristOpera, {
+    loader as digestaJuristOperaLoader
+} from "./routes/digesta_JURIST/DigestaJuristOpera/DigestaJuristOpera";
+import DigestaOpera, {loader as operaLoader} from "./routes/digesta_OPERA/DigestaOpera";
 
 
 const router = createBrowserRouter(
@@ -38,8 +42,8 @@ const router = createBrowserRouter(
                             children: [
                                 {
                                     path: "opera/:jurysta_id",
-                                    element: <DigestaJursitOpera/>,
-                                    loader: operaLoader,
+                                    element: <DigestaJuristOpera/>,
+                                    loader: digestaJuristOperaLoader,
                                     children: [
                                         {
                                             path: ':opus_id',
@@ -92,7 +96,14 @@ const router = createBrowserRouter(
                 {
                     path: '/opera',
                     element: <DigestaOpera/>,
-                    loader: operaLoader
+                    loader: operaLoader,
+                    children: [
+                        {
+                            path: ':lex_id',
+                            element: <DigestaLexViewer/>,
+                            loader: lexLoader
+                        }
+                    ]
                 },
                 {
                     path: '/wyszukaj',

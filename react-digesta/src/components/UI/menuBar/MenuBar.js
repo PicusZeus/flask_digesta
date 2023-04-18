@@ -49,7 +49,7 @@ const MenuBar = (props) => {
                         message={notification.message}/>
                 }
                 <div>
-                    <button onClick={()=>setMobileMenuOpen(!mobileMenuOpen)} className={classes.toggle_button}>
+                    <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className={classes.toggle_button}>
                         <span className={classes.toggle_button__bar}></span>
                         <span className={classes.toggle_button__bar}></span>
                         <span className={classes.toggle_button__bar}></span>
@@ -78,6 +78,9 @@ const MenuBar = (props) => {
                             <Link to={"/jurysci"}>Digesta - przeglądaj tekst wg jurystów i ich dziełt</Link>
                         </li>
                         <li className={classes.main_nav__item}>
+                            <Link to={"/opera"}>Digesta - przeglądaj cytowane w Digestach dzieła jurystów i ich dziełt</Link>
+                        </li>
+                        <li className={classes.main_nav__item}>
                             <Link to={"/wyszukaj"}>Digesta - wyszukaj w tekście</Link>
                         </li>
                     </ul>
@@ -87,12 +90,12 @@ const MenuBar = (props) => {
 
             </header>
 
-             <MobileNav open={mobileMenuOpen}
-                        onToggle={setMobileMenuOpen}
-                        onToggleLogging={logingToggleHandler}
-                        onToggleRegistering={registerToggleHandler}
-                        onLogout={logoutHandler}
-             />
+            <MobileNav open={mobileMenuOpen}
+                       onToggle={setMobileMenuOpen}
+                       onToggleLogging={logingToggleHandler}
+                       onToggleRegistering={registerToggleHandler}
+                       onLogout={logoutHandler}
+            />
 
         </>
 

@@ -34,6 +34,19 @@ const Main = () => {
             </li>
             <li className={classes.main_item}>
                 <section className={classes.main_item__container}>
+                    <h1 className={classes.main_item__title}>DZIAŁA JURYSTÓW</h1>
+
+                    <p className={classes.main_item__description}>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi culpa doloribus dolorum ex
+                        excepturi fugit illum ipsum, iure laboriosam maiores nobis qui quo quos recusandae repellat
+                        soluta velit vero voluptate!
+                    </p>
+                    <Link className={classes.main_item_link} to="opera">Przejdź</Link>
+                </section>
+            </li>
+
+            <li className={classes.main_item}>
+                <section className={classes.main_item__container}>
                     <h1 className={classes.main_item__title}>WYSZUKAJ</h1>
 
                     <p className={classes.main_item__description}>

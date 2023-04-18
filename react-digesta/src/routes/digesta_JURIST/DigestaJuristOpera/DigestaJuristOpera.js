@@ -2,14 +2,14 @@ import {json, Link, Outlet, useLoaderData} from "react-router-dom";
 import DigestaTocOpera from "../../../components/DigestaToc/DigestaTocOpera/DigestaTocOpera";
 
 
-const DigestaJursitOpera = () => {
-    const opera = useLoaderData()
-
+const DigestaJuristOpera = () => {
+    const toc = useLoaderData()
+    console.log(toc, "JURISTR")
     return (
         <div >
             <div>opera</div>
 
-            <DigestaTocOpera opera={opera}/>
+            <DigestaTocOpera toc={toc}/>
             {/*<ul>*/}
             {/*    {opera && opera.map((opus) => {*/}
             {/*        return (*/}
@@ -31,7 +31,7 @@ const DigestaJursitOpera = () => {
     )
 }
 
-export default DigestaJursitOpera
+export default DigestaJuristOpera
 
 export const loader = async ({params, request}) => {
     const id = params.jurysta_id;

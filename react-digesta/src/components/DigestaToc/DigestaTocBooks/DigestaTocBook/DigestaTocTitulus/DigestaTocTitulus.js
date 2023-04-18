@@ -14,7 +14,7 @@ const DigestaTocTitulus = (props) => {
     const leges = props.leges
     return (
         <>
-            <label className={classes.main_toc__label}>Wybierz Tytuł</label>
+            <label className={classes.main_toc__label}>Wybierz Ustawę</label>
 
             <select className={classes.main_toc__titulus_option} onChange={onOptionChangeHandler}>
                 <option key={666666} value={null}>Wybierz ustawę</option>

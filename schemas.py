@@ -85,9 +85,15 @@ class DigestaLexSimpleSchema(Schema):
 # class DigestaLegesSchema(Schema):
 #     leges = fields.List(fields.Nested(PlainDigestaLexSchema()))
 
+class DigestaTocLexExtendedSchema(PlainDigestaTOCLexSchema):
+    # book_id = fields.Int()
+    book = fields.Nested(PlainDigestaBookSchema())
+    titulus = fields.Nested(PlainDigestaTitulusSchema())
+    # pass
+
 
 class OperaSchema(PlainOperaSchema):
-    leges = fields.List(fields.Nested(PlainDigestaTOCLexSchema()))
+    leges = fields.List(fields.Nested(DigestaTocLexExtendedSchema()))
     author = fields.Nested(PlainAuthorSchema())
 
 

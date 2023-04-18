@@ -1,17 +1,18 @@
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import classes from "./MobileNav.module.css";
+
 const MobileNav = (props) => {
     const isLoggedin = useSelector(state => state.auth.loggedIn)
 
     let logging = (
         <>
-        <li className={classes.mobile_nav__login}>
-            <button onClick={props.onToggleLogging}>Zaloguj się</button>
-        </li>
-        <li className={classes.mobile_nav__login}>
-            <button onClick={props.onToggleRegistering}>Zarejestruj się</button>
-        </li>
+            <li className={classes.mobile_nav__login}>
+                <button onClick={props.onToggleLogging}>Zaloguj się</button>
+            </li>
+            <li className={classes.mobile_nav__login}>
+                <button onClick={props.onToggleRegistering}>Zarejestruj się</button>
+            </li>
         </>
     )
 
@@ -34,29 +35,34 @@ const MobileNav = (props) => {
 
     return (
         <>
-        <div className={backdrop.join(' ')} onClick={()=>props.onToggle(!props.open)}/>
-        <nav className={mobileNav.join(' ')}>
-            <ul className={classes.mobile_nav__items}>
-                <li className={classes.mobile_nav__item}>
-                    <Link onClick={()=>props.onToggle(!props.open)} to="/digesta">
-                        Digesta
-                    </Link>
-                </li>
-                <li className={classes.mobile_nav__item}>
-                    <Link onClick={()=>props.onToggle(!props.open)} to="/jurysci">
-                        Juryści
-                    </Link>
-                </li>
-                <li className={classes.mobile_nav__item}>
-                    <Link onClick={()=>props.onToggle(!props.open)} to="/wyszukaj">
-                        Wyszukaj
-                    </Link>
-                </li>
-                {logging}
+            <div className={backdrop.join(' ')} onClick={() => props.onToggle(!props.open)}/>
+            <nav className={mobileNav.join(' ')}>
+                <ul className={classes.mobile_nav__items}>
+                    <li className={classes.mobile_nav__item}>
+                        <Link onClick={() => props.onToggle(!props.open)} to="/digesta">
+                            Digesta
+                        </Link>
+                    </li>
+                    <li className={classes.mobile_nav__item}>
+                        <Link onClick={() => props.onToggle(!props.open)} to="/jurysci">
+                            Juryści
+                        </Link>
+                    </li>
+                    <li className={classes.mobile_nav__item}>
+                        <Link onClick={() => props.onToggle(!props.open)} to="/opera">
+                            Opera
+                        </Link>
+                    </li>
+                    <li className={classes.mobile_nav__item}>
+                        <Link onClick={() => props.onToggle(!props.open)} to="/wyszukaj">
+                            Wyszukaj
+                        </Link>
+                    </li>
+                    {logging}
 
-            </ul>
-        </nav>
-   </>
+                </ul>
+            </nav>
+        </>
     )
 }
 
