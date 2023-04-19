@@ -1,41 +1,6 @@
 from marshmallow import Schema, fields
 
 
-class PlainDigestaBookSchema(Schema):
-    id = fields.Int(dump_only=True)
-    book_latin_name = fields.Str(dump_only=True)
-    book_polish_name = fields.Str(dump_only=True)
-    book_nr = fields.Str()
-
-
-class PlainDigestaTitulusSchema(Schema):
-    id = fields.Int(dump_only=True)
-    number = fields.Int(dump_only=True)
-    title_lat = fields.Str()
-    title_pl = fields.Str()
-
-
-
-
-class PlainDigestaTOCLexSchema(Schema):
-    id = fields.Int(dump_only=True)
-    address_lat = fields.Str()
-    address_pl = fields.Str()
-    # text_lat = fields.Str()
-    # text_pl = fields.Str()
-    lex_nr = fields.Int()
-    author_id = fields.Int()
-
-
-class PlainDigestaLexSchema(Schema):
-    id = fields.Int(dump_only=True)
-    address_lat = fields.Str()
-    address_pl = fields.Str()
-    text_lat = fields.Str()
-    text_pl = fields.Str()
-    lex_nr = fields.Int()
-
-
 class PlainAuthorSchema(Schema):
     id = fields.Int(dump_only=True)
     name = fields.Str(dump_only=True)
@@ -51,30 +16,55 @@ class PlainOperaSchema(Schema):
     book = fields.Int(dump_only=True)
 
 
+class PlainDigestaTOCLexSchema(Schema):
+    id = fields.Int(dump_only=True)
+    address_lat = fields.Str()
+    address_pl = fields.Str()
+    lex_nr = fields.Int()
+    author_id = fields.Int()
+
+
+class AuthorSchema(PlainAuthorSchema):
+    leges = fields.List(fields.Nested(PlainDigestaTOCLexSchema()))
+    opera = fields.List(fields.Nested(PlainOperaSchema()))
+
+
+
 class PlainCommentSchema(Schema):
     id = fields.Int(dump_only=True)
     comment = fields.Str()
     private = fields.Bool()
-    # lex_id = fields.Int()
     date = fields.DateTime(dump_only=True)
 
 
-class CommentSaveSchema(PlainCommentSchema):
-    reply_to_comment_id = fields.Int(allow_none=True)
+class AuthorOperaSchema(PlainAuthorSchema):
+    opera = fields.List(fields.Nested(PlainOperaSchema()))
 
 
-class CommentUpdateSchema(PlainCommentSchema):
-    comment_id = fields.Int()
+class PlainDigestaBookSchema(Schema):
+    id = fields.Int(dump_only=True)
+    book_latin_name = fields.Str(dump_only=True)
+    book_polish_name = fields.Str(dump_only=True)
+    book_nr = fields.Int()
 
 
-class CommentSchema(PlainCommentSchema):
+class PlainDigestaTitulusSchema(Schema):
+    id = fields.Int(dump_only=True)
+    number = fields.Int(dump_only=True)
+    title_lat = fields.Str()
+    title_pl = fields.Str()
 
-    reply_to_comment = fields.Nested(PlainCommentSchema())
 
 
-# class CommentsSchema(Schema):
-#     comments = fields.List(fields.Nested(CommentSchema()))
-#
+
+class PlainDigestaLexSchema(Schema):
+    id = fields.Int(dump_only=True)
+    address_lat = fields.Str()
+    address_pl = fields.Str()
+    text_lat = fields.Str()
+    text_pl = fields.Str()
+    lex_nr = fields.Int()
+
 
 class DigestaBookSchema(PlainDigestaBookSchema):
     tituli = fields.List(fields.Nested(PlainDigestaTitulusSchema()), dump_only=True)
@@ -87,7 +77,6 @@ class DigestaTitulusSchema(PlainDigestaTitulusSchema):
 
 class DigestaBookTOCSchema(PlainDigestaBookSchema):
     tituli = fields.List(fields.Nested(DigestaTitulusSchema()), dump_only=True)
-    # titulus = fields.Nested(DigestaTitulusSchema())
 
 
 class DigestaLexSchema(PlainDigestaLexSchema):
@@ -95,7 +84,6 @@ class DigestaLexSchema(PlainDigestaLexSchema):
     author = fields.Nested(PlainAuthorSchema())
     opus = fields.Nested(PlainOperaSchema())
     book = fields.Nested(PlainDigestaBookSchema())
-    # comments = fields.List(fields.Nested(CommentSchema()))
 
 
 class DigestaLexSimpleSchema(Schema):
@@ -103,14 +91,13 @@ class DigestaLexSimpleSchema(Schema):
     lex_nr = fields.Int()
 
 
-# class DigestaLegesSchema(Schema):
-#     leges = fields.List(fields.Nested(PlainDigestaLexSchema()))
-
 class DigestaTocLexExtendedSchema(PlainDigestaTOCLexSchema):
-    # book_id = fields.Int()
     book = fields.Nested(PlainDigestaBookSchema())
     titulus = fields.Nested(PlainDigestaTitulusSchema())
-    # pass
+
+
+class SearchTermSchema(Schema):
+    searched_term = fields.Str(required=True)
 
 
 class OperaSchema(PlainOperaSchema):
@@ -118,13 +105,22 @@ class OperaSchema(PlainOperaSchema):
     author = fields.Nested(PlainAuthorSchema())
 
 
-class AuthorSchema(PlainAuthorSchema):
-    leges = fields.List(fields.Nested(PlainDigestaTOCLexSchema()))
-    opera = fields.List(fields.Nested(PlainOperaSchema()))
+class CommentSaveSchema(PlainCommentSchema):
+    reply_to_comment_id = fields.Int(allow_none=True)
 
 
-class AuthorOperaSchema(PlainAuthorSchema):
-    opera = fields.List(fields.Nested(PlainOperaSchema()))
+class CommentUpdateSchema(PlainCommentSchema):
+    comment_id = fields.Int()
+
+
+class UserDataSchema(Schema):
+    id = fields.Int()
+    username = fields.Str()
+
+
+class CommentSchema(PlainCommentSchema):
+    user = fields.Nested(UserDataSchema())
+    reply_to_comment = fields.Nested(PlainCommentSchema())
 
 
 class UserSchema(Schema):
@@ -135,7 +131,3 @@ class UserSchema(Schema):
 
 class UserRegisterSchema(UserSchema):
     email = fields.Str(required=True)
-
-
-class SearchTermSchema(Schema):
-    searched_term = fields.Str(required=True)

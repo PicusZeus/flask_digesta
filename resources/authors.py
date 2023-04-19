@@ -1,12 +1,11 @@
 from flask.views import MethodView
 from flask_cors import cross_origin
-from flask_smorest import Blueprint, abort
-from sqlalchemy.exc import SQLAlchemyError, IntegrityError
+from flask_smorest import Blueprint
 
 from db import db
-from models import AuthorModel, OperaModel, DigestaBookModel, DigestaLexModel, DigestaTitulusModel
-from schemas import AuthorSchema, AuthorOperaSchema, DigestaBookTOCSchema, DigestaLexSchema, \
-    DigestaLexSimpleSchema, PlainAuthorSchema
+from models import AuthorModel, DigestaLexModel
+from schemas import AuthorSchema, AuthorOperaSchema, PlainAuthorSchema, DigestaLexSchema
+
 
 blp = Blueprint("authors", __name__, description="Operations on authors")
 

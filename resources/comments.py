@@ -1,7 +1,5 @@
-from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from flask_cors import cross_origin
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models import CommentModel
 from db import db
@@ -35,30 +33,32 @@ class Comment(MethodView):
     @jwt_required()
     @blp.arguments(CommentUpdateSchema())
     def put(self, data, comment_id):
-        comment = CommentModel.query.filter(CommentModel.id == comment_id, CommentModel.user_id == user_id).first()
+        user_id = get_jwt_identity()
+        com = CommentModel.query.filter(CommentModel.id == comment_id, CommentModel.user_id == user_id).first()
 
-        if comment:
+        if com:
             comment_content = data["comment"]
 
             private = data["private"]
             date = datetime.now()
-            comment.comment = comment_content
-            comment.private = private
-            comment.date = date
+            com.comment = comment_content
+            com.private = private
+            com.date = date
             db.session.commit()
 
             return {"message": "Comment updated successfully"}, 200
-
+        return {"message": user_id}, 403
     @jwt_required()
     def delete(self, comment_id):
+        user_id = get_jwt_identity()
         comment = CommentModel.query.filter(CommentModel.id == comment_id, CommentModel.user_id == user_id).first()
 
         if comment:
             db.session.delete(comment)
-            db.session.save()
+            db.session.commit()
             return {"message": "Item deleted."}
 
-        abort(401, message="User privilege required.")
+        return {"message": "No such comment or user privilege required."}, 403
 
 
 @blp.route("/comment/lex/<int:lex_id>")
@@ -70,7 +70,8 @@ class CommentByLex(MethodView):
         user_id = get_jwt_identity()
         # if not user_id:
         #     user_id = 1
-        comments = CommentModel.query.filter(CommentModel.lex_id == lex_id).filter(or_(CommentModel.private == false(), CommentModel.user_id == user_id)).all()
+        comments = CommentModel.query.filter(CommentModel.lex_id == lex_id).filter(or_(CommentModel.private == false(),
+                                                                                       CommentModel.user_id == user_id)).all()
 
         return comments
 
