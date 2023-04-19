@@ -8,7 +8,7 @@ from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 from db import db
 from models import DigestaBookModel, DigestaLexModel, DigestaTitulusModel, AuthorModel, CommentModel
-from schemas import DigestaBookSchema, DigestaLexSchema, DigestaTitulusSchema, DigestaBookTOCSchema, SearchTermSchema
+from schemas import DigestaBookSchema, DigestaLexSchema, DigestaTitulusSchema, DigestaBookTOCSchema, SearchTermSchema, CommentSchema
 from sqlalchemy import and_, or_
 from sqlalchemy.sql.expression import false, true
 blp = Blueprint("digesta", __name__, description="Operations on digesta")
@@ -18,18 +18,24 @@ blp = Blueprint("digesta", __name__, description="Operations on digesta")
 class DigestaParagraph(MethodView):
 
     @blp.response(200, DigestaLexSchema())
-    @jwt_required(optional=True)
+    # @blp.response(200, CommentSchema(many=True))
+    # @jwt_required(optional=True)
     def get(self, lex_id):
-        user_id = get_jwt_identity()
+        # user_id = get_jwt_identity()
 
         lex_data = DigestaLexModel.query.get_or_404(lex_id)
 
-        comments = lex_data.comments.filter(or_(CommentModel.private == false(), CommentModel.user_id == user_id)).all()
-
+        # comments = lex_data.comments.filter(or_(CommentModel.private == false(), CommentModel.user_id == user_id)).all()
+        # comments = lex_data.comments.filter(CommentModel.user_id == user_id).all()
+        # comments = CommentModel.query.filter(CommentModel.lex_id == lex_id, CommentModel.private == false()).all()
+        # # comments = CommentModel.query.all()
+        # if not comments:
+        #     comments = []
+        # print(comments)
         # comments
-        lex_data.comments = comments
+        # lex_data.comments = comments
+        # return comments
         return lex_data
-        # return {comments}
 
 @blp.route("/digesta/tituli/<int:titulus_id>")
 class DigestaSection(MethodView):

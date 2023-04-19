@@ -6,7 +6,7 @@ const Post = (props) => {
 
     return (
         <section>
-            A single post
+            <p>{props.post.comment}</p>
         </section>
     )
 }
