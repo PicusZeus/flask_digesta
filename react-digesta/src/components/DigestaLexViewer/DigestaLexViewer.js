@@ -1,5 +1,6 @@
 import {json, Link, useLoaderData} from "react-router-dom";
 import classes from "./DigestaLexViewer.module.css"
+import Posts from "../Posts/Posts";
 
 
 const DigestaLexViewer = (props) => {
@@ -34,6 +35,7 @@ const DigestaLexViewer = (props) => {
                     </div>
                 </>
             }
+            <Posts posts={lex.comments}/>
         </section>
 
     )

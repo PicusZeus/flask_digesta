@@ -39,13 +39,13 @@ class DigestaSection(MethodView):
         return titulus_data
 
 
-@blp.route("/digesta/book/<int:book_id>")
-class DigestaBookTOC(MethodView):
-    @blp.response(200, DigestaBookTOCSchema())
-    def get(self, book_id):
-        book_data = DigestaBookModel.query.filter(DigestaBookModel.id == book_id).order_by(DigestaBookModel.id).first()
-
-        return book_data
+# @blp.route("/digesta/book/<int:book_id>")
+# class DigestaBookTOC(MethodView):
+#     @blp.response(200, DigestaBookTOCSchema())
+#     def get(self, book_id):
+#         book_data = DigestaBookModel.query.filter(DigestaBookModel.id == book_id).order_by(DigestaBookModel.id).first()
+#
+#         return book_data
 
 
 @blp.route("/digesta/books")
@@ -54,6 +54,32 @@ class DigestaBooksToc(MethodView):
     def get(self):
         books_data = DigestaBookModel.query.order_by(DigestaBookModel.id).all()
         return books_data
+
+#
+# @blp.route("/digesta/books/<int:jurysta_id>")
+# class DigestaBooksTocJurist(MethodView):
+#
+#     @blp.response(200, DigestaBookTOCSchema(many=True))
+#     def get(self, jurysta_id):
+#         new_books_data = []
+#         books_data = DigestaBookModel.query.order_by(DigestaBookModel.id).all()
+#         for book in books_data:
+#             new_tituli = []
+#             for titulus in book.tituli:
+#
+#                 new_leges = titulus.leges.filter(DigestaLexModel.author_id == jurysta_id).all()
+#
+#                 if len(new_leges) > 0:
+#                     titulus.leges = new_leges
+#                     new_tituli.append(titulus)
+#             if len(new_tituli) > 0:
+#                 book.tituli = new_tituli
+#                 new_books_data.append(book)
+#
+#         return new_books_data
+#
+
+
 
 
 # @blp.route("/digesta/books/author_id")
