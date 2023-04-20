@@ -35,7 +35,7 @@ const DigestaLexViewer = (props) => {
                     </div>
                 </>
             }
-            <Posts posts={lex.comments}/>
+            {/*<Posts posts={lex.comments}/>*/}
         </section>
 
     )

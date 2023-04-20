@@ -13,6 +13,21 @@ roman_number_pattern = "^[IVXLC]*([IVXLC])$"
 roman_number_p = re.compile(roman_number_pattern)
 
 
+
+def split_lex_into_sections(text):
+    lex_content = text[1]
+    # split into sections
+    lex_splitted = re.split(r' (\d+\w?\.)', lex_content)
+    lex = dict()
+    lex['pr'] = lex_splitted[0]
+    lex_splitted = lex_splitted[1:]
+    for index, part in enumerate(lex_splitted):
+        if index == 0 or index % 2 == 0:
+            lex[lex_splitted[index]] = lex_splitted[index + 1]
+
+    return lex
+
+
 def extract_text_data_from_plain_text(file_name):
     """
 
@@ -52,6 +67,9 @@ def extract_text_data_from_plain_text(file_name):
             lex_nr = int(first_line.split(' ', 1)[0])
             jurist = first_line.split('libro', 1)[0].split(' ', 1)[1]
             work = first_line.split('libro', 1)[1]
+
+            # removing lex nr
+            first_line = " ".join(first_line.split(' ')[1:])
             opera_before = ['fideicommissorum', 'epistularum', 'institutionum']
             opus_liber = []
             opus_title = []
@@ -72,11 +90,27 @@ def extract_text_data_from_plain_text(file_name):
 
             opus_title = ' '.join(opus_title)
 
-            content = text[1]
+            #
+            # lex_content = text[1]
+            # #split into sections
+            # lex_splitted = re.split(r' (\d+\w?\.)', lex_content)
+            # lex = dict()
+            # lex['pr'] = lex_splitted[0]
+            # lex_splitted = lex_splitted[1:]
+            # for index, part in enumerate(lex_splitted):
+            #     if index == 0 or index % 2 == 0:
+            #         lex[lex_splitted[index]] = lex_splitted[index + 1]
+
+            # print(res)
+
+            lex = split_lex_into_sections(text)
+
             book[title_nr]['leges'][lex_nr] = {'address_lat': first_line.strip(), 'jurist': jurist.strip(),
                                                'opus': {'title_lat': opus_title.strip(),
                                                         'liber': int(opus_liber_int)},
-                                               'content_lat': content.strip()}
+                                               'content_lat': lex}
+
+
 
     title_title = ''
     for index, l in enumerate(pol_lines):
@@ -98,12 +132,27 @@ def extract_text_data_from_plain_text(file_name):
             opus_title_pl = work_title_p.match(opus)[1]
 
             lex_nr = int(first_line.split(' ', 1)[0])
-            content = text[1]
+            # content = text[1]
+
+            # lex = text[1]
+            # lex_splitted = re.split(r' (\d+\w?\.)', lex)
+            # pat = re.compile(r'\d')
+            # res = dict()
+            # res['pr'] = lex_splitted[0]
+            # lex_splitted = lex_splitted[1:]
+            # for index, part in enumerate(lex_splitted):
+            #     if index == 0 or index % 2 == 0:
+            #         res[lex_splitted[index]] = lex_splitted[index + 1]
+            # print(res)
+            lex = split_lex_into_sections(text)
+
+            # print(lex)
+
             book[title_nr]['leges'][lex_nr]['address_pl'] = first_line
-            book[title_nr]['leges'][lex_nr]['content_pl'] = content
+            book[title_nr]['leges'][lex_nr]['content_pl'] = lex
             book[title_nr]['leges'][lex_nr]['opus']['title_pl'] = opus_title_pl
 
-    # print(book[4]['leges'][2])
+    print(book[4]['leges'][2])
     with open(file_name + "_extracted.pickle", 'wb') as file:
         pickle.dump(book, file)
 

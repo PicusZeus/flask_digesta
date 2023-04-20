@@ -102,8 +102,8 @@ def insert_leges(file_name, book):
             lex = book_data[titulus_nr]['leges'][lex_nr]
             address_lat = lex["address_lat"]
             address_pl = lex["address_pl"]
-            text_lat = lex["content_lat"]
-            text_pl = lex["content_pl"]
+            # text_lat = lex["content_lat"]
+            # text_pl = lex["content_pl"]
             author = AuthorModel.query.filter_by(name=lex['jurist']).one()
             author_id = author.id
 
@@ -114,8 +114,8 @@ def insert_leges(file_name, book):
 
             lex = DigestaLexModel(address_lat=address_lat,
                                   address_pl=address_pl,
-                                  text_lat=text_lat,
-                                  text_pl=text_pl,
+                                  # text_lat=text_lat,
+                                  # text_pl=text_pl,
                                   lex_nr=lex_nr,
                                   titulus_id=titulus_id,
                                   author_id=author_id,
@@ -128,6 +128,10 @@ def insert_leges(file_name, book):
             except IntegrityError:
                 print('lex integrity error')
                 db.session.rollback()
+
+
+def insert_paragraphi(file_name, book):
+    pass
 
 
 if __name__ == "__main__":
