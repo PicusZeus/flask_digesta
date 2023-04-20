@@ -152,7 +152,7 @@ def extract_text_data_from_plain_text(file_name):
             book[title_nr]['leges'][lex_nr]['content_pl'] = lex
             book[title_nr]['leges'][lex_nr]['opus']['title_pl'] = opus_title_pl
 
-    print(book[4]['leges'][2])
+    print(book)
     with open(file_name + "_extracted.pickle", 'wb') as file:
         pickle.dump(book, file)
 

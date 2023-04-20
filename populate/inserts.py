@@ -3,7 +3,7 @@ from app import create_app
 app = create_app()
 app.app_context().push()
 from db import db
-from models import AuthorModel, OperaModel, DigestaBookModel, DigestaLexModel, DigestaTitulusModel
+from models import AuthorModel, OperaModel, DigestaBookModel, DigestaLexModel, DigestaTitulusModel, DigestaParagraphusModel
 import pickle
 from populate.resources import int_to_roman
 from sqlalchemy.exc import IntegrityError
@@ -34,8 +34,10 @@ def insert_tituli(book, file_name):
     for title_nr in book_data:
         title_lat = book_data[title_nr]['title_lat']
         title_pl = book_data[title_nr]['title_pl']
-        titulus = DigestaTitulusModel(number=title_nr, title_lat=title_lat,
-                                      title_pl=title_pl, book_id=liber_id)
+        titulus = DigestaTitulusModel(number=title_nr,
+                                      title_lat=title_lat,
+                                      title_pl=title_pl,
+                                      book_id=liber_id)
         db.session.add(titulus)
         try:
             db.session.commit()
@@ -119,8 +121,7 @@ def insert_leges(file_name, book):
                                   lex_nr=lex_nr,
                                   titulus_id=titulus_id,
                                   author_id=author_id,
-                                  opus_id=opus_id,
-                                  book_id=liber_id)
+                                  opus_id=opus_id,)
 
             db.session.add(lex)
             try:
@@ -131,7 +132,39 @@ def insert_leges(file_name, book):
 
 
 def insert_paragraphi(file_name, book):
-    pass
+    liber = DigestaBookModel.query.filter_by(book_latin_name=book).one()
+    liber_id = liber.id
+    with open(file_name, 'rb') as file:
+        book_data = pickle.load(file)
+
+    for titulus_nr in book_data:
+        titulus = DigestaTitulusModel.query.filter_by(number=titulus_nr, book_id=liber_id).one()
+        titulus_id = titulus.id
+        for lex_nr in book_data[titulus_nr]['leges']:
+
+            lex = DigestaLexModel.query.filter(DigestaLexModel.lex_nr == lex_nr,
+                                               DigestaLexModel.titulus_id == titulus_id).first()
+
+            for paragraph_nr, content_lat in book_data[titulus_nr]['leges'][lex_nr]['content_lat'].items():
+                # print(content_lat, paragraph_nr, book_data[titulus_nr]['leges'][lex_nr]['content_pl'])
+                content_pl = book_data[titulus_nr]['leges'][lex_nr]['content_pl'][paragraph_nr]
+
+                paragraph = DigestaParagraphusModel(key=paragraph_nr, text_lat=content_lat, text_pl=content_pl, lex_id=lex.id)
+
+                db.session.add(paragraph)
+                try:
+                    db.session.commit()
+                except IntegrityError:
+                    print('paragraph integrity error')
+                    db.session.rollback()
+
+
+            db.session.add(lex)
+            try:
+                db.session.commit()
+            except IntegrityError:
+                print('lex integrity error')
+                db.session.rollback()
 
 
 if __name__ == "__main__":
@@ -140,6 +173,7 @@ if __name__ == "__main__":
     insert_authors(FILE_PICKLE_LIBER_1)
     insert_opera(FILE_PICKLE_LIBER_1)
     insert_leges(FILE_PICKLE_LIBER_1, 'LIBER PRIMUS')
+    insert_paragraphi(FILE_PICKLE_LIBER_1, 'LIBER PRIMUS')
 
 
 

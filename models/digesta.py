@@ -9,7 +9,7 @@ class DigestaBookModel(db.Model):
     book_latin_name = db.Column(db.String(256), unique=True, nullable=False)
     book_polish_name = db.Column(db.String(256), unique=True, nullable=False)
     tituli = db.relationship("DigestaTitulusModel", back_populates="book")
-    leges = db.relationship("DigestaLexModel", back_populates="book")
+    # leges = db.relationship("DigestaLexModel", back_populates="book")
 
 
 class DigestaTitulusModel(db.Model):
@@ -49,7 +49,7 @@ class DigestaParagraphusModel(db.Model):
     text_pl = db.Column(db.Text, nullable=False)
     lex_id = db.Column(db.Integer, db.ForeignKey("digesta_leges.id"), unique=False, nullable=False)
     lex = db.relationship("DigestaLexModel", back_populates='paragraphi')
-    __table_args__ = (UniqueConstraint('key', 'lex_id'))
+    __table_args__ = (UniqueConstraint('key', 'lex_id'),)
 
 
 # class DigestaLexModel(db.Model):
