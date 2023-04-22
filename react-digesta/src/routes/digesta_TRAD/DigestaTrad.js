@@ -13,9 +13,9 @@ const DigestaTrad = () => {
 
             <div className={classes.trad_main__container}>
 
-                {toc && <DigestaTocBooks toc={toc}/>}
+                {toc && <DigestaTocBooks toc={toc} url={"/digesta"}/>}
 
-                <Outlet/>
+
 
             </div>
         </div>

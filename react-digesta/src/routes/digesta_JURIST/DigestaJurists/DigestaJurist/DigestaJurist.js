@@ -21,7 +21,7 @@ const DigestaJurist = () => {
 
     return (
 
-        (jurists ? <div className={classes.main_jurist}>
+        (jurist ? <div className={classes.main_jurist}>
             <h1 className={classes.main_jurist__title}>{jurist.name}</h1>
             <p className={classes.main_jurist__description}>{jurist.description}</p>
             <div className={classes.main_jurist__redirections}>

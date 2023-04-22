@@ -1,14 +1,15 @@
-import {json, Outlet, useLoaderData} from "react-router-dom";
+import {json, Outlet, useLoaderData, useLocation} from "react-router-dom";
 import DigestaTocBooks from "../../../../../components/DigestaToc/DigestaTocBooks/DigestaTocBooks";
 
 
 const DigestaJuristDigesta = () => {
     const toc = useLoaderData()
-
+    const location = useLocation()
     return (
         <>
             <div>Jurysta wg układu digesta</div>
-            <DigestaTocBooks toc={toc}/>
+            <DigestaTocBooks toc={toc} url={location}/>
+
             <Outlet/>
         </>
     )

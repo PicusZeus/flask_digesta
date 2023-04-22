@@ -1,51 +1,49 @@
-import {json, Link, useLoaderData} from "react-router-dom";
+import {json, Link, Outlet, useLoaderData, useNavigate} from "react-router-dom";
 import classes from "./DigestaLexViewer.module.css"
-import Posts from "../Posts/Posts";
 import DigestaParagraphusViewer from "../DigestaParagraphusViewer/DigestaParagraphusViewer";
-import DigestaTocLex from "../DigestaToc/DigestaTocBooks/DigestaTocBook/DigestaTocTitulus/DigestaTocLex/DigestaTocLex";
+import DigestaTocParagraphi
+    from "../DigestaToc/DigestaTocBooks/DigestaTocBook/DigestaTocTitulus/DigestaTocParagraphi/DigestaTocParagraphi";
 import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {digestaActions} from "../../store/digesta-slice";
 
 
 const DigestaLexViewer = (props) => {
-    const [chosenParagraphus, setChosenParagraphus] = useState(null)
+    const navigate = useNavigate()
     let lex = useLoaderData()
     if (!lex) {
         lex = props.lex
     }
-    useEffect(()=>{
-        setChosenParagraphus(null)
-    }, [lex])
-    console.log(lex, 'in lex')
+    const paragraphi = lex.paragraphi
+    const setParagraphHandler = (event) => {
+        const paragraphKey = event.target.value
+        const paragraphId = paragraphi.filter(p => (p.key === paragraphKey))[0]
+        if (paragraphId) {
+            navigate(paragraphId.id.toString())
+        }
+    }
 
-    const linkAuthor = "http://127.0.0.1:3000/jurysci/" + lex.author.id
-    const linkOpus = 'http://127.0.0.1:3000/jurysci/' + lex.author.id + '/opera/' + lex.opus.id
+
+    const linkAuthor = "http://127.0.0.1:3000/jurysci/" + lex.author_id
+    const linkOpus = 'http://127.0.0.1:3000/jurysci/' + lex.author_id + '/opera/' + lex.opus_id
     const ksiega = "Księga " + lex.opus.book
     const address = "D " + lex.titulus.book.book_nr + '.' + lex.titulus.number + '.' + lex.lex_nr
     const address_lat = lex.address_lat
     const address_pl = lex.address_pl
-    let paragraphi = Object.assign({}, ...lex.paragraphi.map((paragraphus) => ({[paragraphus.key]: paragraphus})));
-    const praephatio = {...paragraphi['pr']}
-    console.log(Object.keys(paragraphi).length)
-    const number_of_paragraphs = Object.keys(paragraphi).length
-    // delete paragraphi['pr']
+
+
+    const paragraphiDic = Object.assign({}, ...paragraphi.map((paragraphus) => ({[paragraphus.key]: paragraphus})));
+    const paragraphiKeys = Object.keys(paragraphiDic).sort((a, b) => parseInt(a) - parseInt(b))
+    paragraphiKeys.unshift(paragraphiKeys.pop())
+
     return (
+
         <section className={classes.main_lex}>
+
             <div className={classes.main_lex__text}>
                 <h1>{address}</h1>
                 <h5>{address_lat}</h5>
-                {/*<p> {lex.text_lat}</p>*/}
                 <h5>{address_pl}</h5>
-                {number_of_paragraphs === 1 && <DigestaParagraphusViewer paragraphus={praephatio}/>}
-
-                {/*<p> {lex.text_pl}</p>*/}
-                {/*<DigestaParagraphusViewer paragraphus={praefatio}/>*/}
-                {number_of_paragraphs > 1 && <DigestaTocLex paragraphi={paragraphi} setParagraph={setChosenParagraphus}/>}
-                {chosenParagraphus && (
-                    <div>
-                        <label>{chosenParagraphus}</label>
-                        <DigestaParagraphusViewer paragraphus={paragraphi[chosenParagraphus]} />
-                    </div>)
-                }}
 
 
             </div>
@@ -53,8 +51,10 @@ const DigestaLexViewer = (props) => {
                 <Link to={linkAuthor}>{lex.author.name}</Link>
                 <Link to={linkOpus}>{parseInt(lex.opus.book) > 0 ? ksiega : null} {lex.opus.title_pl}</Link>
             </div>
-
-            {/*<Posts posts={lex.comments}/>*/}
+            {paragraphiKeys.length > 1 &&
+                <DigestaTocParagraphi setParagraph={setParagraphHandler} paragraphiKeys={paragraphiKeys}/>}
+            {paragraphiKeys.length === 1 && <DigestaParagraphusViewer paragraphus={paragraphiDic['pr']}/>}
+            <Outlet/>
         </section>
 
     )

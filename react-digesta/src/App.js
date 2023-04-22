@@ -18,6 +18,7 @@ import DigestaJuristOpera, {
     loader as digestaJuristOperaLoader
 } from "./routes/digesta_JURIST/DigestaJurists/DigestaJurist/DigestaJuristOpera/DigestaJuristOpera";
 import DigestaOpera, {loader as operaLoader} from "./routes/digesta_OPERA/DigestaOpera";
+import DigestaParagraphusViewer, {loader as paragraphusLoader} from "./components/DigestaParagraphusViewer/DigestaParagraphusViewer";
 
 
 const router = createBrowserRouter(
@@ -62,7 +63,14 @@ const router = createBrowserRouter(
                                         {
                                             path: ':lex_id',
                                             element: <DigestaLexViewer/>,
-                                            loader: lexLoader
+                                            loader: lexLoader,
+                                            children: [
+                                                {
+                                                    path: ':paragraphus_id',
+                                                    element: <DigestaParagraphusViewer/>,
+                                                    loader: paragraphusLoader
+                                                }
+                                            ]
                                         }
                                     ]
                                 }
@@ -81,7 +89,14 @@ const router = createBrowserRouter(
                         {
                             path: ':lex_id',
                             element: <DigestaLexViewer/>,
-                            loader: lexLoader
+                            loader: lexLoader,
+                            children: [
+                                {
+                                    path: ':paragraphus_id',
+                                    element: <DigestaParagraphusViewer/>,
+                                    loader: paragraphusLoader
+                                }
+                            ]
 
                         }
                     ]

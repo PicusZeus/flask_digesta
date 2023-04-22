@@ -1,33 +1,34 @@
 import classes from "./DigestaTocBook.module.css"
-import {useState} from "react";
 import DigestaTocTitulus from "./DigestaTocTitulus/DigestaTocTitulus";
-
+import {useSelector, useDispatch} from "react-redux";
+import {digestaActions} from "../../../../store/digesta-slice";
+import {useNavigate} from "react-router-dom";
 const DigestaTocBook = (props) => {
-    const [chosenTitulus, setChosenTitulus] = useState(null)
+    const url = props.url
 
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const chosenTitulusId = useSelector(state => state.digesta.chosenTitulusId)
     const onOptionChangeHandler = (event) => {
-
-        setChosenTitulus(parseInt(event.target.value))
-
+        dispatch(digestaActions.setChosenTitulusId(parseInt(event.target.value)))
+        navigate(url)
     }
 
-    const tituli = props.content.tituli
-
+    const tituli = props.tituli
 
     return (
         <>
             <label className={classes.main_toc__label}>Wybierz Tytuł</label>
 
             <select className={classes.main_toc__titulus_option} onChange={onOptionChangeHandler}>
-                <option key={666666} value={null}>Wybierz Tytuł</option>
+                <option value={''}>Wybierz Tytuł</option>
 
                 {tituli && tituli.map(titulus => (
                     <option key={titulus.id} value={titulus.id}>{titulus.number} {titulus.title_lat}</option>))}
                 })}
             </select>
-
-            {chosenTitulus && <DigestaTocTitulus leges={tituli.filter((titulus) => {
-                return (titulus.id === chosenTitulus)
+            {chosenTitulusId && <DigestaTocTitulus url={url} leges={tituli.filter((titulus) => {
+                return (titulus.id === chosenTitulusId)
             })[0].leges}/>}
         </>
     )

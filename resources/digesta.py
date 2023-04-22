@@ -8,7 +8,7 @@ blp = Blueprint("digesta", __name__, description="Operations on digesta")
 
 
 @blp.route("/digesta/leges/<int:lex_id>")
-class DigestaParagraph(MethodView):
+class DigestaLex(MethodView):
 
     @blp.response(200, DigestaLexSchema())
     # @blp.response(200, CommentSchema(many=True))
@@ -19,8 +19,15 @@ class DigestaParagraph(MethodView):
 
         return lex_data
 
+@blp.route("/digesta/paragraphi/<int:paragraphus_id>")
+class DigestaParagraphus(MethodView):
+    @blp.response(200, DigestaParagraphusSchema())
+    def get(self, paragraphus_id):
+        paragraphus_data = DigestaParagraphusModel.query.get_or_404(paragraphus_id)
+        return paragraphus_data
+
 @blp.route("/digesta/tituli/<int:titulus_id>")
-class DigestaSection(MethodView):
+class DigestaTitulus(MethodView):
     @blp.response(200, DigestaTitulusSchema())
     def get(self, titulus_id):
         titulus_data = DigestaTitulusModel.query.get_or_404(titulus_id)

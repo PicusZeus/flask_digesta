@@ -1,13 +1,16 @@
 import {useState} from "react";
 import DigestaLexViewer from "../../DigestaLexViewer/DigestaLexViewer";
+import DigestaParagraphusViewer from "../../DigestaParagraphusViewer/DigestaParagraphusViewer";
 const DigestaTocSearchLeges = (props) => {
 
-    const [chosenLex, setChosenLex] = useState(null)
+    const [chosenParagraph, setChosenParagraph] = useState(null)
     let toc
 
-    toc = props.leges.map(lex=>{return <li><button onClick={()=>setChosenLex(lex)}>księga {lex.book.id}
-                                                tytuł {lex.titulus.number}
-                                                ustawa {lex.lex_nr}</button></li>})
+    toc = props.paragraphi.map(paragraph=>{return <li><button onClick={()=>setChosenParagraph(paragraph)}>księga {paragraph.lex.titulus.book.id}
+                                                tytuł {paragraph.lex.titulus.number}
+                                                ustawa {paragraph.lex.lex_nr}
+                                                paragraf {paragraph.key} </button></li>})
+    console.log(chosenParagraph, 'chosen')
     return (
         <>
         <div>links leges</div>
@@ -15,7 +18,7 @@ const DigestaTocSearchLeges = (props) => {
                 {toc}
             </ul>
 
-            {chosenLex && <DigestaLexViewer lex={chosenLex}/>}
+            {chosenParagraph && <DigestaParagraphusViewer paragraphus={chosenParagraph}/>}
         </>
 
     )

@@ -5,14 +5,14 @@ import {useActionData} from "react-router-dom";
 import DigestaTocSearchLeges from "../../components/DigestaToc/DigestaTocSearchLeges/DigestaTocSearchLeges";
 
 const DigestaLookUp = () => {
-    const leges = useActionData()
+    const paragraphi = useActionData()
 
     return (
         <>
             <h1 className={classes.main_lookup}>Digesta Wyszukaj</h1>
             <DigestaSearch language="oryginalnym" lang="lat"></DigestaSearch>
             <DigestaSearch language="polskim" lang="pl"></DigestaSearch>
-            {leges && <DigestaTocSearchLeges leges={leges}/>}
+            {paragraphi && <DigestaTocSearchLeges paragraphi={paragraphi}/>}
         </>
     )
 }

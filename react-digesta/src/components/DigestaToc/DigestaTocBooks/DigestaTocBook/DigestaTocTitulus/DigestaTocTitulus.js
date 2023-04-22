@@ -1,36 +1,32 @@
 import classes from "../DigestaTocBook.module.css";
-import {useNavigate} from "react-router-dom";
-import {useState} from "react";
-import DigestaTocLex from "./DigestaTocLex/DigestaTocLex";
-
+import {useDispatch} from "react-redux";
+import {digestaActions} from "../../../../../store/digesta-slice";
+import {Outlet, useNavigate} from "react-router-dom";
 
 const DigestaTocTitulus = (props) => {
-    // const [chosenLex, setChosenLex] = useState(false)
+
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const onOptionChangeHandler = (event) => {
-        const lex_id = event.target.value
-        // setChosenLex(parseInt(lex_id))
-        navigate(lex_id.toString())
+        dispatch(digestaActions.setChosenLexId(parseInt(event.target.value)))
+        // if (chosenLexId) {
+            navigate(event.target.value)
+        // }
 
     }
-    // console.log(props.leges, 'LEGES')
-    // console.log(props.leges[0].paragraphi, 'lex')
     const leges = props.leges
-
     return (
         <>
             <label className={classes.main_toc__label}>Wybierz Ustawę</label>
 
             <select className={classes.main_toc__titulus_option} onChange={onOptionChangeHandler}>
-                <option  value={null}>Wybierz ustawę</option>
+                <option value={''}>Wybierz ustawę</option>
 
                 {leges && leges.map(lex => (<option key={lex.id} value={lex.id}>{lex.lex_nr}</option>))}
                 })}
             </select>
+            <Outlet/>
 
-            {/*{chosenLex && <DigestaTocLex paragraphi={leges.filter((lex) => {*/}
-            {/*    return (lex.id === chosenLex)*/}
-            {/*})[0]}/>}*/}
         </>
     )
 }
