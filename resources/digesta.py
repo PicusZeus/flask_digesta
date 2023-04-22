@@ -1,9 +1,9 @@
 from flask.views import MethodView
-from flask_cors import cross_origin
+from flask_cors import cross_origin, CORS
 from flask_smorest import Blueprint
 
-from models import DigestaBookModel, DigestaLexModel, DigestaTitulusModel
-from schemas import DigestaLexSchema, DigestaTitulusSchema, DigestaBookTOCSchema, SearchTermSchema
+from models import DigestaBookModel, DigestaLexModel, DigestaTitulusModel, DigestaParagraphusModel
+from schemas import DigestaLexSchema, DigestaTitulusSchema, DigestaBookTOCSchema, SearchTermSchema, DigestaParagraphusSchema
 blp = Blueprint("digesta", __name__, description="Operations on digesta")
 
 
@@ -29,6 +29,8 @@ class DigestaSection(MethodView):
 
 @blp.route("/digesta/books")
 class DigestaBooksToc(MethodView):
+
+    @cross_origin()
     @blp.response(200, DigestaBookTOCSchema(many=True))
     def get(self):
         books_data = DigestaBookModel.query.order_by(DigestaBookModel.id).all()
@@ -41,21 +43,22 @@ class DigestaBooksToc(MethodView):
 class DigestaLatinSearch(MethodView):
     @cross_origin()
     @blp.arguments(SearchTermSchema)
-    @blp.response(200, DigestaLexSchema(many=True))
+    @blp.response(200, DigestaParagraphusSchema(many=True))
     def post(self, data):
         searched_term = data["searched_term"]
         searched_term = f"%{searched_term}%"
-        leges = DigestaLexModel.query.filter(DigestaLexModel.text_lat.like(searched_term)).all()
-        return leges
+        paragraphi = DigestaParagraphusModel.query.filter(DigestaParagraphusModel.text_lat.like(searched_term)).all()
+        return paragraphi
 
 
 @blp.route("/digesta/pl")
 class DigestaLatinSearch(MethodView):
+
     @cross_origin()
     @blp.arguments(SearchTermSchema)
-    @blp.response(200, DigestaLexSchema(many=True))
+    @blp.response(200, DigestaParagraphusSchema(many=True))
     def post(self, data):
         searched_term = data["searched_term"]
         searched_term = f"%{searched_term}%"
-        leges = DigestaLexModel.query.filter(DigestaLexModel.text_pl.like(searched_term)).all()
-        return leges
+        paragraphi = DigestaParagraphusModel.query.filter(DigestaParagraphusModel.text_pl.like(searched_term)).all()
+        return paragraphi

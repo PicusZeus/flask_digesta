@@ -61,23 +61,23 @@ class Comment(MethodView):
         return {"message": "No such comment or user privilege required."}, 403
 
 
-@blp.route("/comment/lex/<int:lex_id>")
+@blp.route("/comment/paragraphus/<int:paragraphus_id>")
 class CommentByLex(MethodView):
 
     @jwt_required(optional=True)
     @blp.response(200, CommentSchema(many=True))
-    def get(self, lex_id):
+    def get(self, paragraphus_id):
         user_id = get_jwt_identity()
         # if not user_id:
         #     user_id = 1
-        comments = CommentModel.query.filter(CommentModel.lex_id == lex_id).filter(or_(CommentModel.private == false(),
+        comments = CommentModel.query.filter(CommentModel.paragraphus_id == paragraphus_id).filter(or_(CommentModel.private == false(),
                                                                                        CommentModel.user_id == user_id)).all()
 
         return comments
 
     @jwt_required()
     @blp.arguments(CommentSaveSchema())
-    def post(self, data, lex_id):
+    def post(self, data, paragraphus_id):
         user_id = get_jwt_identity()
         comment_content = data["comment"]
         # lex_id = data["lex_id"]
@@ -89,7 +89,7 @@ class CommentByLex(MethodView):
                                 user_id=user_id,
                                 private=private,
                                 date=date,
-                                lex_id=lex_id,
+                                paragraphus_id=paragraphus_id,
                                 reply_to_comment_id=reply_to_comment_id)
 
         db.session.add(comment)

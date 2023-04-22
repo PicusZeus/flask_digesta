@@ -15,6 +15,10 @@ class PlainOperaSchema(Schema):
     title_pl = fields.Str(dump_only=True)
     book = fields.Int(dump_only=True)
 
+class PlainParagraphusTocSchema(Schema):
+    id = fields.Int(dump_only=True)
+    key = fields.Str()
+
 
 class PlainDigestaTOCLexSchema(Schema):
     id = fields.Int(dump_only=True)
@@ -22,6 +26,8 @@ class PlainDigestaTOCLexSchema(Schema):
     address_pl = fields.Str()
     lex_nr = fields.Int()
     author_id = fields.Int()
+    paragraphi = fields.List(fields.Nested(PlainParagraphusTocSchema()))
+
 
 
 class AuthorSchema(PlainAuthorSchema):
@@ -53,6 +59,7 @@ class PlainDigestaTitulusSchema(Schema):
     number = fields.Int(dump_only=True)
     title_lat = fields.Str()
     title_pl = fields.Str()
+    book = fields.Nested(PlainDigestaBookSchema())
 
 
 
@@ -61,9 +68,14 @@ class PlainDigestaLexSchema(Schema):
     id = fields.Int(dump_only=True)
     address_lat = fields.Str()
     address_pl = fields.Str()
+    lex_nr = fields.Int()
+
+class PlainDigestaParagraphusSchema(Schema):
+    id = fields.Int(dump_only=True)
+    key = fields.Str()
     text_lat = fields.Str()
     text_pl = fields.Str()
-    lex_nr = fields.Int()
+
 
 
 class DigestaBookSchema(PlainDigestaBookSchema):
@@ -84,6 +96,7 @@ class DigestaLexSchema(PlainDigestaLexSchema):
     author = fields.Nested(PlainAuthorSchema())
     opus = fields.Nested(PlainOperaSchema())
     book = fields.Nested(PlainDigestaBookSchema())
+    paragraphi = fields.List(fields.Nested(PlainDigestaParagraphusSchema()))
 
 
 class DigestaLexSimpleSchema(Schema):
@@ -94,6 +107,13 @@ class DigestaLexSimpleSchema(Schema):
 class DigestaTocLexExtendedSchema(PlainDigestaTOCLexSchema):
     book = fields.Nested(PlainDigestaBookSchema())
     titulus = fields.Nested(PlainDigestaTitulusSchema())
+
+class DigestaTocLex(DigestaLexSimpleSchema):
+    titulus = fields.Nested(PlainDigestaTitulusSchema())
+
+
+class DigestaParagraphusSchema(PlainDigestaParagraphusSchema):
+    lex = fields.Nested(DigestaTocLex())
 
 
 class SearchTermSchema(Schema):

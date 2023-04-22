@@ -36,8 +36,7 @@ class DigestaLexModel(db.Model):
     author = db.relationship("AuthorModel", back_populates="leges")
     opus_id = db.Column(db.Integer, db.ForeignKey("opera.id"), unique=False, nullable=False)
     opus = db.relationship("OperaModel", back_populates="leges")
-    comments = db.relationship("CommentModel", back_populates='lex', lazy="dynamic")
-    paragraphi = db.relationship("DigestaParagraphusModel", back_populates='lex', lazy='dynamic')
+    paragraphi = db.relationship("DigestaParagraphusModel", back_populates='lex', order_by="DigestaParagraphusModel.key")
     __table_args__ = (UniqueConstraint('lex_nr', 'titulus_id'),)
 
 
@@ -49,26 +48,8 @@ class DigestaParagraphusModel(db.Model):
     text_pl = db.Column(db.Text, nullable=False)
     lex_id = db.Column(db.Integer, db.ForeignKey("digesta_leges.id"), unique=False, nullable=False)
     lex = db.relationship("DigestaLexModel", back_populates='paragraphi')
+    comments = db.relationship("CommentModel", back_populates='paragraphus', lazy="dynamic")
+
     __table_args__ = (UniqueConstraint('key', 'lex_id'),)
 
-
-# class DigestaLexModel(db.Model):
-#     __tablename__ = "digesta_leges"
-#
-#     id = db.Column(db.Integer, primary_key=True)
-#     address_lat = db.Column(db.Text, nullable=False)
-#     address_pl = db.Column(db.Text, nullable=False)
-#     text_lat = db.Column(db.Text, nullable=False)
-#     text_pl = db.Column(db.Text, nullable=False)
-#     lex_nr = db.Column(db.Integer, nullable=False)
-#     titulus_id = db.Column(db.Integer, db.ForeignKey("digesta_tituli.id"), unique=False, nullable=False)
-#     titulus = db.relationship("DigestaTitulusModel", back_populates="leges")
-#     author_id = db.Column(db.Integer, db.ForeignKey("authors.id"), unique=False, nullable=False)
-#     author = db.relationship("AuthorModel", back_populates="leges")
-#     opus_id = db.Column(db.Integer, db.ForeignKey("opera.id"), unique=False, nullable=False)
-#     opus = db.relationship("OperaModel", back_populates="leges")
-#     comments = db.relationship("CommentModel", back_populates='lex', lazy="dynamic")
-#     book_id = db.Column(db.Integer, db.ForeignKey('digesta_books.id'), unique=False, nullable=False)
-#     book = db.relationship('DigestaBookModel', back_populates='leges')
-#     __table_args__ = (UniqueConstraint('lex_nr', 'titulus_id'),)
 

@@ -1,23 +1,22 @@
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Layout from "./routes/layout/Layout";
 import Main from "./routes/main/Main";
-import DigestaJurists from "./routes/digesta_JURIST/DigestaJurists";
+import DigestaJurists from "./routes/digesta_JURIST/DigestaJurists/DigestaJurists";
 import DigestaTrad from "./routes/digesta_TRAD/DigestaTrad";
 import DigestaLookUp from "./routes/digesta_LOOKUP/DigestaLookUp";
 import React, {useEffect} from "react";
 import {loadTOC} from "./store/digesta-actions";
 import {useDispatch} from "react-redux";
-import DigestaJurist from "./routes/digesta_JURIST/DigestaJurist/DigestaJurist";
-import DigestaJuristOpus, {loader as opusLoader} from "./routes/digesta_JURIST/DigestaJuristOpus/DigestaJuristOpus";
+import DigestaJurist from "./routes/digesta_JURIST/DigestaJurists/DigestaJurist/DigestaJurist";
 import DigestaJuristDigesta, {
     loader as juristLexLoader
-} from "./routes/digesta_JURIST/DigestaJuristDigesta/DigestaJuristDigesta";
+} from "./routes/digesta_JURIST/DigestaJurists/DigestaJurist/DigestaJuristDigesta/DigestaJuristDigesta";
 import ErrorPage from "./routes/Error/ErrorPage";
 import {action as searchTextAction} from "./routes/digesta_LOOKUP/DigestaLookUp"
 import DigestaLexViewer, {loader as lexLoader} from "./components/DigestaLexViewer/DigestaLexViewer";
 import DigestaJuristOpera, {
     loader as digestaJuristOperaLoader
-} from "./routes/digesta_JURIST/DigestaJuristOpera/DigestaJuristOpera";
+} from "./routes/digesta_JURIST/DigestaJurists/DigestaJurist/DigestaJuristOpera/DigestaJuristOpera";
 import DigestaOpera, {loader as operaLoader} from "./routes/digesta_OPERA/DigestaOpera";
 
 
@@ -46,16 +45,10 @@ const router = createBrowserRouter(
                                     loader: digestaJuristOperaLoader,
                                     children: [
                                         {
-                                            path: ':opus_id',
-                                            element: <DigestaJuristOpus/>,
-                                            loader: opusLoader,
-                                            children: [
-                                                {
-                                                    path: ':lex_id',
-                                                    element: <DigestaLexViewer/>,
-                                                    loader: lexLoader
-                                                }
-                                            ]
+                                            path: ':lex_id',
+                                            element: <DigestaLexViewer/>,
+                                            loader: lexLoader,
+
                                         },
                                     ]
                                 },

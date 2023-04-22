@@ -16,7 +16,7 @@ const DigestaTocJurists = () => {
             <label className={classes.main_toc__label}>Wybierz Jurystę</label>
 
             <select className={classes.main_toc__jurist_option} onChange={onOptionChangeHandler}>
-                <option key={666666} value={null}>Wybierz Jurystę</option>
+                <option value={''}>Wybierz Jurystę</option>
 
                 {jurists && jurists.map(jurist => (
                     <option key={jurist.id} value={jurist.id}>{jurist.name}</option>))}

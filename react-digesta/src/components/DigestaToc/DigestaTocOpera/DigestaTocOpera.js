@@ -10,12 +10,12 @@ const DigestaTocOpera = (props) => {
         setChosenOpus(parseInt(event.target.value))
 
     }
-
+    // console.log(toc, 'opera', chosenOpus, 'index', 'chosen', toc.filter((opus)=>{ return (opus.id === chosenOpus)})[0])
     return (
         <>
-            <label className={classes.main_toc__label}>Wybierz dzieło</label>
+            <label className={classes.main_toc__label}>WYBIERZ DZIEŁO</label>
             <select className={classes.main_toc__opera_option} onChange={onOptionChangeHandler}>
-                <option key={666666} value={null}>Wybierz dzieło</option>
+                <option value={''}>Wybierz dzieło</option>
                 {toc && toc.map(opus => {return (<option key={opus.id} value={opus.id}>{opus.book} {opus.title_lat} {opus.author.name}</option>)})}
 
             </select>

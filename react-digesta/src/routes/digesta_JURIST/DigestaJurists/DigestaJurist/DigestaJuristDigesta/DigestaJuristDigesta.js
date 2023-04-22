@@ -1,5 +1,5 @@
 import {json, Outlet, useLoaderData} from "react-router-dom";
-import DigestaTocBooks from "../../../components/DigestaToc/DigestaTocBooks/DigestaTocBooks";
+import DigestaTocBooks from "../../../../../components/DigestaToc/DigestaTocBooks/DigestaTocBooks";
 
 
 const DigestaJuristDigesta = () => {

@@ -70,6 +70,7 @@ def extract_text_data_from_plain_text(file_name):
 
             # removing lex nr
             first_line = " ".join(first_line.split(' ')[1:])
+
             opera_before = ['fideicommissorum', 'epistularum', 'institutionum']
             opus_liber = []
             opus_title = []
@@ -82,7 +83,7 @@ def extract_text_data_from_plain_text(file_name):
 
             for opus_before in opera_before:
                 if opus_before in jurist:
-                    print(jurist)
+                    # print(jurist)
                     jurist = jurist.replace(opus_before, '')
                     opus_title.append(opus_before)
 
@@ -132,6 +133,8 @@ def extract_text_data_from_plain_text(file_name):
             opus_title_pl = work_title_p.match(opus)[1]
 
             lex_nr = int(first_line.split(' ', 1)[0])
+
+            first_line = " ".join(first_line.split()[1:])
             # content = text[1]
 
             # lex = text[1]

@@ -1,5 +1,5 @@
 import {json, Link, Outlet, useLoaderData} from "react-router-dom";
-import DigestaTocOpera from "../../../components/DigestaToc/DigestaTocOpera/DigestaTocOpera";
+import DigestaTocOpera from "../../../../../components/DigestaToc/DigestaTocOpera/DigestaTocOpera";
 
 
 const DigestaJuristOpera = () => {
@@ -8,22 +8,9 @@ const DigestaJuristOpera = () => {
     return (
         <div >
             <div>opera</div>
-
+            <h1>OPERA</h1>
             <DigestaTocOpera toc={toc}/>
-            {/*<ul>*/}
-            {/*    {opera && opera.map((opus) => {*/}
-            {/*        return (*/}
-            {/*            */}
-            {/*            <li>*/}
-            {/*                <Link to={opus.id.toString()}>*/}
-            {/*                    {opus.book} {opus.title_lat}*/}
-            {/*                </Link>*/}
-            {/*            </li>*/}
-
-            {/*        )*/}
-            {/*    })}*/}
-
-            {/*</ul>*/}
+            <h2>end</h2>
             <Outlet/>
 
         </div>

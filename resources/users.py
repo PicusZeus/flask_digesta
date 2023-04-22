@@ -15,6 +15,7 @@ from db import db
 from blocklist import BLOCKLIST
 from models import UserModel, CommentModel
 from schemas import UserSchema, UserRegisterSchema
+from flask_cors import cross_origin
 
 
 blp = Blueprint("Users", "users", description="Operations on users")
