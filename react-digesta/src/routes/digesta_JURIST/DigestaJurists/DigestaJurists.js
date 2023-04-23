@@ -19,9 +19,10 @@ const DigestaJurists = () => {
 
                 <DigestaTocJurists/>
 
-                <Outlet/>
+
 
             </div>
+            <Outlet/>
         </div>
     )
 }

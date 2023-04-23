@@ -14,7 +14,8 @@ const DigestaTocTitulus = (props) => {
         // }
 
     }
-    const leges = props.leges
+    let leges = props.leges
+    if (leges) {leges = props.leges.leges}
     return (
         <>
             <label className={classes.main_toc__label}>Wybierz Ustawę</label>
@@ -25,7 +26,6 @@ const DigestaTocTitulus = (props) => {
                 {leges && leges.map(lex => (<option key={lex.id} value={lex.id}>{lex.lex_nr}</option>))}
                 })}
             </select>
-            <Outlet/>
 
         </>
     )

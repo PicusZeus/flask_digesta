@@ -15,7 +15,7 @@ const DigestaTocBook = (props) => {
     }
 
     const tituli = props.tituli
-
+    console.log(tituli, chosenTitulusId)
     return (
         <>
             <label className={classes.main_toc__label}>Wybierz Tytuł</label>
@@ -29,7 +29,7 @@ const DigestaTocBook = (props) => {
             </select>
             {chosenTitulusId && <DigestaTocTitulus url={url} leges={tituli.filter((titulus) => {
                 return (titulus.id === chosenTitulusId)
-            })[0].leges}/>}
+            })[0]}/>}
         </>
     )
 }

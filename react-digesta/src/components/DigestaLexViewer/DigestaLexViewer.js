@@ -24,8 +24,8 @@ const DigestaLexViewer = (props) => {
     }
 
 
-    const linkAuthor = "http://127.0.0.1:3000/jurysci/" + lex.author_id
-    const linkOpus = 'http://127.0.0.1:3000/jurysci/' + lex.author_id + '/opera/' + lex.opus_id
+    const linkAuthor = "http://127.0.0.1:3000/jurysci/" + lex.author.id
+    const linkOpus = 'http://127.0.0.1:3000/opera/'  + lex.opus.id
     const ksiega = "Księga " + lex.opus.book
     const address = "D " + lex.titulus.book.book_nr + '.' + lex.titulus.number + '.' + lex.lex_nr
     const address_lat = lex.address_lat

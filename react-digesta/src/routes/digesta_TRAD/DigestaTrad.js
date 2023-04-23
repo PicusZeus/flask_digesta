@@ -16,7 +16,7 @@ const DigestaTrad = () => {
                 {toc && <DigestaTocBooks toc={toc} url={"/digesta"}/>}
 
 
-
+                <Outlet/>
             </div>
         </div>
     )

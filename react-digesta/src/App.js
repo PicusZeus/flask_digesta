@@ -49,6 +49,13 @@ const router = createBrowserRouter(
                                             path: ':lex_id',
                                             element: <DigestaLexViewer/>,
                                             loader: lexLoader,
+                                            children: [
+                                                {
+                                                    path: ':paragraphus_id',
+                                                    element: <DigestaParagraphusViewer/>,
+                                                    loader: paragraphusLoader
+                                                }
+                                            ]
 
                                         },
                                     ]
@@ -109,7 +116,14 @@ const router = createBrowserRouter(
                         {
                             path: ':lex_id',
                             element: <DigestaLexViewer/>,
-                            loader: lexLoader
+                            loader: lexLoader,
+                            children: [
+                                {
+                                    path: ':paragraphus_id',
+                                    element: <DigestaParagraphusViewer/>,
+                                    loader: paragraphusLoader
+                                }
+                            ]
                         }
                     ]
                 },
