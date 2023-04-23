@@ -19,6 +19,7 @@ class DigestaLex(MethodView):
 
         return lex_data
 
+
 @blp.route("/digesta/paragraphi/<int:paragraphus_id>")
 class DigestaParagraphus(MethodView):
     @blp.response(200, DigestaParagraphusSchema())

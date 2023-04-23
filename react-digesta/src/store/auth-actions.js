@@ -74,7 +74,6 @@ export const loggingIn = (username, password) => {
 
         try {
             const data = await sendRequest()
-            console.log(data, 'log')
             if (data.code === 401) {
                 dispatch(uiActions.setNotification({
                     status: "error",

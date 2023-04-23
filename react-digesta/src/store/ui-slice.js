@@ -25,6 +25,7 @@ const uiSlice = createSlice({
                     title: action.payload.title,
                     message: action.payload.message
                 }
+
             },
             resetNotification(state) {
                state.notification = null

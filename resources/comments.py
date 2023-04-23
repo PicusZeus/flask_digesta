@@ -58,7 +58,7 @@ class Comment(MethodView):
             db.session.commit()
             return {"message": "Item deleted."}
 
-        return {"message": "No such comment or user privilege required."}, 403
+        return {"message": "No such comment or user privilege required."}, 401
 
 
 @blp.route("/comment/paragraphus/<int:paragraphus_id>")
@@ -77,6 +77,7 @@ class CommentByLex(MethodView):
 
     @jwt_required()
     @blp.arguments(CommentSaveSchema())
+    @blp.response(200, CommentSchema)
     def post(self, data, paragraphus_id):
         user_id = get_jwt_identity()
         comment_content = data["comment"]
@@ -95,7 +96,7 @@ class CommentByLex(MethodView):
         db.session.add(comment)
         db.session.commit()
 
-        return {"message": "Comment created successfully"}, 200
+        return comment
 
     # @jwt_required()
     # @blp.arguments(CommentUpdateSchema())

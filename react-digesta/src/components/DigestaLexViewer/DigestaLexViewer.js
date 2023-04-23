@@ -32,9 +32,16 @@ const DigestaLexViewer = (props) => {
     const address_pl = lex.address_pl
 
 
+
     const paragraphiDic = Object.assign({}, ...paragraphi.map((paragraphus) => ({[paragraphus.key]: paragraphus})));
     const paragraphiKeys = Object.keys(paragraphiDic).sort((a, b) => parseInt(a) - parseInt(b))
     paragraphiKeys.unshift(paragraphiKeys.pop())
+    const pr = paragraphiDic['pr'].id
+    console.log(pr, 'PR')
+
+    useEffect(()=>{
+
+    }, [])
 
     return (
 
