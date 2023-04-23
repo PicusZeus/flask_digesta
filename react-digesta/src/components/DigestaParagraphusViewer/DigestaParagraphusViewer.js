@@ -1,33 +1,60 @@
 import {useLoaderData} from "react-router-dom";
 import {json} from "react-router-dom";
 import CommentViewer from "../commentViewer/CommentViewer";
-import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {commActions} from "../../store/comments-slice";
+import {useEffect, useMemo, useState} from "react";
+import {useSelector} from "react-redux";
 import NewComment from "../newComment/NewComment";
-import {loadComments} from "../../store/comments-actions";
 
 
 const DigestaParagraphusViewer = (props) => {
-    const dispatch = useDispatch()
+    const [comments, setComments] = useState([])
+    const token = useSelector(state => state.auth.tokens.access_token)
     let paragraphus = useLoaderData()
     if (props.paragraphus) {
         paragraphus = props.paragraphus
     }
-    useEffect(()=>{
-        dispatch(loadComments(false, paragraphus.id))
 
-    }, [dispatch, paragraphus])
-    // dispatch(commActions.setComments(paragraphus.comments))
-    const comments = useSelector(state=>state.comments.paragraphComments)
+    const addNewCommentHandler = (newComment) => {
+        const newComments = [...comments]
+        newComments.push(newComment)
+
+
+        setComments(newComments)
+    }
+
+    const headers = useMemo(()=>(
+        {"Content-Type": "application/json"}
+
+    ),[])
+    if (token) {
+        headers['Authorization'] = "Bearer " + token
+    }
+
+    useEffect(() => {
+        const sendRequest = async () => {
+            const response = await fetch("http://127.0.0.1:5001/comment/paragraphus/" + paragraphus.id, {
+                headers: headers
+            })
+            const data = await response.json()
+            return data
+        }
+        sendRequest().then((response) => {
+            setComments(response)
+
+        }).catch((e) => {
+            console.log(e)
+        })
+    }, [paragraphus, headers])
+
+    console.log(comments, 'COMMENTS', paragraphus.id)
     return (
         <>
             <div>Paragraf</div>
             <div>{paragraphus.text_lat}</div>
             <h4>comments</h4>
             <ul>
-                <NewComment paragraphusId={paragraphus.id}/>
-                {comments && comments.map((comment)=>(<CommentViewer comment={comment}/>))}
+                <NewComment paragraphusId={paragraphus.id} addNewComment={addNewCommentHandler}/>
+                {comments && comments.map((comment) => (<CommentViewer comment={comment} replies={comment.replies}/>))}
 
             </ul>
 

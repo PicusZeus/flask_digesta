@@ -3,7 +3,7 @@ from flask_smorest import Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models import CommentModel
 from db import db
-from schemas import CommentSaveSchema, CommentSchema, CommentUpdateSchema
+from schemas import CommentSaveSchema, CommentSchema, CommentUpdateSchema, PlainCommentSchema
 from datetime import datetime
 from sqlalchemy import or_
 from sqlalchemy.sql.expression import false
@@ -65,7 +65,7 @@ class Comment(MethodView):
 class CommentByLex(MethodView):
 
     @jwt_required(optional=True)
-    @blp.response(200, CommentSchema(many=True))
+    @blp.response(200, PlainCommentSchema(many=True))
     def get(self, paragraphus_id):
         user_id = get_jwt_identity()
         # if not user_id:

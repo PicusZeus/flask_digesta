@@ -59,36 +59,33 @@ export const addComment = (paragraphId, commentText, isPrivate, token, reply_to_
     }
 }
 
-
-export const loadComments = (token, paragraphId) => {
-    const headers = {}
-    if (token) {
-        headers.Authorization = "Bearer " + token
-    }
-
-    return async (dispatch) => {
-        const sendRequest = async () => {
-            const response = await fetch("http://127.0.0.1:5001/comment/paragraphus/" + paragraphId, {
-                headers: headers
-            })
-
-            const data = await response.json()
-            return data
-
-        }
-        try {
-            const data = await sendRequest()
-            dispatch(commActions.setComments(data))
-        } catch (e) {
-            dispatch(uiActions.setNotification({
-                status: "error",
-                title: "wystąpił błąd",
-                message: "nie udało się załadować komentarzy"
-            }))
-            setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
-
-        }
-    }
-
-
-}
+//
+// export const loadComments = (token, paragraphId) => {
+//
+//
+//     return async (dispatch) => {
+//         const sendRequest = async () => {
+//             const response = await fetch("http://127.0.0.1:5001/comment/paragraphus/" + paragraphId, {
+//                 headers: headers
+//             })
+//
+//             const data = await response.json()
+//             return data
+//
+//         }
+//         try {
+//             const data = await sendRequest()
+//             dispatch(commActions.setComments(data))
+//         } catch (e) {
+//             dispatch(uiActions.setNotification({
+//                 status: "error",
+//                 title: "wystąpił błąd",
+//                 message: "nie udało się załadować komentarzy"
+//             }))
+//             setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
+//
+//         }
+//     }
+//
+//
+// }

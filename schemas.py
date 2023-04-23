@@ -27,12 +27,15 @@ class UserDataSchema(Schema):
 
 
 
+
 class PlainCommentSchema(Schema):
     id = fields.Int(dump_only=True)
     comment = fields.Str()
     private = fields.Bool()
     date = fields.DateTime(dump_only=True)
     user = fields.Nested(UserDataSchema())
+    # reply_to_comment = fields.List(fields.Nested('self'))
+    replies = fields.List(fields.Nested('self'))
 
 
 class AuthorOperaSchema(PlainAuthorSchema):
@@ -93,12 +96,6 @@ class DigestaLexSchema(PlainDigestaLexSchema):
     opus = fields.Nested(PlainOperaSchema())
     book = fields.Nested(PlainDigestaBookSchema())
     paragraphi = fields.List(fields.Nested(DigestaParagraphusSchema()))
-
-
-
-
-
-
 
 
 
