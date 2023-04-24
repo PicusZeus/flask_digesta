@@ -90,7 +90,13 @@ export const loggingIn = (username, password) => {
                     message: "Udane logowanie"
                 }))
                 dispatch(uiActions.logingToggle())
-                dispatch(authActions.setToken(data))
+                const tokens = {
+                    access_token: data.access_token,
+                    refresh_token: data.refresh_token
+                }
+                dispatch(authActions.setToken(tokens))
+                dispatch(authActions.setCommentedParagraphi(data.paragraphi))
+
                 setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
             }
 

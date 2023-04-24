@@ -1,9 +1,9 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from models import CommentModel
+from models import CommentModel, DigestaParagraphusModel
 from db import db
-from schemas import CommentSaveSchema, CommentSchema, CommentUpdateSchema, PlainCommentSchema
+from schemas import CommentSaveSchema, CommentSchema, CommentUpdateSchema, PlainCommentSchema, CommentedParagraphiSchema
 from datetime import datetime
 from sqlalchemy import or_
 from sqlalchemy.sql.expression import false
@@ -60,6 +60,16 @@ class Comment(MethodView):
 
         return {"message": "No such comment or user privilege required."}, 401
 
+
+@blp.route("/comment/commented")
+class CommentedParagraphs(MethodView):
+
+    @jwt_required()
+    @blp.response(200, CommentedParagraphiSchema(many=True))
+    def get(self):
+        user_id = get_jwt_identity()
+        paragraphi = DigestaParagraphusModel.query.filter(DigestaParagraphusModel.comments.any(user_id=user_id))
+        return paragraphi
 
 @blp.route("/comment/paragraphus/<int:paragraphus_id>")
 class CommentByLex(MethodView):

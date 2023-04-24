@@ -19,7 +19,7 @@ const Login = (props) => {
     const dispatch = useDispatch()
 
     const closeModalHandler = (event) => {
-        console.log('closing')
+        // console.log('closing')
         event.preventDefault()
         dispatch(uiActions.logingToggle())
     }

@@ -18,9 +18,9 @@ const MenuBar = (props) => {
     const token = useSelector(state => state.auth.tokens.access_token)
     const dispatch = useDispatch()
     const notification = useSelector(state => state.ui.notification)
-
+    const commentedParagraphi = useSelector(state => state.auth.commentedParagraphi)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
+    console.log(commentedParagraphi, 'commented P')
     const logingToggleHandler = () => {
         dispatch(uiActions.logingToggle())
     }
@@ -70,6 +70,7 @@ const MenuBar = (props) => {
                         {!loggedIn && <li className={classes.main_nav__login}>
                             <button onClick={registerToggleHandler}>Zarejestruj się</button>
                         </li>}
+                        {loggedIn && <li className={classes.main_nav__item}><button>Skomentowane Paragrafy {commentedParagraphi.length}</button></li> }
 
                         <li className={classes.main_nav__item}>
                             <Link to={"/digesta"}>Digesta - tekst oryginalny i tłumaczenie</Link>

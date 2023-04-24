@@ -1,14 +1,24 @@
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
+import {authActions} from "../../store/auth-slice";
 
 const NewComment = (props) => {
     const token = useSelector(state => state.auth.tokens.access_token)
+    const dispatch = useDispatch()
     const [isPrivate, setIsPrivate] = useState(false)
+    let repliedId = null
+    if (props.repliedId) {
+        repliedId = props.repliedId
+    }
+    const authenticated = useSelector(state=>state.auth.loggedIn)
+    const commentedParagraphi = useSelector(state => state.auth.commentedParagraphi)
+    console.log(props, "PROPS")
+    const par_id = props.paragraphus.id
     const postCommentHandler = (event) => {
         event.preventDefault()
 
         const newComment = event.target[0].value
-        const par_id = props.paragraphusId
+
         const sendComment = async () => {
 
             const response = await fetch("http://127.0.0.1:5001/comment/paragraphus/" + par_id,
@@ -21,17 +31,30 @@ const NewComment = (props) => {
                     body: JSON.stringify({
                         comment: newComment,
                         private: isPrivate,
-                        reply_to_comment_id: null
+                        "reply_to_comment_id": repliedId
                     })
                 })
 
-            const data = await response.json()
-            return data
+            const data = await response
+            if (data.status === 401) {
+                throw new Error('anauthorised')
+            }
+            return data.json()
         }
 
         sendComment().then((response => {
             props.addNewComment(response)
-        }))
+            if (commentedParagraphi.filter((paragraphus) => {
+                return (paragraphus.id === par_id)
+            }).length === 0 ) {
+                const newParagraphi = [...commentedParagraphi]
+                newParagraphi.push(props.paragraphus)
+                dispatch(authActions.setCommentedParagraphi(newParagraphi))
+            }
+
+        })).catch((e)=> {
+            console.log(e, 'error')
+        })
     }
 
     return (
@@ -39,7 +62,8 @@ const NewComment = (props) => {
             <form method="post" onSubmit={postCommentHandler}>
                 <label htmlFor="newComment">Nowy komentarz</label>
                 <input type="text" id="newComment"/>
-                <button type="submin">wyślij</button>
+                <button type="submit" disabled={!authenticated}>wyślij</button>
+                <button type="button" onClick={() => setIsPrivate(!isPrivate)}>{isPrivate ? "komentarz prywatny" : "komentarz publiczny"}</button>
             </form>
         </li>
     )

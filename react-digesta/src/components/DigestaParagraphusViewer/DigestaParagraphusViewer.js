@@ -13,6 +13,7 @@ const DigestaParagraphusViewer = (props) => {
     if (props.paragraphus) {
         paragraphus = props.paragraphus
     }
+    console.log('idDDDDDDDDDDD', paragraphus)
 
     const addNewCommentHandler = (newComment) => {
         const newComments = [...comments]
@@ -31,6 +32,7 @@ const DigestaParagraphusViewer = (props) => {
     }
 
     useEffect(() => {
+        console.log('load comments')
         const sendRequest = async () => {
             const response = await fetch("http://127.0.0.1:5001/comment/paragraphus/" + paragraphus.id, {
                 headers: headers
@@ -46,15 +48,15 @@ const DigestaParagraphusViewer = (props) => {
         })
     }, [paragraphus, headers])
 
-    console.log(comments, 'COMMENTS', paragraphus.id)
+    console.log('comments in viewer', comments)
     return (
         <>
             <div>Paragraf</div>
             <div>{paragraphus.text_lat}</div>
             <h4>comments</h4>
             <ul>
-                <NewComment paragraphusId={paragraphus.id} addNewComment={addNewCommentHandler}/>
-                {comments && comments.map((comment) => (<CommentViewer comment={comment} replies={comment.replies}/>))}
+                {paragraphus && <NewComment paragraphus={paragraphus} addNewComment={addNewCommentHandler}/>}
+                {comments && comments.map((comment) => (<CommentViewer paragraphus={paragraphus} comment={comment} replies={comment.replies}/>))}
 
             </ul>
 

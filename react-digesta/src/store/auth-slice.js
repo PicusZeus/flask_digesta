@@ -7,7 +7,8 @@ const initialState = {
     },
     tokenFresh: false,
     tokenExpiration: null,
-    loggedIn: false
+    loggedIn: false,
+    commentedParagraphi: []
 }
 
 
@@ -24,6 +25,10 @@ const authSlice = createSlice({
 
 
             },
+            setCommentedParagraphi(state, action) {
+                state.commentedParagraphi = action.payload
+            },
+
             resetToken(state) {
                 console.log('resetting')
                 state.loggedIn = false

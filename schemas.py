@@ -132,8 +132,8 @@ class UserRegisterSchema(UserSchema):
 
 class PlainDigestaTOCLexSchema(Schema):
     id = fields.Int(dump_only=True)
-    address_lat = fields.Str()
-    address_pl = fields.Str()
+    # address_lat = fields.Str()
+    # address_pl = fields.Str()
     lex_nr = fields.Int()
     author = fields.Nested(PlainAuthorSchema())
     author_id = fields.Int()
@@ -166,3 +166,12 @@ class AuthorSchema(PlainAuthorSchema):
 # class PlainDigestaTocLexSchema(PlainDigestaTOCLexSchema):
 #     book = fields.Nested(PlainDigestaBookSchema())
 #     titulus = fields.Nested(PlainDigestaTitulusSchema())
+
+class CommentedParagraphiSchema(PlainParagraphusTocSchema):
+    lex = fields.Nested(PlainDigestaTOCLexSchema())
+
+
+class UserLoginSchema(Schema):
+    access_token = fields.Str()
+    refresh_token = fields.Str()
+    paragraphi = fields.List(fields.Nested(CommentedParagraphiSchema()))

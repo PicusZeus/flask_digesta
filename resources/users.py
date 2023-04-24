@@ -13,8 +13,8 @@ from sqlalchemy import or_
 
 from db import db
 from blocklist import BLOCKLIST
-from models import UserModel, CommentModel
-from schemas import UserSchema, UserRegisterSchema
+from models import UserModel, DigestaParagraphusModel
+from schemas import UserSchema, UserRegisterSchema, UserLoginSchema
 from flask_cors import cross_origin
 
 
@@ -48,17 +48,20 @@ class UserRegister(MethodView):
 class UserLogin(MethodView):
     @cross_origin()
     @blp.arguments(UserSchema)
+    @blp.response(200, UserLoginSchema)
     def post(self, user_data):
         user = UserModel.query.filter(
             UserModel.username == user_data["username"]
         ).first()
 
+
         if user and pbkdf2_sha256.verify(user_data["password"], user.password):
+            user_id = user.id
             access_token = create_access_token(identity=user.id, fresh=True)
             refresh_token = create_refresh_token(identity=user.id)
-            comments = [com.id for com in CommentModel.query.filter(CommentModel.user_id == user.id).all()]
+            paragraphi = DigestaParagraphusModel.query.filter(DigestaParagraphusModel.comments.any(user_id=user_id)).all()
 
-            return {"access_token": access_token, "refresh_token": refresh_token, "comments": comments}
+            return {"access_token": access_token, "refresh_token": refresh_token, "paragraphi": paragraphi}
 
         abort(401, message="Invalid credentials.")
 
