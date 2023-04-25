@@ -1,6 +1,6 @@
 import {uiActions} from "./ui-slice";
 import {authActions} from "./auth-slice";
-
+import TokenService from "../services/token.service";
 
 export const logout = (token) => {
     return async (dispatch) => {
@@ -18,6 +18,7 @@ export const logout = (token) => {
 
         try {
             await loggingOut()
+            TokenService.removeUser()
             dispatch(uiActions.setNotification({
                 status: "success",
                 title: "Wylogowano",
@@ -90,10 +91,15 @@ export const loggingIn = (username, password) => {
                     message: "Udane logowanie"
                 }))
                 dispatch(uiActions.logingToggle())
+                TokenService.setUser(data)
                 const tokens = {
                     access_token: data.access_token,
-                    refresh_token: data.refresh_token
+                    refresh_token: data.refresh_token,
+                    userId: data.user_id,
+                    username: data.username
+
                 }
+
                 dispatch(authActions.setToken(tokens))
                 dispatch(authActions.setCommentedParagraphi(data.paragraphi))
 

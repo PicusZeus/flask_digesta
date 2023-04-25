@@ -7,6 +7,8 @@ const initialState = {
     },
     tokenFresh: false,
     tokenExpiration: null,
+    userId: null,
+    username: null,
     loggedIn: false,
     commentedParagraphi: []
 }
@@ -19,9 +21,14 @@ const authSlice = createSlice({
             setToken(state, action) {
 
                 state.loggedIn = true
-                state.tokens = action.payload
+                state.tokens = {
+                    access_token: action.payload.access_token,
+                    refresh_token: action.payload.refresh_token
+                }
                 state.tokenFresh = true
                 state.tokenExpiration = null
+                state.userId = action.payload.userId
+                state.username = action.payload.username
 
 
             },
@@ -36,8 +43,10 @@ const authSlice = createSlice({
                     access_token: null,
                     refresh_token: null
                 }
-                    state.tokenFresh = false
+                state.tokenFresh = false
                 state.tokenExpiration = null
+                state.userId = null
+                state.username = null
             }
         }
     }

@@ -174,4 +174,6 @@ class CommentedParagraphiSchema(PlainParagraphusTocSchema):
 class UserLoginSchema(Schema):
     access_token = fields.Str()
     refresh_token = fields.Str()
+    user_id = fields.Int()
+    username = fields.Str()
     paragraphi = fields.List(fields.Nested(CommentedParagraphiSchema()))

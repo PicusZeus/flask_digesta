@@ -57,11 +57,16 @@ class UserLogin(MethodView):
 
         if user and pbkdf2_sha256.verify(user_data["password"], user.password):
             user_id = user.id
+            username = user.username
             access_token = create_access_token(identity=user.id, fresh=True)
             refresh_token = create_refresh_token(identity=user.id)
             paragraphi = DigestaParagraphusModel.query.filter(DigestaParagraphusModel.comments.any(user_id=user_id)).all()
 
-            return {"access_token": access_token, "refresh_token": refresh_token, "paragraphi": paragraphi}
+            return {"access_token": access_token,
+                    "refresh_token": refresh_token,
+                    "username": username,
+                    "user_id": user_id,
+                    "paragraphi": paragraphi}
 
         abort(401, message="Invalid credentials.")
 

@@ -1,18 +1,18 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
 import {authActions} from "../../store/auth-slice";
-
+import TokenService from "../../services/token.service";
 const NewComment = (props) => {
-    const token = useSelector(state => state.auth.tokens.access_token)
+    const user = TokenService.getUser()
+    const token = user?.access_token
     const dispatch = useDispatch()
     const [isPrivate, setIsPrivate] = useState(false)
     let repliedId = null
     if (props.repliedId) {
         repliedId = props.repliedId
     }
-    const authenticated = useSelector(state=>state.auth.loggedIn)
-    const commentedParagraphi = useSelector(state => state.auth.commentedParagraphi)
-    console.log(props, "PROPS")
+    const authenticated = user
+    const commentedParagraphi = user?.paragraphi
     const par_id = props.paragraphus.id
     const postCommentHandler = (event) => {
         event.preventDefault()
@@ -49,6 +49,7 @@ const NewComment = (props) => {
             }).length === 0 ) {
                 const newParagraphi = [...commentedParagraphi]
                 newParagraphi.push(props.paragraphus)
+                TokenService.updateCommentedParagraphi(newParagraphi)
                 dispatch(authActions.setCommentedParagraphi(newParagraphi))
             }
 

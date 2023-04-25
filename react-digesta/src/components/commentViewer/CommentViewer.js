@@ -24,14 +24,17 @@ const CommentViewer = (props) => {
     return (
 
         <li>
-
+<ul>
             <textarea defaultValue={comment.comment}/>
             <button onClick={() => setIsReplaying(!isReplying)}>odpowiedz</button>
-            {isReplying && <NewComment paragraphus={props.paragraphus} repliedId={comment_id}
+            {isReplying && <NewComment paragraphus={props.paragraphus}
+                                       repliedId={comment_id}
                                        addNewComment={addReplyHandler}/>}
-            <ul>
 
-                {replies.map((reply) => (<CommentViewer paragraphus={props.paragraphus} comment={reply} replies={reply.replies}/>))}
+
+                {replies.map((reply) => (<CommentViewer paragraphus={props.paragraphus}
+                                                        comment={reply}
+                                                        replies={reply.replies}/>))}
 
             </ul>
 
