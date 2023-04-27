@@ -19,9 +19,12 @@ const MenuBar = (props) => {
     const token = user?.access_token
     const dispatch = useDispatch()
     const notification = useSelector(state => state.ui.notification)
+
+    const commParState = useSelector(state=>state.auth.commentedParagraphi)
     const commentedParagraphi = user?.paragraphi
 
-    const numberOfCommentedParagraphi = commentedParagraphi.length
+    let numberOfCommentedParagraphi = 0
+    if (commentedParagraphi) {numberOfCommentedParagraphi = commentedParagraphi.length}
     console.log(numberOfCommentedParagraphi, "NUM PAR")
 
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -30,6 +33,7 @@ const MenuBar = (props) => {
     }
 
     const registerToggleHandler = () => {
+
         dispatch(uiActions.registeringToggle())
 
     }

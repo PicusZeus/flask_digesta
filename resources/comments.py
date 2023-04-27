@@ -1,3 +1,4 @@
+from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -27,8 +28,11 @@ class Comment(MethodView):
     @blp.response(200, CommentSchema())
     def get(self, comment_id):
         user_id = get_jwt_identity()
-        comment = CommentModel.query.filter(CommentModel.id == comment_id, CommentModel.user_id == user_id).first()
-        return comment
+        if user_id == 1:
+            comment = CommentModel.query.filter(CommentModel.id == comment_id).first()
+            return comment
+        else:
+            abort(401)
 
     @jwt_required()
     @blp.arguments(CommentUpdateSchema())
@@ -48,6 +52,7 @@ class Comment(MethodView):
 
             return {"message": "Comment updated successfully"}, 200
         return {"message": user_id}, 403
+
     @jwt_required()
     def delete(self, comment_id):
         user_id = get_jwt_identity()

@@ -1,10 +1,26 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {authActions} from "../../store/auth-slice";
 import TokenService from "../../services/token.service";
+import NotificationService from "../../services/notification.service";
+import {refreshToken} from "../../store/auth-actions";
+import tokenService from "../../services/token.service";
+
 const NewComment = (props) => {
-    const user = TokenService.getUser()
-    const token = user?.access_token
+
+    const [commentInput, setCommentInput] = useState('')
+    // console.log(commentInput)
+    const updatedToken = useSelector(state => state.auth.access_token)
+    let user = TokenService.getUser()
+
+    useEffect(() => {
+        user = TokenService.getUser()
+    }, [updatedToken])
+    // console.log(updatedUser, 'UPDATE')
+
+    let token = user?.access_token
+    const refresh_token = user?.refresh_token
+    // console.log(token)
     const dispatch = useDispatch()
     const [isPrivate, setIsPrivate] = useState(false)
     let repliedId = null
@@ -14,14 +30,13 @@ const NewComment = (props) => {
     const authenticated = user
     const commentedParagraphi = user?.paragraphi
     const par_id = props.paragraphus.id
-    const postCommentHandler = (event) => {
+    const notificationSetter = new NotificationService(dispatch)
+    const postCommentHandler = (event, newComment, token) => {
         event.preventDefault()
-
-        const newComment = event.target[0].value
+        // const newComment = event.target[0].value
 
         const sendComment = async () => {
-
-            const response = await fetch("http://127.0.0.1:5001/comment/paragraphus/" + par_id,
+            const respons = await fetch("http://127.0.0.1:5001/comment/paragraphus/" + par_id,
                 {
                     method: "POST",
                     headers: {
@@ -34,37 +49,55 @@ const NewComment = (props) => {
                         "reply_to_comment_id": repliedId
                     })
                 })
-
-            const data = await response
-            if (data.status === 401) {
-                throw new Error('anauthorised')
+            if (respons.status === 401) {
+                throw new Error('unauthorised')
             }
-            return data.json()
+
+            const data = await respons.json()
+            return data
         }
 
         sendComment().then((response => {
-            props.addNewComment(response)
-            if (commentedParagraphi.filter((paragraphus) => {
-                return (paragraphus.id === par_id)
-            }).length === 0 ) {
-                const newParagraphi = [...commentedParagraphi]
-                newParagraphi.push(props.paragraphus)
-                TokenService.updateCommentedParagraphi(newParagraphi)
-                dispatch(authActions.setCommentedParagraphi(newParagraphi))
-            }
 
-        })).catch((e)=> {
-            console.log(e, 'error')
+            if (response) {
+                console.log(response, "RESPONSE")
+                const data = response
+                notificationSetter.setNotificationSuccess("komentarz", "komentarz zamieszczony")
+                props.addNewComment(data)
+                if (
+                    commentedParagraphi.filter((paragraphus) =>
+                        paragraphus.id === par_id
+                    ).length === 0) {
+                    const newParagraphi = [...commentedParagraphi]
+                    newParagraphi.push(props.paragraphus)
+                    TokenService.updateCommentedParagraphi(newParagraphi)
+                    dispatch(authActions.setCommentedParagraphi(newParagraphi))
+                }
+            }
+        })).catch((e) => {
+            if (e.message === "unauthorised" && token) {
+                dispatch(refreshToken(refresh_token))
+
+
+                token = tokenService.getLocalAccessToken()
+                postCommentHandler(event, newComment, token)
+                return null
+            }
+            console.log(e.message)
+
+            notificationSetter.setNotificationError("komentarz", "błąd serwera")
         })
     }
 
     return (
         <li>
-            <form method="post" onSubmit={postCommentHandler}>
+            <form method="post" onSubmit={(event) => postCommentHandler(event, commentInput, token)}>
                 <label htmlFor="newComment">Nowy komentarz</label>
-                <input type="text" id="newComment"/>
+                <input type="text" id="newComment" value={commentInput}
+                       onChange={(event) => setCommentInput(event.target.value)}/>
                 <button type="submit" disabled={!authenticated}>wyślij</button>
-                <button type="button" onClick={() => setIsPrivate(!isPrivate)}>{isPrivate ? "komentarz prywatny" : "komentarz publiczny"}</button>
+                <button type="button"
+                        onClick={() => setIsPrivate(!isPrivate)}>{isPrivate ? "komentarz prywatny" : "komentarz publiczny"}</button>
             </form>
         </li>
     )

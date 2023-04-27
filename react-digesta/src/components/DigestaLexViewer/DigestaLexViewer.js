@@ -3,9 +3,9 @@ import classes from "./DigestaLexViewer.module.css"
 import DigestaParagraphusViewer from "../DigestaParagraphusViewer/DigestaParagraphusViewer";
 import DigestaTocParagraphi
     from "../DigestaToc/DigestaTocBooks/DigestaTocBook/DigestaTocTitulus/DigestaTocParagraphi/DigestaTocParagraphi";
-import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {digestaActions} from "../../store/digesta-slice";
+import {useEffect} from "react";
+
+
 
 
 const DigestaLexViewer = (props) => {
@@ -22,7 +22,6 @@ const DigestaLexViewer = (props) => {
             navigate(paragraphId.id.toString())
         }
     }
-
 
     const linkAuthor = "http://127.0.0.1:3000/jurysci/" + lex.author.id
     const linkOpus = 'http://127.0.0.1:3000/opera/'  + lex.opus.id
@@ -75,7 +74,7 @@ export const loader = async ({params, request}) => {
 
     if (!response.ok) {
         throw json(
-            {message: 'I messed up'},
+            {message: 'Błąd serwera'},
             {status: 500}
         )
     } else {

@@ -1,20 +1,24 @@
-import {useLoaderData} from "react-router-dom";
-import {json} from "react-router-dom";
+import {json, useLoaderData} from "react-router-dom";
 import CommentViewer from "../commentViewer/CommentViewer";
 import {useEffect, useMemo, useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import NewComment from "../newComment/NewComment";
-
-
+import tokenService from "../../services/token.service";
+import {authActions} from "../../store/auth-slice";
+import {refreshToken} from "../../store/auth-actions";
 const DigestaParagraphusViewer = (props) => {
     const [comments, setComments] = useState([])
-    const token = useSelector(state => state.auth.tokens.access_token)
+
+    const username = useSelector(state => state.auth.username)
+    let user = tokenService.getUser()
+    const dispatch = useDispatch()
+
+    const token = user?.access_token
+    const refresh_token = user?.refresh_token
     let paragraphus = useLoaderData()
     if (props.paragraphus) {
         paragraphus = props.paragraphus
     }
-    console.log('idDDDDDDDDDDD', paragraphus)
-
     const addNewCommentHandler = (newComment) => {
         const newComments = [...comments]
         newComments.push(newComment)
@@ -22,33 +26,47 @@ const DigestaParagraphusViewer = (props) => {
 
         setComments(newComments)
     }
-
-    const headers = useMemo(()=>(
+    // const [headers, setHeaders] = useState({"Content-Type": "application/json"})
+    const headers = useMemo(() => (
         {"Content-Type": "application/json"}
 
-    ),[])
-    if (token) {
-        headers['Authorization'] = "Bearer " + token
-    }
+    ), [username])
 
+    // console.log(headers, paragraphus.id, 'here')
     useEffect(() => {
-        console.log('load comments')
+        if (token) {
+            headers['Authorization'] = "Bearer " + token
+        }
         const sendRequest = async () => {
             const response = await fetch("http://127.0.0.1:5001/comment/paragraphus/" + paragraphus.id, {
                 headers: headers
-            })
-            const data = await response.json()
-            return data
+            });
+
+            if (response.status === 401) {
+                dispatch(refreshToken(refresh_token))
+                return null
+
+            } else if (response.ok) {
+                const data = await response
+                return data.json()
+            } else {
+                throw new Error('error')
+            }
         }
         sendRequest().then((response) => {
-            setComments(response)
+            if (response) {
+                setComments(response)
+            }
+
 
         }).catch((e) => {
-            console.log(e)
-        })
-    }, [paragraphus, headers])
+            console.log(e.status, 'STATUS')
 
-    console.log('comments in viewer', comments)
+
+        })
+    }, [dispatch, refresh_token, token, paragraphus, headers, username])
+
+    // console.log('comments in viewer', comments)
     return (
         <>
             <div>Paragraf</div>
@@ -56,7 +74,8 @@ const DigestaParagraphusViewer = (props) => {
             <h4>comments</h4>
             <ul>
                 {paragraphus && <NewComment paragraphus={paragraphus} addNewComment={addNewCommentHandler}/>}
-                {comments && comments.map((comment) => (<CommentViewer paragraphus={paragraphus} comment={comment} replies={comment.replies}/>))}
+                {comments && comments.map((comment) => (
+                    <CommentViewer paragraphus={paragraphus} comment={comment} replies={comment.replies}/>))}
 
             </ul>
 
@@ -76,8 +95,7 @@ export const loader = async ({params, request}) => {
             {status: 500}
         )
     } else {
-        const data = await response.json()
-        return data
+        return await response.json()
     }
 }
 

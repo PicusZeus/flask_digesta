@@ -7,8 +7,8 @@ const ErrorPage = () => {
     const error = useRouteError()
     const errorCode = error.status
     let message
-    if (error.data.message) {
-        message = error.data.message
+    if (error.message) {
+        message = error.message
     }
 
     return (

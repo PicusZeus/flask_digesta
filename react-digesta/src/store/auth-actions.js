@@ -1,42 +1,62 @@
 import {uiActions} from "./ui-slice";
 import {authActions} from "./auth-slice";
 import TokenService from "../services/token.service";
+import tokenService from "../services/token.service";
+import NotificationService from "../services/notification.service";
 
 export const logout = (token) => {
     return async (dispatch) => {
+        const notificationSetter = new NotificationService(dispatch)
 
         const loggingOut = async () => {
             const response = await fetch("http://127.0.0.1:5001/logout", {
                 headers: {Authorization: "Bearer " + token, "Content-Type": "application-json"}
             })
 
-            if (!response.ok) {
-                throw new Error('Nie powiodło się')
-            }
+            if (response.status !== 401 && !response.ok) {
 
+                throw new Error('błąd serwera')
+            }
         };
 
         try {
             await loggingOut()
-            TokenService.removeUser()
-            dispatch(uiActions.setNotification({
-                status: "success",
-                title: "Wylogowano",
-                message: "Wylogowanie powiodło się"
-            }))
+            notificationSetter.setNotificationSuccess("wylogowane", "Wylogowanie się powiodło")
+
+            tokenService.removeUser()
 
             dispatch(authActions.resetToken())
             setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
         } catch (error) {
-            dispatch(uiActions.setNotification({
-                        status: "error",
-                        title: "Coś poszło nie tak",
-                        message: "Błąd przy wylogowywaniu"
-                    }
-                )
-            )
-            setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
+            notificationSetter.setNotificationError("Coś poszło nie tak", "Błąd przy wylogowaniu")
+        }
+    }
+}
 
+export const refreshToken = (refresh_token) => {
+    return async (dispatch) => {
+        const sendRequest = async () => {
+            const response = await fetch("http://127.0.0.1:5001/refresh", {
+                method: "post",
+                headers: {
+                    "Content-Type": "application-json",
+                    Authorization: "Bearer " + refresh_token
+                }
+            })
+            const data = await response.json()
+            return data
+
+        }
+
+        try {
+
+            const data = await sendRequest()
+            const access_token = data.access_token
+            // console.log(access_token, 'here')
+            dispatch(authActions.setToken(access_token))
+            tokenService.updateLocalAccessToken(access_token)
+        } catch (e) {
+            console.log(e)
         }
 
 
@@ -46,14 +66,9 @@ export const logout = (token) => {
 export const loggingIn = (username, password) => {
 
     return async (dispatch) => {
+        const notificationSetter = new NotificationService(dispatch)
 
-
-        dispatch(uiActions.setNotification({
-            status: "pending",
-            title: "wysyłam...",
-            message: "Wysyłam dane do logowania"
-        }))
-        setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
+        notificationSetter.setNotificationPending("wysyłam...", "Wysyłam dane do logowania")
 
 
         const sendRequest = async () => {
@@ -76,45 +91,20 @@ export const loggingIn = (username, password) => {
         try {
             const data = await sendRequest()
             if (data.code === 401) {
-                dispatch(uiActions.setNotification({
-                    status: "error",
-                    title: "Niepoprawne dane",
-                    message: "Nieudane logowanie"
-                }))
+                notificationSetter.setNotificationError("Niepoprawne dane", "nieudane logowanie")
 
                 dispatch(uiActions.logingToggle())
-                setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
             } else {
-                dispatch(uiActions.setNotification({
-                    status: "success",
-                    title: "Zalogowano",
-                    message: "Udane logowanie"
-                }))
+                notificationSetter.setNotificationSuccess("Zalogowane", "Udane logowanie")
+
                 dispatch(uiActions.logingToggle())
                 TokenService.setUser(data)
-                const tokens = {
-                    access_token: data.access_token,
-                    refresh_token: data.refresh_token,
-                    userId: data.user_id,
-                    username: data.username
 
-                }
-
-                dispatch(authActions.setToken(tokens))
-                dispatch(authActions.setCommentedParagraphi(data.paragraphi))
-
-                setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
+                dispatch(authActions.setUserData(data))
             }
-
-
         } catch
             (error) {
-            dispatch(uiActions.setNotification({
-                status: "error",
-                title: "Wystąpił błąd",
-                message: "logowanie się nie powiodło"
-            }))
-            setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
+            notificationSetter.setNotificationError("Wystąpił błąd na serwerze", "Logowanie się nie powiodło")
 
         }
     }
@@ -125,15 +115,12 @@ export const register = (username, password, email) => {
 
     return async (dispatch) => {
 
-        dispatch(uiActions.setNotification({
-            status: "pending",
-            title: "Rejestracja...",
-            message: "Wysyłam dane do rejestracji"
-        }))
-        setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
+        const notificationSetter = new NotificationService(dispatch)
+
+        notificationSetter.setNotificationPending("Rejestracja przebiega...", "Wysyłam dane do rejestracji")
 
         const sendRequest = async () => {
-            await fetch("http://127.0.0.1:5001/register",
+            const response = await fetch("http://127.0.0.1:5001/register",
                 {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
@@ -145,27 +132,26 @@ export const register = (username, password, email) => {
                     }),
                 })
 
+            return response;
+
         }
 
         try {
-            await sendRequest()
-            dispatch(uiActions.setNotification({
-                status: "success",
-                title: "Rejestracja",
-                message: "Rejestracja się powiodła"
-            }))
+            const response = await sendRequest()
+            if (response.status === 409) {
+                notificationSetter.setNotificationError("Rejestracja się nie powiodła", "podany mail lub login są już zarejstrowane")
+            } else {
+                notificationSetter.setNotificationSuccess("Udało się", "Rejestracja się powiodła")
+
+            }
+
             dispatch(uiActions.registeringToggle())
-            setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
 
 
         } catch (error) {
-            dispatch(uiActions.setNotification({
-                status: "error",
-                title: "Wystąpił błąd",
-                message: "Rejestracja się nie powiodła"
-            }))
+            notificationSetter.setNotificationError("Rejestracja się nie powiodła", "Błąd serwera")
+
             dispatch(uiActions.registeringToggle())
-            setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
 
         }
     }

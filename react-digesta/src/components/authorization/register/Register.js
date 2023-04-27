@@ -32,6 +32,7 @@ const Register = (props) => {
     }
 
     const registerHandler = (event) => {
+
         event.preventDefault()
         if (checkEmail(email) && checkPassword(
             password, passwordTest
