@@ -10,7 +10,7 @@ import TokenService from "../../services/token.service";
 
 const DigestaParagraphusViewer = (props) => {
     const [comments, setComments] = useState([])
-
+    const [showComments, setShowComments] = useState(false)
     const username = useSelector(state => state.auth.username)
     let user = tokenService.getUser()
     const dispatch = useDispatch()
@@ -24,6 +24,8 @@ const DigestaParagraphusViewer = (props) => {
     if (props.paragraphus) {
         paragraphus = props.paragraphus
     }
+    let paragraphusKey = null
+    if (paragraphus.key !== 'pr') {paragraphusKey = paragraphus.key}
     const addNewCommentHandler = (newComment) => {
         const newComments = [...comments]
         newComments.push(newComment)
@@ -78,10 +80,10 @@ const DigestaParagraphusViewer = (props) => {
     // console.log('comments in viewer', comments)
     return (
         <>
-            <div>Paragraf</div>
+            {paragraphusKey && <h2>Paragraf {paragraphusKey}</h2>}
             <div>{paragraphus.text_lat}</div>
-            <h4>comments</h4>
-            <ul>
+            <button onClick={()=>setShowComments(!showComments)}>{showComments ? "schowaj" : "pokaż"} komentarze</button>
+            {showComments && <ul>
                 {paragraphus && <NewComment paragraphus={paragraphus} addNewComment={addNewCommentHandler}/>}
                 {comments && comments.map((comment) => (
                     <CommentViewer key={comment.id}
@@ -90,7 +92,7 @@ const DigestaParagraphusViewer = (props) => {
                                    comment={comment}
                                    replies={comment.replies}/>))}
 
-            </ul>
+            </ul>}
 
         </>
 

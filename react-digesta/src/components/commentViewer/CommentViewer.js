@@ -8,8 +8,11 @@ import {authActions} from "../../store/auth-slice";
 import TokenService from "../../services/token.service";
 import {redirect} from "react-router-dom";
 import {uiActions} from "../../store/ui-slice";
+import Confirmation from "../UI/confirmation/Confirmation";
 
 const CommentViewer = (props) => {
+
+    const [deleteDialog, setDeleteDialog] = useState(false)
     // const replies = props.replies
     const dispatch = useDispatch()
     const [replies, setReplies] = useState([])
@@ -94,11 +97,13 @@ const CommentViewer = (props) => {
     return (
 
         <li>
+            {deleteDialog && <Confirmation cancelAction={() => setDeleteDialog(false)} title="" message=""
+                                           confirmAction={() => deleteCommentHandler(props.c_id, token)}/>}
             <ul>
                 <textarea defaultValue={comment.comment}/>
                 <button onClick={() => setIsReplaying(!isReplying)}>odpowiedz</button>
                 {user && user.user_id === comment.user.id &&
-                    <button onClick={() => deleteCommentHandler(props.c_id, token)}>usuń</button>}
+                    <button onClick={() => setDeleteDialog(true)}>usuń</button>}
                 {isReplying && <NewComment paragraphus={props.paragraphus}
                                            repliedId={comment_id}
                                            addNewComment={addReplyHandler}/>}

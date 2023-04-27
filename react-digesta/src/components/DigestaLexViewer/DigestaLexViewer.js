@@ -3,7 +3,7 @@ import classes from "./DigestaLexViewer.module.css"
 import DigestaParagraphusViewer from "../DigestaParagraphusViewer/DigestaParagraphusViewer";
 import DigestaTocParagraphi
     from "../DigestaToc/DigestaTocBooks/DigestaTocBook/DigestaTocTitulus/DigestaTocParagraphi/DigestaTocParagraphi";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 
 
@@ -14,6 +14,7 @@ const DigestaLexViewer = (props) => {
     if (!lex) {
         lex = props.lex
     }
+    const [showPr, setShopPr] = useState(true)
     const paragraphi = lex.paragraphi
     const setParagraphHandler = (event) => {
         const paragraphKey = event.target.value
@@ -57,9 +58,10 @@ const DigestaLexViewer = (props) => {
                 <Link to={linkAuthor}>{lex.author.name}</Link>
                 <Link to={linkOpus}>{parseInt(lex.opus.book) > 0 ? ksiega : null} {lex.opus.title_pl}</Link>
             </div>
+             <DigestaParagraphusViewer paragraphus={paragraphiDic['pr']}/>
             {paragraphiKeys.length > 1 &&
                 <DigestaTocParagraphi setParagraph={setParagraphHandler} paragraphiKeys={paragraphiKeys}/>}
-            {paragraphiKeys.length === 1 && <DigestaParagraphusViewer paragraphus={paragraphiDic['pr']}/>}
+
             <Outlet/>
         </section>
 

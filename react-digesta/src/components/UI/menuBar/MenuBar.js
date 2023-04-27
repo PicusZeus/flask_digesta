@@ -10,8 +10,10 @@ import logo from "./justynian.jpg"
 import MobileNav from "../mobileNav/MobileNav";
 import {useEffect, useState} from "react";
 import TokenService from "../../../services/token.service";
-
+import Modal from "../modal/Modal";
 const MenuBar = (props) => {
+
+    const [commentedParagraphiModal, setCommentedParagraphiModal] = useState(false)
     const user = TokenService.getUser()
     const loggedIn = user
     const logging = useSelector((state) => state.ui.logging)
@@ -46,6 +48,11 @@ const MenuBar = (props) => {
 
     return (
         <>
+            {commentedParagraphiModal && <Modal onClose={()=>setCommentedParagraphiModal(false)}>
+                <ul>
+                    {commentedParagraphi.map((par)=>(<li><Link onClick={()=>setCommentedParagraphiModal(false)} to={"/digesta/" + par.lex.id + '/' + par.id}>D {par.lex.titulus.book.book_nr}.{par.lex.titulus.number}.{par.lex.lex_nr}.{par.key}</Link></li>))}
+                </ul>
+            </Modal>}
             {logging ? <Login onClose={logingToggleHandler}/> : null}
 
             {registering ? <Register onClose={registerToggleHandler}/> : null}
@@ -78,7 +85,7 @@ const MenuBar = (props) => {
                         {!loggedIn && <li className={classes.main_nav__login}>
                             <button onClick={registerToggleHandler}>Zarejestruj się</button>
                         </li>}
-                        {loggedIn && <li className={classes.main_nav__item}><button>Skomentowane Paragrafy {numberOfCommentedParagraphi}</button></li> }
+                        {loggedIn && <li className={classes.main_nav__item}><button onClick={()=>setCommentedParagraphiModal(true)}>Skomentowane Paragrafy {numberOfCommentedParagraphi}</button></li> }
 
                         <li className={classes.main_nav__item}>
                             <Link to={"/digesta"}>Digesta - tekst oryginalny i tłumaczenie</Link>
