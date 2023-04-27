@@ -1,17 +1,18 @@
 import {commActions} from "./comments-slice";
 import {uiActions} from "./ui-slice";
 
-export const addComment = (paragraphId, commentText, isPrivate, token, reply_to_comment_id) => {
-    return async (dispatch) => {
+import NotificationService from "../services/notification.service";
+import tokenService from "../services/token.service";
+import TokenService from "../services/token.service";
+import {authActions} from "./auth-slice";
 
-        dispatch(uiActions.setNotification({
-            status: "pending",
-            title: 'wysyłam',
-            message: 'twój komentarz jest wysyłany'
-        }))
-        setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
+
+export const addComment = (token, par_id, commentText, paragraphus, isPrivate, reply_to_comment_id) => {
+    return async (dispatch) => {
+        const notificationSetter = new NotificationService(dispatch)
+        notificationSetter.setNotificationPending("Komentarz", "Wysyłam komentarz")
         const sendComment = async () => {
-            const response = await fetch("https://127.0.0.1:5001/comment/paragraphus/" + paragraphId,
+            const response = await fetch("http://127.0.0.1:5001/comment/paragraphus/" + par_id,
                 {
                     method: "POST",
                     headers: {
@@ -25,35 +26,34 @@ export const addComment = (paragraphId, commentText, isPrivate, token, reply_to_
                     })
                 })
 
+
             const data = await response.json()
-            return data
+            return [data, response.status]
         }
 
         try {
-            const response = await sendComment()
-            if (response.code === 401) {
-                dispatch(uiActions.setNotification({
-                    status: "error",
-                    title: "nie masz uprawnienie",
-                    message: "post nie został wysłany"
-                }))
-                setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
+            const [response, status] = await sendComment()
+            if (status === 401) {
+                return false
+
             } else {
-                dispatch(uiActions.setNotification({
-                    status: "success",
-                    title: "Post wysłany",
-                    message: 'Wysłanie postu zakończone sukcesem'
-                }))
-                setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
+                notificationSetter.setNotificationSuccess("komentarz", "komentarz zamieszczony")
+                const commentedParagraphi = tokenService.getCommentedParagraphi()
+                if (commentedParagraphi.filter((paragraphus) =>
+                        paragraphus.id === par_id).length === 0
+                ) {
+                    commentedParagraphi.push(paragraphus)
+                    TokenService.updateCommentedParagraphi(commentedParagraphi)
+                    dispatch(authActions.setCommentedParagraphi(commentedParagraphi))
+                    return 1
+                }
+                else {
+                    return 2
+                }
 
             }
         } catch (e) {
-            dispatch(uiActions.setNotification({
-                status: "error",
-                title: "błąd wysyłania",
-                message: "post nie został wysłany"
-            }))
-            setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
+            notificationSetter.setNotificationError("komentarz", "błąd serwera")
 
         }
     }

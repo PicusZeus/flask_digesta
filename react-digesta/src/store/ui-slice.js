@@ -4,6 +4,7 @@ const initialState = {
     logging: false,
     notification: null,
     registering: false,
+    rerender: false
 
 }
 
@@ -12,6 +13,9 @@ const uiSlice = createSlice({
         name: 'ui',
         initialState: initialState,
         reducers: {
+            rerender(state) {
+                state.rerender = !state.rerender
+            },
             logingToggle(state) {
                 state.logging = !state.logging
             },

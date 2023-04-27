@@ -38,6 +38,11 @@ class PlainCommentSchema(Schema):
     replies = fields.List(fields.Nested('self'))
 
 
+class PlainCommentsSchemaWithToken(Schema):
+    comments = fields.List(fields.Nested(PlainCommentSchema()))
+    access_token = fields.Str()
+
+
 class AuthorOperaSchema(PlainAuthorSchema):
     opera = fields.List(fields.Nested(PlainOperaSchema()))
 
@@ -171,9 +176,19 @@ class CommentedParagraphiSchema(PlainParagraphusTocSchema):
     lex = fields.Nested(PlainDigestaTOCLexSchema())
 
 
+class CommentedParagraphiWithToken(Schema):
+    paragraphi = fields.List(fields.Nested(CommentedParagraphiSchema()))
+    access_token = fields.Str()
+
+
 class UserLoginSchema(Schema):
     access_token = fields.Str()
     refresh_token = fields.Str()
     user_id = fields.Int()
     username = fields.Str()
     paragraphi = fields.List(fields.Nested(CommentedParagraphiSchema()))
+
+class DeleteResponseSchema(Schema):
+    status = fields.Int()
+    message = fields.Str()
+    commentedParagraphi = fields.List(fields.Nested(CommentedParagraphiSchema()))

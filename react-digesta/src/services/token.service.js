@@ -13,6 +13,7 @@ class TokenService {
     let user = JSON.parse(localStorage.getItem("user"));
     user.access_token = token;
     localStorage.setItem("user", JSON.stringify(user));
+    return token
   }
 
   updateCommentedParagraphi(newParagraphi) {
@@ -20,7 +21,10 @@ class TokenService {
     user.paragraphi = newParagraphi
     localStorage.setItem("user", JSON.stringify(user))
   }
-
+  getCommentedParagraphi() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user?.paragraphi
+  }
   getUser() {
     return JSON.parse(localStorage.getItem("user"));
   }

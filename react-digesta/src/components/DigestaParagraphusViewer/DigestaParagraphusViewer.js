@@ -6,14 +6,19 @@ import NewComment from "../newComment/NewComment";
 import tokenService from "../../services/token.service";
 import {authActions} from "../../store/auth-slice";
 import {refreshToken} from "../../store/auth-actions";
+import TokenService from "../../services/token.service";
+
 const DigestaParagraphusViewer = (props) => {
     const [comments, setComments] = useState([])
 
     const username = useSelector(state => state.auth.username)
     let user = tokenService.getUser()
     const dispatch = useDispatch()
-
-    const token = user?.access_token
+    const rerender = useSelector(state => state.ui.rerender)
+    // const token =
+    const token = useMemo(() => {
+        tokenService.getLocalAccessToken()
+    }, [])
     const refresh_token = user?.refresh_token
     let paragraphus = useLoaderData()
     if (props.paragraphus) {
@@ -55,7 +60,11 @@ const DigestaParagraphusViewer = (props) => {
         }
         sendRequest().then((response) => {
             if (response) {
+
                 setComments(response)
+                // dispatch(refreshToken(refresh_token))
+                // if (response.access_token !== "False")
+                // {TokenService.updateLocalAccessToken(response.access_token)}
             }
 
 
@@ -64,7 +73,7 @@ const DigestaParagraphusViewer = (props) => {
 
 
         })
-    }, [dispatch, refresh_token, token, paragraphus, headers, username])
+    }, [token, dispatch, refresh_token, paragraphus, headers, username, rerender])
 
     // console.log('comments in viewer', comments)
     return (
@@ -75,7 +84,11 @@ const DigestaParagraphusViewer = (props) => {
             <ul>
                 {paragraphus && <NewComment paragraphus={paragraphus} addNewComment={addNewCommentHandler}/>}
                 {comments && comments.map((comment) => (
-                    <CommentViewer paragraphus={paragraphus} comment={comment} replies={comment.replies}/>))}
+                    <CommentViewer key={comment.id}
+                                   c_id={comment.id}
+                                   paragraphus={paragraphus}
+                                   comment={comment}
+                                   replies={comment.replies}/>))}
 
             </ul>
 

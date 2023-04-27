@@ -15,7 +15,7 @@ class CommentModel(db.Model):
     paragraphus = db.relationship("DigestaParagraphusModel", back_populates='comments')
     reply_to_comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'), nullable=True)
     reply_to_comment = db.relationship('CommentModel', remote_side=[id], back_populates='replies')
-    replies = db.relationship("CommentModel", back_populates='reply_to_comment')
+    replies = db.relationship("CommentModel", back_populates='reply_to_comment', cascade="all, delete")
 
 # class TagModel(db vc.Model):
 #     __tablename__ = "tags"

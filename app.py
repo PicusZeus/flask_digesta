@@ -1,4 +1,6 @@
 import os
+from datetime import timedelta
+
 from flask_cors import cross_origin, CORS
 
 from flask import Flask, jsonify
@@ -29,6 +31,9 @@ def create_app(db_url=None):
     app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger-ui"
     app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL', "sqlite:///data.db")
+    app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=6)
+    app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)
     migrate = Migrate(app, db, render_as_batch=True)

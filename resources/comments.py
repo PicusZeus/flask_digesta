@@ -1,10 +1,10 @@
 from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
 from models import CommentModel, DigestaParagraphusModel
 from db import db
-from schemas import CommentSaveSchema, CommentSchema, CommentUpdateSchema, PlainCommentSchema, CommentedParagraphiSchema
+from schemas import CommentSaveSchema, CommentSchema, CommentUpdateSchema, PlainCommentSchema, DeleteResponseSchema, CommentedParagraphiSchema, PlainCommentsSchemaWithToken
 from datetime import datetime
 from sqlalchemy import or_
 from sqlalchemy.sql.expression import false
@@ -54,16 +54,23 @@ class Comment(MethodView):
         return {"message": user_id}, 403
 
     @jwt_required()
+    @blp.response(200, DeleteResponseSchema())
     def delete(self, comment_id):
         user_id = get_jwt_identity()
         comment = CommentModel.query.filter(CommentModel.id == comment_id, CommentModel.user_id == user_id).first()
 
         if comment:
+
             db.session.delete(comment)
             db.session.commit()
-            return {"message": "Item deleted."}
+            newCommentedParagraphi = DigestaParagraphusModel.query.filter(DigestaParagraphusModel.comments.any(user_id=user_id))
+            # #     user_id = 1
+            # newComments = CommentModel.query.filter(CommentModel.paragraphus_id == paragraphus_id).filter(
+            #     or_(CommentModel.private == false(),
+            #         CommentModel.user_id == user_id)).all()
+            return {"status": 200, "message": "Item deleted.", "commentedParagraphi": newCommentedParagraphi}
 
-        return {"message": "No such comment or user privilege required."}, 401
+        return {"status": 204, "message": "No such comment or user privilege required."}
 
 
 @blp.route("/comment/commented")
@@ -74,6 +81,8 @@ class CommentedParagraphs(MethodView):
     def get(self):
         user_id = get_jwt_identity()
         paragraphi = DigestaParagraphusModel.query.filter(DigestaParagraphusModel.comments.any(user_id=user_id))
+        # access_token = create_access_token(identity=user_id, fresh=True)
+
         return paragraphi
 
 @blp.route("/comment/paragraphus/<int:paragraphus_id>")
@@ -83,6 +92,9 @@ class CommentByLex(MethodView):
     @blp.response(200, PlainCommentSchema(many=True))
     def get(self, paragraphus_id):
         user_id = get_jwt_identity()
+        # access_token = False
+        # if user_id:
+        #     access_token = create_access_token(identity=user_id, fresh=False)
         # if not user_id:
         #     user_id = 1
         comments = CommentModel.query.filter(CommentModel.paragraphus_id == paragraphus_id).filter(or_(CommentModel.private == false(),

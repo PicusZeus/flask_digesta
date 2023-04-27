@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {authActions} from "../../store/auth-slice";
 import TokenService from "../../services/token.service";
 import NotificationService from "../../services/notification.service";
-import {refreshToken} from "../../store/auth-actions";
+import {logout, refreshToken} from "../../store/auth-actions";
 import tokenService from "../../services/token.service";
 
 const NewComment = (props) => {
@@ -34,8 +34,9 @@ const NewComment = (props) => {
     const postCommentHandler = (event, newComment, token) => {
         event.preventDefault()
         // const newComment = event.target[0].value
-
+        console.log(token, "TOKENM")
         const sendComment = async () => {
+            console.log('sending')
             const respons = await fetch("http://127.0.0.1:5001/comment/paragraphus/" + par_id,
                 {
                     method: "POST",
@@ -50,7 +51,9 @@ const NewComment = (props) => {
                     })
                 })
             if (respons.status === 401) {
+                // dispatch(logout(token))
                 throw new Error('unauthorised')
+
             }
 
             const data = await respons.json()
@@ -60,7 +63,7 @@ const NewComment = (props) => {
         sendComment().then((response => {
 
             if (response) {
-                console.log(response, "RESPONSE")
+                // console.log(response, "RESPONSE")
                 const data = response
                 notificationSetter.setNotificationSuccess("komentarz", "komentarz zamieszczony")
                 props.addNewComment(data)
@@ -75,17 +78,21 @@ const NewComment = (props) => {
                 }
             }
         })).catch((e) => {
-            if (e.message === "unauthorised" && token) {
-                dispatch(refreshToken(refresh_token))
+            if (e.message === "unauthorised") {
+                // dispatch(refreshToken(refresh_token))
+                dispatch(authActions.resetToken())
+                TokenService.removeUser()
+                notificationSetter.setNotificationError("komentarz", "zaloguj się ponownie jeśli chcesz dodać komentarz")
 
-
-                token = tokenService.getLocalAccessToken()
-                postCommentHandler(event, newComment, token)
-                return null
+                // token = tokenService.getLocalAccessToken()
+                // postCommentHandler(event, newComment, token)
+                // return null
             }
-            console.log(e.message)
+            // console.log(e, 'ERROR')
+            else {
+                            notificationSetter.setNotificationError("komentarz", "błąd serwera")
 
-            notificationSetter.setNotificationError("komentarz", "błąd serwera")
+            }
         })
     }
 
