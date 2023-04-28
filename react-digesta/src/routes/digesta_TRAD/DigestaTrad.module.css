@@ -18,3 +18,20 @@
 
 }
 
+.trad_main__mobile_toc {
+    display: block;
+}
+
+.trad_main__desktop_toc {
+    display: none;
+}
+
+@media (min-width: 600px) {
+    .trad_main__mobile_toc {
+        display: none;
+    }
+    .trad_main__desktop_toc {
+        display: block;
+    }
+}
+

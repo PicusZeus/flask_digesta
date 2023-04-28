@@ -16,3 +16,22 @@
     flex-direction: column;
 
 }
+
+
+.opera__mobile_toc {
+    display: block;
+}
+
+.opera__desktop_toc {
+    display: none;
+}
+
+@media (min-width: 600px) {
+    .opera__mobile_toc {
+        display: none;
+    }
+    .opera__desktop_toc {
+        display: block;
+    }
+
+}

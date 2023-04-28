@@ -1,15 +1,34 @@
-.auth_main {
+.jurists_main {
     text-align: center;
 
 }
 
-.auth_main__title {
+.jurists_main__title {
     padding: 1rem;
     font-size: 1.5rem;
     margin: auto;
 }
 
-.auth_main__container {
+.jurists_main__container {
     display: flex;
     flex-direction: column;
 }
+
+.jurists_main__mobile_toc {
+    display: block;
+}
+
+.jurists_main__desktop_toc {
+    display: none;
+}
+
+@media (min-width: 600px) {
+    .jurists_main__mobile_toc {
+        display: none;
+    }
+
+    .jurists_main__desktop_toc {
+        display: block;
+    }
+}
+

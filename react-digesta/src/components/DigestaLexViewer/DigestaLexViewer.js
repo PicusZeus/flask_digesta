@@ -1,8 +1,8 @@
 import {json, Link, Outlet, useLoaderData, useNavigate} from "react-router-dom";
 import classes from "./DigestaLexViewer.module.css"
 import DigestaParagraphusViewer from "../DigestaParagraphusViewer/DigestaParagraphusViewer";
-import DigestaTocParagraphi
-    from "../DigestaToc/DigestaTocBooks/DigestaTocBook/DigestaTocTitulus/DigestaTocParagraphi/DigestaTocParagraphi";
+import DigestaTocMobileParagraphi
+    from "../DigestaToc/DigestaTocMobile/DigestaTocMobileParagraphi/DigestaTocMobileParagraphi";
 import {useEffect} from "react";
 import {refreshToken} from "../../store/auth-actions";
 import {useDispatch} from "react-redux";
@@ -56,7 +56,7 @@ const DigestaLexViewer = (props) => {
             </div>
             <DigestaParagraphusViewer paragraphus={paragraphiDic['pr']}/>
             {paragraphiKeys.length > 1 &&
-                <DigestaTocParagraphi setParagraph={setParagraphHandler} paragraphiKeys={paragraphiKeys}/>}
+                <DigestaTocMobileParagraphi setParagraph={setParagraphHandler} paragraphiKeys={paragraphiKeys}/>}
 
             <Outlet/>
         </section>

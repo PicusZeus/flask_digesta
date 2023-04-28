@@ -1,6 +1,8 @@
 import {json, Outlet, useLoaderData, useLocation} from "react-router-dom";
-import DigestaTocBooks from "../../../../../components/DigestaToc/DigestaTocBooks/DigestaTocBooks";
-
+import DigestaTocMobileBooks from "../../../components/DigestaToc/DigestaTocMobile/DigestaTocMobileBooks/DigestaTocMobileBooks";
+import classes from './DigestaJuristDigesta.module.css'
+import DigestaTocDesktopBooks
+    from "../../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopBooks/DigestaTocDesktopBooks";
 
 const DigestaJuristDigesta = () => {
     const toc = useLoaderData()
@@ -8,7 +10,15 @@ const DigestaJuristDigesta = () => {
     return (
         <>
             <div>Jurysta wg układu digesta</div>
-            <DigestaTocBooks toc={toc} url={location}/>
+            <div className={classes.mobile_toc}>
+                <DigestaTocMobileBooks toc={toc} url={location}/>
+
+            </div>
+            <div className={classes.desktop_toc}>
+                <DigestaTocDesktopBooks toc={toc}/>
+
+            </div>
+
 
             <Outlet/>
         </>

@@ -7,16 +7,16 @@ import DigestaLookUp from "./routes/digesta_LOOKUP/DigestaLookUp";
 import React, {useEffect} from "react";
 import {loadJurists, loadTOC} from "./store/digesta-actions";
 import {useDispatch} from "react-redux";
-import DigestaJurist from "./routes/digesta_JURIST/DigestaJurists/DigestaJurist/DigestaJurist";
+import DigestaJurist from "./routes/digesta_JURIST/DigestaJurist/DigestaJurist";
 import DigestaJuristDigesta, {
     loader as juristLexLoader
-} from "./routes/digesta_JURIST/DigestaJurists/DigestaJurist/DigestaJuristDigesta/DigestaJuristDigesta";
+} from "./routes/digesta_JURIST/DigestaJuristDigesta/DigestaJuristDigesta";
 import ErrorPage from "./routes/Error/ErrorPage";
 import {action as searchTextAction} from "./routes/digesta_LOOKUP/DigestaLookUp"
 import DigestaLexViewer, {loader as lexLoader} from "./components/DigestaLexViewer/DigestaLexViewer";
 import DigestaJuristOpera, {
     loader as digestaJuristOperaLoader
-} from "./routes/digesta_JURIST/DigestaJurists/DigestaJurist/DigestaJuristOpera/DigestaJuristOpera";
+} from "./routes/digesta_JURIST/DigestaJuristOpera/DigestaJuristOpera";
 import DigestaOpera, {loader as operaLoader} from "./routes/digesta_OPERA/DigestaOpera";
 import DigestaParagraphusViewer, {loader as paragraphusLoader} from "./components/DigestaParagraphusViewer/DigestaParagraphusViewer";
 

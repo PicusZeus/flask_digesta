@@ -1,8 +1,8 @@
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import classes from "./DigestaTocJurists.module.css"
+import classes from "./DigestaTocMobileJurists.module.css"
 
-const DigestaTocJurists = () => {
+const DigestaTocMobileJurists = () => {
 
     const jurists = useSelector(state => state.digesta.jurists)
     const navigate = useNavigate()
@@ -29,4 +29,4 @@ const DigestaTocJurists = () => {
     )
 }
 
-export default DigestaTocJurists
+export default DigestaTocMobileJurists

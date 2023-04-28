@@ -1,8 +1,8 @@
-import classes from "./DigestaTocOpus.module.css"
+import classes from "./DigestaTocMobileOpus.module.css"
 import {useNavigate} from "react-router-dom";
 
 
-const DigestaTocOpus = (props) => {
+const DigestaTocMobileOpus = (props) => {
     const navigate = useNavigate()
     const onOptionChangeHandler = (event) => {
         const lex_id = event.target.value
@@ -28,4 +28,4 @@ const DigestaTocOpus = (props) => {
     )
 }
 
-export default DigestaTocOpus
+export default DigestaTocMobileOpus

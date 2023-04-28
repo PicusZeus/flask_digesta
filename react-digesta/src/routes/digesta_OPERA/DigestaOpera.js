@@ -1,6 +1,8 @@
 import {json, Outlet, useLoaderData} from "react-router-dom";
-import DigestaTocOpera from "../../components/DigestaToc/DigestaTocOpera/DigestaTocOpera";
+import DigestaTocMobileOpera from "../../components/DigestaToc/DigestaTocMobile/DigestaTocMobileOpera/DigestaTocMobileOpera";
 import classes from "./DigestaOpera.module.css";
+import DigestaTocDesktopOpera
+    from "../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopOpera/DigestaTocDesktopOpera";
 
 const DigestaOpera = () => {
     const toc = useLoaderData()
@@ -9,8 +11,14 @@ const DigestaOpera = () => {
         <div className={classes.opera_main}>
             <h1 className={classes.opera_main__title}>Prace cytowane w Digestach</h1>
             <div className={classes.opera_main__container}>
+                <div className={classes.opera__mobile_toc}>
+                    <DigestaTocMobileOpera toc={toc}/>
 
-                <DigestaTocOpera toc={toc}/>
+                </div>
+                <div className={classes.opera__desktop_toc}>
+                    <DigestaTocDesktopOpera toc={toc}/>
+                </div>
+
                 <Outlet/>
             </div>
         </div>

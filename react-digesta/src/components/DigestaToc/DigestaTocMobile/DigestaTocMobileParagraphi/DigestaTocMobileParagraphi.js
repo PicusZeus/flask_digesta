@@ -1,7 +1,7 @@
-import classes from "./DigestaTocLex.module.css";
+import classes from "./DigestaTocMobileParagraphi.module.css";
 
 
-const DigestaTocParagraphi = (props) => {
+const DigestaTocMobileParagraphi = (props) => {
     const paragraphi = props.paragraphiKeys.slice(1)
     let options
     options = paragraphi.map((p) => (<option key={p}>{p}</option>))
@@ -19,4 +19,4 @@ const DigestaTocParagraphi = (props) => {
     )
 }
 
-export default DigestaTocParagraphi
+export default DigestaTocMobileParagraphi

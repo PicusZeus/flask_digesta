@@ -1,7 +1,10 @@
 import {useSelector} from "react-redux";
 import {Outlet} from "react-router-dom";
 import classes from "./DigestaTrad.module.css";
-import DigestaTocBooks from "../../components/DigestaToc/DigestaTocBooks/DigestaTocBooks";
+import DigestaTocMobileBooks
+    from "../../components/DigestaToc/DigestaTocMobile/DigestaTocMobileBooks/DigestaTocMobileBooks";
+import DigestaTocDesktopBooks
+    from "../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopBooks/DigestaTocDesktopBooks";
 
 
 const DigestaTrad = () => {
@@ -13,10 +16,14 @@ const DigestaTrad = () => {
             <h1 className={classes.trad_main__title}>Digesta - po spisie treści</h1>
 
             <div className={classes.trad_main__container}>
-                <h1>ENV {process.env.REACT_APP_BASE_URL}</h1>
 
+                <div className={classes.trad_main__mobile_toc}>
+                    {toc && <DigestaTocMobileBooks toc={toc} url={"/digesta"}/>}
 
-                {toc && <DigestaTocBooks toc={toc} url={"/digesta"}/>}
+                </div>
+                <div className={classes.trad_main__desktop_toc}>
+                    {toc && <DigestaTocDesktopBooks toc={toc}/>}
+                </div>
 
 
                 <Outlet/>

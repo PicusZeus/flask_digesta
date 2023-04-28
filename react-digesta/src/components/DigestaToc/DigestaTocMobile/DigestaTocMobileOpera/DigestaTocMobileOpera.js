@@ -1,8 +1,8 @@
-import classes from "./DigestaTocOpera.module.css"
-import DigestaTocOpus from "./DigestaTocOpus/DigestaTocOpus";
+import classes from "./DigestaTocMobileOpera.module.css"
+import DigestaTocMobileOpus from "../DigestaTocMobileOpus/DigestaTocMobileOpus";
 import {useState} from "react";
 
-const DigestaTocOpera = (props) => {
+const DigestaTocMobileOpera = (props) => {
     const toc = props.toc
     const [chosenOpus, setChosenOpus] = useState(null)
     const onOptionChangeHandler = (event) => {
@@ -18,10 +18,10 @@ const DigestaTocOpera = (props) => {
                 {toc && toc.map(opus => {return (<option key={opus.id} value={opus.id}>{opus.book} {opus.title_lat} {opus.author.name}</option>)})}
 
             </select>
-            {chosenOpus && <DigestaTocOpus content={toc.filter((opus)=>{ return (opus.id === chosenOpus)})[0]}/>}
+            {chosenOpus && <DigestaTocMobileOpus content={toc.filter((opus)=>{ return (opus.id === chosenOpus)})[0]}/>}
 
         </>
     )
 }
 
-export default DigestaTocOpera
+export default DigestaTocMobileOpera

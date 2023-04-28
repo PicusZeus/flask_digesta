@@ -1,0 +1,16 @@
+.mobile_toc {
+    display: block;
+}
+
+.desktop_toc {
+    display: none;
+}
+
+@media (min-width: 600px) {
+    .mobile_toc {
+        display: none;
+    }
+    .desktop_toc {
+        display: block;
+    }
+}

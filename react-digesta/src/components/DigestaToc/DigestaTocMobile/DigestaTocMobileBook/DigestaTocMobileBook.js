@@ -1,9 +1,9 @@
-import classes from "./DigestaTocBook.module.css"
-import DigestaTocTitulus from "./DigestaTocTitulus/DigestaTocTitulus";
+import classes from "./DigestaTocMobileBook.module.css"
+import DigestaTocMobileTitulus from "../DigestaTocMobileTitulus/DigestaTocMobileTitulus";
 import {useSelector, useDispatch} from "react-redux";
 import {digestaActions} from "../../../../store/digesta-slice";
 import {useNavigate} from "react-router-dom";
-const DigestaTocBook = (props) => {
+const DigestaTocMobileBook = (props) => {
     const url = props.url
 
     const dispatch = useDispatch()
@@ -27,11 +27,11 @@ const DigestaTocBook = (props) => {
                     <option key={titulus.id} value={titulus.id}>{titulus.number} {titulus.title_lat}</option>))}
                 })}
             </select>
-            {chosenTitulusId && <DigestaTocTitulus url={url} leges={tituli.filter((titulus) => {
+            {chosenTitulusId && <DigestaTocMobileTitulus url={url} leges={tituli.filter((titulus) => {
                 return (titulus.id === chosenTitulusId)
             })[0]}/>}
         </>
     )
 }
-export default DigestaTocBook
+export default DigestaTocMobileBook
 

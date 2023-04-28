@@ -1,9 +1,9 @@
-import classes from "../DigestaTocBook.module.css";
+import classes from "../DigestaTocMobileBook/DigestaTocMobileBook.module.css";
 import {useDispatch} from "react-redux";
-import {digestaActions} from "../../../../../store/digesta-slice";
+import {digestaActions} from "../../../../store/digesta-slice";
 import {useNavigate} from "react-router-dom";
 
-const DigestaTocTitulus = (props) => {
+const DigestaTocMobileTitulus = (props) => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -32,4 +32,4 @@ const DigestaTocTitulus = (props) => {
     )
 }
 
-export default DigestaTocTitulus
+export default DigestaTocMobileTitulus
