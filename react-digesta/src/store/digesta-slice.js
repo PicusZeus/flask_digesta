@@ -1,5 +1,4 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {redirect} from "react-router-dom";
 
 
 const initialState = {

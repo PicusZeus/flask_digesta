@@ -1,11 +1,9 @@
 import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
 import classes from "./MobileNav.module.css";
 import tokenService from "../../../services/token.service";
 
 const MobileNav = (props) => {
-    // const user = useSelector(state => state.auth.loggedIn)
-    const user = tokenService.getUser()
+    const user_id = tokenService.getUserId()
     let logging = (
         <>
             <li className={classes.mobile_nav__login}>
@@ -17,7 +15,7 @@ const MobileNav = (props) => {
         </>
     )
 
-    if (user) {
+    if (user_id) {
         logging = (
             <li className={classes.mobile_nav__logout}>
                 <button onClick={props.onLogout}>Wyloguj się</button>

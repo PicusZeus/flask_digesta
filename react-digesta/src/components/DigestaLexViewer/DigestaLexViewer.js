@@ -3,9 +3,9 @@ import classes from "./DigestaLexViewer.module.css"
 import DigestaParagraphusViewer from "../DigestaParagraphusViewer/DigestaParagraphusViewer";
 import DigestaTocParagraphi
     from "../DigestaToc/DigestaTocBooks/DigestaTocBook/DigestaTocTitulus/DigestaTocParagraphi/DigestaTocParagraphi";
-import {useEffect, useState} from "react";
-
-
+import {useEffect} from "react";
+import {refreshToken} from "../../store/auth-actions";
+import {useDispatch} from "react-redux";
 
 
 const DigestaLexViewer = (props) => {
@@ -14,7 +14,6 @@ const DigestaLexViewer = (props) => {
     if (!lex) {
         lex = props.lex
     }
-    const [showPr, setShopPr] = useState(true)
     const paragraphi = lex.paragraphi
     const setParagraphHandler = (event) => {
         const paragraphKey = event.target.value
@@ -24,22 +23,19 @@ const DigestaLexViewer = (props) => {
         }
     }
 
-    const linkAuthor = "http://127.0.0.1:3000/jurysci/" + lex.author.id
-    const linkOpus = 'http://127.0.0.1:3000/opera/'  + lex.opus.id
+    const linkAuthor = "/juryci/" + lex.author.id
+    const linkOpus = '/opera/' + lex.opus.id
     const ksiega = "Księga " + lex.opus.book
     const address = "D " + lex.titulus.book.book_nr + '.' + lex.titulus.number + '.' + lex.lex_nr
     const address_lat = lex.address_lat
     const address_pl = lex.address_pl
 
 
-
     const paragraphiDic = Object.assign({}, ...paragraphi.map((paragraphus) => ({[paragraphus.key]: paragraphus})));
     const paragraphiKeys = Object.keys(paragraphiDic).sort((a, b) => parseInt(a) - parseInt(b))
     paragraphiKeys.unshift(paragraphiKeys.pop())
-    const pr = paragraphiDic['pr'].id
-    console.log(pr, 'PR')
 
-    useEffect(()=>{
+    useEffect(() => {
 
     }, [])
 
@@ -58,7 +54,7 @@ const DigestaLexViewer = (props) => {
                 <Link to={linkAuthor}>{lex.author.name}</Link>
                 <Link to={linkOpus}>{parseInt(lex.opus.book) > 0 ? ksiega : null} {lex.opus.title_pl}</Link>
             </div>
-             <DigestaParagraphusViewer paragraphus={paragraphiDic['pr']}/>
+            <DigestaParagraphusViewer paragraphus={paragraphiDic['pr']}/>
             {paragraphiKeys.length > 1 &&
                 <DigestaTocParagraphi setParagraph={setParagraphHandler} paragraphiKeys={paragraphiKeys}/>}
 
@@ -72,7 +68,7 @@ export default DigestaLexViewer
 
 export const loader = async ({params, request}) => {
     const id = params.lex_id
-    const response = await fetch("http://127.0.0.1:5001/digesta/leges/" + id)
+    const response = await fetch(process.env.REACT_APP_BASE_API_URL + "digesta/leges/" + id)
 
     if (!response.ok) {
         throw json(

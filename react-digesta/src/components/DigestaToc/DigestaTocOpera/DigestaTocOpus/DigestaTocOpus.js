@@ -6,16 +6,13 @@ const DigestaTocOpus = (props) => {
     const navigate = useNavigate()
     const onOptionChangeHandler = (event) => {
         const lex_id = event.target.value
-        console.log(lex_id, 'lex_id')
         navigate(lex_id.toString())
     }
     const content = props.content
     const leges = props.content.leges
-    console.log(props.content.leges, 'leges')
     return (
         <>
             <div>{content.book} {content.title_lat} </div>
-            {/*<div>{content.author.name}</div>*/}
 
             <label className={classes.main_toc__label}>Wybierz fragment</label>
 

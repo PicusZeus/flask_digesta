@@ -13,10 +13,7 @@ const DigestaOpera = () => {
                 <DigestaTocOpera toc={toc}/>
                 <Outlet/>
             </div>
-
-
         </div>
-
     )
 
 
@@ -27,10 +24,10 @@ export default DigestaOpera
 
 export const loader = async () => {
 
-    const response = await fetch("http://127.0.0.1:5001/opera")
+    const response = await fetch(process.env.REACT_APP_BASE_API_URL + "opera")
     if (!response.ok) {
         throw json(
-            {message: 'could not load'},
+            {message: 'Nie udało się załadować spisu dzieł jurystów'},
             {status: 500}
         )
 

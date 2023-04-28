@@ -3,29 +3,25 @@ import NewComment from "../newComment/NewComment";
 import tokenService from "../../services/token.service";
 import NotificationService from "../../services/notification.service";
 import {useDispatch} from "react-redux";
-import {refreshToken} from "../../store/auth-actions";
+import {logout, refreshToken} from "../../store/auth-actions";
 import {authActions} from "../../store/auth-slice";
-import TokenService from "../../services/token.service";
-import {redirect} from "react-router-dom";
 import {uiActions} from "../../store/ui-slice";
 import Confirmation from "../UI/confirmation/Confirmation";
 
 const CommentViewer = (props) => {
 
     const [deleteDialog, setDeleteDialog] = useState(false)
-    // const replies = props.replies
     const dispatch = useDispatch()
     const [replies, setReplies] = useState([])
     const comment = props.comment
     const comment_id = comment.id
     const [isReplying, setIsReplaying] = useState(false)
     const props_replies = props.replies
-    const user = tokenService.getUser()
+    const user_id = tokenService.getUserId()
 
-    console.log(comment.user.id, 'DANME MN', user?.user_id)
-    const token = user?.access_token
-    const refresh_token = user?.refresh_token
-    const user_id = user?.user_id
+    const token = tokenService.getLocalAccessToken()
+    const refresh_token = tokenService.getLocalRefreshToken()
+
 
     useEffect(() => {
         if (props_replies) {
@@ -33,7 +29,6 @@ const CommentViewer = (props) => {
         }
     }, [props_replies])
 
-    // console.log("NEW", comment)
     const addReplyHandler = (reply) => {
         const newReplies = [...replies]
 
@@ -45,7 +40,7 @@ const CommentViewer = (props) => {
 
     const deleteCommentHandler = (comment_id, token) => {
         const deleteComment = async () => {
-            const response = await fetch("http://127.0.0.1:5001/comment/" + comment_id, {
+            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "comment/" + comment_id, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -68,21 +63,16 @@ const CommentViewer = (props) => {
                     const commentedParagraphi = response.commentedParagraphi
                     dispatch(authActions.setCommentedParagraphi(commentedParagraphi))
                     tokenService.updateCommentedParagraphi(commentedParagraphi)
+                    dispatch(refreshToken(refresh_token))
                 } else if (response.status === 204) {
                     notificationSetter.setNotificationError("komentarz", "błąd autoryzacji")
-
-
                 }
             }
         ).catch((e) => {
             if (e.message === "unauthorised")
-                // console.log(e)
-                // dispatch(refreshToken(refresh_token))
-                // token = tokenService.getLocalAccessToken()
-                // deleteCommentHandler(token)
+
             {
-                dispatch(authActions.resetToken())
-                TokenService.removeUser()
+                dispatch(logout(token))
                 notificationSetter.setNotificationError("komentarz", "zaloguj się ponownie")
             } else {
                 notificationSetter.setNotificationError("komentarz", "błąd serwera")
@@ -93,7 +83,6 @@ const CommentViewer = (props) => {
 
     }
 
-    // console.log(props.paragraphus, 'IN VIEWER')
     return (
 
         <li>
@@ -102,7 +91,8 @@ const CommentViewer = (props) => {
             <ul>
                 <textarea defaultValue={comment.comment}/>
                 <button onClick={() => setIsReplaying(!isReplying)}>odpowiedz</button>
-                {user && user.user_id === comment.user.id &&
+                <h2>{user_id} {comment.user.id}</h2>
+                {parseInt(user_id) === comment.user.id &&
                     <button onClick={() => setDeleteDialog(true)}>usuń</button>}
                 {isReplying && <NewComment paragraphus={props.paragraphus}
                                            repliedId={comment_id}

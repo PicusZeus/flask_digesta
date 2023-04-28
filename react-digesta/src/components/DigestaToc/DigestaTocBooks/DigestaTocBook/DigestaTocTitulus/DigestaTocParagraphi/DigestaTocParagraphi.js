@@ -3,7 +3,6 @@ import classes from "./DigestaTocLex.module.css";
 
 const DigestaTocParagraphi = (props) => {
     const paragraphi = props.paragraphiKeys.slice(1)
-    // paragraphi = paragraphi
     let options
     options = paragraphi.map((p) => (<option key={p}>{p}</option>))
 

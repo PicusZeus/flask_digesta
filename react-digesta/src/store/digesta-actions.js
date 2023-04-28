@@ -1,10 +1,11 @@
 import {digestaActions} from "./digesta-slice";
-
+import NotificationService from "../services/notification.service";
 export const loadTOC = () => {
     return async (dispatch) => {
+        const notificationSetter = new NotificationService(dispatch)
 
         const loadingToc = async () => {
-            const response = await fetch("http://127.0.0.1:5001/digesta/books", {
+            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "digesta/books", {
                 headers: {
                     "Access-Control-Allow-Origin": "*"
                 }
@@ -24,8 +25,9 @@ export const loadTOC = () => {
             const data = await loadingToc()
             dispatch(digestaActions.setTOC(data))
 
-        } catch (error) {
-            console.log(error)
+        } catch (e) {
+            notificationSetter.setNotificationError('Spis Treści', 'Nie udało załadować się spisu treści')
+
         }
     };
 
@@ -34,11 +36,13 @@ export const loadTOC = () => {
 
 export const loadJurists = () => {
     return async (dispatch) => {
+        const notificationSetter = new NotificationService(dispatch)
         const loadingJurists = async () => {
-            const response = await fetch("http://127.0.0.1:5001/authors")
+            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "authors")
 
             if (!response.ok) {
                 throw new Error('sth went wrong')
+
             }
 
             const data = await response
@@ -49,7 +53,8 @@ export const loadJurists = () => {
             const jurists = await loadingJurists();
             dispatch(digestaActions.setJurists(jurists))
         } catch (error) {
-            console.log(error)
+            notificationSetter.setNotificationError('Spis Jurystów', "nie udało się załadować spisu Jurystów")
+
         }
     }
 }

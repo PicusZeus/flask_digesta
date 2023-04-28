@@ -4,22 +4,22 @@ import {useEffect, useMemo, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import NewComment from "../newComment/NewComment";
 import tokenService from "../../services/token.service";
-import {authActions} from "../../store/auth-slice";
 import {refreshToken} from "../../store/auth-actions";
-import TokenService from "../../services/token.service";
+import NotificationService from "../../services/notification.service";
 
 const DigestaParagraphusViewer = (props) => {
     const [comments, setComments] = useState([])
     const [showComments, setShowComments] = useState(false)
     const username = useSelector(state => state.auth.username)
-    let user = tokenService.getUser()
+
     const dispatch = useDispatch()
     const rerender = useSelector(state => state.ui.rerender)
     // const token =
-    const token = useMemo(() => {
-        tokenService.getLocalAccessToken()
-    }, [])
-    const refresh_token = user?.refresh_token
+    // const token = useMemo(() => {
+    //     tokenService.getLocalAccessToken()
+    // }, [])
+    const token = tokenService.getLocalAccessToken()
+    const refresh_token = tokenService.getLocalRefreshToken()
     let paragraphus = useLoaderData()
     if (props.paragraphus) {
         paragraphus = props.paragraphus
@@ -33,19 +33,25 @@ const DigestaParagraphusViewer = (props) => {
 
         setComments(newComments)
     }
-    // const [headers, setHeaders] = useState({"Content-Type": "application/json"})
+
+    let newComment = <h2>Jeśli chcesz napisać komentarz, zaloguj się</h2>
+
+    if (username && paragraphus) {
+        newComment = <NewComment paragraphus={paragraphus} addNewComment={addNewCommentHandler}/>
+    }
+
     const headers = useMemo(() => (
         {"Content-Type": "application/json"}
 
     ), [username])
 
-    // console.log(headers, paragraphus.id, 'here')
     useEffect(() => {
         if (token) {
             headers['Authorization'] = "Bearer " + token
         }
+        const notificationSetter = new NotificationService(dispatch)
         const sendRequest = async () => {
-            const response = await fetch("http://127.0.0.1:5001/comment/paragraphus/" + paragraphus.id, {
+            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "comment/paragraphus/" + paragraphus.id, {
                 headers: headers
             });
 
@@ -64,14 +70,9 @@ const DigestaParagraphusViewer = (props) => {
             if (response) {
 
                 setComments(response)
-                // dispatch(refreshToken(refresh_token))
-                // if (response.access_token !== "False")
-                // {TokenService.updateLocalAccessToken(response.access_token)}
             }
-
-
         }).catch((e) => {
-            console.log(e.status, 'STATUS')
+            notificationSetter.setNotificationError('Komentarze', 'Nie udało się załadować komentarzy')
 
 
         })
@@ -84,7 +85,7 @@ const DigestaParagraphusViewer = (props) => {
             <div>{paragraphus.text_lat}</div>
             <button onClick={()=>setShowComments(!showComments)}>{showComments ? "schowaj" : "pokaż"} komentarze</button>
             {showComments && <ul>
-                {paragraphus && <NewComment paragraphus={paragraphus} addNewComment={addNewCommentHandler}/>}
+                {newComment}
                 {comments && comments.map((comment) => (
                     <CommentViewer key={comment.id}
                                    c_id={comment.id}
@@ -102,7 +103,7 @@ export default DigestaParagraphusViewer
 
 export const loader = async ({params, request}) => {
     const id = params.paragraphus_id
-    const response = await fetch("http://127.0.0.1:5001/digesta/paragraphi/" + id)
+    const response = await fetch(process.env.REACT_APP_BASE_API_URL + "digesta/paragraphi/" + id)
 
     if (!response.ok) {
         throw json(

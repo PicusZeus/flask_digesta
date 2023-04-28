@@ -6,10 +6,6 @@ import DigestaTocSearchParagraphs from "../../components/DigestaToc/DigestaTocSe
 
 const DigestaLookUp = () => {
     const data = useActionData()
-    console.log(data, 'DATA')
-    // const paragraphi = data.paragraphi
-    // const searched_term = data.searched_term
-
 
     return (
         <>
@@ -30,11 +26,10 @@ export const action = async ({request, params}) => {
 
     const eventData = { searched_term: searched_term }
     const lang = data.get("language")
-    const response = await fetch("http://127.0.0.1:5001/digesta/" + lang, {
+    const response = await fetch(process.env.REACT_APP_BASE_API_URL + "digesta/" + lang, {
         method: 'POST',
         headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
+            "Content-Type": "application/json"
 
         },
         body: JSON.stringify(eventData)
@@ -45,8 +40,9 @@ export const action = async ({request, params}) => {
             )
     } else {
         const data = await response.json()
-        console.log(lang, 'inside')
-        return {paragraphi: data, searched_term:searched_term, lang:lang}
+        return {paragraphi: data,
+                searched_term:searched_term,
+                lang:lang}
     }
 
 

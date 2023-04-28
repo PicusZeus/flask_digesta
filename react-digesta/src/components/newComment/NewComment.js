@@ -9,17 +9,16 @@ import tokenService from "../../services/token.service";
 const NewComment = (props) => {
 
     const [commentInput, setCommentInput] = useState('')
-    // console.log(commentInput)
-    const updatedToken = useSelector(state => state.auth.access_token)
-    let user = TokenService.getUser()
+    // const updatedToken = useSelector(state => state.auth.access_token)
+    let user = tokenService.getUserId()
 
-    useEffect(() => {
-        user = TokenService.getUser()
-    }, [updatedToken])
-    // console.log(updatedUser, 'UPDATE')
+    // useEffect(() => {
+    //     user = tokenService.getUserId()
+    // }, [updatedToken])
 
-    let token = user?.access_token
-    const refresh_token = user?.refresh_token
+    let token = tokenService.getLocalAccessToken()
+
+    const refresh_token = tokenService.getLocalRefreshToken()
     // console.log(token)
     const dispatch = useDispatch()
     const [isPrivate, setIsPrivate] = useState(false)
@@ -28,16 +27,15 @@ const NewComment = (props) => {
         repliedId = props.repliedId
     }
     const authenticated = user
-    const commentedParagraphi = user?.paragraphi
+    const commentedParagraphi = tokenService.getCommentedParagraphi()
     const par_id = props.paragraphus.id
     const notificationSetter = new NotificationService(dispatch)
     const postCommentHandler = (event, newComment, token) => {
         event.preventDefault()
-        // const newComment = event.target[0].value
-        console.log(token, "TOKENM")
         const sendComment = async () => {
-            console.log('sending')
-            const respons = await fetch("http://127.0.0.1:5001/comment/paragraphus/" + par_id,
+            notificationSetter.setNotificationPending('komentarz', 'wysyłam komentarz')
+            // console.log('sending')
+            const respons = await fetch(process.env.REACT_APP_BASE_API_URL + "comment/paragraphus/" + par_id,
                 {
                     method: "POST",
                     headers: {
@@ -51,7 +49,6 @@ const NewComment = (props) => {
                     })
                 })
             if (respons.status === 401) {
-                // dispatch(logout(token))
                 throw new Error('unauthorised')
 
             }
@@ -59,14 +56,14 @@ const NewComment = (props) => {
             const data = await respons.json()
             return data
         }
-
         sendComment().then((response => {
 
             if (response) {
-                // console.log(response, "RESPONSE")
                 const data = response
                 notificationSetter.setNotificationSuccess("komentarz", "komentarz zamieszczony")
                 props.addNewComment(data)
+                console.log(data, 'INSIDE')
+
                 if (
                     commentedParagraphi.filter((paragraphus) =>
                         paragraphus.id === par_id
@@ -76,22 +73,19 @@ const NewComment = (props) => {
                     TokenService.updateCommentedParagraphi(newParagraphi)
                     dispatch(authActions.setCommentedParagraphi(newParagraphi))
                 }
+                dispatch(refreshToken(refresh_token))
             }
         })).catch((e) => {
+            console.log(e)
             if (e.message === "unauthorised") {
-                // dispatch(refreshToken(refresh_token))
                 dispatch(authActions.resetToken())
                 TokenService.removeUser()
                 notificationSetter.setNotificationError("komentarz", "zaloguj się ponownie jeśli chcesz dodać komentarz")
 
-                // token = tokenService.getLocalAccessToken()
-                // postCommentHandler(event, newComment, token)
-                // return null
-            }
-            // console.log(e, 'ERROR')
-            else {
-                            notificationSetter.setNotificationError("komentarz", "błąd serwera")
 
+            }
+            else {
+                notificationSetter.setNotificationError("komentarz", "błąd serwera")
             }
         })
     }

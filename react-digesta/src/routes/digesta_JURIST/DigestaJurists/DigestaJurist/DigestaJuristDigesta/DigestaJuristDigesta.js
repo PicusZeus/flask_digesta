@@ -47,11 +47,11 @@ const prepareToc = (id, books) => {
 
 export const loader = async ({params, request}) => {
     const id = parseInt(params.jurysta_id);
-    const response = await fetch("http://127.0.0.1:5001/digesta/books");
+    const response = await fetch( process.env.REACT_APP_BASE_API_URL + "digesta/books");
 
     if (!response.ok) {
         throw json(
-            {message: 'could not load'},
+            {message: 'Nie udało się załadować spisu ustaw jurysty'},
             {status: 500}
         )
 

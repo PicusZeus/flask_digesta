@@ -5,7 +5,7 @@ import DigestaJurists from "./routes/digesta_JURIST/DigestaJurists/DigestaJurist
 import DigestaTrad from "./routes/digesta_TRAD/DigestaTrad";
 import DigestaLookUp from "./routes/digesta_LOOKUP/DigestaLookUp";
 import React, {useEffect} from "react";
-import {loadTOC} from "./store/digesta-actions";
+import {loadJurists, loadTOC} from "./store/digesta-actions";
 import {useDispatch} from "react-redux";
 import DigestaJurist from "./routes/digesta_JURIST/DigestaJurists/DigestaJurist/DigestaJurist";
 import DigestaJuristDigesta, {
@@ -143,6 +143,7 @@ const App = () => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(loadTOC())
+        dispatch(loadJurists())
     }, [dispatch])
     return (
         <RouterProvider router={router}/>

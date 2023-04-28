@@ -1,5 +1,4 @@
-import PageContent from "../../components/PageContent/PageContent";
-import {Link, useRouteError} from "react-router-dom";
+import {useRouteError} from "react-router-dom";
 import MenuBar from "../../components/UI/menuBar/MenuBar";
 import Footer from "../../components/UI/footer/Footer";
 
@@ -14,12 +13,13 @@ const ErrorPage = () => {
     return (
         <>
             <MenuBar/>
-            <PageContent title="nie udało się">
-                <div>ERROR</div>
+            <section>
+                <h2>Coś poszło nie tak</h2>
                 <h1>{errorCode}</h1>
                 <h2>{message}</h2>
 
-            </PageContent>
+            </section>
+
             <Footer/>
         </>
 

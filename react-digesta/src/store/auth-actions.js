@@ -9,7 +9,7 @@ export const logout = (token) => {
         const notificationSetter = new NotificationService(dispatch)
 
         const loggingOut = async () => {
-            const response = await fetch("http://127.0.0.1:5001/logout", {
+            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "logout", {
                 headers: {Authorization: "Bearer " + token, "Content-Type": "application-json"}
             })
 
@@ -36,7 +36,7 @@ export const logout = (token) => {
 export const refreshToken = (refresh_token) => {
     return async (dispatch) => {
         const sendRequest = async () => {
-            const response = await fetch("http://127.0.0.1:5001/refresh", {
+            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "refresh", {
                 method: "post",
                 headers: {
                     "Content-Type": "application-json",
@@ -52,11 +52,10 @@ export const refreshToken = (refresh_token) => {
 
             const data = await sendRequest()
             const access_token = data.access_token
-            // console.log(access_token, 'here')
             dispatch(authActions.setToken(access_token))
             tokenService.updateLocalAccessToken(access_token)
         } catch (e) {
-            console.log(e)
+            // notificationSetter.setNotificationError("Wystąpił błąd na serwerze", "Logowanie się nie powiodło")
         }
 
 
@@ -72,7 +71,7 @@ export const loggingIn = (username, password) => {
 
 
         const sendRequest = async () => {
-            const response = await fetch("http://127.0.0.1:5001/login",
+            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "login",
                 {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
@@ -99,7 +98,7 @@ export const loggingIn = (username, password) => {
 
                 dispatch(uiActions.logingToggle())
                 TokenService.setUser(data)
-
+                console.log('DISPATCH', data)
                 dispatch(authActions.setUserData(data))
             }
         } catch
@@ -120,7 +119,7 @@ export const register = (username, password, email) => {
         notificationSetter.setNotificationPending("Rejestracja przebiega...", "Wysyłam dane do rejestracji")
 
         const sendRequest = async () => {
-            const response = await fetch("http://127.0.0.1:5001/register",
+            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "register",
                 {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},

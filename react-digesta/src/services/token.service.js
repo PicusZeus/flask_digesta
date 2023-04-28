@@ -1,43 +1,72 @@
 class TokenService {
-  getLocalRefreshToken() {
-    const user = JSON.parse(localStorage.getItem("user"));
-    return user?.refreshToken;
-  }
+    getLocalRefreshToken() {
+        return JSON.parse(localStorage.getItem("refresh_token"));
+    }
 
-  getLocalAccessToken() {
-    const user = JSON.parse(localStorage.getItem("user"));
-    return user?.access_token;
-  }
+    getLocalAccessToken() {
 
-  updateLocalAccessToken(token) {
-    let user = JSON.parse(localStorage.getItem("user"));
-    user.access_token = token;
-    localStorage.setItem("user", JSON.stringify(user));
-    return token
-  }
+        const token = JSON.parse(localStorage.getItem("access_token"));
+        const tokenDuration = this.getTokenDuration()
 
-  updateCommentedParagraphi(newParagraphi) {
-    let user = JSON.parse(localStorage.getItem("user"));
-    user.paragraphi = newParagraphi
-    localStorage.setItem("user", JSON.stringify(user))
-  }
-  getCommentedParagraphi() {
-    const user = JSON.parse(localStorage.getItem("user"));
-    return user?.paragraphi
-  }
-  getUser() {
-    return JSON.parse(localStorage.getItem("user"));
-  }
+        if (tokenDuration < 0) {
+            return "EXPIRED"
+        } else {
+            return token
+        }
+    }
 
-  setUser(user) {
-    // console.log(JSON.stringify(user));
-    localStorage.setItem("user", JSON.stringify(user));
-  }
+    updateLocalAccessToken(token) {
+        localStorage.setItem("access_token", JSON.stringify(token));
+        const expiration = new Date()
+        expiration.setHours(expiration.getHours() + 6)
+        localStorage.setItem('expiration', expiration.toISOString())
+    }
 
-  removeUser() {
-    localStorage.removeItem("user");
-  }
+    updateCommentedParagraphi(newParagraphi) {
+        localStorage.setItem("commented_paragraphi", JSON.stringify(newParagraphi))
+    }
+
+    getCommentedParagraphi() {
+        return JSON.parse(localStorage.getItem("commented_paragraphi"))
+    }
+
+    getUserId() {
+        return localStorage.getItem("user_id")
+    }
+
+    getUsername() {
+        return JSON.parse(localStorage.getItem('username'))
+    }
+
+    getTokenDuration() {
+        const storedExpirationDate = localStorage.getItem('expiration')
+        const now = new Date()
+        const expirationDate = new Date(storedExpirationDate)
+        return expirationDate.getTime() - now.getTime()
+    }
+
+    setUser(userData) {
+
+        localStorage.setItem("user_id", JSON.stringify(userData.user_id));
+        localStorage.setItem("username", JSON.stringify(userData.username));
+        localStorage.setItem("access_token", JSON.stringify(userData.access_token));
+        localStorage.setItem("refresh_token", JSON.stringify(userData.refresh_token));
+        localStorage.setItem("commented_paragraphi", JSON.stringify(userData.paragraphi));
+        const expiration = new Date()
+        expiration.setHours(expiration.getHours() + 6)
+        localStorage.setItem('expiration', expiration.toISOString())
+    }
+
+    removeUser() {
+        localStorage.removeItem("user_id");
+        localStorage.removeItem("username");
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        localStorage.removeItem("commented_paragraphi");
+        localStorage.removeItem("expiration");
+
+    }
 }
 
-
-export default new TokenService()
+const tokenService = new TokenService()
+export default tokenService

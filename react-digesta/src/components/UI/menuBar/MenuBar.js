@@ -8,26 +8,23 @@ import {logout} from "../../../store/auth-actions";
 import Notification from "../Notification/Notification";
 import logo from "./justynian.jpg"
 import MobileNav from "../mobileNav/MobileNav";
-import {useEffect, useState} from "react";
-import TokenService from "../../../services/token.service";
+import {useState} from "react";
+import tokenService from "../../../services/token.service";
 import Modal from "../modal/Modal";
 const MenuBar = (props) => {
 
     const [commentedParagraphiModal, setCommentedParagraphiModal] = useState(false)
-    const user = TokenService.getUser()
-    const loggedIn = user
+    const logged_in = tokenService.getUsername()
     const logging = useSelector((state) => state.ui.logging)
     const registering = useSelector((state) => state.ui.registering)
-    const token = user?.access_token
+    const token = tokenService.getLocalAccessToken()
     const dispatch = useDispatch()
     const notification = useSelector(state => state.ui.notification)
 
-    const commParState = useSelector(state=>state.auth.commentedParagraphi)
-    const commentedParagraphi = user?.paragraphi
+    const commentedParagraphi = tokenService.getCommentedParagraphi()
 
     let numberOfCommentedParagraphi = 0
     if (commentedParagraphi) {numberOfCommentedParagraphi = commentedParagraphi.length}
-    console.log(numberOfCommentedParagraphi, "NUM PAR")
 
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const logingToggleHandler = () => {
@@ -74,27 +71,27 @@ const MenuBar = (props) => {
                 <nav className={classes.main_nav}>
                     <ul className={classes.main_nav__items}>
 
-                        {loggedIn && <li className={classes.main_nav__logout}>
+                        {logged_in && <li className={classes.main_nav__logout}>
                             <button onClick={logoutHandler}>Wyloguj się</button>
                         </li>}
 
-                        {!loggedIn && <li className={classes.main_nav__login}>
+                        {!logged_in && <li className={classes.main_nav__login}>
                             <button onClick={logingToggleHandler}>Zaloguj się</button>
                         </li>}
 
-                        {!loggedIn && <li className={classes.main_nav__login}>
+                        {!logged_in && <li className={classes.main_nav__login}>
                             <button onClick={registerToggleHandler}>Zarejestruj się</button>
                         </li>}
-                        {loggedIn && <li className={classes.main_nav__item}><button onClick={()=>setCommentedParagraphiModal(true)}>Skomentowane Paragrafy {numberOfCommentedParagraphi}</button></li> }
+                        {logged_in && <li className={classes.main_nav__item}><button onClick={()=>setCommentedParagraphiModal(true)}>Skomentowane Paragrafy {numberOfCommentedParagraphi}</button></li> }
 
                         <li className={classes.main_nav__item}>
                             <Link to={"/digesta"}>Digesta - tekst oryginalny i tłumaczenie</Link>
                         </li>
                         <li className={classes.main_nav__item}>
-                            <Link to={"/jurysci"}>Digesta - przeglądaj tekst wg jurystów i ich dziełt</Link>
+                            <Link to={"/jurysci"}>Digesta - przeglądaj tekst wg jurystów i ich dzieł</Link>
                         </li>
                         <li className={classes.main_nav__item}>
-                            <Link to={"/opera"}>Digesta - przeglądaj cytowane w Digestach dzieła jurystów i ich dziełt</Link>
+                            <Link to={"/opera"}>Digesta - przeglądaj cytowane w Digestach dzieła jurystów i ich dzieł</Link>
                         </li>
                         <li className={classes.main_nav__item}>
                             <Link to={"/wyszukaj"}>Digesta - wyszukaj w tekście</Link>

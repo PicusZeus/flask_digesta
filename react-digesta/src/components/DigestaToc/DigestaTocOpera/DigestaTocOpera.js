@@ -10,7 +10,6 @@ const DigestaTocOpera = (props) => {
         setChosenOpus(parseInt(event.target.value))
 
     }
-    // console.log(toc, 'opera', chosenOpus, 'index', 'chosen', toc.filter((opus)=>{ return (opus.id === chosenOpus)})[0])
     return (
         <>
             <label className={classes.main_toc__label}>WYBIERZ DZIEŁO</label>
@@ -20,8 +19,6 @@ const DigestaTocOpera = (props) => {
 
             </select>
             {chosenOpus && <DigestaTocOpus content={toc.filter((opus)=>{ return (opus.id === chosenOpus)})[0]}/>}
-            {/*{chosenOpus && <DigestaTocBook content={toc.filter((book) => {*/}
-            {/*    return (book.id === chosenOpus)*/}
 
         </>
     )
