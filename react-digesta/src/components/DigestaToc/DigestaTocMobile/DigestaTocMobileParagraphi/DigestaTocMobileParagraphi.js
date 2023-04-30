@@ -1,4 +1,5 @@
 import classes from "./DigestaTocMobileParagraphi.module.css";
+import TocMobile from "../../../UI/TocMobile/TocMobile";
 
 
 const DigestaTocMobileParagraphi = (props) => {
@@ -10,11 +11,12 @@ const DigestaTocMobileParagraphi = (props) => {
         <>
             <label className={classes.main_toc__label}>Wybierz Paragraf</label>
 
-            <select className={classes.main_toc__paragraphus_option} onChange={props.setParagraph}>
-                <option value={''}>Wybierz paragraph</option>
-                {options}
+            <TocMobile onOption={props.setParagraph}>
 
-            </select>
+                 {options}
+            </TocMobile>
+
+
         </>
     )
 }

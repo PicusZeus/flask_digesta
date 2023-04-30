@@ -1,0 +1,36 @@
+.paragraph_text__container {
+    display: flex;
+    margin: 1rem;
+}
+
+.paragraph_text__container div {
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.paragraph_comments__container {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+}
+
+.paragraph_comments__container button {
+    /*display: inline;*/
+    /*display: block;*/
+    padding: 0.5rem 1rem;
+    /*margin: auto;*/
+    /*flex-grow: 0.5;*/
+    /*background-color: black;*/
+}
+
+.paragraph_comments__items {
+    list-style: none;
+    padding: 1rem;
+}
+
+.paragraph_logout {
+    margin: auto;
+}

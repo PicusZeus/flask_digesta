@@ -32,7 +32,7 @@ const uiSlice = createSlice({
 
             },
             resetNotification(state) {
-               // state.notification = null
+               state.notification = null
             }
         }
     }

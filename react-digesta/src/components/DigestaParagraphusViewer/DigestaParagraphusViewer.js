@@ -6,6 +6,7 @@ import NewComment from "../newComment/NewComment";
 import tokenService from "../../services/token.service";
 import {refreshToken} from "../../store/auth-actions";
 import NotificationService from "../../services/notification.service";
+import classes from "./DigestaParagraphusViewer.module.css"
 
 const DigestaParagraphusViewer = (props) => {
     const [comments, setComments] = useState([])
@@ -22,7 +23,9 @@ const DigestaParagraphusViewer = (props) => {
         paragraphus = props.paragraphus
     }
     let paragraphusKey = null
-    if (paragraphus.key !== 'pr') {paragraphusKey = paragraphus.key}
+    if (paragraphus.key !== 'pr') {
+        paragraphusKey = paragraphus.key
+    }
     const addNewCommentHandler = (newComment) => {
         const newComments = [...comments]
         newComments.push(newComment)
@@ -31,7 +34,7 @@ const DigestaParagraphusViewer = (props) => {
         setComments(newComments)
     }
 
-    let newComment = <h2>Jeśli chcesz napisać komentarz, zaloguj się</h2>
+    let newComment = <li className={classes.paragraph_logout}><h2>Jeśli chcesz dodać komentarz, zaloguj się</h2></li>
 
     if (username && paragraphus) {
         newComment = <NewComment paragraphus={paragraphus} addNewComment={addNewCommentHandler}/>
@@ -75,23 +78,28 @@ const DigestaParagraphusViewer = (props) => {
         })
     }, [token, dispatch, refresh_token, paragraphus, headers, username, rerender])
 
-    // console.log('comments in viewer', comments)
     return (
         <>
             {paragraphusKey && <h2>Paragraf {paragraphusKey}</h2>}
-            <div>{paragraphus.text_lat}</div>
-            <button onClick={()=>setShowComments(!showComments)}>{showComments ? "schowaj" : "pokaż"} komentarze</button>
-            {showComments && <ul>
-                {newComment}
-                {comments && comments.map((comment) => (
-                    <CommentViewer key={comment.id}
-                                   c_id={comment.id}
-                                   paragraphus={paragraphus}
-                                   comment={comment}
-                                   replies={comment.replies}/>))}
+            <section className={classes.paragraph_text__container}>
+                <div>{paragraphus.text_lat}</div>
+                <div>{paragraphus.text_pl}</div>
+            </section>
+            <section className={classes.paragraph_comments__container}>
+                <button onClick={() => setShowComments(!showComments)}>
+                    {showComments ? "schowaj" : "pokaż"} komentarze
+                </button>
+                {showComments && <ul className={classes.paragraph_comments__items}>
+                    {newComment}
+                    {comments && comments.map((comment) => (
+                        <CommentViewer key={comment.id}
+                                       c_id={comment.id}
+                                       paragraphus={paragraphus}
+                                       comment={comment}
+                                       replies={comment.replies}/>))}
 
-            </ul>}
-
+                </ul>}
+            </section>
         </>
 
     )
