@@ -4,8 +4,7 @@ import DigestaParagraphusViewer from "../DigestaParagraphusViewer/DigestaParagra
 import DigestaTocMobileParagraphi
     from "../DigestaToc/DigestaTocMobile/DigestaTocMobileParagraphi/DigestaTocMobileParagraphi";
 import {useEffect} from "react";
-import {refreshToken} from "../../store/auth-actions";
-import {useDispatch} from "react-redux";
+
 
 
 const DigestaLexViewer = (props) => {
@@ -23,7 +22,7 @@ const DigestaLexViewer = (props) => {
         }
     }
 
-    const linkAuthor = "/juryci/" + lex.author.id
+    const linkAuthor = "/jurysci/" + lex.author.id
     const linkOpus = '/opera/' + lex.opus.id
     const ksiega = "Księga " + lex.opus.book
     const address = "D " + lex.titulus.book.book_nr + '.' + lex.titulus.number + '.' + lex.lex_nr
@@ -35,24 +34,22 @@ const DigestaLexViewer = (props) => {
     const paragraphiKeys = Object.keys(paragraphiDic).sort((a, b) => parseInt(a) - parseInt(b))
     paragraphiKeys.unshift(paragraphiKeys.pop())
 
-    useEffect(() => {
 
-    }, [])
 
     return (
 
         <section className={classes.main_lex}>
 
-            <div className={classes.main_lex__text}>
+            <div className={classes.main_lex__title}>
                 <h1>{address}</h1>
-                <h5>{address_lat}</h5>
-                <h5>{address_pl}</h5>
+                <h4>{address_lat}</h4>
+                <h4>{address_pl}</h4>
 
 
             </div>
             <div className={classes.main_lex__redirections}>
-                <Link to={linkAuthor}>{lex.author.name}</Link>
-                <Link to={linkOpus}>{parseInt(lex.opus.book) > 0 ? ksiega : null} {lex.opus.title_pl}</Link>
+                <button><Link to={linkAuthor}>{lex.author.name}</Link></button>
+                <button><Link to={linkOpus}><span>{parseInt(lex.opus.book) > 0 ? ksiega : null}</span><span> {lex.opus.title_pl}</span></Link></button>
             </div>
             <DigestaParagraphusViewer paragraphus={paragraphiDic['pr']}/>
             {paragraphiKeys.length > 1 &&

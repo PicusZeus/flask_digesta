@@ -3,6 +3,7 @@ import DigestaTocMobileTitulus from "../DigestaTocMobileTitulus/DigestaTocMobile
 import {useSelector, useDispatch} from "react-redux";
 import {digestaActions} from "../../../../store/digesta-slice";
 import {useNavigate} from "react-router-dom";
+import TocMobile from "../../../UI/TocMobile/TocMobile";
 const DigestaTocMobileBook = (props) => {
     const url = props.url
 
@@ -15,18 +16,17 @@ const DigestaTocMobileBook = (props) => {
     }
 
     const tituli = props.tituli
-    console.log(tituli, chosenTitulusId)
+
     return (
         <>
-            <label className={classes.main_toc__label}>Wybierz Tytuł</label>
+            <TocMobile onOption={onOptionChangeHandler}>
 
-            <select className={classes.main_toc__titulus_option} onChange={onOptionChangeHandler}>
                 <option value={''}>Wybierz Tytuł</option>
 
                 {tituli && tituli.map(titulus => (
                     <option key={titulus.id} value={titulus.id}>{titulus.number} {titulus.title_lat}</option>))}
                 })}
-            </select>
+            </TocMobile>
             {chosenTitulusId && <DigestaTocMobileTitulus url={url} leges={tituli.filter((titulus) => {
                 return (titulus.id === chosenTitulusId)
             })[0]}/>}

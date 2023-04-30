@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
     logging: false,
-    notification: null,
+    notification: false,
     registering: false,
     rerender: false
 
@@ -32,7 +32,7 @@ const uiSlice = createSlice({
 
             },
             resetNotification(state) {
-               state.notification = null
+               // state.notification = null
             }
         }
     }

@@ -14,10 +14,7 @@ const DigestaParagraphusViewer = (props) => {
 
     const dispatch = useDispatch()
     const rerender = useSelector(state => state.ui.rerender)
-    // const token =
-    // const token = useMemo(() => {
-    //     tokenService.getLocalAccessToken()
-    // }, [])
+
     const token = tokenService.getLocalAccessToken()
     const refresh_token = tokenService.getLocalRefreshToken()
     let paragraphus = useLoaderData()

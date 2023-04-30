@@ -18,6 +18,7 @@ class AllCommentsByUser(MethodView):
     def get(self):
         user_id = get_jwt_identity()
         comments = CommentModel.query.filter(CommentModel.user_id == user_id).all()
+
         return comments
 
 

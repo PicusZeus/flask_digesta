@@ -34,7 +34,7 @@ const Layout = () => {
     return (
         <>
             <MenuBar/>
-            <main className={classes}>
+            <main className={classes.main}>
                 <Outlet/>
             </main>
             <Footer/>

@@ -1,0 +1,37 @@
+
+.list {
+    list-style: none;
+    position: fixed;
+    background-color: #717f4d;
+  left: 50%;
+  transform: translate(-50%, 0);
+    padding: 1rem;
+  width: 80vw;
+  text-align: center;
+  border-radius: 4px;
+    max-height: 70vh;
+overflow:hidden;
+    overflow-y:scroll;
+}
+
+.list li {
+    list-style: none;
+    display: block;
+    margin: 2rem auto;
+    width: 50%;
+
+/*margin-bottom: 2rem;*/
+
+}
+
+.list a {
+font: inherit;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    background-color: #5B4D7F;
+    padding: 0.5rem 1.5rem;
+    margin-bottom: 2rem;
+    display: block;
+    width: 100%;
+}

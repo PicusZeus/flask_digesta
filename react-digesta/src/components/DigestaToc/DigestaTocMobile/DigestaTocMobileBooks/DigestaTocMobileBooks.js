@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
 import {digestaActions} from "../../../../store/digesta-slice";
 import {useNavigate} from "react-router-dom";
+import TocMobile from "../../../UI/TocMobile/TocMobile";
 
 const DigestaTocMobileBooks = (props) => {
     const url = props.url
@@ -19,20 +20,17 @@ const DigestaTocMobileBooks = (props) => {
     return (
         <>
 
+            <TocMobile onOption={onOptionChangeHandler}>
+                <option value={''}>Wybierz księgę</option>
+                {toc && toc.map(book => (<option key={book.id} value={book.id}>{book.book_latin_name}</option>))}
+                })}
+            </TocMobile>
 
+            {chosenBookId && <DigestaTocMobileBook url={url} tituli={toc.filter((book) => {
+                return (book.id === chosenBookId)
+            })[0].tituli}/>}
 
-                <label className={classes.main_toc__label}>Wybierz księgę</label>
-
-                <select className={classes.main_toc__book_option} onChange={onOptionChangeHandler}>
-                    <option value={''}>Wybierz księgę</option>
-                    {toc && toc.map(book => (<option key={book.id} value={book.id}>{book.book_latin_name}</option>))}
-                    })}
-                </select>
-                {chosenBookId && <DigestaTocMobileBook url={url} tituli={toc.filter((book) => {
-                    return (book.id === chosenBookId)
-                })[0].tituli}/>}
-
-
+            {/*</div>*/}
         </>
     )
 }

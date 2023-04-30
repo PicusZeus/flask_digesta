@@ -11,9 +11,11 @@
 }
 
 
-.main_nav__logout button,
+
+
 .mobile_nav__logout button,
-.main_nav__login button,
+
+
 .mobile_nav__login button {
     text-decoration: none;
     color: black;
@@ -25,35 +27,27 @@
 }
 
 
-.main_nav__item a:hover,
-.main_nav__item a:active,
+
+
 .mobile_nav__item a:hover,
 .mobile_nav__item a:active {
     background: white;
     /*border: none;*/
 }
 
-.main_nav__logout a:hover,
-.main_nav__logout a:active,
+
+
 .mobile_nav__logout button:hover,
 .mobile_nav__logout button:active,
-.main_nav__login a:hover,
-.main_nav__login a:active,
+
+
 .mobile_nav__login a:hover,
 .mobile_nav__login a:active {
     background: #f4eeff;
     cursor: pointer;
 }
 
-@media (min-width: 40rem) {
-    .toggle_button {
-        display: none;
-    }
 
-    .main_nav {
-        display: flex;
-    }
-}
 
 
 .mobile_nav {
@@ -62,7 +56,8 @@
     z-index: 49;
     top: 0;
     left: 0;
-    background: white;
+    background-color: #D3B683;
+    opacity: 0.6;
     width: 80%;
     height: 100vh;
 }
@@ -86,18 +81,19 @@
 .mobile_nav__item, .mobile_nav__login, .mobile_nav__logout {
     margin: 1rem 0;
     border: 1px solid black;
-    width: 40%;
+    width: 50%;
     text-align: center;
     border-radius: 3px;
 }
 
 .mobile_nav__item a {
     text-decoration: none;
-    color: #0e4f1f;
+    color: white;
+    opacity: 2;
     display: block;
     font-weight: bold;
-    padding: 0.2rem 0.5rem;
-    background: #a1a1a1;
+    padding: 0.5rem;
+    background: rgb(112,87,7);
 
 
 }
@@ -105,8 +101,9 @@
 .mobile_nav__login button, .mobile_nav__logout button {
     width: 100%;
     font-weight: bold;
-    padding: 0.2rem 0.5rem;
+    padding: 0.5rem;
     text-decoration: none;
+    background-color: white;
 
 }
 

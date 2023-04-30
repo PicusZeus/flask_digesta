@@ -1,25 +1,66 @@
 .main_lex {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(221, 221, 221, 0.8) 28%, rgba(255, 255, 255, 0.9) 50%, rgba(230, 230, 230, .8) 76%, rgba(0, 0, 0, 0) 100%);
 
 }
+
+
+.main_lex__title h1 {
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+.main_lex__title h4 {
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
 
 .main_lex__redirections {
     display: flex;
     /*flex-direction: column;*/
     justify-content: space-around;
+    text-align: center;
+
 
 }
 
 .main_lex__redirections a {
     text-decoration: none;
     color: black;
-    border: 1px black solid;
-    padding: 0.4rem;
-    margin: 1rem 2rem;
+    margin: auto;
+    font-weight: bold;
+    font-style: italic;
+    /*text-align: center;*/
+    /*padding: 1rem;*/
+    /*margin: 1rem 2rem;*/
     /*margin-top: 1rem;*/
-    width: 50%;
+    /*text-align: center;*/
+    /*display: table-cell;*/
+    /*vertical-align: middle;*/
+    /*width: 50%;*/
+    /*align-items: center;*/
 
 
 }
+
+.main_lex__redirections button {
+    margin: 2rem;
+    border: 1px black solid;
+    padding: 1rem;
+    font-weight: bolder;
+    /*flex: 0.5*/
+    /*min-width: 30%;*/
+    flex-grow: 1;
+    text-align: center;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+}
+
 
 .main_lex__text {
     margin: 1rem;

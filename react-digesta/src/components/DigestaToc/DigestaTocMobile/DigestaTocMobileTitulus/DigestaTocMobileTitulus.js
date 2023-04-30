@@ -2,6 +2,7 @@ import classes from "../DigestaTocMobileBook/DigestaTocMobileBook.module.css";
 import {useDispatch} from "react-redux";
 import {digestaActions} from "../../../../store/digesta-slice";
 import {useNavigate} from "react-router-dom";
+import TocMobile from "../../../UI/TocMobile/TocMobile";
 
 const DigestaTocMobileTitulus = (props) => {
 
@@ -19,14 +20,16 @@ const DigestaTocMobileTitulus = (props) => {
     }
     return (
         <>
-            <label className={classes.main_toc__label}>Wybierz Ustawę</label>
 
-            <select className={classes.main_toc__titulus_option} onChange={onOptionChangeHandler}>
+
+            <TocMobile onOption={onOptionChangeHandler}>
+
                 <option value={''}>Wybierz ustawę</option>
 
                 {leges && leges.map(lex => (<option key={lex.id} value={lex.id}>{lex.lex_nr}</option>))}
-                })}
-            </select>
+
+            </TocMobile>
+
 
         </>
     )

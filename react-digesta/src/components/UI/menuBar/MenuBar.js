@@ -11,48 +11,48 @@ import MobileNav from "../mobileNav/MobileNav";
 import {useState} from "react";
 import tokenService from "../../../services/token.service";
 import Modal from "../modal/Modal";
-const MenuBar = (props) => {
+import CommentedParagraphiModal from "../../commentedParagraphiModal/CommentedParagraphiModal";
 
-    const [commentedParagraphiModal, setCommentedParagraphiModal] = useState(false)
-    const logged_in = tokenService.getUsername()
+const MenuBar = () => {
+    const dispatch = useDispatch()
+
+    const [commentedParagraphiModalOpen, setCommentedParagraphiModalOpen] = useState(false)
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+
+    const loggedIn = useSelector(state => state.auth.username)
     const logging = useSelector((state) => state.ui.logging)
     const registering = useSelector((state) => state.ui.registering)
-    const token = tokenService.getLocalAccessToken()
-    const dispatch = useDispatch()
     const notification = useSelector(state => state.ui.notification)
+    const commentedParagraphi = useSelector(state => state.auth.commentedParagraphi)
 
-    const commentedParagraphi = tokenService.getCommentedParagraphi()
+    const token = tokenService.getLocalAccessToken()
 
-    let numberOfCommentedParagraphi = 0
-    if (commentedParagraphi) {numberOfCommentedParagraphi = commentedParagraphi.length}
-
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const logingToggleHandler = () => {
         dispatch(uiActions.logingToggle())
     }
 
     const registerToggleHandler = () => {
-
         dispatch(uiActions.registeringToggle())
+    }
 
+    const commentedParagraphiOpenHandler = () => {
+        setCommentedParagraphiModalOpen((current) => !current)
     }
 
     const logoutHandler = () => {
-
         dispatch(logout(token))
-
     }
 
     return (
         <>
-            {commentedParagraphiModal && <Modal onClose={()=>setCommentedParagraphiModal(false)}>
-                <ul>
-                    {commentedParagraphi.map((par)=>(<li><Link onClick={()=>setCommentedParagraphiModal(false)} to={"/digesta/" + par.lex.id + '/' + par.id}>D {par.lex.titulus.book.book_nr}.{par.lex.titulus.number}.{par.lex.lex_nr}.{par.key}</Link></li>))}
-                </ul>
-            </Modal>}
-            {logging ? <Login onClose={logingToggleHandler}/> : null}
+            {commentedParagraphiModalOpen && <CommentedParagraphiModal commentedParagraphi={commentedParagraphi}
+                                                                       onClose={commentedParagraphiOpenHandler}
+                                                                       onCloseMobileMenu={mobileMenuOpen}/>}
+            {logging && <Login onClose={logingToggleHandler}/>}
 
-            {registering ? <Register onClose={registerToggleHandler}/> : null}
+            {registering && <Register onClose={registerToggleHandler}/>}
+
             <header className={classes.main_header}>
                 {notification &&
                     <Notification
@@ -60,53 +60,58 @@ const MenuBar = (props) => {
                         title={notification.title}
                         message={notification.message}/>
                 }
-                <div>
-                    <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className={classes.toggle_button}>
-                        <span className={classes.toggle_button__bar}></span>
-                        <span className={classes.toggle_button__bar}></span>
-                        <span className={classes.toggle_button__bar}></span>
-                    </button>
-                    <a className={classes.main_header__brand} href="/"><img src={logo} alt="Digesta"/></a>
-                </div>
-                <nav className={classes.main_nav}>
-                    <ul className={classes.main_nav__items}>
+                <nav className={classes.nav__container}>
+                    <div>
+                        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className={classes.toggle_button}>
+                            <span className={classes.toggle_button__bar}></span>
+                            <span className={classes.toggle_button__bar}></span>
+                            <span className={classes.toggle_button__bar}></span>
+                        </button>
+                        <a className={classes.main_header__brand} href="/"><img src={logo} alt="Digesta"/></a>
+                    </div>
+                    <nav className={classes.main_nav}>
+                        <ul className={classes.main_nav__items}>
 
-                        {logged_in && <li className={classes.main_nav__logout}>
-                            <button onClick={logoutHandler}>Wyloguj się</button>
-                        </li>}
+                            {loggedIn && <li className={classes.main_nav__logout}>
+                                <button onClick={logoutHandler}>Wyloguj się</button>
+                            </li>}
 
-                        {!logged_in && <li className={classes.main_nav__login}>
-                            <button onClick={logingToggleHandler}>Zaloguj się</button>
-                        </li>}
+                            {!loggedIn && <li className={classes.main_nav__login}>
+                                <button onClick={logingToggleHandler}>Zaloguj się</button>
+                            </li>}
 
-                        {!logged_in && <li className={classes.main_nav__login}>
-                            <button onClick={registerToggleHandler}>Zarejestruj się</button>
-                        </li>}
-                        {logged_in && <li className={classes.main_nav__item}><button onClick={()=>setCommentedParagraphiModal(true)}>Skomentowane Paragrafy {numberOfCommentedParagraphi}</button></li> }
-
-                        <li className={classes.main_nav__item}>
-                            <Link to={"/digesta"}>Digesta - tekst oryginalny i tłumaczenie</Link>
-                        </li>
-                        <li className={classes.main_nav__item}>
-                            <Link to={"/jurysci"}>Digesta - przeglądaj tekst wg jurystów i ich dzieł</Link>
-                        </li>
-                        <li className={classes.main_nav__item}>
-                            <Link to={"/opera"}>Digesta - przeglądaj cytowane w Digestach dzieła jurystów i ich dzieł</Link>
-                        </li>
-                        <li className={classes.main_nav__item}>
-                            <Link to={"/wyszukaj"}>Digesta - wyszukaj w tekście</Link>
-                        </li>
-                    </ul>
+                            {!loggedIn && <li className={classes.main_nav__login}>
+                                <button onClick={registerToggleHandler}>Zarejestruj się</button>
+                            </li>}
+                            {loggedIn && <button onClick={commentedParagraphiOpenHandler}>Skomentowane
+                                Paragrafy {commentedParagraphi.length}</button>}
 
 
+                            <li className={classes.main_nav__item}>
+                                <Link to={"/digesta"}>Digesta - tekst oryginalny i tłumaczenie</Link>
+                            </li>
+                            <li className={classes.main_nav__item}>
+                                <Link to={"/jurysci"}>Digesta - przeglądaj tekst wg jurystów i ich dzieł</Link>
+                            </li>
+                            <li className={classes.main_nav__item}>
+                                <Link to={"/opera"}>Digesta - przeglądaj cytowane w Digestach dzieła jurystów i ich
+                                    dzieł</Link>
+                            </li>
+                            <li className={classes.main_nav__item}>
+                                <Link to={"/wyszukaj"}>Digesta - wyszukaj w tekście</Link>
+                            </li>
+                        </ul>
+
+
+                    </nav>
                 </nav>
-
             </header>
 
             <MobileNav open={mobileMenuOpen}
                        onToggle={setMobileMenuOpen}
                        onToggleLogging={logingToggleHandler}
                        onToggleRegistering={registerToggleHandler}
+                       onToggleParagraphi={commentedParagraphiOpenHandler}
                        onLogout={logoutHandler}
             />
 

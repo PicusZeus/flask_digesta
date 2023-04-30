@@ -1,7 +1,11 @@
 
 
+
+
 .trad_main {
     text-align: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    min-height: calc(100vh - 9rem);
 }
 
 .trad_main__title {
@@ -15,7 +19,15 @@
 .trad_main__container {
     display: flex;
     flex-direction: column;
+}
 
+.trad_main__title {
+    padding-top: 2rem;
+    background: linear-gradient(180deg, rgba(1,1,4, 0.8) 0%, rgba(41,43,15, 0.8) 65%, rgba(255,255,255,0) 100%);
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: inherit;
 }
 
 .trad_main__mobile_toc {

@@ -3,7 +3,7 @@ from app import create_app
 app = create_app()
 app.app_context().push()
 from db import db
-from models import AuthorModel, OperaModel, DigestaBookModel, DigestaLexModel, DigestaTitulusModel, DigestaParagraphusModel
+from models import AuthorModel, OperaModel, CommentModel, DigestaBookModel, DigestaLexModel, DigestaTitulusModel, DigestaParagraphusModel
 import pickle
 from populate.resources import int_to_roman
 from sqlalchemy.exc import IntegrityError
@@ -174,7 +174,5 @@ if __name__ == "__main__":
     insert_opera(FILE_PICKLE_LIBER_1)
     insert_leges(FILE_PICKLE_LIBER_1, 'LIBER PRIMUS')
     insert_paragraphi(FILE_PICKLE_LIBER_1, 'LIBER PRIMUS')
-
-
 
 

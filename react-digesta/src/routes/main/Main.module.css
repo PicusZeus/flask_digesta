@@ -13,6 +13,7 @@
     border: black solid 1px;
     border-radius: 15px;
     margin: 1rem;
+    background-color: #717f4d;
 
 }
 
@@ -30,6 +31,8 @@
 
 .main_item__description {
     text-align: justify;
+    font-size: 0.9rem;
+    font-family: inherit;
 
 }
 

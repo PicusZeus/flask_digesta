@@ -6,21 +6,30 @@ const MobileNav = (props) => {
     const user_id = tokenService.getUserId()
     let logging = (
         <>
+
             <li className={classes.mobile_nav__login}>
                 <button onClick={props.onToggleLogging}>Zaloguj się</button>
             </li>
             <li className={classes.mobile_nav__login}>
                 <button onClick={props.onToggleRegistering}>Zarejestruj się</button>
             </li>
+
         </>
     )
 
     if (user_id) {
         logging = (
-            <li className={classes.mobile_nav__logout}>
-                <button onClick={props.onLogout}>Wyloguj się</button>
-            </li>
-        )
+            <>
+                <li className={classes.mobile_nav__login}>
+                    <button onClick={props.onToggleParagraphi}>Skomentowane ustawy
+                    </button>
+                </li>
+                <li className={classes.mobile_nav__login}>
+                    <button onClick={props.onLogout}>Wyloguj się</button>
+                </li>
+            </>
+
+    )
     }
 
     const mobileNav = [classes.mobile_nav]

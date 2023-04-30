@@ -1,12 +1,13 @@
 
 .main_header {
+    flex-direction: column;
     min-height: 5rem;
     width: 100%;
     position: fixed;
     top: 0;
     left: 0;
-    background: #8F8D98;
-    padding: 0.5rem 1rem;
+    background: #705707;
+    /*padding: 0.5rem 1rem;*/
     z-index: 60;
     display: flex;
     align-items: center;
@@ -22,6 +23,7 @@
     padding-top: 0;
     padding-bottom: 0;
     vertical-align: middle;
+    margin: 0.5rem;
 }
 
 .toggle_button:focus {
@@ -49,6 +51,16 @@
     border-radius: 50%;
 }
 
+.nav__container {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    flex: 1
+
+
+}
+
 .main_nav {
     display: none;
 }
@@ -67,46 +79,25 @@
 }
 
 .main_nav__item a,
-.mobile_nav__item a {
-    text-decoration: none;
-    color: #0e4f1f;
-    font-weight: bold;
-    padding: 0.2rem 0.5rem;
-    border: solid black 1px;
-    border-radius: 3px;
-    background: #a1a1a1;
-}
+
 
 .main_nav__logout a,
-.mobile_nav__logout a,
+
 .main_nav__login a,
-.mobile_nav__login a {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-    padding: 0.2rem 0.5rem;
-    border: solid black 1px;
-    border-radius: 3px;
-    background: lightblue;
-}
+
 
 
 .main_nav__item a:hover,
-.main_nav__item a:active,
-.mobile_nav__item a:hover,
-.mobile_nav__item a:active {
+.main_nav__item a:active {
     background: white;
     /*border: none;*/
 }
 
 .main_nav__logout a:hover,
 .main_nav__logout a:active,
-.mobile_nav__logout a:hover,
-.mobile_nav__logout a:active,
+
 .main_nav__login a:hover,
-.main_nav__login a:active,
-.mobile_nav__login a:hover,
-.mobile_nav__login a:active {
+.main_nav__login a:active {
     background: #f4eeff;
     cursor: pointer;
 }

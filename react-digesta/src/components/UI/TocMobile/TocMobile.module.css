@@ -1,0 +1,18 @@
+
+
+
+.toc {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 2rem;
+    appearance: none;
+    border: none;
+    padding: 1rem;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.8) 0%, rgba(15, 15, 7, 0.8) 70%, rgba(255, 255, 255, 0) 100%);
+    font-size: 1.5rem;
+    font-family: inherit;
+    text-align: center;
+    color: white;
+    outline: none;
+
+}
