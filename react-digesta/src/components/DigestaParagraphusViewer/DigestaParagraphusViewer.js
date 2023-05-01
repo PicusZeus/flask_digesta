@@ -37,16 +37,17 @@ const DigestaParagraphusViewer = (props) => {
     let newComment = <li className={classes.paragraph_logout}><h2>Jeśli chcesz dodać komentarz, zaloguj się</h2></li>
 
     if (username && paragraphus) {
-        newComment = <NewComment paragraphus={paragraphus} addNewComment={addNewCommentHandler}/>
+        newComment = <NewComment type="Skomentuj!" paragraphus={paragraphus} addNewComment={addNewCommentHandler}/>
     }
 
     const headers = useMemo(() => (
         {"Content-Type": "application/json"}
 
     ), [username])
+    console.log(headers, token, 'HEADERS')
 
     useEffect(() => {
-        if (token) {
+        if (token !== "EXPIRED" && token) {
             headers['Authorization'] = "Bearer " + token
         }
         const notificationSetter = new NotificationService(dispatch)
@@ -96,6 +97,7 @@ const DigestaParagraphusViewer = (props) => {
                                        c_id={comment.id}
                                        paragraphus={paragraphus}
                                        comment={comment}
+                                       type="Odpowiedz!"
                                        replies={comment.replies}/>))}
 
                 </ul>}

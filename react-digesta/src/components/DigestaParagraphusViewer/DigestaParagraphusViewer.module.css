@@ -29,6 +29,7 @@
 .paragraph_comments__items {
     list-style: none;
     padding: 1rem;
+    border: 1px solid black;
 }
 
 .paragraph_logout {

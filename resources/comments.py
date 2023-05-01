@@ -2,7 +2,7 @@ from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
-from models import CommentModel, DigestaParagraphusModel
+from models import CommentModel, DigestaParagraphusModel, LikeModel
 from db import db
 from schemas import CommentSaveSchema, CommentSchema, CommentUpdateSchema, PlainCommentSchema, DeleteResponseSchema, CommentedParagraphiSchema, PlainCommentsSchemaWithToken
 from datetime import datetime
@@ -44,10 +44,10 @@ class Comment(MethodView):
         if com:
             comment_content = data["comment"]
 
-            private = data["private"]
+            # private = data["private"]
             date = datetime.now()
             com.comment = comment_content
-            com.private = private
+            # com.private = private
             com.date = date
             db.session.commit()
 
@@ -125,6 +125,22 @@ class CommentByLex(MethodView):
         db.session.commit()
 
         return comment
+
+@blp.route("/like")
+class Likes(MethodView):
+
+    @blp.arguments(LikeSaveSchema())
+    def post(self, data):
+
+
+        comment_id = data.comment_id
+        user_id = data.user_id
+        if post_id is None or user_id is None:
+            return jsonify({'error': 'post_id and user_id are required'}), 400
+        like = Like(post_id=post_id, user_id=user_id)
+        db.session.add(like)
+        db.session.commit()
+        return jsonify({'message': 'Post liked!'})
 
     # @jwt_required()
     # @blp.arguments(CommentUpdateSchema())

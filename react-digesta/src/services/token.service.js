@@ -8,7 +8,9 @@ class TokenService {
         const token = JSON.parse(localStorage.getItem("access_token"));
         const tokenDuration = this.getTokenDuration()
 
-        if (tokenDuration < 0) {
+        if (!tokenDuration) {
+            return null
+        } else if (tokenDuration < 0) {
             return "EXPIRED"
         } else {
             return token
@@ -40,6 +42,9 @@ class TokenService {
 
     getTokenDuration() {
         const storedExpirationDate = localStorage.getItem('expiration')
+        if (!storedExpirationDate) {
+            return null
+        }
         const now = new Date()
         const expirationDate = new Date(storedExpirationDate)
         return expirationDate.getTime() - now.getTime()

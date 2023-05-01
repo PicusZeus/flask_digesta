@@ -16,10 +16,7 @@ const Layout = () => {
     const tokenDuration = tokenService.getTokenDuration()
     const dispatch = useDispatch()
     useEffect(()=>{
-        if (!token) {
-            return null;
-        }
-        else if (token === "EXPIRED") {
+        if (token === "EXPIRED") {
            logout(token)
         } else {
             setTimeout(()=>{

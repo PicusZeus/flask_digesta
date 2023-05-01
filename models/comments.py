@@ -16,11 +16,17 @@ class CommentModel(db.Model):
     reply_to_comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'), nullable=True)
     reply_to_comment = db.relationship('CommentModel', remote_side=[id], back_populates='replies')
     replies = db.relationship("CommentModel", back_populates='reply_to_comment', cascade="all, delete")
-
+    likes = db.relationship("LikeModel")
 # class TagModel(db vc.Model):
 #     __tablename__ = "tags"
 #
 #     id = db.Column(db.Integer, primary_key=True)
 #     emoji = db.Column(db.File)
 
+
+class LikeModel(db.Model):
+    __tablename__ = 'likes'
+    id = db.Column(db.Integer, primary_key=True)
+    comment_id = db.Column(db.Integer, db.ForreignKey('comments.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 

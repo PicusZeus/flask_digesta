@@ -1,20 +1,19 @@
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
+import {useState} from "react";
 import {authActions} from "../../store/auth-slice";
 import TokenService from "../../services/token.service";
 import NotificationService from "../../services/notification.service";
-import {logout, refreshToken} from "../../store/auth-actions";
+import {refreshToken} from "../../store/auth-actions";
 import tokenService from "../../services/token.service";
+import {useRef} from "react";
+import classes from './NewComment.module.css'
 
 const NewComment = (props) => {
 
-    const [commentInput, setCommentInput] = useState('')
-    // const updatedToken = useSelector(state => state.auth.access_token)
+
+    const newComment = useRef('')
     let user = tokenService.getUserId()
 
-    // useEffect(() => {
-    //     user = tokenService.getUserId()
-    // }, [updatedToken])
 
     let token = tokenService.getLocalAccessToken()
 
@@ -62,7 +61,9 @@ const NewComment = (props) => {
                 const data = response
                 notificationSetter.setNotificationSuccess("komentarz", "komentarz zamieszczony")
                 props.addNewComment(data)
-                console.log(data, 'INSIDE')
+                if (props.onClose) {
+                    props.onClose()
+                }
 
                 if (
                     commentedParagraphi.filter((paragraphus) =>
@@ -72,6 +73,7 @@ const NewComment = (props) => {
                     newParagraphi.push(props.paragraphus)
                     TokenService.updateCommentedParagraphi(newParagraphi)
                     dispatch(authActions.setCommentedParagraphi(newParagraphi))
+
                 }
                 dispatch(refreshToken(refresh_token))
             }
@@ -83,22 +85,36 @@ const NewComment = (props) => {
                 notificationSetter.setNotificationError("komentarz", "zaloguj się ponownie jeśli chcesz dodać komentarz")
 
 
-            }
-            else {
+            } else {
                 notificationSetter.setNotificationError("komentarz", "błąd serwera")
             }
         })
     }
 
+    function adjustHeight(event) {
+        const el = event.target
+        el.style.height = (el.scrollHeight > el.clientHeight) ? (el.scrollHeight) + "px" : "60px";
+    }
+
     return (
-        <li>
-            <form method="post" onSubmit={(event) => postCommentHandler(event, commentInput, token)}>
-                <label htmlFor="newComment">Nowy komentarz</label>
-                <input type="text" id="newComment" value={commentInput}
-                       onChange={(event) => setCommentInput(event.target.value)}/>
-                <button type="submit" disabled={!authenticated}>wyślij</button>
-                <button type="button"
-                        onClick={() => setIsPrivate(!isPrivate)}>{isPrivate ? "komentarz prywatny" : "komentarz publiczny"}</button>
+        <li className={classes.new_comment}>
+            <form method="post" className={classes.new_comment__container}
+                  onSubmit={(event) => postCommentHandler(event, newComment.current.value, token)}>
+                <div className={classes.new_comment__header}>
+                    <label htmlFor="newComment">{props.type}</label>
+                    <button className="material-symbols-outlined" type="submit" disabled={!authenticated}>
+                        send
+                    </button>
+
+                    <button type="button" className="material-symbols-outlined"
+                            onClick={() => setIsPrivate(!isPrivate)}>
+                        {isPrivate ? "visibility_off" : "visibility"}
+                    </button>
+                </div>
+
+                <textarea onKeyUp={adjustHeight} id="newComment" className={classes.new_comment__text} defaultValue={newComment.current.value}
+                          ref={newComment}/>
+
             </form>
         </li>
     )
