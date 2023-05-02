@@ -15,3 +15,12 @@
         display: none;
     }
 }
+
+
+.main_title {
+    font-size: 1.6rem;
+    margin: 1rem;
+    padding: 1rem;
+    /*width: 100vw;*/
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(221,221,221,0.5) 28%, rgba(255,255,255,0.6) 50%, rgba(230,230,230,0.5) 76%, rgba(0,0,0,0) 100%);
+}

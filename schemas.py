@@ -25,7 +25,9 @@ class UserDataSchema(Schema):
     username = fields.Str()
 
 
-
+class PlainLikeSchema(Schema):
+    id = fields.Int()
+    user_id = fields.Int()
 
 
 class PlainCommentSchema(Schema):
@@ -36,6 +38,7 @@ class PlainCommentSchema(Schema):
     user = fields.Nested(UserDataSchema())
     # reply_to_comment = fields.List(fields.Nested('self'))
     replies = fields.List(fields.Nested('self'))
+    likes = fields.List(fields.Nested(PlainLikeSchema()))
 
 
 class PlainCommentsSchemaWithToken(Schema):
@@ -188,7 +191,13 @@ class UserLoginSchema(Schema):
     username = fields.Str()
     paragraphi = fields.List(fields.Nested(CommentedParagraphiSchema()))
 
+
 class DeleteResponseSchema(Schema):
     status = fields.Int()
     message = fields.Str()
     commentedParagraphi = fields.List(fields.Nested(CommentedParagraphiSchema()))
+
+
+class LikeSaveSchema(Schema):
+
+    comment_id = fields.Int()

@@ -9,7 +9,7 @@ const DigestaJuristDigesta = () => {
     const location = useLocation()
     return (
         <>
-            <div>Jurysta wg układu digesta</div>
+            <h1 className={classes.main_title}>Według układu Digestów</h1>
             <div className={classes.mobile_toc}>
                 <DigestaTocMobileBooks toc={toc} url={location}/>
 

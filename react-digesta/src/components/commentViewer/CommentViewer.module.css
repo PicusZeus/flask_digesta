@@ -22,12 +22,7 @@
 }
 
 
-.comment_item__header button, .comment_item__header span {
-    padding: 0;
-    margin: 0.3rem;
-    border: none;
-    background: rgba(255, 255, 255, 0);
-}
+
 
 .comment_item__header_info {
     display: flex;
@@ -54,6 +49,27 @@
     background: rgba(255, 255, 255, 0.4);
     overflow-y: auto;
     word-wrap: break-word
+}
+
+.comment_item__icons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.comment_item__icons button {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: rgba(255, 255, 255, 0);
+    font-size: 1rem;
+    flex-grow: 1;
+}
+
+
+
+.likes_num {
+    font-size: 0.5rem;
 }
 
 .comment_item__actions {

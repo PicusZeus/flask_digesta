@@ -7,7 +7,9 @@ from models import AuthorModel, OperaModel, CommentModel, DigestaBookModel, Dige
 import pickle
 from populate.resources import int_to_roman
 from sqlalchemy.exc import IntegrityError
+from .Data.jurists import jurists
 
+from sqlalchemy import func
 FILE_PICKLE_LIBER_1 = "populate/Data/digestaplikiend/d1.txt_extracted.pickle"
 
 
@@ -167,12 +169,30 @@ def insert_paragraphi(file_name, book):
                 db.session.rollback()
 
 
+def addBio(jurists_bio):
+    for jurist, data in jurists_bio.items():
+        print(jurist, data)
+        jur = AuthorModel.query.filter(func.lower(AuthorModel.name) == func.lower(jurist)).all()[0]
+        if not jur:
+            raise Exception
+        else:
+            print(jur.name)
+            jur.description = data["bio"]
+            jur.flourished_start = data["start"]
+            jur.flourished_end = data["end"]
+
+            db.session.commit()
+
+
+
 if __name__ == "__main__":
-    insert_books(lat='LIBER PRIMUS', pl="KSIĘGA PIERWSZA", nr=1)
-    insert_tituli("LIBER PRIMUS", "populate/Data/digestaplikiend/d1.txt_extracted.pickle")
-    insert_authors(FILE_PICKLE_LIBER_1)
-    insert_opera(FILE_PICKLE_LIBER_1)
-    insert_leges(FILE_PICKLE_LIBER_1, 'LIBER PRIMUS')
-    insert_paragraphi(FILE_PICKLE_LIBER_1, 'LIBER PRIMUS')
+    # insert_books(lat='LIBER PRIMUS', pl="KSIĘGA PIERWSZA", nr=1)
+    # insert_tituli("LIBER PRIMUS", "populate/Data/digestaplikiend/d1.txt_extracted.pickle")
+    # insert_authors(FILE_PICKLE_LIBER_1)
+    # insert_opera(FILE_PICKLE_LIBER_1)
+    # insert_leges(FILE_PICKLE_LIBER_1, 'LIBER PRIMUS')
+    # insert_paragraphi(FILE_PICKLE_LIBER_1, 'LIBER PRIMUS')
+    addBio(jurists)
+
 
 

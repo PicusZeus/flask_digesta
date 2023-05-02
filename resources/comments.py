@@ -4,7 +4,7 @@ from flask_smorest import Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
 from models import CommentModel, DigestaParagraphusModel, LikeModel
 from db import db
-from schemas import CommentSaveSchema, CommentSchema, CommentUpdateSchema, PlainCommentSchema, DeleteResponseSchema, CommentedParagraphiSchema, PlainCommentsSchemaWithToken
+from schemas import CommentSaveSchema, CommentSchema, CommentUpdateSchema, PlainCommentSchema, DeleteResponseSchema, CommentedParagraphiSchema, LikeSaveSchema
 from datetime import datetime
 from sqlalchemy import or_
 from sqlalchemy.sql.expression import false
@@ -126,21 +126,29 @@ class CommentByLex(MethodView):
 
         return comment
 
+
 @blp.route("/like")
 class Likes(MethodView):
 
+    @jwt_required()
     @blp.arguments(LikeSaveSchema())
     def post(self, data):
+        user_id = get_jwt_identity()
+        comment_id = data["comment_id"]
+        if comment_id is None or user_id is None:
+            return {'error': 'post_id and user_id are required'}, 400
 
+        liked = LikeModel.query.filter(LikeModel.comment_id == comment_id, LikeModel.user_id == user_id).first()
+        if liked:
+            db.session.delete(liked)
+            db.session.commit()
+            return {'message': 'Post unliked!'}
+        else:
+            like = LikeModel(comment_id=comment_id, user_id=user_id)
 
-        comment_id = data.comment_id
-        user_id = data.user_id
-        if post_id is None or user_id is None:
-            return jsonify({'error': 'post_id and user_id are required'}), 400
-        like = Like(post_id=post_id, user_id=user_id)
-        db.session.add(like)
-        db.session.commit()
-        return jsonify({'message': 'Post liked!'})
+            db.session.add(like)
+            db.session.commit()
+            return {'message': 'Post liked!'}
 
     # @jwt_required()
     # @blp.arguments(CommentUpdateSchema())

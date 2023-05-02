@@ -5,7 +5,8 @@
 }
 
 .new_comment__header {
-    display: flex;
+
+
 
 }
 
@@ -16,13 +17,7 @@
     color: white;
 }
 
-.new_comment__header button {
-    padding: 0;
-    margin: 0.3rem;
-    border: none;
-    color: white;
-    background: rgba(255, 255, 255, 0);
-}
+
 
 .new_comment__container {
     display: flex;
@@ -37,4 +32,18 @@
     overflow-y: auto;
     word-wrap: break-word;
 
+}
+
+.new_comment__icons {
+    display: flex;
+}
+
+.new_comment__icons button {
+    flex-grow: 1;
+    padding: 0;
+    margin: 0;
+    font-size: 0.8rem;
+    border: none;
+    color: white;
+    background: rgba(255, 255, 255, 0);
 }

@@ -1,6 +1,7 @@
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import classes from "./DigestaTocMobileJurists.module.css"
+import TocMobile from "../../../UI/TocMobile/TocMobile";
 
 const DigestaTocMobileJurists = () => {
 
@@ -13,16 +14,20 @@ const DigestaTocMobileJurists = () => {
     }
     return (
         <>
+            <TocMobile onOption={onOptionChangeHandler}>
+
+
+
             <label className={classes.main_toc__label}>Wybierz Jurystę</label>
 
-            <select className={classes.main_toc__jurist_option} onChange={onOptionChangeHandler}>
+
                 <option value={''}>Wybierz Jurystę</option>
 
                 {jurists && jurists.map(jurist => (
                     <option key={jurist.id} value={jurist.id}>{jurist.name}</option>))}
                 })}
-            </select>
-
+            
+            </TocMobile>
 
         </>
 

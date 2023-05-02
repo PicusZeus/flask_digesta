@@ -9,7 +9,7 @@ const DigestaJuristOpera = () => {
     const toc = useLoaderData()
     console.log(toc)
     return (
-        <div>
+        <div className={classes.juropera_main}>
             <div className={classes.mobile_toc}>
 
                 <DigestaTocMobileOpera toc={toc}/>

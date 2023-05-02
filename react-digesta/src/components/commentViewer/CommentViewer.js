@@ -10,9 +10,21 @@ import {authActions} from "../../store/auth-slice";
 import {uiActions} from "../../store/ui-slice";
 import Confirmation from "../UI/confirmation/Confirmation";
 import classes from './CommentViewer.module.css'
+import {current} from "@reduxjs/toolkit";
 
 const CommentViewer = (props) => {
-
+    const [likes, setLikes] = useState(props.comment.likes.length)
+    const user_id = tokenService.getUserId()
+    console.log(user_id, props.comment.likes, )
+    const [liked, setLiked] = useState(false)
+    useEffect(()=>{
+        console.log(props.comment.likes.filter(like=>(like.user_id === parseInt(user_id))))
+        if (props.comment.likes.filter(like=>(like.user_id === parseInt(user_id))).length > 0)
+        {
+            setLiked(true)
+            console.log('TRUE', comment)
+        }
+    }, [props.comment.likes, user_id])
     const [deleteDialog, setDeleteDialog] = useState(false)
     const [editOn, setEditOn] = useState(false)
     const dispatch = useDispatch()
@@ -21,7 +33,7 @@ const CommentViewer = (props) => {
     const comment_id = comment.id
     const [isReplying, setIsReplaying] = useState(false)
     const props_replies = props.replies
-    const user_id = tokenService.getUserId()
+
 
     const token = tokenService.getLocalAccessToken()
     const refresh_token = tokenService.getLocalRefreshToken()
@@ -125,6 +137,40 @@ const CommentViewer = (props) => {
         })
 
     }
+
+    const onLikedHandler = (token) => {
+        if (liked) {
+            setLiked(false)
+            setLikes((current) => current - 1)
+        } else {
+            setLiked(true)
+            setLikes((current) => current + 1)
+        }
+        const likeComment = async () => {
+            const response = await fetch(process.env.REACT_APP_BASE_API_URL + 'like', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json", Authorization: "Bearer " + token
+
+                    },
+                body: JSON.stringify({
+                    comment_id: comment.id
+                })
+                }
+            )
+
+            return response;
+        }
+        if (token) {
+            likeComment().then((response) =>
+                console.log('success')
+            ).catch((e) =>
+                console.log(e))
+        }
+
+
+    }
+
     const date = new Date(comment.date)
     const leadingZero = (num) => `0${num}`.slice(-2);
     const hour = [date.getHours(), date.getMinutes()].map((t) => leadingZero(t)).join(':')
@@ -137,7 +183,7 @@ const CommentViewer = (props) => {
         el.style.height = (el.scrollHeight > el.clientHeight) ? (el.scrollHeight) + "px" : "60px";
     }
 
-
+    console.log(comment)
     return (<>
         {deleteDialog && <Confirmation cancelAction={() => setDeleteDialog(false)} title="" message=""
                                        confirmAction={() => deleteCommentHandler(props.c_id, token)}/>}
@@ -148,19 +194,7 @@ const CommentViewer = (props) => {
                     <data>{commentCreated}</data>
 
                 </div>
-                {comment.private && <span className="material-symbols-outlined">visibility_lock</span>}
-                <button onClick={() => setIsReplaying(!isReplying)} disabled={!user_id} className="material-symbols-outlined"> reply </button>
-                <button className="material-symbols-outlined"
-                        onClick={() => SaveEditedCommentHandler(comment_id, token, commentText)} disabled={!editOn}>
-                    save
-                </button>
-                <button onClick={() => setEditOn(!editOn)} className="material-symbols-outlined"
-                        disabled={user_id !== comment.user.id.toString()}>
-                    edit
-                </button>
-                <button className="material-symbols-outlined" onClick={() => setDeleteDialog(true)}
-                        disabled={user_id !== comment.user.id.toString()}>delete_forever
-                </button>
+
             </div>
 
             <div className={classes.comment_item__container}>
@@ -168,10 +202,33 @@ const CommentViewer = (props) => {
                           className={classes.comment_item__text} id="comment"
                           disabled={!editOn} defaultValue={comment.comment}></textarea>
                 <div className={classes.comment_item__actions}>
+                    <div className={classes.comment_item__icons}>
+                        {comment.private && <button className="material-symbols-outlined">visibility_lock</button>}
+
+                        <button onClick={() => onLikedHandler(token)} disabled={!user_id}
+                                className="material-symbols-outlined">
+                            {!liked ? "favorite" : "heart_check"}<span className={classes.likes_num}>{likes}</span>
+                        </button>
+                        <button onClick={() => setIsReplaying(!isReplying)} disabled={!user_id}
+                                className="material-symbols-outlined"> reply
+                        </button>
+                        <button className="material-symbols-outlined"
+                                onClick={() => SaveEditedCommentHandler(comment_id, token, commentText)}
+                                disabled={!editOn}>
+                            save
+                        </button>
+                        <button onClick={() => setEditOn(!editOn)} className="material-symbols-outlined"
+                                disabled={user_id !== comment.user.id.toString()}>
+                            edit
+                        </button>
+                        <button className="material-symbols-outlined" onClick={() => setDeleteDialog(true)}
+                                disabled={user_id !== comment.user.id.toString()}>delete_forever
+                        </button>
+                    </div>
 
 
-
-                    {isReplying && <NewComment type="Odpowiedz!" onClose={()=>setIsReplaying(false)} paragraphus={props.paragraphus}
+                    {isReplying && <NewComment type="Odpowiedz!" onClose={() => setIsReplaying(false)}
+                                               paragraphus={props.paragraphus}
                                                repliedId={comment_id}
                                                addNewComment={addReplyHandler}/>}
                 </div>

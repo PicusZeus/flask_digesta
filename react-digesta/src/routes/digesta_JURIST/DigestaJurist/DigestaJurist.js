@@ -22,8 +22,12 @@ const DigestaJurist = () => {
     return (
 
         (jurist ? <div className={classes.main_jurist}>
-            <h1 className={classes.main_jurist__title}>{jurist.name}</h1>
-            <p className={classes.main_jurist__description}>{jurist.description}</p>
+            <div className={classes.main_jurist__info}>
+                <h1 className={classes.main_jurist__title}>{jurist.name}</h1>
+                <p className={classes.main_jurist__description}>{jurist.description}</p>
+
+            </div>
+
             <div className={classes.main_jurist__redirections}>
                 <Link to={pathDigestaJurist}>
                     <button>w digestach</button>

@@ -102,6 +102,12 @@ const NewComment = (props) => {
                   onSubmit={(event) => postCommentHandler(event, newComment.current.value, token)}>
                 <div className={classes.new_comment__header}>
                     <label htmlFor="newComment">{props.type}</label>
+
+                </div>
+
+                <textarea onKeyUp={adjustHeight} id="newComment" className={classes.new_comment__text} defaultValue={newComment.current.value}
+                          ref={newComment}/>
+                <div className={classes.new_comment__icons}>
                     <button className="material-symbols-outlined" type="submit" disabled={!authenticated}>
                         send
                     </button>
@@ -111,9 +117,6 @@ const NewComment = (props) => {
                         {isPrivate ? "visibility_off" : "visibility"}
                     </button>
                 </div>
-
-                <textarea onKeyUp={adjustHeight} id="newComment" className={classes.new_comment__text} defaultValue={newComment.current.value}
-                          ref={newComment}/>
 
             </form>
         </li>
