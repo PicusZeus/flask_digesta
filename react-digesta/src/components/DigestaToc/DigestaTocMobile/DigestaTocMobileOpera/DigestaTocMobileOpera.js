@@ -20,7 +20,7 @@ const DigestaTocMobileOpera = (props) => {
                     opus.title_lat.toUpperCase()}</option>)})}
 
             </TocMobile>
-            {chosenOpus && <DigestaTocMobileOpus content={toc.filter((opus)=>{ return (opus.id === chosenOpus)})[0]}/>}
+            {chosenOpus ? <DigestaTocMobileOpus content={toc.filter((opus)=>{ return (opus.id === chosenOpus)})[0]}/> : false}
 
         </>
     )

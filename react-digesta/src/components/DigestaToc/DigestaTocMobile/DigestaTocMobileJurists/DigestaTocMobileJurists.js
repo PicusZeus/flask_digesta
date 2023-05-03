@@ -13,7 +13,7 @@ const DigestaTocMobileJurists = () => {
 
     }
     return (
-        <>
+
             <TocMobile onOption={onOptionChangeHandler}>
 
 
@@ -21,15 +21,15 @@ const DigestaTocMobileJurists = () => {
             <label className={classes.main_toc__label}>Wybierz Jurystę</label>
 
 
-                <option value={''}>Wybierz Jurystę</option>
+                <option key={'no_jurist'} value={''}>Wybierz Jurystę</option>
 
                 {jurists && jurists.map(jurist => (
                     <option key={jurist.id} value={jurist.id}>{jurist.name}</option>))}
                 })}
-            
+
             </TocMobile>
 
-        </>
+
 
     )
 }

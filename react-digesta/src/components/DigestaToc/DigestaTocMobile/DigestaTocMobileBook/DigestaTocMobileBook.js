@@ -27,9 +27,9 @@ const DigestaTocMobileBook = (props) => {
                     <option key={titulus.id} value={titulus.id}>{titulus.number} {titulus.title_lat}</option>))}
                 })}
             </TocMobile>
-            {chosenTitulusId && <DigestaTocMobileTitulus url={url} leges={tituli.filter((titulus) => {
+            {chosenTitulusId ? <DigestaTocMobileTitulus url={url} leges={tituli.filter((titulus) => {
                 return (titulus.id === chosenTitulusId)
-            })[0]}/>}
+            })[0]}/> : false}
         </>
     )
 }

@@ -12,7 +12,7 @@ import DigestaJuristDigesta, {
     loader as juristLexLoader
 } from "./routes/digesta_JURIST/DigestaJuristDigesta/DigestaJuristDigesta";
 import ErrorPage from "./routes/Error/ErrorPage";
-import {action as searchTextAction} from "./routes/digesta_LOOKUP/DigestaLookUp"
+// import {action as searchTextAction} from "./routes/digesta_LOOKUP/DigestaLookUp"
 import DigestaLexViewer, {loader as lexLoader} from "./components/DigestaLexViewer/DigestaLexViewer";
 import DigestaJuristOpera, {
     loader as digestaJuristOperaLoader
@@ -130,7 +130,7 @@ const router = createBrowserRouter(
                 {
                     path: '/wyszukaj',
                     element: <DigestaLookUp/>,
-                    action: searchTextAction
+                    // action: searchTextAction
                 }
             ]
 

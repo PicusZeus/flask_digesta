@@ -26,9 +26,9 @@ const DigestaTocMobileBooks = (props) => {
                 })}
             </TocMobile>
 
-            {chosenBookId && <DigestaTocMobileBook url={url} tituli={toc.filter((book) => {
+            {chosenBookId ? <DigestaTocMobileBook url={url} tituli={toc.filter((book) => {
                 return (book.id === chosenBookId)
-            })[0].tituli}/>}
+            })[0].tituli}/> : false}
 
             {/*</div>*/}
         </>

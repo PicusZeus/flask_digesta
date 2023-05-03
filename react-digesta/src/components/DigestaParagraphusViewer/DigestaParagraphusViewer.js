@@ -44,7 +44,7 @@ const DigestaParagraphusViewer = (props) => {
         {"Content-Type": "application/json"}
 
     ), [username])
-    console.log(headers, token, 'HEADERS')
+    // console.log(headers, token, 'HEADERS')
 
     useEffect(() => {
         if (token !== "EXPIRED" && token) {
