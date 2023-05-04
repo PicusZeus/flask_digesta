@@ -14,5 +14,7 @@
     text-align: center;
     color: white;
     outline: none;
+    /*z-index: 1;*/
+    /*position: absolute;*/
 
 }

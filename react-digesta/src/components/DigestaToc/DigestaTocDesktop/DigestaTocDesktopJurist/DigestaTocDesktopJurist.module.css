@@ -1,0 +1,18 @@
+.main_jurist {
+    padding-top: 0.5rem;
+
+}
+
+.main_jurist__link {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    display: block;
+    text-align: center;
+}
+
+
+.chosen {
+    background: black;
+    color: white
+}

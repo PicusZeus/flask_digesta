@@ -3,26 +3,26 @@ import DigestaSearch from "../../components/DigestaSearch/DigestaSearch";
 import DigestaTocSearchParagraphs
     from "../../components/DigestaToc/DigestaTocSearchParagraphs/DigestaTocSearchParagraphs";
 import {useState} from "react";
-import {useDispatch} from "react-redux";
-import {uiActions} from "../../store/ui-slice";
-
+import {useDispatch, useSelector} from "react-redux";
+import NotificationService from "../../services/notification.service";
+import {digestaActions} from "../../store/digesta-slice";
 const DigestaLookUp = () => {
 
-    const [foundLeges, setFoundLeges] = useState([])
-    const [lang, setLang] = useState('lat')
-    const [searched_term, setSearched_term] = useState('')
-
+    // const [foundLeges, setFoundLeges] = useState([])
+    // const [searched_term, setSearched_term] = useState('')
+    const lang = useSelector(state=>state.digesta.lang)
+    const foundParagraphi = useSelector(state=>state.digesta.foundParagraphi)
+    const searchedTerm = useSelector(state=>state.digesta.searchedTerm)
     const dispatch = useDispatch()
+
+    const notificationSetter = new NotificationService(dispatch)
+
     const getDataHandler = (event) => {
         event.preventDefault()
         const searched_term = event.target[1].value
-        const lang = event.target[2].value
+
         if (searched_term.length < 3) {
-            dispatch(uiActions.setNotification({
-                status: "error",
-                title: "wyszukiwanie",
-                message: "wpisane słowo musi mieć co najmniej 3 znaki"
-            }))
+            notificationSetter.setNotificationSuccess("wyszukiwanie", "wpisane słowo musi mieć co najmniej 3 znaki")
             return false
         }
         const loadData = async (searched_term, lang) => {
@@ -48,28 +48,17 @@ const DigestaLookUp = () => {
 
         loadData(searched_term, lang).then((response) => {
             if (response.length > 0) {
-                dispatch(uiActions.setNotification({
-                    status: "success", title: "Wyszukiwanie", message: `Znaleziono ${response.length} wystąpień`
-                }))
-
-                setFoundLeges((current) => response)
-                setLang(lang)
-                setSearched_term(searched_term)
-
+                notificationSetter.setNotificationSuccess("Wyszukiwanie", `Znaleziono ${response.length} wystąpień` )
+                console.log(response)
+                dispatch(digestaActions.setFoundParagraphi(response))
+                dispatch(digestaActions.setSearchedTerm(searched_term))
 
             } else {
-                dispatch(uiActions.setNotification({
-                    status: "error", title: "Wyszukiwanie", message: "Nie znaleziono niczego"
-                }))
+                notificationSetter.setNotificationError("Wyszukiwanie", "Nie znaleziono niczego")
             }
 
-            // const data = JSON.parse(response)
-
-
         }).catch((e) => {
-            dispatch(uiActions.setNotification({
-                status: "error", title: "Wyszukiwanie", message: "Błąd serwera"
-            }))
+            notificationSetter.setNotificationError("Wyszukiwanie", "Błąd serwera")
         })
 
     }
@@ -87,8 +76,8 @@ const DigestaLookUp = () => {
 
             </form>
 
-            {foundLeges && <DigestaTocSearchParagraphs paragraphi={foundLeges} lang={lang}
-                                                       searchedTerm={searched_term}/>}
+            {foundParagraphi && <DigestaTocSearchParagraphs paragraphi={foundParagraphi} lang={lang}
+                                                       searchedTerm={searchedTerm}/>}
         </div>
     )
 }

@@ -1,0 +1,43 @@
+.found_item {
+    margin: 1rem;
+}
+
+.found_item__button {
+    padding: 0.3rem;
+    border-radius: 3px;
+    width: 8rem;
+    margin: auto;
+    display: block;
+
+}
+
+.selected {
+    background: black;
+    color: white;
+}
+
+.found_item__texts {
+    display: flex;
+
+}
+
+.found_item__text {
+    width: 100%;
+    padding: 0.5rem;
+    text-align: justify-all;
+    font-size: 0.9rem;
+}
+
+.found_item__redirect {
+    display: block;
+    margin: auto;
+    padding: 0.2rem;
+}
+
+.found_item__redirect a {
+    text-decoration: none;
+    list-style: none;
+    color: black
+}
+
+

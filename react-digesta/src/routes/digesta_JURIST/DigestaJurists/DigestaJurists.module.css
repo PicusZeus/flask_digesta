@@ -33,12 +33,33 @@
 }
 
 @media (min-width: 600px) {
+    /*.jurists_main__title {*/
+    /*    display: none;*/
+    /*}*/
+
     .jurists_main__mobile_toc {
         display: none;
     }
 
+    .jurists_main__container {
+        flex-direction: row;
+    }
+
     .jurists_main__desktop_toc {
         display: block;
+        width: 12rem;
+        position: fixed;
+        overflow-y: scroll;
+        height: calc(100% - 4rem);
+    }
+    .jurists_main__outlet {
+        margin-left: 12rem;
+        /*width: 100%;*/
+        flex-grow: 1;
+    }
+
+    .jurists_main__title {
+        display: none
     }
 }
 

@@ -13,7 +13,7 @@ const CommentedParagraphiModal = ({commentedParagraphi, onClose, onCloseMobileMe
                 {commentedParagraphi.map(
                     (par) =>
                         (<li>
-                            <Link onClick={() => {onClose(); onCloseMobileMenu(true)}} to={
+                            <Link key={par.id} onClick={() => {onClose(); onCloseMobileMenu(true)}} to={
                                 par.key !== 'pr' ? "/digesta/" + par.lex.id + '/' +  par.id : "/digesta/" + par.lex.id}>
                                 {par.lex.titulus.book.book_nr}.{par.lex.titulus.number}.{par.lex.lex_nr}{par.key !== 'pr' ? "." + par.key : ""}
                             </Link>

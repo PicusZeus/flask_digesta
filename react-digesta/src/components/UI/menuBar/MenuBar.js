@@ -10,7 +10,6 @@ import logo from "./justynian.jpg"
 import MobileNav from "../mobileNav/MobileNav";
 import {useState} from "react";
 import tokenService from "../../../services/token.service";
-import Modal from "../modal/Modal";
 import CommentedParagraphiModal from "../../commentedParagraphiModal/CommentedParagraphiModal";
 
 const MenuBar = () => {
@@ -72,33 +71,35 @@ const MenuBar = () => {
                     <nav className={classes.main_nav}>
                         <ul className={classes.main_nav__items}>
 
+
                             {loggedIn && <li className={classes.main_nav__logout}>
                                 <button onClick={logoutHandler}>Wyloguj się</button>
                             </li>}
 
                             {!loggedIn && <li className={classes.main_nav__login}>
-                                <button onClick={logingToggleHandler}>Zaloguj się</button>
+                                <button onClick={logingToggleHandler}>Logowanie</button>
                             </li>}
 
                             {!loggedIn && <li className={classes.main_nav__login}>
-                                <button onClick={registerToggleHandler}>Zarejestruj się</button>
+                                <button onClick={registerToggleHandler}>Rejestracja</button>
                             </li>}
-                            {loggedIn && <button onClick={commentedParagraphiOpenHandler}>Skomentowane
-                                Paragrafy {commentedParagraphi.length}</button>}
+                            {loggedIn && <li className={classes.main_nav__comments}><button onClick={commentedParagraphiOpenHandler}>Skomentowane
+                                Paragrafy {commentedParagraphi.length}</button></li>}
+
+                            <li className={classes.main_nav__item_space}/>
 
 
                             <li className={classes.main_nav__item}>
-                                <Link to={"/digesta"}>Digesta - tekst oryginalny i tłumaczenie</Link>
+                                <Link to={"/digesta"}>Digesta</Link>
                             </li>
                             <li className={classes.main_nav__item}>
-                                <Link to={"/jurysci"}>Digesta - przeglądaj tekst wg jurystów i ich dzieł</Link>
+                                <Link to={"/jurysci"}>Juryści</Link>
                             </li>
                             <li className={classes.main_nav__item}>
-                                <Link to={"/opera"}>Digesta - przeglądaj cytowane w Digestach dzieła jurystów i ich
-                                    dzieł</Link>
+                                <Link to={"/opera"}>Dzieła jurystów</Link>
                             </li>
                             <li className={classes.main_nav__item}>
-                                <Link to={"/wyszukaj"}>Digesta - wyszukaj w tekście</Link>
+                                <Link to={"/wyszukaj"}>Wyszukaj</Link>
                             </li>
                         </ul>
 

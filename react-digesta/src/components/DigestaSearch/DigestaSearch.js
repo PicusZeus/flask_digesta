@@ -1,16 +1,21 @@
 import {Form} from "react-router-dom";
 import classes from "./DigestaSearch.module.css";
 import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {digestaActions} from "../../store/digesta-slice";
 
 const DigestaSearch = (props) => {
 
-    const [lang, setLang] = useState('lat')
+    // const [lang, setLang] = useState('lat')
+    const dispatch = useDispatch()
+    const lang = useSelector(state=>state.digesta.lang)
 
 
     const setLanguageHandler = (event) => {
         // event.preventDefault()
-        console.log(event.target.value)
-        setLang(event.target.value)
+
+        dispatch(digestaActions.setLang(event.target.value))
+
     }
 
     return (

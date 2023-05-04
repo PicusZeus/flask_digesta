@@ -10,7 +10,10 @@ const initialState = {
     chosenLexId: false,
     chosenParagraphKey: false,
     chosenJuristId: false,
-    chosenOpusId: false
+    chosenOpusId: false,
+    foundParagraphi: [],
+    searchedTerm: '',
+    lang: 'lat'
 }
 
 
@@ -18,6 +21,15 @@ const digestaSlice = createSlice({
         name: "digesta",
         initialState: initialState,
         reducers: {
+            setFoundParagraphi(state, action) {
+              state.foundParagraphi = action.payload
+            },
+            setSearchedTerm(state, action) {
+                state.searchedTerm = action.payload
+            },
+            setLang(state, action) {
+                state.lang = action.payload
+            },
             setTOC(state, action) {
                 state.TOC = action.payload
             },

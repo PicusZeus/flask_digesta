@@ -8,8 +8,8 @@ const DigestaJuristDigesta = () => {
     const toc = useLoaderData()
     const location = useLocation()
     return (
-        <>
-            <h1 className={classes.main_title}>Według układu Digestów</h1>
+        <div className={classes.toc_container}>
+            {/*<h1 className={classes.main_title}>Według układu Digestów</h1>*/}
             <div className={classes.mobile_toc}>
                 <DigestaTocMobileBooks toc={toc} url={location}/>
 
@@ -19,9 +19,11 @@ const DigestaJuristDigesta = () => {
 
             </div>
 
+            <div className={classes.toc_outlet}>
+                <Outlet/>
+            </div>
 
-            <Outlet/>
-        </>
+        </div>
     )
 }
 

@@ -1,0 +1,39 @@
+.titulus_group {
+    margin-top: 0.5rem;
+    display: flex;
+    position: relative;
+
+}
+
+.titulus_group > div {
+    /*position: absolute;*/
+    align-self: flex-end;
+    margin-bottom: 2rem;
+    width: 1rem;
+    height: 2px;
+    background: black;
+}
+
+.titulus_group > button {
+    width: 80%;
+    /*margin-bottom: 2rem;*/
+}
+
+.titulus__leges_group {
+    display: flex;
+    position: relative;
+    margin-left: 2rem;
+}
+
+.titulus__leges_group > div {
+   width: 2px;
+    height: calc(100% - 0.8rem);
+    background: black;
+    position: absolute;
+}
+
+.titulus__leges_group > ul {
+    margin-top: 1rem;
+    padding: 0;
+    list-style: none;
+}

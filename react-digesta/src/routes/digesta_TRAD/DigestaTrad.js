@@ -25,8 +25,10 @@ const DigestaTrad = () => {
                     {toc && <DigestaTocDesktopBooks toc={toc}/>}
                 </div>
 
+                <div className={classes.trad_main__outlet}>
+                    <Outlet/>
+                </div>
 
-                <Outlet/>
             </div>
         </div>
     )

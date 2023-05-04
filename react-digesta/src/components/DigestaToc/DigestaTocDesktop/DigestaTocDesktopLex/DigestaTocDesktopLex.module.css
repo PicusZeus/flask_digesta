@@ -1,0 +1,82 @@
+
+.lex_group {
+    margin-top: 0.5rem;
+    display: flex;
+}
+
+.lex_group > div {
+    align-self: center;
+    width: 3rem;
+    height: 2px;
+    background: black;
+}
+
+.lex_group > a {
+    text-decoration: none;
+    border: 1px solid black;
+    padding: 0.3rem;
+    font-size: 0.8rem;
+    color: black;
+    width: 5rem;
+    height: 1.6rem;
+    text-align: center;
+
+}
+
+.paragraphi_group {
+    margin: 0 0 0 4rem;
+    display: flex;
+    position: relative;
+}
+
+.paragraphi_group > div {
+    position: absolute;
+    height: calc(100% - 0.8rem);
+    width: 2px;
+    background: black;
+}
+
+.paragraphi_group > ul {
+    padding: 0;
+    list-style: none;
+
+}
+
+.paragraphus_group {
+    display: flex;
+    margin-top: 0.4rem;
+}
+
+.paragraphus_group > div {
+    align-self: center;
+    width: 1.5rem;
+    height: 2px;
+    background: black;
+}
+
+.paragraphus_group > a {
+    text-decoration: none;
+    border: 1px solid black;
+    padding: 0.3rem;
+    font-size: 0.8rem;
+    color: black;
+    width: 2rem;
+    height: 1.6rem;
+    text-align: center;
+}
+
+
+/*.lex_group__paragraphi {*/
+/*    list-style: none;*/
+/*    padding: 0;*/
+/*    margin: 0.3rem 0 0 5rem*/
+/*}*/
+
+/*.lex_group__paragraphi_group {*/
+/*    display: flex;*/
+/*}*/
+
+.lex_group__paragraphi_group > div {
+
+}
+

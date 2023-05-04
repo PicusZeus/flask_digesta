@@ -18,9 +18,13 @@ const DigestaJurists = () => {
                     <DigestaTocDesktopJurists/>
 
                 </div>
+                <div className={classes.jurists_main__outlet}>
+
+                    <Outlet/>
+                </div>
 
             </div>
-            <Outlet/>
+
         </div>
     )
 }

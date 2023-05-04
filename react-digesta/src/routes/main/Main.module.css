@@ -9,12 +9,39 @@
 
 }
 
+.main__info {
+    display: none;
+}
+
 .main_item {
     border: black solid 1px;
     border-radius: 15px;
     margin: 1rem;
     background-color: #717f4d;
 
+}
+
+
+@media (min-width: 600px) {
+    .main_items {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: center;
+
+    }
+
+    .main_item {
+        width: 45%;
+        margin: 1rem auto;
+    }
+
+    .main__info {
+        margin-top: 8rem;
+        padding: 3rem;
+        display: block;
+        font-size: 1.1rem;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.7) 15%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.7) 85%, rgba(0, 0, 0, 0) 100%);
+    }
 }
 
 .main_item__container {
@@ -49,3 +76,5 @@
     font-size: 1.1rem;
 
 }
+
+

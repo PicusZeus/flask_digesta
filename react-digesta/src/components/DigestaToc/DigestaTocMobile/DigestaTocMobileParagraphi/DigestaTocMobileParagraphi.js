@@ -9,10 +9,9 @@ const DigestaTocMobileParagraphi = (props) => {
 
     return (
         <>
-            <label className={classes.main_toc__label}>Wybierz Paragraf</label>
 
             <TocMobile onOption={props.setParagraph}>
-
+                <option value="">Wybierz Paragraf</option>
                  {options}
             </TocMobile>
 

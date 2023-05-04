@@ -1,5 +1,5 @@
 .main_jurist {
-
+    /*width: 100%;*/
 }
 
 .main_jurist__redirections {
@@ -45,5 +45,32 @@
     padding-bottom: 2rem;
     font-style: inherit;
     font-size: 1.1rem;
+
+}
+
+.main_jurist__outlet_desktop {
+    display: none;
+}
+
+@media (min-width: 600px) {
+    .main_jurist__outlet_mobile {
+        display: none;
+    }
+
+    .main_jurist__outlet_desktop {
+        display: block;
+        flex-grow: 1;
+    }
+
+    .main_jurist {
+        display: flex;
+    }
+    .main_jurist__outlet_desktop {
+        width: 16rem;
+    }
+    .main_jurist__container {
+        width: 100%;
+        flex-grow: 1;
+    }
 
 }

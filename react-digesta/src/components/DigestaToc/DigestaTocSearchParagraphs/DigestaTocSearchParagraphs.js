@@ -1,13 +1,14 @@
 import DigestaSearchViewer from "../../DigestaSearchViewer/DigestaSearchViewer";
+import classes from "./DigestaTocSearchParagraphs.module.css";
 
 const DigestaTocSearchParagraphs = (props) => {
     let results
 
     results = props.paragraphi.map(paragraphus => (
-        <DigestaSearchViewer paragraph={paragraphus} searchedTerm={props.searchedTerm} lang={props.lang}/>))
+        <DigestaSearchViewer key={paragraphus.id} paragraph={paragraphus} searchedTerm={props.searchedTerm} lang={props.lang}/>))
     return (
-        <ul>
-            <h1>Szukany termin <b>{props.searchedTerm}</b> występuje w następujących ustawach</h1>
+        <ul className={classes.found_items}>
+            <h1>Szukany termin <span>{props.searchedTerm}</span> występuje w następujących ustawach</h1>
             {results}
         </ul>
 

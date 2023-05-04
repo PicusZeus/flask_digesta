@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
+import classes from "./DigestaSearchViewer.module.css"
 const DigestaSearchViewer = ({paragraph, searchedTerm, lang}) => {
     const [showResult, setShowResult] = useState(false)
 
@@ -22,22 +23,31 @@ const DigestaSearchViewer = ({paragraph, searchedTerm, lang}) => {
             res.push(<>{result[i]}</>)
         }
     }
-    const url = '/digesta/' + paragraph.lex.id
+
+    const buttonClasses = [classes.found_item__button]
+    if (showResult) {buttonClasses.push(classes.selected)}
+    let url = '/digesta/' + paragraph.lex.id
+    if (paragraph.key !== "pr") {
+        url = `/digesta/${paragraph.lex.id}/${paragraph.id}`
+    }
 
     return (
-        <>
-            <li>
-                <button
+            <li className={classes.found_item}>
+                <button className={buttonClasses.join(" ")}
                     onClick={() => setShowResult(!showResult)}>
                     D {paragraph.lex.titulus.book.book_nr}.{paragraph.lex.titulus.number}.{paragraph.lex.lex_nr}.{paragraph.key}
                 </button>
-                {showResult && <div>{res}</div>}
-                {showResult && <div>{paragraph[keyTrLang]}</div>}
-                <Link to={url}>do Digestów</Link>
+                <div className={classes.found_item__texts}>
+                    {showResult && <div className={classes.found_item__text}>{res}</div>}
+                    {showResult && <div className={classes.found_item__text}>{paragraph[keyTrLang]}</div>}
+
+                </div>
+
+                {showResult && <button className={classes.found_item__redirect}><Link to={url}>Przejdź do układu Digestów</Link></button>}
 
             </li>
 
-        </>
+
     )
 }
 export default DigestaSearchViewer

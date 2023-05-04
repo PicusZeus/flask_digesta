@@ -1,0 +1,17 @@
+.found_items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.found_items h1 {
+
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 1rem 2rem;
+
+}
+
+.found_items h1 span {
+    font-style: italic;
+}
