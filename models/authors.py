@@ -10,5 +10,5 @@ class AuthorModel(db.Model):
     flourished_start = db.Column(db.Integer)
     flourished_end = db.Column(db.Integer)
     leges = db.relationship("DigestaLexModel", back_populates="author", lazy="dynamic")
-    opera = db.relationship("OperaModel", back_populates="author", lazy="dynamic")
+    opera = db.relationship("OpusModel", back_populates="author", lazy="dynamic")
 

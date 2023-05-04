@@ -1,6 +1,6 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from models import OperaModel
+from models import OpusModel
 from schemas import OperaSchema
 
 blp = Blueprint("opera", __name__, description="operations on opera jurisprudentiorum")
@@ -10,7 +10,7 @@ blp = Blueprint("opera", __name__, description="operations on opera jurisprudent
 class Opus(MethodView):
     @blp.response(200, OperaSchema)
     def get(self, opus_id):
-        opera_data = OperaModel.query.get_or_404(opus_id)
+        opera_data = OpusModel.query.get_or_404(opus_id)
         return opera_data
 
 
@@ -18,7 +18,7 @@ class Opus(MethodView):
 class Opera(MethodView):
     @blp.response(200, OperaSchema(many=True))
     def get(self):
-        opera_data = OperaModel.query.order_by(OperaModel.title_lat, OperaModel.author_id, OperaModel.book).all()
+        opera_data = OpusModel.query.order_by(OpusModel.title_lat, OpusModel.author_id, OpusModel.book).all()
         return opera_data
 
 
@@ -26,5 +26,5 @@ class Opera(MethodView):
 class OperaByJurist(MethodView):
     @blp.response(200, OperaSchema(many=True))
     def get(self, jurist_id):
-        opera_data = OperaModel.query.filter(OperaModel.author_id == jurist_id).order_by(OperaModel.title_lat, OperaModel.book).all()
+        opera_data = OpusModel.query.filter(OpusModel.author_id == jurist_id).order_by(OpusModel.title_lat, OpusModel.book).all()
         return opera_data

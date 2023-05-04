@@ -34,8 +34,8 @@ class DigestaLexModel(db.Model):
     titulus = db.relationship("DigestaTitulusModel", back_populates="leges")
     author_id = db.Column(db.Integer, db.ForeignKey("authors.id"), unique=False, nullable=False)
     author = db.relationship("AuthorModel", back_populates="leges")
-    opus_id = db.Column(db.Integer, db.ForeignKey("opera.id"), unique=False, nullable=False)
-    opus = db.relationship("OperaModel", back_populates="leges")
+    opus_id = db.Column(db.Integer, db.ForeignKey("libri.id"), unique=False, nullable=False)
+    opus = db.relationship("OpusLibriModel", back_populates="leges")
     paragraphi = db.relationship("DigestaParagraphusModel", back_populates='lex', order_by="DigestaParagraphusModel.key")
     __table_args__ = (UniqueConstraint('lex_nr', 'titulus_id'),)
 

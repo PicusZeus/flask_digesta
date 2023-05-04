@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 const DigestaTocDesktopOpus = ({opus}) => {
 const [menuOpusOpen, setMenuOpusOpen] = useState(false)
-    console.log(opus)
+    // console.log(opus)
 
     const leges = opus.leges.map((lex)=>(<li><Link to={lex.id.toString()}>D.{lex.titulus.book.book_nr}.{lex.titulus.number}.{lex.lex_nr}</Link></li>))
 

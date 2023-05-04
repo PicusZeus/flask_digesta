@@ -3,6 +3,8 @@ import DigestaTocDesktopOpus from "../DigestaTocDesktopOpus/DigestaTocDesktopOpu
 
 
 const DigestaTocDesktopOpera = ({toc}) => {
+    console.log(toc, 'OPERW')
+
 
     return (
         <>

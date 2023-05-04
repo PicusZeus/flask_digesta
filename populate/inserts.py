@@ -3,7 +3,7 @@ from app import create_app
 app = create_app()
 app.app_context().push()
 from db import db
-from models import AuthorModel, OperaModel, CommentModel, DigestaBookModel, DigestaLexModel, DigestaTitulusModel, DigestaParagraphusModel
+from models import AuthorModel, OpusModel, CommentModel, DigestaBookModel, DigestaLexModel, DigestaTitulusModel, DigestaParagraphusModel, OpusLibriModel
 import pickle
 from populate.resources import int_to_roman
 from sqlalchemy.exc import IntegrityError
@@ -81,10 +81,10 @@ def insert_opera(file_name):
             opus_title_pl = lex['opus']['title_pl']
             opus_book_nr = lex['opus']['liber']
 
-            opus = OperaModel(title_lat=opus_title_lat,
-                              title_pl=opus_title_pl,
-                              book=opus_book_nr,
-                              author_id=author_id)
+            opus = OpusModel(title_lat=opus_title_lat,
+                             title_pl=opus_title_pl,
+                             # book=opus_book_nr,
+                             author_id=author_id)
             db.session.add(opus)
             try:
                 db.session.commit()
@@ -92,6 +92,29 @@ def insert_opera(file_name):
                 print('opus Integrity error')
                 db.session.rollback()
 
+def insert_opera_books(file_name):
+    with open(file_name, 'rb') as file:
+        book_data = pickle.load(file)
+
+    for titulus_nr in book_data:
+        for lex_nr in book_data[titulus_nr]['leges']:
+            lex = book_data[titulus_nr]['leges'][lex_nr]
+            opus_title_lat = lex['opus']['title_lat']
+            jurist_name = lex['jurist']
+            author = AuthorModel.query.filter_by(name=jurist_name).one()
+            author_id = author.id
+            opus_title_pl = lex['opus']['title_pl']
+            opus_book_nr = lex['opus']['liber']
+
+            opus = OpusModel.query.filter(OpusModel.title_lat == opus_title_lat, OpusModel.author_id == author_id).one()
+
+            opus_liber = OpusLibriModel(opus_id=opus.id, liber=opus_book_nr)
+            db.session.add(opus_liber)
+            try:
+                db.session.commit()
+            except IntegrityError:
+                print('opus Integrity error')
+                db.session.rollback()
 
 def insert_leges(file_name, book):
     liber = DigestaBookModel.query.filter_by(book_latin_name=book).one()
@@ -110,11 +133,10 @@ def insert_leges(file_name, book):
             # text_pl = lex["content_pl"]
             author = AuthorModel.query.filter_by(name=lex['jurist']).one()
             author_id = author.id
-
-            opus = OperaModel.query.filter_by(title_lat=lex['opus']['title_lat'],
-                                              author_id=author_id,
-                                              book=lex['opus']['liber']).one()
+            liber = lex['opus']['liber']
+            opus = OpusModel.query.filter_by(title_lat=lex['opus']['title_lat'], author_id=author_id).one()
             opus_id = opus.id
+            opus_liber = OpusLibriModel.query.filter(OpusLibriModel.opus_id == opus_id, OpusLibriModel.liber == liber).one()
 
             lex = DigestaLexModel(address_lat=address_lat,
                                   address_pl=address_pl,
@@ -123,7 +145,7 @@ def insert_leges(file_name, book):
                                   lex_nr=lex_nr,
                                   titulus_id=titulus_id,
                                   author_id=author_id,
-                                  opus_id=opus_id,)
+                                  opus_id=opus_liber.id)
 
             db.session.add(lex)
             try:
@@ -184,14 +206,14 @@ def addBio(jurists_bio):
             db.session.commit()
 
 
-
 if __name__ == "__main__":
-    # insert_books(lat='LIBER PRIMUS', pl="KSIĘGA PIERWSZA", nr=1)
-    # insert_tituli("LIBER PRIMUS", "populate/Data/digestaplikiend/d1.txt_extracted.pickle")
-    # insert_authors(FILE_PICKLE_LIBER_1)
-    # insert_opera(FILE_PICKLE_LIBER_1)
-    # insert_leges(FILE_PICKLE_LIBER_1, 'LIBER PRIMUS')
-    # insert_paragraphi(FILE_PICKLE_LIBER_1, 'LIBER PRIMUS')
+    insert_books(lat='LIBER PRIMUS', pl="KSIĘGA PIERWSZA", nr=1)
+    insert_tituli("LIBER PRIMUS", "populate/Data/digestaplikiend/d1.txt_extracted.pickle")
+    insert_authors(FILE_PICKLE_LIBER_1)
+    insert_opera(FILE_PICKLE_LIBER_1)
+    insert_opera_books(FILE_PICKLE_LIBER_1)
+    insert_leges(FILE_PICKLE_LIBER_1, 'LIBER PRIMUS')
+    insert_paragraphi(FILE_PICKLE_LIBER_1, 'LIBER PRIMUS')
     addBio(jurists)
 
 
