@@ -4,16 +4,21 @@ from marshmallow import Schema, fields
 class PlainAuthorSchema(Schema):
     id = fields.Int(dump_only=True)
     name = fields.Str(dump_only=True)
-    description = fields.Str(dump_only=True)
-    flourished_start = fields.Int(dump_only=True)
-    flourished_end = fields.Int(dump_only=True)
+    # description = fields.Str(dump_only=True)
+    # flourished_start = fields.Int(dump_only=True)
+    # flourished_end = fields.Int(dump_only=True)
+
+
+
+
 
 
 class PlainOperaSchema(Schema):
     id = fields.Int(dump_only=True)
     title_lat = fields.Str(dump_only=True)
     title_pl = fields.Str(dump_only=True)
-    book = fields.Int(dump_only=True)
+
+
 
 class PlainParagraphusTocSchema(Schema):
     id = fields.Int(dump_only=True)
@@ -65,13 +70,13 @@ class PlainDigestaTitulusSchema(Schema):
     book = fields.Nested(PlainDigestaBookSchema())
 
 
-
-
 class PlainDigestaLexSchema(Schema):
     id = fields.Int(dump_only=True)
     address_lat = fields.Str()
     address_pl = fields.Str()
     lex_nr = fields.Int()
+
+
 
 class PlainDigestaParagraphusSchema(Schema):
     id = fields.Int(dump_only=True)
@@ -92,6 +97,16 @@ class DigestaLexSimpleSchema(Schema):
 class DigestaTocLex(DigestaLexSimpleSchema):
     titulus = fields.Nested(PlainDigestaTitulusSchema())
 
+class PlainOpusLiberSchema(Schema):
+    id = fields.Int()
+    liber = fields.Int()
+    leges = fields.List(fields.Nested(DigestaTocLex()))
+
+class OpusLiberSchema(PlainOpusLiberSchema):
+    opus = fields.Nested(PlainOperaSchema())
+    leges = fields.List(fields.Nested(DigestaTocLex()))
+
+
 class DigestaParagraphusSchema(PlainDigestaParagraphusSchema):
     lex = fields.Nested(DigestaTocLex())
     comments = fields.List(fields.Nested(PlainCommentSchema()))
@@ -101,7 +116,7 @@ class DigestaParagraphusSchema(PlainDigestaParagraphusSchema):
 class DigestaLexSchema(PlainDigestaLexSchema):
     titulus = fields.Nested(PlainDigestaTitulusSchema())
     author = fields.Nested(PlainAuthorSchema())
-    opus = fields.Nested(PlainOperaSchema())
+    opus = fields.Nested(OpusLiberSchema())
     book = fields.Nested(PlainDigestaBookSchema())
     paragraphi = fields.List(fields.Nested(DigestaParagraphusSchema()))
 
@@ -152,8 +167,10 @@ class PlainDigestaTOCLexSchema(Schema):
 
 
 class OperaSchema(PlainOperaSchema):
-    leges = fields.List(fields.Nested(PlainDigestaTOCLexSchema()))
+
     author = fields.Nested(PlainAuthorSchema())
+    # libri = fields.List(PlainOpusLiberSchema())
+    libri = fields.List(fields.Nested(PlainOpusLiberSchema()))
 
 class DigestaTitulusSchema(PlainDigestaTitulusSchema):
     book = fields.Nested(PlainDigestaBookSchema())

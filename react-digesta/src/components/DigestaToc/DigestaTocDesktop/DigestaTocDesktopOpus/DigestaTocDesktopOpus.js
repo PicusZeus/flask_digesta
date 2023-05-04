@@ -1,18 +1,26 @@
 import {useState} from "react";
-import {Link} from "react-router-dom";
-
+import DigestaTocDesktopOpusLiber from "../DigestaTocDesktopOpusLiber/DigestaTocDesktopOpusLiber";
+import classes from "./DigestaTocDesktopOpus.module.css"
 
 const DigestaTocDesktopOpus = ({opus}) => {
-const [menuOpusOpen, setMenuOpusOpen] = useState(false)
-    // console.log(opus)
-
-    const leges = opus.leges.map((lex)=>(<li><Link to={lex.id.toString()}>D.{lex.titulus.book.book_nr}.{lex.titulus.number}.{lex.lex_nr}</Link></li>))
+    const [menuLibriOpen, setMenuLibriOpen] = useState(false)
+    const openOpusHandler = () => {
+        setMenuLibriOpen((current) => !current)
+    }
 
     return (
-        <li>
-            <button onClick={()=>setMenuOpusOpen(!menuOpusOpen)}>{opus.title_lat}</button>
-            {menuOpusOpen && <h4>Fragmenty</h4>}
-            {menuOpusOpen && <ul>{leges}</ul>}
+        <li className={classes.main_toc__item}>
+            <button className={classes.main_toc__opus} onClick={openOpusHandler}>
+                <p>{opus.title_lat}</p><p>{opus.author.name}</p>
+            </button>
+
+            {menuLibriOpen && <div className={classes.main_toc__libri_items}>
+                <div>&nbsp;</div>
+                <ul>
+                    {opus.libri.map((liber) => (<DigestaTocDesktopOpusLiber liber={liber}/>))}
+                </ul>
+
+            </div>}
 
         </li>
     )
