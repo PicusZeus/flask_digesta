@@ -3,14 +3,15 @@ import DigestaTocDesktopLex from "../DigestaTocDesktopLex/DigestaTocDesktopLex";
 import classes from './DigestaTocDesktopTitulus.module.css'
 
 const DigestaTocDesktopTitulus = ({titulus}) => {
-const [titulusMenuOpen, setTitulusMenuOpen] = useState(false)
-console.log(titulus)
-
+    const [titulusMenuOpen, setTitulusMenuOpen] = useState(false)
+    const legesLength = titulus.leges.length
     return (
-        <li>
+        <li className={classes.titulus_main}>
+            <div className={classes.titulus__line}>&nbsp;</div>
+
             <div className={classes.titulus_group}>
                 <div>&nbsp;</div>
-                <button onClick={() => setTitulusMenuOpen(!titulusMenuOpen)}>
+                <button onClick={() => setTitulusMenuOpen((current) => !current)}>
                     <p>Tytuł {titulus.number}</p>
                     <p>{titulus.title_pl}</p>
                     <p>{titulus.title_lat}</p>
@@ -18,16 +19,12 @@ console.log(titulus)
 
             </div>
             {titulusMenuOpen && <div className={classes.titulus__leges_group}>
-                <div>&nbsp;</div>
                 <ul>
                     {titulus.leges.map((lex) => (
-                        <DigestaTocDesktopLex key={titulus.id} lex={lex}/>))}
-
+                        <DigestaTocDesktopLex key={titulus.id} lex={lex} legesLength={legesLength}/>))}
                 </ul>
 
             </div>}
-
-
         </li>
     )
 }

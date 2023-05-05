@@ -6,17 +6,16 @@ const DigestaTocDesktopBook = ({book}) => {
     const [bookMenuOpen, setBookMenuOpen] = useState(false)
 
     return (
-        <li className={classes.main_toc__item}>
+        <li>
             <button className={classes.main_toc__book}
                     onClick={() => setBookMenuOpen(!bookMenuOpen)}>Księga {book.book_nr} ({book.book_latin_name})
             </button>
-            <div className={classes.main_toc__tituli}>
+            {bookMenuOpen && <div className={classes.main_toc__tituli}>
                 <div>&nbsp;</div>
                 <ul className={classes.main_toc__tituli_items}>
-                    {bookMenuOpen && <h4>Tytuły</h4>}
-                    {bookMenuOpen && book.tituli.map((titulus) => (<DigestaTocDesktopTitulus titulus={titulus}/>))}
+                    {book.tituli.map((titulus) => (<DigestaTocDesktopTitulus titulus={titulus}/>))}
                 </ul>
-            </div>
+            </div>}
         </li>
     )
 }

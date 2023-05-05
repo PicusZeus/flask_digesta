@@ -7,17 +7,17 @@ const DigestaTocDesktopOpus = ({opus}) => {
     const openOpusHandler = () => {
         setMenuLibriOpen((current) => !current)
     }
-
+    const libriLength = opus.libri.length
     return (
-        <li className={classes.main_toc__item}>
+        <li>
             <button className={classes.main_toc__opus} onClick={openOpusHandler}>
                 <p>{opus.title_lat}</p><p>{opus.author.name}</p>
             </button>
 
-            {menuLibriOpen && <div className={classes.main_toc__libri_items}>
-                <div>&nbsp;</div>
-                <ul>
-                    {opus.libri.map((liber) => (<DigestaTocDesktopOpusLiber liber={liber}/>))}
+            {menuLibriOpen && <div className={classes.main_toc__libri}>
+                {/*<div>&nbsp;</div>*/}
+                <ul className={classes.main_toc__libri_items}>
+                    {opus.libri.map((liber) => (<DigestaTocDesktopOpusLiber liber={liber} libriLength={libriLength}/>))}
                 </ul>
 
             </div>}

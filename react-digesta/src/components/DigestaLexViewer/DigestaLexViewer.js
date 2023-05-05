@@ -3,7 +3,6 @@ import classes from "./DigestaLexViewer.module.css"
 import DigestaParagraphusViewer from "../DigestaParagraphusViewer/DigestaParagraphusViewer";
 import DigestaTocMobileParagraphi
     from "../DigestaToc/DigestaTocMobile/DigestaTocMobileParagraphi/DigestaTocMobileParagraphi";
-import {useEffect} from "react";
 
 
 
@@ -55,7 +54,7 @@ const DigestaLexViewer = (props) => {
             </div>
             <DigestaParagraphusViewer paragraphus={paragraphiDic['pr']}/>
             {paragraphiKeys.length > 1 &&
-                <DigestaTocMobileParagraphi setParagraph={setParagraphHandler} paragraphiKeys={paragraphiKeys}/>}
+                <div className={classes.main_lex__mobile_toc}><DigestaTocMobileParagraphi setParagraph={setParagraphHandler} paragraphiKeys={paragraphiKeys}/></div>}
 
             <Outlet/>
         </section>

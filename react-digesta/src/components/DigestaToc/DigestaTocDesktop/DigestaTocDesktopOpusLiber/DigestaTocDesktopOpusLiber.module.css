@@ -1,36 +1,82 @@
+.liber_main {
+    position: relative;
+}
+
+.liber__line {
+    width: 2px;
+    height: calc(100% + 2rem);
+    background: black;
+    position: absolute;
+}
+
+.liber__line_single {
+    height: 2rem;
+}
+
+
 .liber_group {
-    margin-top: 0.5rem;
     display: flex;
     position: relative;
 }
 
 .liber_group > div {
-    align-self: flex-end;
-    margin-bottom: 2rem;
+    margin-top: 2rem;
     width: 1rem;
     height: 2px;
     background: black;
 }
 
 .liber_group > button {
-    width: 80%;
+    margin-top: 1rem;
+    width: 6rem;
+    height: 2rem;
+    border: solid 2px black;
 }
 
 .liber__leges_group {
-        display: flex;
+    display: flex;
     position: relative;
     margin-left: 2rem;
 }
 
 .liber__leges_group > div {
-       width: 2px;
-    height: calc(100% - 0.8rem);
+    width: 2px;
+    height: calc(100% - 1.2rem);
     background: black;
     position: absolute;
 }
 
 .liber__leges_group > ul {
-        margin-top: 1rem;
     padding: 0;
     list-style: none;
+}
+
+.liber__leges_group > ul > li {
+    margin-bottom: 0.5rem;
+}
+
+.liber__lex_link {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    width: 6rem;
+    border: 1px solid black;
+    font-size: 0.8rem;
+    font-family: inherit;
+    color: black;
+    padding: 0.2rem;
+    background: white;
+}
+
+.liber__lex_group {
+    margin-top: 0.5rem;
+    display: flex;
+}
+
+.liber__lex_group > span {
+    width: 1rem;
+    height: 2px;
+    background: black;
+    align-self: center;
+
 }

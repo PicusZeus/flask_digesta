@@ -1,22 +1,36 @@
-.titulus_group {
-    margin-top: 0.5rem;
-    display: flex;
+
+.titulus_main {
     position: relative;
 
 }
 
+.titulus__line {
+     width: 2px;
+    height: calc(100% + 2rem);
+    background: black;
+    position: absolute;
+}
+
+
+
+
+.titulus_group {
+    display: flex;
+    position: relative;
+}
+
 .titulus_group > div {
-    /*position: absolute;*/
-    align-self: flex-end;
-    margin-bottom: 2rem;
+
+    margin-top: 2rem;
     width: 1rem;
     height: 2px;
     background: black;
 }
 
 .titulus_group > button {
+    margin-top: 1rem;
     width: 80%;
-    /*margin-bottom: 2rem;*/
+    border: solid 2px black
 }
 
 .titulus__leges_group {
@@ -33,7 +47,7 @@
 }
 
 .titulus__leges_group > ul {
-    margin-top: 1rem;
     padding: 0;
     list-style: none;
+    margin: 0;
 }

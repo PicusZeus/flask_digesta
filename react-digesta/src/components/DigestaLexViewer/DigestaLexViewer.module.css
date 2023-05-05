@@ -71,3 +71,9 @@
     display: block;
     text-align: justify;
 }
+
+@media (min-width: 600px) {
+    .main_lex__mobile_toc {
+        display: none;
+    }
+}

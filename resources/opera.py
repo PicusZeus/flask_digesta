@@ -26,5 +26,5 @@ class Opera(MethodView):
 class OperaByJurist(MethodView):
     @blp.response(200, OperaSchema(many=True))
     def get(self, jurist_id):
-        opera_data = OpusModel.query.filter(OpusModel.author_id == jurist_id).order_by(OpusModel.title_lat, OpusModel.book).all()
+        opera_data = OpusModel.query.filter(OpusModel.author_id == jurist_id).order_by(OpusModel.title_lat).all()
         return opera_data

@@ -1,28 +1,28 @@
 import {json, Outlet, useLoaderData} from "react-router-dom";
-import DigestaTocMobileOpera
-    from "../../../components/DigestaToc/DigestaTocMobile/DigestaTocMobileOpera/DigestaTocMobileOpera";
 import classes from "./DigestaJuristOpera.module.css"
 import DigestaTocDesktopOpera
     from "../../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopOpera/DigestaTocDesktopOpera";
 
 const DigestaJuristOpera = () => {
-    const toc = useLoaderData()
-    console.log(toc)
-    return (
-        <div className={classes.juropera_main}>
-            <div className={classes.mobile_toc}>
+    const opera = useLoaderData()
 
-                <DigestaTocMobileOpera toc={toc}/>
+   return (
+        <div className={classes.opera_main}>
+            <h1 className={classes.opera_main__title}>Prace cytowane w Digestach</h1>
+            <div className={classes.opera_main__container}>
+                <div className={classes.opera__mobile_toc}>
+
+                </div>
+                <div className={classes.opera__desktop_toc}>
+                    <DigestaTocDesktopOpera opera={opera}/>
+                </div>
+
+                <div className={classes.opera_main__outlet}>
+
+                    <Outlet/>
+                </div>
             </div>
-
-            <div className={classes.desktop_toc}>
-                <DigestaTocDesktopOpera toc={toc}/>
-
-            </div>
-            <Outlet/>
-
         </div>
-
     )
 }
 

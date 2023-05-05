@@ -2,14 +2,11 @@ import classes from "./DigestaLookUp.module.css";
 import DigestaSearch from "../../components/DigestaSearch/DigestaSearch";
 import DigestaTocSearchParagraphs
     from "../../components/DigestaToc/DigestaTocSearchParagraphs/DigestaTocSearchParagraphs";
-import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import NotificationService from "../../services/notification.service";
 import {digestaActions} from "../../store/digesta-slice";
 const DigestaLookUp = () => {
 
-    // const [foundLeges, setFoundLeges] = useState([])
-    // const [searched_term, setSearched_term] = useState('')
     const lang = useSelector(state=>state.digesta.lang)
     const foundParagraphi = useSelector(state=>state.digesta.foundParagraphi)
     const searchedTerm = useSelector(state=>state.digesta.searchedTerm)
@@ -71,7 +68,7 @@ const DigestaLookUp = () => {
             <h1 className={classes.main_lookup__title}>Wyszukaj tekst w Digestach</h1>
 
 
-            <form onSubmit={getDataHandler}>
+            <form className={classes.search_form} onSubmit={getDataHandler}>
                 <DigestaSearch/>
 
             </form>

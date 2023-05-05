@@ -1,17 +1,35 @@
 
+
+.lex_main {
+    position: relative;
+}
+
+.lex__line {
+     width: 2px;
+    height: calc(100% + 2rem);
+    background: black;
+    position: absolute;
+    margin-bottom: 1rem;
+}
+
+.lex__line_single_lex {
+    height: 2rem;
+}
+
 .lex_group {
-    margin-top: 0.5rem;
     display: flex;
 }
 
 .lex_group > div {
-    align-self: center;
+    align-self: flex-end;
+    margin-bottom: 0.5rem;
     width: 3rem;
     height: 2px;
     background: black;
 }
 
 .lex_group > a {
+    margin-top: 1rem;
     text-decoration: none;
     border: 1px solid black;
     padding: 0.3rem;
@@ -47,7 +65,7 @@
     margin-top: 0.4rem;
 }
 
-.paragraphus_group > div {
+.paragraphus_group > span {
     align-self: center;
     width: 1.5rem;
     height: 2px;
@@ -66,15 +84,6 @@
 }
 
 
-/*.lex_group__paragraphi {*/
-/*    list-style: none;*/
-/*    padding: 0;*/
-/*    margin: 0.3rem 0 0 5rem*/
-/*}*/
-
-/*.lex_group__paragraphi_group {*/
-/*    display: flex;*/
-/*}*/
 
 .lex_group__paragraphi_group > div {
 

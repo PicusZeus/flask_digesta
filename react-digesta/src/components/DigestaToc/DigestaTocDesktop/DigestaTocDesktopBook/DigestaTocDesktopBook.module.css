@@ -1,10 +1,8 @@
-.main_toc__item {
-
-}
-
 .main_toc__book {
-    border: none;
-    background: rgba(0, 0, 0, 0);
+    border: 1px solid black;
+    font-size: 1.2rem;
+    background: rgba(0, 0, 0, 0.1);
+    width: 80%;
 }
 
 .main_toc__book:hover, .main_toc__book:active {
@@ -15,17 +13,9 @@
 .main_toc__tituli {
     display: flex;
     position: relative;
-    /*align-items: stretch;*/
 }
 
-.main_toc__tituli > div {
-    position: absolute;
-    /*margin: 2rem;*/
-    width: 2px;
-    display: block;
-    background: black;
-    height: calc(100% - 2rem);
-}
+
 
 .main_toc__tituli_items {
     list-style: none;
@@ -36,4 +26,12 @@
     margin: 0.5rem;
     text-align: center;
 
+}
+
+.main_toc__tituli_items li:last-child > div:first-of-type {
+    display: none;
+}
+
+.main_toc__tituli_items li:first-child > div:first-of-type {
+    display: block;
 }

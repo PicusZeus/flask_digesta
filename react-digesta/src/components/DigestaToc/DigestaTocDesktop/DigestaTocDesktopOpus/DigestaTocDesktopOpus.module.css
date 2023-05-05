@@ -1,8 +1,9 @@
 .main_toc__opus {
     border: 1px solid black;
     background: rgba(0, 0, 0, 0.1);
-    width: 10rem;
-    margin-top: 1rem;
+    width: 80%;
+    font-size: 1.2rem;
+    margin-top:1rem;
 
 }
 
@@ -16,29 +17,21 @@
     position: relative;
 }
 
-.main_toc__libri > div {
-    position: absolute;
-    /*margin: 2rem;*/
-    width: 2px;
-    display: block;
-    background: black;
-    height: calc(100% - 2rem);
-}
 
 .main_toc__libri_items {
     list-style: none;
     padding: 0.1rem 0;
+
+    margin-left: 1rem;
 }
 
-.main_toc__libri_items > div {
-       width: 2px;
-    height: calc(100% - 0.8rem);
-    background: black;
-    position: absolute;
+
+.main_toc__libri_items li:last-child > div:first-of-type {
+        display: none;
+
 }
 
-.main_toc__libri_items > ul {
-        margin-top: 1rem;
-    padding: 0;
-    list-style: none;
+.main_toc__libri_items li:first-child > div:first-of-type {
+    display: block;
 }
+

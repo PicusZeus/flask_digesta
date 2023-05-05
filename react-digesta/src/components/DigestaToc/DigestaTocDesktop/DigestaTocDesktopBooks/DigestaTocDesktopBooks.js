@@ -1,11 +1,7 @@
-// import {useDispatch} from "react-redux";
-// import {digestaActions} from "../../../../store/digesta-slice";
-// import {useNavigate} from "react-router-dom";
 import DigestaTocDesktopBook from "../DigestaTocDesktopBook/DigestaTocDesktopBook";
 import classes from "./DigestaTocDesktopBooks.module.css"
 
-const DigestaTocDesktopBooks = (props) => {
-    const toc = props.toc
+const DigestaTocDesktopBooks = ({toc}) => {
 
 
     return (
@@ -18,7 +14,6 @@ const DigestaTocDesktopBooks = (props) => {
 
                     ))}
             </ul>
-
 
         </div>
 
