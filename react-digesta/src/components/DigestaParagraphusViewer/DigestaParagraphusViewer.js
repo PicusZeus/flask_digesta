@@ -7,14 +7,25 @@ import tokenService from "../../services/token.service";
 import {refreshToken} from "../../store/auth-actions";
 import NotificationService from "../../services/notification.service";
 import classes from "./DigestaParagraphusViewer.module.css"
-
+import {redirect} from "react-router-dom";
 const DigestaParagraphusViewer = (props) => {
     const [comments, setComments] = useState([])
     const [showComments, setShowComments] = useState(false)
     const username = useSelector(state => state.auth.username)
+    const [commentsClasses, setCommentsClasses] = useState(classes.hide_comments)
 
     const dispatch = useDispatch()
     const rerender = useSelector(state => state.ui.rerender)
+
+    const showCommentsLoader = () => {
+
+        if (!showComments) {
+            setCommentsClasses(classes.paragraph_comments__items)
+        } else {
+            setCommentsClasses(classes.hide_comments)
+        }
+        setShowComments((current) => !current)
+    }
 
     const token = tokenService.getLocalAccessToken()
     const refresh_token = tokenService.getLocalRefreshToken()
@@ -39,6 +50,7 @@ const DigestaParagraphusViewer = (props) => {
     if (username && paragraphus) {
         newComment = <NewComment type="Skomentuj!" paragraphus={paragraphus} addNewComment={addNewCommentHandler}/>
     }
+
 
     const headers = useMemo(() => (
         {"Content-Type": "application/json"}
@@ -87,10 +99,10 @@ const DigestaParagraphusViewer = (props) => {
                 <div>{paragraphus.text_pl}</div>
             </section>
             <section className={classes.paragraph_comments__container}>
-                <button onClick={() => setShowComments(!showComments)}>
+                <button onClick={showCommentsLoader}>
                     {showComments ? "schowaj" : "pokaż"} komentarze
                 </button>
-                {showComments && <ul className={classes.paragraph_comments__items}>
+                <ul className={commentsClasses}>
                     {newComment}
                     {comments && comments.map((comment) => (
                         <CommentViewer key={comment.id}
@@ -100,7 +112,7 @@ const DigestaParagraphusViewer = (props) => {
                                        type="Odpowiedz!"
                                        replies={comment.replies}/>))}
 
-                </ul>}
+                </ul>
             </section>
         </>
 

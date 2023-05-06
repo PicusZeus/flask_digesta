@@ -13,7 +13,7 @@ const DigestaOpera = () => {
             <h1 className={classes.opera_main__title}>Prace cytowane w Digestach</h1>
             <div className={classes.opera_main__container}>
                 <div className={classes.opera__mobile_toc}>
-                    {/*<DigestaTocMobileOpera toc={toc}/>*/}
+                    <DigestaTocMobileOpera opera={opera}/>
 
                 </div>
                 <div className={classes.opera__desktop_toc}>

@@ -6,6 +6,8 @@
     justify-items: center;
 }
 
+
+
 .comment_item__header {
     display: flex;
 
@@ -19,6 +21,14 @@
     font-style: italic;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
+}
+
+@media (min-width: 600px) {
+    .comment_item {
+        width: 80%;
+        margin: 0 auto 2rem auto;
+        max-width: 38rem;
+    }
 }
 
 

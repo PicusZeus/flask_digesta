@@ -28,25 +28,26 @@ const DigestaJurist = () => {
     let jurist_info = false
 
     if (jurist) {
-    jurist_info = <div className={classes.main_jurist__container}>
-        <div className={classes.main_jurist__info}>
-            <h1 className={classes.main_jurist__title}>{jurist.name}</h1>
-            <p className={classes.main_jurist__description}>{jurist.description}</p>
+        jurist_info = <div className={classes.main_jurist__container}>
+            <div className={classes.main_jurist__info}>
+                <h1 className={classes.main_jurist__title}>{jurist.name}</h1>
+                <p className={classes.main_jurist__description}>{jurist.description}</p>
 
-        </div>
+            </div>
 
-        <div className={classes.main_jurist__redirections}>
-            <Link to={pathDigestaJurist}>
-                <button onClick={() => setOpenHandler(true)}>w digestach</button>
-            </Link>
-            <Link to={pathOperaJurist}>
-                <button onClick={() => setOpenHandler(true)}>według cytowanych w digestach prac</button>
-            </Link>
+            <div className={classes.main_jurist__redirections}>
+                <Link to={pathDigestaJurist}>
+                    <button onClick={() => setOpenHandler(true)}>w digestach</button>
+                </Link>
+                <Link to={pathOperaJurist}>
+                    <button onClick={() => setOpenHandler(true)}>według cytowanych w digestach prac</button>
+                </Link>
+            </div>
+            <div className={classes.main_jurist__outlet_mobile}>
+                <Outlet/>
+            </div>
         </div>
-        <div className={classes.main_jurist__outlet_mobile}>
-            <Outlet/>
-        </div>
-    </div>}
+    }
 
 
     return (
@@ -58,10 +59,15 @@ const DigestaJurist = () => {
                 <Outlet/>
             </div>}
             {!openOutlet && jurist_info}
+            <div className={classes.main_jurist__outlet_mobile}>
+                {/*{jurist_info}*/}
+                <Outlet/>
+            </div>
         </div>
 
-)}
+
+    )
+}
 
 
-
-            export default DigestaJurist
+export default DigestaJurist

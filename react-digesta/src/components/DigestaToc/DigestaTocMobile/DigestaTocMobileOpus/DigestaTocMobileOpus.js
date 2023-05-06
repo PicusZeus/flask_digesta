@@ -1,29 +1,45 @@
 import classes from "./DigestaTocMobileOpus.module.css"
 import {useNavigate} from "react-router-dom";
 import TocMobile from "../../../UI/TocMobile/TocMobile";
+import {useState} from "react";
 
-
-const DigestaTocMobileOpus = (props) => {
+const DigestaTocMobileOpus = ({opus}) => {
+    const [chosenBook, setChosenBook] = useState(false)
     const navigate = useNavigate()
-    const onOptionChangeHandler = (event) => {
+    const onChoseBookHandler = (event) => {
+        const liber_id = event.target.value
+        const liber = opus.libri.filter((liber)=>{
+            return (liber.id===parseInt(liber_id))})[0]
+            setChosenBook(liber)
+    }
+    const onChoseLexHandler = event => {
         const lex_id = event.target.value
         navigate(lex_id.toString())
     }
-    const content = props.content
-    const leges = props.content.leges
+// }
+
+    const libri = opus.libri
     return (
         <>
-        {/*<div>{content.book} {content.title_lat} </div>*/}
 
-        {/*<label className={classes.main_toc__label}>Wybierz fragment</label>*/}
-        <TocMobile onOption={onOptionChangeHandler}>
-            <option value={''}>Wybierz fragment z Digestów</option>
+        <TocMobile onOption={onChoseBookHandler}>
+            <option value={''}>Wybierz księgę</option>
 
-            {leges && leges.map(lex => (
-                <option key={lex.id}
-                        value={lex.id}>D.{lex.titulus.book.numerus}.{lex.titulus.number}.{lex.lex_nr}
+            {libri && libri.map(liber => (
+                <option key={liber.id} value={liber.id}>
+                    Księga {liber.liber}
                 </option>))}
         </TocMobile>
+
+            {chosenBook && <TocMobile onOption={onChoseLexHandler}>
+                <option value="">Wybierz fragment</option>
+                {chosenBook.leges.map(lex=>(
+                <option key={lex.id} value={lex.id}>
+                    D.{lex.titulus.book.book_nr}.{lex.titulus.number}.{lex.lex_nr}
+                </option>))}
+            </TocMobile> }
+
+
 
 
 

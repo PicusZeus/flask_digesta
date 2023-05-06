@@ -1,6 +1,4 @@
 
-
-
 .toc {
     display: inline-block;
     width: 100%;
@@ -16,5 +14,8 @@
     outline: none;
     /*z-index: 1;*/
     /*position: absolute;*/
-
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
 }
+

@@ -15,14 +15,14 @@ import {current} from "@reduxjs/toolkit";
 const CommentViewer = (props) => {
     const [likes, setLikes] = useState(props.comment.likes.length)
     const user_id = tokenService.getUserId()
-    console.log(user_id, props.comment.likes, )
+    // console.log(user_id, props.comment.likes, )
     const [liked, setLiked] = useState(false)
     useEffect(()=>{
-        console.log(props.comment.likes.filter(like=>(like.user_id === parseInt(user_id))))
+        // console.log(props.comment.likes.filter(like=>(like.user_id === parseInt(user_id))))
         if (props.comment.likes.filter(like=>(like.user_id === parseInt(user_id))).length > 0)
         {
             setLiked(true)
-            console.log('TRUE', comment)
+            // console.log('TRUE', comment)
         }
     }, [props.comment.likes, user_id])
     const [deleteDialog, setDeleteDialog] = useState(false)
@@ -56,7 +56,7 @@ const CommentViewer = (props) => {
 
 
     const SaveEditedCommentHandler = (comment_id, token, newText) => {
-        console.log(user_id, newText.current.value, token)
+        // console.log(user_id, newText.current.value, token)
 
         const editComment = async () => {
             const response = await fetch(process.env.REACT_APP_BASE_API_URL + "comment/" + comment_id, {

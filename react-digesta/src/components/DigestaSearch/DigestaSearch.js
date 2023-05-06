@@ -1,6 +1,4 @@
-import {Form} from "react-router-dom";
 import classes from "./DigestaSearch.module.css";
-import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {digestaActions} from "../../store/digesta-slice";
 
@@ -12,10 +10,7 @@ const DigestaSearch = (props) => {
 
 
     const setLanguageHandler = (event) => {
-        // event.preventDefault()
-
         dispatch(digestaActions.setLang(event.target.value))
-
     }
 
     return (
@@ -33,7 +28,6 @@ const DigestaSearch = (props) => {
                 <input className={classes.form__input} id="searched_term" name="searched_term" type="text"/>
                 <input type="hidden" id="lang" name="lang" value={lang}/>
             </div>
-            {/*<input type="hidden" id="language" name="language" value={props.lang}/>*/}
             <button className={classes.form__submit} type="submit">Szukaj</button>
         </>
 

@@ -18,7 +18,6 @@ const DigestaTocMobileJurists = () => {
 
 
 
-            <label className={classes.main_toc__label}>Wybierz Jurystę</label>
 
 
                 <option key={'no_jurist'} value={''}>Wybierz Jurystę</option>

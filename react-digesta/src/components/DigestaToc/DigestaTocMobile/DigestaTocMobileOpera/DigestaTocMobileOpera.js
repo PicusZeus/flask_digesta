@@ -3,8 +3,8 @@ import DigestaTocMobileOpus from "../DigestaTocMobileOpus/DigestaTocMobileOpus";
 import {useState} from "react";
 import TocMobile from "../../../UI/TocMobile/TocMobile";
 
-const DigestaTocMobileOpera = (props) => {
-    const toc = props.toc
+const DigestaTocMobileOpera = ({opera}) => {
+
     const [chosenOpus, setChosenOpus] = useState(false)
     const onOptionChangeHandler = (event) => {
 
@@ -16,11 +16,16 @@ const DigestaTocMobileOpera = (props) => {
             <TocMobile onOption={onOptionChangeHandler}>
 
                 <option value={''}>Wybierz dzieło</option>
-                {toc && toc.map(opus => {return (<option key={opus.id} value={opus.id}>Księga {opus.book} {
-                    opus.title_lat.toUpperCase()}</option>)})}
+                {opera && opera.map(opus => {
+                    return (<option key={opus.id} value={opus.id}>
+                        Libri {opus.title_lat} - {opus.author.name}
+                    </option>)
+                })}
 
             </TocMobile>
-            {chosenOpus ? <DigestaTocMobileOpus content={toc.filter((opus)=>{ return (opus.id === chosenOpus)})[0]}/> : false}
+            {chosenOpus ? <DigestaTocMobileOpus opus={opera.filter((opus) => {
+                return (opus.id === chosenOpus)
+            })[0]}/> : false}
 
         </>
     )

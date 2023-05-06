@@ -28,6 +28,12 @@
     font-size: 0.9rem;
 }
 
+.found_item__match {
+    font-weight: bold;
+    /*text-decoration: underline;*/
+
+}
+
 .found_item__redirect {
     display: block;
     margin: auto;

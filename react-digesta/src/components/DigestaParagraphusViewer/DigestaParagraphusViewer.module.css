@@ -3,6 +3,7 @@
     margin: 1rem;
 }
 
+
 .paragraph_text__container div {
     flex-grow: 1;
     flex-basis: 0;
@@ -30,8 +31,13 @@
     list-style: none;
     padding: 1rem;
     border: 1px solid black;
+    /*display: none;*/
 }
 
 .paragraph_logout {
     margin: auto;
+}
+
+.hide_comments {
+    display: none;
 }

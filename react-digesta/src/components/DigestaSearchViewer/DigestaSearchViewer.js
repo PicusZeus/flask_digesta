@@ -11,14 +11,14 @@ const DigestaSearchViewer = ({paragraph, searchedTerm, lang}) => {
         keyTrLang = 'text_lat'
     }
     const text = paragraph[keyLang]
-    const re = new RegExp(searchedTerm, 'g')
+    const re = new RegExp(searchedTerm, 'ig')
 
     const result = text.split(re)
     const res = []
     for (let i = 0; i < result.length; i++) {
         if (i < result.length - 1) {
             res.push(<>{result[i]}</>)
-            res.push(<b>{searchedTerm}</b>)
+            res.push(<b className={classes.found_item__match}>{searchedTerm.toUpperCase()}</b>)
         } else {
             res.push(<>{result[i]}</>)
         }

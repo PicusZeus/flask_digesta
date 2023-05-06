@@ -31,6 +31,10 @@
     display: none;
 }
 
+.opera_main__outlet {
+    width: 100%;
+}
+
 @media (min-width: 600px) {
     .opera__mobile_toc {
         display: none;
