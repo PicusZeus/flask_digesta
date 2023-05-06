@@ -11,13 +11,30 @@ from .Data.jurists import jurists
 
 from sqlalchemy import func
 FILE_PICKLE_LIBER_1 = "populate/Data/digestaplikiend/d1.txt_extracted.pickle"
-
-
-
-
+FILE_PICKLE_LIBER_2 = 'populate/Data/digestaplikiend/d2.txt_extracted.pickle'
+FILE_PICKLE_LIBER_3 = 'populate/Data/digestaplikiend/d3.txt_extracted.pickle'
+FILE_PICKLE_LIBER_4 = 'populate/Data/digestaplikiend/d4.txt_extracted.pickle'
+FILE_PICKLE_LIBER_5 = 'populate/Data/digestaplikiend/d5.txt_extracted.pickle'
+FILE_PICKLE_LIBER_6 = 'populate/Data/digestaplikiend/d6.txt_extracted.pickle'
+FILE_PICKLE_LIBER_7 = 'populate/Data/digestaplikiend/d7.txt_extracted.pickle'
+FILE_PICKLE_LIBER_8 = 'populate/Data/digestaplikiend/d8.txt_extracted.pickle'
+FILE_PICKLE_LIBER_9 = 'populate/Data/digestaplikiend/d9.txt_extracted.pickle'
+FILE_PICKLE_LIBER_10 = 'populate/Data/digestaplikiend/d10.txt_extracted.pickle'
+FILE_PICKLE_LIBER_11 = 'populate/Data/digestaplikiend/d11.txt_extracted.pickle'
+FILE_PICKLE_LIBER_12 = 'populate/Data/digestaplikiend/d12.txt_extracted.pickle'
+FILE_PICKLE_LIBER_13 = 'populate/Data/digestaplikiend/d13.txt_extracted.pickle'
+FILE_PICKLE_LIBER_14 = 'populate/Data/digestaplikiend/d14.txt_extracted.pickle'
+FILE_PICKLE_LIBER_15 = 'populate/Data/digestaplikiend/d15.txt_extracted.pickle'
+FILE_PICKLE_LIBER_16 = 'populate/Data/digestaplikiend/d16.txt_extracted.pickle'
+FILE_PICKLE_LIBER_17 = 'populate/Data/digestaplikiend/d17.txt_extracted.pickle'
+FILE_PICKLE_LIBER_18 = 'populate/Data/digestaplikiend/d18.txt_extracted.pickle'
+FILE_PICKLE_LIBER_19 = 'populate/Data/digestaplikiend/d19.txt_extracted.pickle'
+FILE_PICKLE_LIBER_20 = 'populate/Data/digestaplikiend/d20.txt_extracted.pickle'
+FILE_PICKLE_LIBER_21 = 'populate/Data/digestaplikiend/d21.txt_extracted.pickle'
+FILE_PICKLE_LIBER_22 = 'populate/Data/digestaplikiend/d22.txt_extracted.pickle'
 def insert_books(lat, pl, nr):
-    lat = 'LIBER PRIMUS'
-    pl = "KSIĘGA PIERWSZA"
+    # lat = 'LIBER PRIMUS'
+    # pl = "KSIĘGA PIERWSZA"
     liber = DigestaBookModel(book_latin_name=lat, book_polish_name=pl, book_nr=nr)
     db.session.add(liber)
     try:
@@ -78,6 +95,7 @@ def insert_opera(file_name):
             jurist_name = lex['jurist']
             author = AuthorModel.query.filter_by(name=jurist_name).one()
             author_id = author.id
+            print(titulus_nr, lex_nr, lex)
             opus_title_pl = lex['opus']['title_pl']
             opus_book_nr = lex['opus']['liber']
 
@@ -171,8 +189,10 @@ def insert_paragraphi(file_name, book):
 
             for paragraph_nr, content_lat in book_data[titulus_nr]['leges'][lex_nr]['content_lat'].items():
                 # print(content_lat, paragraph_nr, book_data[titulus_nr]['leges'][lex_nr]['content_pl'])
+                print(book_data[titulus_nr]['leges'][lex_nr]['content_lat'])
+                print(book_data[titulus_nr]['leges'][lex_nr]['content_pl'])
                 content_pl = book_data[titulus_nr]['leges'][lex_nr]['content_pl'][paragraph_nr]
-
+                print(content_pl)
                 paragraph = DigestaParagraphusModel(key=paragraph_nr, text_lat=content_lat, text_pl=content_pl, lex_id=lex.id)
 
                 db.session.add(paragraph)
@@ -206,15 +226,48 @@ def addBio(jurists_bio):
             db.session.commit()
 
 
+def insert_digesta_book(liber, ksiega, number, file_name):
+    insert_books(lat=liber, pl=ksiega, nr=number)
+    insert_tituli(liber, file_name)
+    insert_authors(file_name)
+    insert_opera(file_name)
+    insert_opera_books(file_name)
+    insert_leges(file_name, liber)
+    insert_paragraphi(file_name, liber)
+
 if __name__ == "__main__":
-    insert_books(lat='LIBER PRIMUS', pl="KSIĘGA PIERWSZA", nr=1)
-    insert_tituli("LIBER PRIMUS", "populate/Data/digestaplikiend/d1.txt_extracted.pickle")
-    insert_authors(FILE_PICKLE_LIBER_1)
-    insert_opera(FILE_PICKLE_LIBER_1)
-    insert_opera_books(FILE_PICKLE_LIBER_1)
-    insert_leges(FILE_PICKLE_LIBER_1, 'LIBER PRIMUS')
-    insert_paragraphi(FILE_PICKLE_LIBER_1, 'LIBER PRIMUS')
-    addBio(jurists)
+
+    # insert_digesta_book(liber="LIBER PRIMUS", ksiega="KSIĘGA PIERWSZA", number=1, file_name=FILE_PICKLE_LIBER_1)
+    # addBio(jurists)
+    # insert_digesta_book(liber="LIBER SECUNDUS", ksiega="KSIĘGA DRUGA", number=2, file_name=FILE_PICKLE_LIBER_2)
+
+    # insert_digesta_book(liber="LIBER TERTIUS", ksiega="KSIĘGA TRZECIA", number=3, file_name=FILE_PICKLE_LIBER_3)
+    # insert_digesta_book(liber="LIBER QUARTUS", ksiega="KSIĘGA CZWARTA", number=4, file_name=FILE_PICKLE_LIBER_4)
+    #
+    # insert_digesta_book(liber="LIBER QUINTUS", ksiega="KSIĘGA PIĄTA", number=5, file_name=FILE_PICKLE_LIBER_5)
+    # insert_digesta_book(liber="LIBER SEXTUS", ksiega="KSIĘGA SZÓSTA", number=6, file_name=FILE_PICKLE_LIBER_6)
+    # insert_digesta_book(liber="LIBER SEPTIMUS", ksiega="KSIĘGA SIÓDMA", number=7, file_name=FILE_PICKLE_LIBER_7)
+    # insert_digesta_book(liber="LIBER OCTAVUS", ksiega="KSIĘGA ÓSMA", number=8, file_name=FILE_PICKLE_LIBER_8)
+    # insert_digesta_book(liber="LIBER NONUS", ksiega="KSIĘGA DZIEWIĄTA", number=9, file_name=FILE_PICKLE_LIBER_9)
+    # insert_digesta_book(liber="LIBER DECIMUS", ksiega="KSIĘGA DZIESIĄTA", number=10, file_name=FILE_PICKLE_LIBER_10)
+    # insert_digesta_book(liber="LIBER UNDECIMUS", ksiega="KSIĘGA JEDENASTA", number=11, file_name=FILE_PICKLE_LIBER_11)
+    # insert_digesta_book(liber="LIBER DUODECIMUS", ksiega="KSIĘGA DWUNASTA", number=12, file_name=FILE_PICKLE_LIBER_12)
+    # insert_digesta_book(liber="LIBER TRITUS DECIMUS", ksiega="KSIĘGA TRZYNASTA", number=13, file_name=FILE_PICKLE_LIBER_13)
+
+    # insert_digesta_book(liber="LIBER QUARTUS DECIMUS", ksiega="KSIĘGA CZTERNASTA", number=14, file_name=FILE_PICKLE_LIBER_14)
+    # insert_digesta_book(liber="LIBER QUINTUS DECIMUS", ksiega="KSIĘGA PIĘTNASTA", number=15, file_name=FILE_PICKLE_LIBER_15)
+    # insert_digesta_book(liber="LIBER SEXTUS DECIMUS", ksiega="KSIĘGA SZESNASTA", number=16, file_name=FILE_PICKLE_LIBER_16)
+    # insert_digesta_book(liber="LIBER SEPTIMUS DECIMUS", ksiega="KSIĘGA SIEDEMNASTA", number=17, file_name=FILE_PICKLE_LIBER_17)
+    # insert_digesta_book(liber="LIBER OCTAVUS DECIMUS", ksiega="KSIĘGA OSIEMNASTA", number=18, file_name=FILE_PICKLE_LIBER_18)
+    # insert_digesta_book(liber="LIBER NONUS DECIMUS", ksiega="KSIĘGA DZIEWIĘTNASTA", number=19, file_name=FILE_PICKLE_LIBER_19)
+    # insert_digesta_book(liber="LIBER VICESIMUS", ksiega="KSIĘGA DWUDZIESTA", number=20, file_name=FILE_PICKLE_LIBER_20)
+    # insert_digesta_book(liber="LIBER VICESIMUS PRIMUS", ksiega="KSIĘGA DWUDZIESTA PIERWSZA", number=21, file_name=FILE_PICKLE_LIBER_21)
+    insert_digesta_book(liber="LIBER VICESIMUS SECUNDUS", ksiega="KSIĘGA DWUDZIESTA DRUGA", number=22, file_name=FILE_PICKLE_LIBER_22)
+
+
+
+
+
 
 
 
