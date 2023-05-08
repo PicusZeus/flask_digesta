@@ -5,17 +5,17 @@ import DigestaTocDesktopBooks
     from "../../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopBooks/DigestaTocDesktopBooks";
 
 const DigestaJuristDigesta = () => {
-    const toc = useLoaderData()
+    const books = useLoaderData()
     const location = useLocation()
     return (
         <div className={classes.toc_container}>
             {/*<h1 className={classes.main_title}>Według układu Digestów</h1>*/}
             <div className={classes.mobile_toc}>
-                <DigestaTocMobileBooks toc={toc} url={location}/>
+                <DigestaTocMobileBooks toc={books} url={location}/>
 
             </div>
             <div className={classes.desktop_toc}>
-                <DigestaTocDesktopBooks toc={toc}/>
+                <DigestaTocDesktopBooks books={books}/>
 
             </div>
 
@@ -59,7 +59,7 @@ const prepareToc = (id, books) => {
 
 export const loader = async ({params, request}) => {
     const id = parseInt(params.jurysta_id);
-    const response = await fetch( process.env.REACT_APP_BASE_API_URL + "digesta/books");
+    const response = await fetch( process.env.REACT_APP_BASE_API_URL + "digesta/books/author/" + id);
 
     if (!response.ok) {
         throw json(
@@ -70,8 +70,8 @@ export const loader = async ({params, request}) => {
     } else {
         const data = await response.json()
 
-
-        return prepareToc(id, data)
+        return data
+        // return prepareToc(id, data)
 
     }
 }

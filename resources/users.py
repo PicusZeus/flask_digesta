@@ -54,7 +54,6 @@ class UserLogin(MethodView):
             UserModel.username == user_data["username"]
         ).first()
 
-
         if user and pbkdf2_sha256.verify(user_data["password"], user.password):
             user_id = user.id
             username = user.username

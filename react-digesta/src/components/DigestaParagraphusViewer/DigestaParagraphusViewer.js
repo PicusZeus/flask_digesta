@@ -7,7 +7,7 @@ import tokenService from "../../services/token.service";
 import {refreshToken} from "../../store/auth-actions";
 import NotificationService from "../../services/notification.service";
 import classes from "./DigestaParagraphusViewer.module.css"
-import {redirect} from "react-router-dom";
+
 const DigestaParagraphusViewer = (props) => {
     const [comments, setComments] = useState([])
     const [showComments, setShowComments] = useState(false)

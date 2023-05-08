@@ -29,7 +29,7 @@ class DigestaLexModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     address_lat = db.Column(db.Text, nullable=False)
     address_pl = db.Column(db.Text, nullable=False)
-    lex_nr = db.Column(db.Integer, nullable=False)
+    lex_nr = db.Column(db.String, nullable=False)
     titulus_id = db.Column(db.Integer, db.ForeignKey("digesta_tituli.id"), unique=False, nullable=False)
     titulus = db.relationship("DigestaTitulusModel", back_populates="leges")
     author_id = db.Column(db.Integer, db.ForeignKey("authors.id"), unique=False, nullable=False)

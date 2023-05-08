@@ -64,11 +64,6 @@ def extract_text_data_from_plain_text(file_name):
             text = l.split(':', 1)
             first_line = text[0]
 
-            print(first_line)
-            lex_nr = first_line.split(' ', 1)[0]
-            lex_nr = lex_nr.replace('.', '')
-            lex_nr = int(lex_nr)
-            jurist = first_line.split('libro', 1)[0].split(' ', 1)[1]
 
 
             if first_line in ['54 Scaevola apud Iulianum libro vicensimo secundo digestorum notat']:
@@ -110,10 +105,57 @@ def extract_text_data_from_plain_text(file_name):
                 opus_title = "ad edictum praetoris titulo de publicanis"
                 opus_liber_int = 0
                 first_line = " ".join(first_line.split(' ')[1:])
-
+            elif first_line == "57a Marcianus in libro secundo de adulteriis Papiniani Marcianus notat":
+                lex_nr = '57a'
+                jurist = 'Marcianus'
+                opus_title = "in libro secundo de adulteriis Papiniani notat"
+                opus_liber_int = 0
+                first_line = " ".join(first_line.split(' ')[1:])
+            elif first_line == "40 Libro trigesimo digestorum Iuliani Marcellus notat":
+                lex_nr = 40
+                jurist = "Marcellus"
+                opus_title = "Libro trigesimo digestorum Iuliani notat"
+                opus_liber_int = 0
+                first_line = " ".join(first_line.split(' ')[1:])
+            elif first_line == "36 Apud Scaevolam libro octavo decimo digestorum Claudius notat":
+                lex_nr = 36
+                jurist = "CLAUDIUS"
+                opus_title = "Apud Scaevolam libro octavo decimo digestorum notat"
+                opus_liber_int = 0
+                first_line = " ".join(first_line.split(' ')[1:])
+            elif first_line == "26 Apud Scaevolam libro trigesimo digestorum Claudius notat":
+                lex_nr = 26
+                jurist = "CLAUDIUS"
+                opus_title = "Apud Scaevolam libro trigesimo digestorum notat"
+                opus_liber_int = 0
+                first_line = " ".join(first_line.split(' ')[1:])
+            elif first_line == "75 Ex libro quadragesimo digestorum Iuliani Marcellus":
+                lex_nr = 75
+                jurist = "MARCELLUS"
+                opus_title = "Ex libro quadragesimo digestorum Iuliani"
+                opus_liber_int = 0
+                first_line = " ".join(first_line.split(' ')[1:])
+            elif first_line == "20 Marcellus apud Iulianum libro vicesimo septimo digestorum notat":
+                lex_nr = 20
+                jurist = "MARCELLUS"
+                opus_title = "apud Iulianum libro vicesimo septimo digestorum notat"
+                opus_liber_int = 0
+                first_line = " ".join(first_line.split(' ')[1:])
+            elif first_line == "113 Paulus imperialium sententiarum in cognitionibus prolatarum ex libris sex libro secundo":
+                lex_nr = 113
+                jurist = "PAULUS"
+                opus_title = "imperialium sententiarum in cognitionibus prolatarum"
+                opus_liber_int = 2
+                first_line = " ".join(first_line.split(' ')[1:])
 
             else:
                 # removing lex nr
+
+                print(first_line)
+                lex_nr = first_line.split(' ', 1)[0]
+                lex_nr = lex_nr.replace('.', '')
+                lex_nr = int(lex_nr)
+                jurist = first_line.split('libro', 1)[0].split(' ', 1)[1]
                 first_line = " ".join(first_line.split(' ')[1:])
                 work = first_line.split('libro', 1)[1]
                 work = work.replace("<", '')
@@ -202,6 +244,27 @@ def extract_text_data_from_plain_text(file_name):
             elif first_line in ["19 Gaius w Komentarzu do tytułu edyktu pretorskiego poświęconego poborcom podatkowym"]:
                 opus_title_pl = "Komentarz do tytułu edyktu pretorskiego poświęconego poborcom podatkowym:"
                 lex_nr = 19
+            elif first_line == "57a Marcianusa uwaga w księdze drugiej monografii Papinianusa o cudzołóstwie":
+                opus_title_pl = "uwaga w księdze drugiej monografii Papinianusa o cudzołóstwie"
+                lex_nr = "57a"
+            elif first_line == "40 W księdze trzydziestej Digestów Iulianusa Marcellus zaznacza":
+                opus_title_pl = 'W księdze trzydziestej Digestów Iulianusa zaznacza'
+                lex_nr = 40
+            elif first_line == "36 Uwaga Claudiusa <Tryphoninusa> w osiemnastej księdze Digestów Scaevoli":
+                opus_title_pl = "Uwaga w osiemnastej księdze Digestów Scaevoli"
+                lex_nr = 36
+            elif first_line == "26 Uwaga Claudiusa <Tryphoninusa> w trzydziestej księdze Digestów Scaevoli":
+                opus_title_pl = "Uwaga w trzydziestej księdze Digestów Scaevoli"
+                lex_nr = 26
+            elif first_line == "75 <Uwaga> Marcellusa w księdze czterdziestej Digestów Iulianusa":
+                opus_title_pl = "<Uwaga> w księdze czterdziestej Digestów Iulianusa"
+                lex_nr = 75
+            elif first_line == "20 Uwaga Marcellusa do księgi dwudziestej siódmej Digestów Iulianusa":
+                opus_title_pl = "Uwaga do księgi dwudziestej siódmej Digestów Iulianusa"
+                lex_nr = 20
+            elif first_line == "113 Paulus w drugiej z sześciu ksiąg Cesarskich wyroków ogłoszonych w procesach":
+                lex_nr = 113
+                opus_title_pl = "Cesarskich wyroków ogłoszonych w procesach"
             else:
                 print(first_line)
                 opus = first_line.split("w księdze")[1]
@@ -263,7 +326,27 @@ if __name__ == '__main__':
     # extract_text_data_from_plain_text('populate/Data/Digestaplikiend/d20.txt')
     # extract_text_data_from_plain_text('populate/Data/Digestaplikiend/d21.txt')
     # extract_text_data_from_plain_text('populate/Data/Digestaplikiend/d22.txt')
-    extract_text_data_from_plain_text('populate/Data/Digestaplikiend/d23.txt')
+    # extract_text_data_from_plain_text('populate/Data/Digestaplikiend/d23.txt')
+    # extract_text_data_from_plain_text('populate/Data/Digestaplikiend/d24.txt')
+    # extract_text_data_from_plain_text('populate/Data/Digestaplikiend/d25.txt')
+    # extract_text_data_from_plain_text('populate/Data/Digestaplikiend/d26.txt')
+    # extract_text_data_from_plain_text('populate/Data/Digestaplikiend/d27.txt')
+    # extract_text_data_from_plain_text('populate/Data/Digestaplikiend/d28.txt')
+    # extract_text_data_from_plain_text('populate/Data/Digestaplikiend/d29.txt')
+    # extract_text_data_from_plain_text('populate/Data/Digestaplikiend/d30.txt')
+    # extract_text_data_from_plain_text('populate/Data/Digestaplikiend/d31.txt')
+    # extract_text_data_from_plain_text('populate/Data/Digestaplikiend/d32.txt')
+    # extract_text_data_from_plain_text('populate/Data/Digestaplikiend/d33.txt')
+    # extract_text_data_from_plain_text('populate/Data/Digestaplikiend/d34.txt')
+    extract_text_data_from_plain_text('populate/Data/Digestaplikiend/d35.txt')
+
+
+
+
+
+
+
+
 
 
 

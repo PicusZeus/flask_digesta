@@ -1,7 +1,7 @@
 import DigestaTocDesktopBook from "../DigestaTocDesktopBook/DigestaTocDesktopBook";
 import classes from "./DigestaTocDesktopBooks.module.css"
 
-const DigestaTocDesktopBooks = ({toc}) => {
+const DigestaTocDesktopBooks = ({books}) => {
 
 
     return (
@@ -9,7 +9,7 @@ const DigestaTocDesktopBooks = ({toc}) => {
             <h4 className={classes.main_toc__title}>Digesta Iustiniani</h4>
             <ul className={classes.main_toc__items}>
 
-                {toc && toc.map((book) => (
+                {books && books.map((book) => (
                     <DigestaTocDesktopBook key={book.id} book={book}/>
 
                     ))}
