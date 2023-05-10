@@ -1,4 +1,4 @@
-import {json, Outlet, useLoaderData} from "react-router-dom";
+import {json, Outlet, useLoaderData, useParams} from "react-router-dom";
 import classes from "./DigestaJuristOpera.module.css"
 import DigestaTocDesktopOpera
     from "../../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopOpera/DigestaTocDesktopOpera";
@@ -7,16 +7,18 @@ import DigestaTocMobileOpera
 
 const DigestaJuristOpera = () => {
     const opera = useLoaderData()
-
-   return (
+    const params = useParams()
+    console.log(params.jurysta_id)
+    const lexPath = `/jurysci/opera/${params.jurysta_id}/`
+    return (
         <div className={classes.opera_main}>
             <h1 className={classes.opera_main__title}>Prace cytowane w Digestach</h1>
             <div className={classes.opera_main__container}>
                 <div className={classes.opera__mobile_toc}>
-                    <DigestaTocMobileOpera opera={opera}/>
+                    <DigestaTocMobileOpera opera={opera} lexPath={lexPath}/>
                 </div>
                 <div className={classes.opera__desktop_toc}>
-                    <DigestaTocDesktopOpera opera={opera}/>
+                    <DigestaTocDesktopOpera opera={opera} lexPath={lexPath}/>
                 </div>
 
 

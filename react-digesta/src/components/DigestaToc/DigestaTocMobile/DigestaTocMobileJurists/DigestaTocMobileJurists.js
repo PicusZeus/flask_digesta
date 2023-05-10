@@ -3,9 +3,9 @@ import {useNavigate} from "react-router-dom";
 import classes from "./DigestaTocMobileJurists.module.css"
 import TocMobile from "../../../UI/TocMobile/TocMobile";
 
-const DigestaTocMobileJurists = () => {
+const DigestaTocMobileJurists = ({jurists}) => {
 
-    const jurists = useSelector(state => state.digesta.jurists)
+    // const jurists = useSelector(state => state.digesta.jurists)
     const navigate = useNavigate()
     const onOptionChangeHandler = (event) => {
 

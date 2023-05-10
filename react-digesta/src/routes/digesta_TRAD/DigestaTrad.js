@@ -5,11 +5,33 @@ import DigestaTocMobileBooks
     from "../../components/DigestaToc/DigestaTocMobile/DigestaTocMobileBooks/DigestaTocMobileBooks";
 import DigestaTocDesktopBooks
     from "../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopBooks/DigestaTocDesktopBooks";
-
-
+import NotificationService from "../../services/notification.service";
+import {digestaActions} from "../../store/digesta-slice";
+import {useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
 const DigestaTrad = () => {
 
-    const toc = useSelector((state) => state.digesta.TOC)
+    const [books, setBooks] = useState()
+    const dispatch = useDispatch()
+
+    console.log('TRAD')
+    useEffect(() => {
+       const notificationSetter = new NotificationService(dispatch)
+        const sendRequest = async () => {
+            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "digesta/books")
+            if (!response.ok) {
+                throw new Error('Błąd serwera')
+            }
+
+            return response.json()
+
+        }
+        sendRequest().then((response) => {
+            setBooks(response)
+        }).catch((error)=>{
+            notificationSetter.setNotificationError('ładowanie', error.message)
+        })
+    }, [dispatch])
 
     return (
         <div className={classes.trad_main}>
@@ -18,11 +40,11 @@ const DigestaTrad = () => {
             <div className={classes.trad_main__container}>
 
                 <div className={classes.trad_main__mobile_toc}>
-                    {toc && <DigestaTocMobileBooks toc={toc} url={"/digesta"}/>}
+                    {books && <DigestaTocMobileBooks toc={books} url={"/digesta/"}/>}
 
                 </div>
                 <div className={classes.trad_main__desktop_toc}>
-                    {toc && <DigestaTocDesktopBooks toc={toc}/>}
+                    {books && <DigestaTocDesktopBooks books={books}/>}
                 </div>
 
                 <div className={classes.trad_main__outlet}>
@@ -35,3 +57,39 @@ const DigestaTrad = () => {
 }
 
 export default DigestaTrad
+
+// const loader = () => {
+//
+//     const sendRequest = async (dispatch) => {
+//         const notificationSetter = new NotificationService(dispatch)
+//
+//         const loadingToc = async () => {
+//             const response = await fetch(process.env.REACT_APP_BASE_API_URL + "digesta/books", {
+//                 headers: {
+            //         "Access-Control-Allow-Origin": "*"
+            //     }
+            //
+            // })
+            //
+            // if (!response.ok) {
+            //     throw new Error('nie powiodło się')
+            // }
+            //
+            // const data = await response
+
+//             return data.json()
+//         };
+//
+//         try {
+//             const data = await loadingToc()
+//             dispatch(digestaActions.setTOC(data))
+//
+//         } catch (e) {
+//             notificationSetter.setNotificationError('Spis Treści', 'Nie udało załadować się spisu treści')
+//
+//         }
+//     };
+//
+// }
+//
+// }

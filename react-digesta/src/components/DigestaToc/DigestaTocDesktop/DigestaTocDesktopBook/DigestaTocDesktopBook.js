@@ -5,24 +5,30 @@ import {useLocation} from "react-router-dom";
 
 const DigestaTocDesktopBook = ({book}) => {
     const [bookMenuOpen, setBookMenuOpen] = useState(false)
-    const [tituli, setTituli] = useState(false)
-    const location = useLocation()
-    const author_id = location.pathname.split("/").slice(-1)
-
-    const loadTituli = (author_id, book_id) => {
+    const [tituli, setTituli] = useState(book.tituli)
+    console.log(book.tituli, "TITULI")
+    // the url only for jurists, as tituli are already set if otherwise
+    const urlLoadTituli = process.env.REACT_APP_BASE_API_URL + `digesta/tituli/${book.id}`
+    const loadTituli = () => {
         const sendRequest = async () => {
-            const response = await fetch(process.env.REACT_APP_BASE_API_URL + `digesta/tituli/author/${book_id}/${author_id}`)
+            const response = await fetch(urlLoadTituli)
+            if (!response.ok) {
+                throw new Error()
+            }
             return await response.json()
         }
         sendRequest().then((response)=>{
+            console.log(response, urlLoadTituli)
             setTituli(response)
         }).catch((e)=>(console.log(e)))
     }
 
     const openTituliHandler = () => {
+        console.log('TITULI OPEN', !bookMenuOpen)
         setBookMenuOpen((current)=>!current)
         if (!bookMenuOpen && !tituli) {
-            loadTituli(author_id, book.id)
+            console.log('loading')
+            // loadTituli()
         }
     }
 
@@ -31,10 +37,11 @@ const DigestaTocDesktopBook = ({book}) => {
             <button className={classes.main_toc__book}
                     onClick={openTituliHandler}>Księga {book.book_nr} ({book.book_latin_name})
             </button>
-            {bookMenuOpen && tituli && <div className={classes.main_toc__tituli}>
+            {bookMenuOpen && <div className={classes.main_toc__tituli}>
                 <div>&nbsp;</div>
                 <ul className={classes.main_toc__tituli_items}>
-                    {tituli.map((titulus) => (<DigestaTocDesktopTitulus key={titulus.id} titulus={titulus} author_id={author_id}/>))}
+                    {book.tituli.map((titulus) => (<DigestaTocDesktopTitulus key={titulus.id} titulus={titulus}/>))}
+                    {/*{book.tituli.map(titulus => <h1>titulus</h1>)}*/}
                 </ul>
             </div>}
         </li>

@@ -1,7 +1,7 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from passlib.hash import pbkdf2_sha256
-from flask_cors import cross_origin
+
 from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,

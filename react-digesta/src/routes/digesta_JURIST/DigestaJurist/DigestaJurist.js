@@ -1,4 +1,4 @@
-import {Outlet, useParams} from "react-router-dom";
+import {json, Outlet, useLoaderData, useParams} from "react-router-dom";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import classes from "./DigestaJurist.module.css"
@@ -6,32 +6,32 @@ import {useState} from "react";
 import {useEffect} from "react";
 
 const DigestaJurist = () => {
-    const param = useParams()
-    const juristId = parseInt(param.jurysta_id)
-    const jurists = useSelector(state => state.digesta.jurists)
-    let jurist
+    const juristData = useLoaderData()
+    // const param = useParams()
+    const juristId = parseInt(juristData.id)
+    // const jurists = useSelector(state => state.digesta.jurists)
+    // let jurist
     const [openOutlet, setOpenHandler] = useState(false)
-
-
+    console.log('JURYSTA')
     const pathDigestaJurist = "digesta/" + juristId
     const pathOperaJurist = "opera/" + juristId
     useEffect(() => {
         setOpenHandler(false)
 
     }, [juristId])
-    if (jurists) {
-        jurist = jurists.filter(jurist => {
-            return (jurist.id === juristId)
-        })[0]
+    // if (jurists) {
+    //     jurist = jurists.filter(jurist => {
+    //         return (jurist.id === juristId)
+    //     })[0]
+    //
+    // }
+    // let jurist_info = false
 
-    }
-    let jurist_info = false
 
-    if (jurist) {
-        jurist_info = <div className={classes.main_jurist__container}>
+    const jurist_info = <div className={classes.main_jurist__container}>
             <div className={classes.main_jurist__info}>
-                <h1 className={classes.main_jurist__title}>{jurist.name}</h1>
-                <p className={classes.main_jurist__description}>{jurist.description}</p>
+                <h1 className={classes.main_jurist__title}>{juristData.name}</h1>
+                <p className={classes.main_jurist__description}>{juristData.description}</p>
 
             </div>
 
@@ -43,11 +43,11 @@ const DigestaJurist = () => {
                     <button onClick={() => setOpenHandler(true)}>według cytowanych w digestach prac</button>
                 </Link>
             </div>
-            <div className={classes.main_jurist__outlet_mobile}>
-                <Outlet/>
-            </div>
+            {/*<div className={classes.main_jurist__outlet_mobile}>*/}
+            {/*    <Outlet/>*/}
+            {/*</div>*/}
         </div>
-    }
+
 
 
     return (
@@ -58,7 +58,7 @@ const DigestaJurist = () => {
             {openOutlet && <div className={classes.main_jurist__outlet_desktop}>
                 <Outlet/>
             </div>}
-            {!openOutlet && jurist_info}
+            {jurist_info}
             <div className={classes.main_jurist__outlet_mobile}>
                 {/*{jurist_info}*/}
                 <Outlet/>
@@ -71,3 +71,17 @@ const DigestaJurist = () => {
 
 
 export default DigestaJurist
+
+export const loader = async ({params, request}) => {
+    const id = params.jurysta_id
+    const response = await fetch(process.env.REACT_APP_BASE_API_URL + `authors/${id}`)
+
+    if (!response.ok) {
+        throw json(
+            {message: 'Błąd serwera'},
+            {status: 500}
+        )
+    } else {
+        return await response.json()
+    }
+}

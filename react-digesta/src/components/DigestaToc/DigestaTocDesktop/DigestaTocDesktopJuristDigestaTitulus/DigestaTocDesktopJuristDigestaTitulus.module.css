@@ -1,0 +1,53 @@
+
+.titulus_main {
+    position: relative;
+
+}
+
+.titulus__line {
+     width: 2px;
+    height: calc(100% + 2rem);
+    background: black;
+    position: absolute;
+}
+
+
+
+
+.titulus_group {
+    display: flex;
+    position: relative;
+}
+
+.titulus_group > div {
+
+    margin-top: 2rem;
+    width: 1rem;
+    height: 2px;
+    background: black;
+}
+
+.titulus_group > button {
+    margin-top: 1rem;
+    width: 80%;
+    border: solid 2px black
+}
+
+.titulus__leges_group {
+    display: flex;
+    position: relative;
+    margin-left: 2rem;
+}
+
+.titulus__leges_group > div {
+   width: 2px;
+    height: calc(100% - 0.8rem);
+    background: black;
+    position: absolute;
+}
+
+.titulus__leges_group > ul {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+}

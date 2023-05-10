@@ -3,9 +3,9 @@ import {Link, Outlet} from "react-router-dom";
 import classes from "./DigestaTocDesktopJurists.module.css"
 import DigestaTocDesktopJurist from "../DigestaTocDesktopJurist/DigestaTocDesktopJurist";
 
-const DigestaTocDesktopJurists = () => {
+const DigestaTocDesktopJurists = ({jurists}) => {
 
-    const jurists = useSelector(state => state.digesta.jurists)
+
 
     return (
         <div className={classes.main_toc}>

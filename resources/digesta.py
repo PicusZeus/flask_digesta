@@ -3,10 +3,10 @@ from flask_cors import cross_origin, CORS
 from flask_smorest import Blueprint
 
 from models import DigestaBookModel, DigestaLexModel, DigestaTitulusModel, DigestaParagraphusModel
-from schemas import DigestaLexSchema, DigestaTitulusSchema, SearchTermSchema, ParagraphusSchema, BookTocSchema, TitulusTocSchema, FullLexSchema, BookTocAuthorSchema, PlainBookSchema, PlainTitulusSchema, LexTocSchema
+from schemas import SearchTermSchema, ParagraphusSchema, BookTocSchema, FullLexSchema, PlainBookSchema, PlainTitulusSchema, LexTocSchema, ParagraphusSearchSchema, LexOpusSchema
 blp = Blueprint("digesta", __name__, description="Operations on digesta")
 from db import db
-from sqlalchemy.sql.expression import join
+
 @blp.route("/digesta/leges/<int:lex_id>")
 class DigestaLex(MethodView):
 
@@ -38,6 +38,14 @@ class DigestaTitulus(MethodView):
         return leges
 
 
+@blp.route("/digesta/opus/leges/<int:liber_id>")
+class DigestaOpusLiber(MethodView):
+    @blp.response(200, LexOpusSchema(many=True))
+    def get(self, liber_id):
+        leges = DigestaLexModel.query.filter(DigestaLexModel.opus_id == liber_id).all()
+        return leges
+
+
 @blp.route("/digesta/books")
 class DigestaBooksToc(MethodView):
 
@@ -53,7 +61,6 @@ class DigestaBooksAuthorToc(MethodView):
 
     @blp.response(200, PlainBookSchema(many=True))
     def get(self, author_id):
-
 
         data = db.session.query(DigestaBookModel).join(DigestaTitulusModel).filter(DigestaTitulusModel.leges.any(author_id=author_id)).all()
         return data
@@ -87,7 +94,7 @@ class DigestaTitulusLegesAuthorToc(MethodView):
 class DigestaLatinSearch(MethodView):
     @cross_origin()
     @blp.arguments(SearchTermSchema)
-    @blp.response(200, ParagraphusSchema(many=True))
+    @blp.response(200, ParagraphusSearchSchema(many=True))
     def post(self, data):
         searched_term = data["searched_term"]
         searched_term = f"%{searched_term}%"
@@ -100,7 +107,7 @@ class DigestaLatinSearch(MethodView):
 
     @cross_origin()
     @blp.arguments(SearchTermSchema)
-    @blp.response(200, ParagraphusSchema(many=True))
+    @blp.response(200, ParagraphusSearchSchema(many=True))
     def post(self, data):
         searched_term = data["searched_term"]
         searched_term = f"%{searched_term}%"

@@ -34,6 +34,7 @@ class LexTocSchema(PlainLexSchema):
     paragraphi = fields.List(fields.Nested(PlainParagraphusSchema()))
 
 
+
 class TitulusTocSchema(PlainTitulusSchema):
     leges = fields.List(fields.Nested(LexTocSchema()))
 
@@ -41,7 +42,15 @@ class TitulusTocSchema(PlainTitulusSchema):
 class BookTocSchema(PlainBookSchema):
     tituli = fields.List(fields.Nested(PlainTitulusSchema()))
 
+
+class TitulusSchema(PlainTitulusSchema):
+    book = fields.Nested(PlainBookSchema())
+
+
+class LexOpusSchema(LexTocSchema):
+    titulus = fields.Nested(TitulusSchema())
 # jurist
+
 
 
 class BookTocAuthorSchema(PlainBookSchema):
@@ -51,6 +60,12 @@ class BookTocAuthorSchema(PlainBookSchema):
 class PlainJuristSchema(Schema):
     id = fields.Int()
     name = fields.Str()
+
+
+class JuristInfoSchema(PlainJuristSchema):
+    description = fields.Str()
+    flourished_start = fields.Int()
+    flourished_end = fields.Int()
 
 # opus
 
@@ -64,8 +79,28 @@ class PlainOpusSchema(Schema):
 class PlainOpusLiberSchema(Schema):
     id = fields.Int()
     liber = fields.Str()
+
+
+class OpusLiberTocSchema(PlainOpusLiberSchema):
+    leges = fields.List(fields.Nested(PlainLexSchema()))
+
+
+class OpusLiberSchema(PlainOpusLiberSchema):
     opus = fields.Nested(PlainOpusSchema())
 
+
+class OpusTocSchema(PlainOpusSchema):
+    libri = fields.List(fields.Nested((PlainOpusLiberSchema())))
+    author = fields.Nested(PlainJuristSchema())
+
+
+class OpusLexSchema(PlainLexSchema):
+    titulus = fields.Nested(TitulusSchema())
+
+
+class LexSearchSchema(PlainLexSchema):
+    titulus = fields.Nested(TitulusSchema())
+    author = fields.Nested(PlainJuristSchema())
 # full lex
 
 
@@ -74,20 +109,23 @@ class ParagraphusSchema(PlainParagraphusSchema):
     text_pl = fields.Str()
 
 
-class TitulusSchema(PlainTitulusSchema):
-    book = fields.Nested(PlainBookSchema())
+class ParagraphusSearchSchema(ParagraphusSchema):
+    lex = fields.Nested(LexSearchSchema())
+
 
 
 class FullLexSchema(PlainLexSchema):
     address_lat = fields.Str()
     address_pl = fields.Str()
     author = fields.Nested(PlainJuristSchema())
-    opus = fields.Nested(PlainOpusLiberSchema())
+    opus = fields.Nested(OpusLiberSchema())
     paragraphi = fields.List(fields.Nested(ParagraphusSchema()))
     titulus = fields.Nested(TitulusSchema())
 
 
 # comments
+
+
 class CommentedLexSchema(PlainLexSchema):
     titulus = fields.Nested(TitulusSchema())
 
@@ -106,43 +144,35 @@ class UserLoginSchema(Schema):
     paragraphi = fields.List(fields.Nested(CommentedParagraphusSchema()))
 
 
-
-
-
-
 class UserDataSchema(Schema):
     id = fields.Int()
     username = fields.Str()
+
+
 class PlainAuthorSchema(Schema):
     id = fields.Int()
     name = fields.Str()
+
 
 class PlainLikeSchema(Schema):
     id = fields.Int()
     user_id = fields.Int()
 
+
 class PlainOperaSchema(Schema):
     id = fields.Int()
     title_lat = fields.Str()
     title_pl = fields.Str()
+
+
 class PlainCommentSchema(Schema):
     id = fields.Int(dump_only=True)
     comment = fields.Str()
     private = fields.Bool()
     date = fields.DateTime(dump_only=True)
     user = fields.Nested(UserDataSchema())
-    # reply_to_comment = fields.List(fields.Nested('self'))
     replies = fields.List(fields.Nested('self'))
     likes = fields.List(fields.Nested(PlainLikeSchema()))
-
-
-class PlainCommentsSchemaWithToken(Schema):
-    comments = fields.List(fields.Nested(PlainCommentSchema()))
-    access_token = fields.Str()
-
-
-class AuthorOperaSchema(PlainAuthorSchema):
-    opera = fields.List(fields.Nested(PlainOperaSchema()))
 
 
 class PlainDigestaBookSchema(Schema):
@@ -165,33 +195,6 @@ class PlainDigestaLexSchema(Schema):
     address_lat = fields.Str()
     address_pl = fields.Str()
     lex_nr = fields.Str()
-
-
-
-class DigestaParagraphusSchema(Schema):
-    id = fields.Int(dump_only=True)
-    key = fields.Str()
-    text_lat = fields.Str()
-    text_pl = fields.Str()
-
-
-class DigestaBookSchema(PlainDigestaBookSchema):
-    tituli = fields.List(fields.Nested(PlainDigestaTitulusSchema()), dump_only=True)
-
-
-class DigestaLexSimpleSchema(Schema):
-    id = fields.Int(dump_only=True)
-    lex_nr = fields.Str()
-
-
-class DigestaTocLex(DigestaLexSimpleSchema):
-    titulus = fields.Nested(PlainDigestaTitulusSchema())
-
-
-
-class OpusLiberSchema(PlainOpusLiberSchema):
-    opus = fields.Nested(PlainOperaSchema())
-    leges = fields.List(fields.Nested(DigestaTocLex()))
 
 
 class DigestaLexSchema(PlainDigestaLexSchema):
@@ -247,39 +250,17 @@ class PlainDigestaTOCLexSchema(Schema):
     # paragraphi = fields.List(fields.Nested(PlainParagraphusTocSchema()))
 
 
-class OperaSchema(PlainOperaSchema):
-
-    author = fields.Nested(PlainAuthorSchema())
-    # libri = fields.List(PlainOpusLiberSchema())
-    libri = fields.List(fields.Nested(PlainOpusLiberSchema()))
-
-class DigestaTitulusSchema(PlainDigestaTitulusSchema):
-    book = fields.Nested(PlainDigestaBookSchema())
-    leges = fields.List(fields.Nested(PlainDigestaTOCLexSchema()))
 
 
 class CommentedParagraphiSchema(Schema):
     id = fields.Str()
 
 
-# class DigestaBookTOCSchema(PlainDigestaBookSchema):
-#     tituli = fields.List(fields.Nested(DigestaTitulusTocSchema()), dump_only=True)
-#
-
 class AuthorSchema(PlainAuthorSchema):
     leges = fields.List(fields.Nested(PlainDigestaTOCLexSchema()))
     opera = fields.List(fields.Nested(PlainOperaSchema()))
 
 
-# class PlainDigestaTocLexSchema(PlainDigestaTOCLexSchema):
-#     book = fields.Nested(PlainDigestaBookSchema())
-#     titulus = fields.Nested(PlainDigestaTitulusSchema())
-
-
-
-# class CommentedParagraphiWithToken(Schema):
-#     paragraphi = fields.List(fields.Nested(CommentedParagraphiSchema()))
-#     access_token = fields.Str()
 
 
 

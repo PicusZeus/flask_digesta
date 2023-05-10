@@ -4,7 +4,7 @@ from flask_smorest import Blueprint
 
 from db import db
 from models import AuthorModel, DigestaLexModel
-from schemas import AuthorSchema, AuthorOperaSchema, PlainAuthorSchema, DigestaLexSchema
+from schemas import AuthorSchema, PlainAuthorSchema, DigestaLexSchema, JuristInfoSchema
 
 
 blp = Blueprint("authors", __name__, description="Operations on authors")
@@ -19,7 +19,7 @@ class AuthorsAll(MethodView):
 
 @blp.route("/authors/<int:author_id>")
 class Author(MethodView):
-    @blp.response(200, AuthorOperaSchema())
+    @blp.response(200, JuristInfoSchema())
     def get(self, author_id):
         author = AuthorModel.query.get_or_404(author_id)
         return author

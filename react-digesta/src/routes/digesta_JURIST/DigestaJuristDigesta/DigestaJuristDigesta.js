@@ -1,21 +1,28 @@
-import {json, Outlet, useLoaderData, useLocation} from "react-router-dom";
+import {json, Outlet, useLoaderData, useLocation, useParams} from "react-router-dom";
 import DigestaTocMobileBooks from "../../../components/DigestaToc/DigestaTocMobile/DigestaTocMobileBooks/DigestaTocMobileBooks";
 import classes from './DigestaJuristDigesta.module.css'
 import DigestaTocDesktopBooks
     from "../../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopBooks/DigestaTocDesktopBooks";
-
+import DigestaTocDesktopJuristDigestaBooks
+    from "../../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopJuristDigestaBooks/DigestaTocDesktopJuristDigestaBooks";
+import DigestaTocMobileJuristDigestaBooks
+    from "../../../components/DigestaToc/DigestaTocMobile/DigestaTocMobileJuristDigestaBooks/DigestaTocMobileJuristDigestaBooks";
 const DigestaJuristDigesta = () => {
+    // const books = []
     const books = useLoaderData()
-    const location = useLocation()
+    const params = useParams()
+    const author_id = params.jurysta_id
+    // const author_id = 1
+    // console.log(author_id, 'DIG')
     return (
         <div className={classes.toc_container}>
             {/*<h1 className={classes.main_title}>Według układu Digestów</h1>*/}
             <div className={classes.mobile_toc}>
-                <DigestaTocMobileBooks toc={books} url={location}/>
+                <DigestaTocMobileJuristDigestaBooks books={books} author_id={author_id}/>
 
             </div>
             <div className={classes.desktop_toc}>
-                <DigestaTocDesktopBooks books={books}/>
+                <DigestaTocDesktopJuristDigestaBooks books={books} author_id={author_id}/>
 
             </div>
 
@@ -30,35 +37,11 @@ const DigestaJuristDigesta = () => {
 export default DigestaJuristDigesta
 
 
-const prepareToc = (id, books) => {
-    const _id = parseInt(id)
-    const newBooks = []
-
-    for (const book of books) {
-
-        const newBook = {...book, 'tituli': []}
-        for (const titulus of book.tituli) {
-            const newTitulus = {...titulus, leges: []}
-            const newLeges = titulus.leges.filter((lex) => {
-
-                return (lex.author_id === _id)
-            })
-            if (newLeges.length > 0) {
-                newTitulus.leges = newLeges
-                newBook.tituli.push(newTitulus)
-            }
-        }
-        if (newBook.tituli.length > 0) {
-            newBooks.push(newBook)
-        }
-
-    }
-    return newBooks
-}
 
 
 export const loader = async ({params, request}) => {
     const id = parseInt(params.jurysta_id);
+
     const response = await fetch( process.env.REACT_APP_BASE_API_URL + "digesta/books/author/" + id);
 
     if (!response.ok) {

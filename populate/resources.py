@@ -3,13 +3,14 @@ import re
 roman_ordinal_numeral = {'primo': 1,
                          'secundo': 2, 'tertio': 3, 'quarto': 4, 'quinto': 5, 'sexto': 6, 'septimo': 7, 'octavo': 8,
                          'nono': 9, 'decimo': 10, 'undecimo': 11, 'duodecimo': 12,
-                         'vicesimo': 20, 'vicensimo': 20, 'tricesimo': 30, 'quadragesimo': 40, 'quinquagesimo': 50,
+                         'vicesimo': 20, 'vicensimo': 20, 'tricesimo': 30, 'quadragesimo': 40, 'quinquagesimo': 50, "quingensimo": 50,
+
                          'sexagesimo': 60, 'trigensimo': 30, 'trigesimo': 30,
                          'septuagesimo': 70, 'octogesimo': 80, 'nonagesimo': 90,
                          'tricensimo': 30, 'quadragensimo': 40, 'quinquagensimo': 50,
-                         'sexagensimo': 60,
-                         'septuagensimo': 70, 'octogensimo': 80, 'nonagensimo': 90, 'singulari': 0,
-                         'centensimo': 100, 'centesimo': 100}
+                         'sexagensimo': 60, "vigensimo": 20, "vincensimo": 20, "vincesimo": 20,
+                         'septuagensimo': 70, 'octogensimo': 80, 'octagensimo': 80, 'octagesimo': 80, 'nonagensimo': 90, 'singulari': 0,
+                         'centensimo': 100, 'centesimo': 100,  "......": 0}
 
 roman_number_pattern = "^[IVXLC]*([IVXLC])$"
 roman_number_p = re.compile(roman_number_pattern)

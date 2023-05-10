@@ -1,0 +1,37 @@
+.main_toc__book {
+    border: 1px solid black;
+    font-size: 1.2rem;
+    background: rgba(0, 0, 0, 0.1);
+    width: 80%;
+}
+
+.main_toc__book:hover, .main_toc__book:active {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.main_toc__tituli {
+    display: flex;
+    position: relative;
+}
+
+
+
+.main_toc__tituli_items {
+    list-style: none;
+    padding: 0.1rem 0;
+}
+
+.main_toc__tituli_items > h4 {
+    margin: 0.5rem;
+    text-align: center;
+
+}
+
+.main_toc__tituli_items li:last-child > div:first-of-type {
+    display: none;
+}
+
+.main_toc__tituli_items li:first-child > div:first-of-type {
+    display: block;
+}

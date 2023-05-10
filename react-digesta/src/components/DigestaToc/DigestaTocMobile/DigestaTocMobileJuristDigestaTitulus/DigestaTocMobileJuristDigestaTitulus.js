@@ -1,4 +1,4 @@
-import classes from "../DigestaTocMobileBook/DigestaTocMobileBook.module.css";
+// import classes from "../DigestaTocMobileBook/DigestaTocMobileBook.module.css";
 import {useDispatch} from "react-redux";
 import {digestaActions} from "../../../../store/digesta-slice";
 import {useNavigate} from "react-router-dom";
@@ -7,7 +7,7 @@ import {useState} from "react";
 import {useEffect} from "react";
 // import NotificationService from "../../../../services/notification.service";
 import NotificationService from "../../../../services/notification.service";
-const DigestaTocMobileTitulus = ({id}) => {
+const DigestaTocMobileJuristDigestaTitulus = ({author_id, titulus_id}) => {
     const [leges, setLeges] = useState([])
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -15,7 +15,7 @@ const DigestaTocMobileTitulus = ({id}) => {
     useEffect(() => {
 
         const notificationSetter = new NotificationService(dispatch)
-        const urlLoadLegesData = process.env.REACT_APP_BASE_API_URL + `digesta/titulus/leges/${id}`
+        const urlLoadLegesData = process.env.REACT_APP_BASE_API_URL + `digesta/titulus/leges/author/${titulus_id}/${author_id}`
 
         const sendRequest = async () => {
             const response = await fetch(urlLoadLegesData)
@@ -29,11 +29,11 @@ const DigestaTocMobileTitulus = ({id}) => {
         }).catch((e) => {
             notificationSetter.setNotificationError('Ładowanie tytułu', 'Błąd Servera')
         })
-    }, [dispatch, id])
+    }, [author_id, dispatch, titulus_id])
 
     const onOptionChangeLexHandler = (event) => {
-        dispatch(digestaActions.setChosenLexId(parseInt(event.target.value)))
-        navigate(event.target.value)
+        // dispatch(digestaActions.setChosenLexId(parseInt(event.target.value)))
+        navigate("/jurysci/digesta/" + author_id + "/" + event.target.value)
 
     }
     // let leges = props.leges
@@ -59,4 +59,4 @@ const DigestaTocMobileTitulus = ({id}) => {
     )
 }
 
-export default DigestaTocMobileTitulus
+export default DigestaTocMobileJuristDigestaTitulus

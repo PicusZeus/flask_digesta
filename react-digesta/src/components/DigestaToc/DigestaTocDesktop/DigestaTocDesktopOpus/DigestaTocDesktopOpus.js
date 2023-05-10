@@ -2,8 +2,9 @@ import {useState} from "react";
 import DigestaTocDesktopOpusLiber from "../DigestaTocDesktopOpusLiber/DigestaTocDesktopOpusLiber";
 import classes from "./DigestaTocDesktopOpus.module.css"
 
-const DigestaTocDesktopOpus = ({opus}) => {
+const DigestaTocDesktopOpus = ({opus, lexPath}) => {
     const [menuLibriOpen, setMenuLibriOpen] = useState(false)
+    // console.log(lexPath)
     const openOpusHandler = () => {
         setMenuLibriOpen((current) => !current)
     }
@@ -17,7 +18,7 @@ const DigestaTocDesktopOpus = ({opus}) => {
             {menuLibriOpen && <div className={classes.main_toc__libri}>
                 {/*<div>&nbsp;</div>*/}
                 <ul className={classes.main_toc__libri_items}>
-                    {opus.libri.map((liber) => (<DigestaTocDesktopOpusLiber liber={liber} libriLength={libriLength}/>))}
+                    {opus.libri.map((liber) => (<DigestaTocDesktopOpusLiber key={liber.id} liber={liber} libriLength={libriLength} lexPath={lexPath}/>))}
                 </ul>
 
             </div>}

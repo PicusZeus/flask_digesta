@@ -3,12 +3,15 @@ import DigestaTocMobileOpus from "../DigestaTocMobileOpus/DigestaTocMobileOpus";
 import {useState} from "react";
 import TocMobile from "../../../UI/TocMobile/TocMobile";
 
-const DigestaTocMobileOpera = ({opera}) => {
+const DigestaTocMobileOpera = ({opera, lexPath}) => {
 
-    const [chosenOpus, setChosenOpus] = useState(false)
+    const [opusId, setOpusId] = useState(false)
+
+    const opus = opera.filter((opus)=>opus.id === opusId).find(e=>true)
+    console.log(opus)
     const onOptionChangeHandler = (event) => {
 
-        setChosenOpus(parseInt(event.target.value))
+        setOpusId(parseInt(event.target.value))
 
     }
     return (
@@ -23,9 +26,7 @@ const DigestaTocMobileOpera = ({opera}) => {
                 })}
 
             </TocMobile>
-            {chosenOpus ? <DigestaTocMobileOpus opus={opera.filter((opus) => {
-                return (opus.id === chosenOpus)
-            })[0]}/> : false}
+            {opus && <DigestaTocMobileOpus opusId={opusId} opus={opus} lexPath={lexPath}/>}
 
         </>
     )

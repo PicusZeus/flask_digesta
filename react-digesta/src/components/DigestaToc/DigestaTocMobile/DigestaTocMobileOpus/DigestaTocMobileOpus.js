@@ -2,9 +2,11 @@ import classes from "./DigestaTocMobileOpus.module.css"
 import {useNavigate} from "react-router-dom";
 import TocMobile from "../../../UI/TocMobile/TocMobile";
 import {useState} from "react";
+import DigestaTocMobileOpusLiber from "../DigestaTocMobileOpusLiber/DigestaTocMobileOpusLiber";
 
-const DigestaTocMobileOpus = ({opus}) => {
+const DigestaTocMobileOpus = ({opus, lexPath}) => {
     const [chosenBook, setChosenBook] = useState(false)
+
     const navigate = useNavigate()
     const onChoseBookHandler = (event) => {
         const liber_id = event.target.value
@@ -31,13 +33,7 @@ const DigestaTocMobileOpus = ({opus}) => {
                 </option>))}
         </TocMobile>
 
-            {chosenBook && <TocMobile onOption={onChoseLexHandler}>
-                <option value="">Wybierz fragment</option>
-                {chosenBook.leges.map(lex=>(
-                <option key={lex.id} value={lex.id}>
-                    D.{lex.titulus.book.book_nr}.{lex.titulus.number}.{lex.lex_nr}
-                </option>))}
-            </TocMobile> }
+            {chosenBook && <DigestaTocMobileOpusLiber liber={chosenBook} lexPath={lexPath}/>}
 
 
 
