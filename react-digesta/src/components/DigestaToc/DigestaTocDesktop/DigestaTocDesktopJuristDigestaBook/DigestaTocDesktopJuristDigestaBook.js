@@ -1,6 +1,5 @@
 import classes from "./DigestaTocDesktopJuristDigestaBook.module.css"
-import {useEffect, useState} from "react";
-import DigestaTocDesktopTitulus from "../DigestaTocDesktopTitulus/DigestaTocDesktopTitulus";
+import {useState} from "react";
 import DigestaTocDesktopJuristDigestaTitulus
     from "../DigestaTocDesktopJuristDigestaTitulus/DigestaTocDesktopJuristDigestaTitulus";
 
@@ -8,10 +7,6 @@ const DigestaTocDesktopJuristDigestaBook = ({book, author_id}) => {
 
     const [bookMenuOpen, setBookMenuOpen] = useState(false)
     const [tituli, setTituli] = useState([])
-
-    const urlLoadTituli = process.env.REACT_APP_BASE_API_URL + `digesta/tituli/author/${book.id}/${author_id}`
-// console.log('JUIRIST Book', book, author_id, urlLoadTituli)
-
 
     const loadTituli = () => {
            const urlLoadTituli = process.env.REACT_APP_BASE_API_URL + `digesta/tituli/author/${book.id}/${author_id}`
@@ -33,10 +28,8 @@ const DigestaTocDesktopJuristDigestaBook = ({book, author_id}) => {
 
         setBookMenuOpen((current)=>!current)
         if (!bookMenuOpen && tituli.length === 0) {
-            console.log('loading tituli', tituli)
             loadTituli()}
     }
-    console.log(tituli, 'TITULI')
 
     return (
         <li>

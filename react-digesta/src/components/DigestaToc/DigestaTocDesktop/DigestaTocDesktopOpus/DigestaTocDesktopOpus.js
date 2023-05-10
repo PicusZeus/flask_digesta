@@ -4,7 +4,6 @@ import classes from "./DigestaTocDesktopOpus.module.css"
 
 const DigestaTocDesktopOpus = ({opus, lexPath}) => {
     const [menuLibriOpen, setMenuLibriOpen] = useState(false)
-    // console.log(lexPath)
     const openOpusHandler = () => {
         setMenuLibriOpen((current) => !current)
     }
@@ -16,7 +15,6 @@ const DigestaTocDesktopOpus = ({opus, lexPath}) => {
             </button>
 
             {menuLibriOpen && <div className={classes.main_toc__libri}>
-                {/*<div>&nbsp;</div>*/}
                 <ul className={classes.main_toc__libri_items}>
                     {opus.libri.map((liber) => (<DigestaTocDesktopOpusLiber key={liber.id} liber={liber} libriLength={libriLength} lexPath={lexPath}/>))}
                 </ul>

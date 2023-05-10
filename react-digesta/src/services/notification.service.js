@@ -5,7 +5,6 @@ class NotificationService {
     constructor(dispatch) {
         this.dispatch = dispatch
     }
-
     setNotificationSuccess(title, message) {
         this.dispatch(uiActions.setNotification({
             status: "success",
@@ -22,7 +21,6 @@ class NotificationService {
             status: "pending",
             title: title,
             message: message,
-
         }))
         setTimeout(() => this.dispatch(uiActions.resetNotification()), 2000)
 
@@ -33,13 +31,10 @@ class NotificationService {
             status: "error",
             title: title,
             message: message,
-
         }))
         setTimeout(() => this.dispatch(uiActions.resetNotification()), 2000)
 
     }
-
-
 }
 
 export default NotificationService

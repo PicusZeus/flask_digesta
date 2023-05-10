@@ -1,5 +1,4 @@
 import DigestaTocMobileBook from "../DigestaTocMobileBook/DigestaTocMobileBook";
-import classes from "./DigestaTocMobileBooks.module.css"
 import {useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
 import {digestaActions} from "../../../../store/digesta-slice";
@@ -29,8 +28,6 @@ const DigestaTocMobileBooks = (props) => {
             {chosenBookId ? <DigestaTocMobileBook url={url} tituli={toc.filter((book) => {
                 return (book.id === chosenBookId)
             })[0].tituli}/> : false}
-
-            {/*</div>*/}
         </>
     )
 }

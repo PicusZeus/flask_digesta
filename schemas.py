@@ -34,7 +34,6 @@ class LexTocSchema(PlainLexSchema):
     paragraphi = fields.List(fields.Nested(PlainParagraphusSchema()))
 
 
-
 class TitulusTocSchema(PlainTitulusSchema):
     leges = fields.List(fields.Nested(LexTocSchema()))
 
@@ -205,7 +204,6 @@ class DigestaLexSchema(PlainDigestaLexSchema):
     paragraphi = fields.List(fields.Nested(ParagraphusSchema()))
 
 
-
 class SearchTermSchema(Schema):
     searched_term = fields.Str(required=True)
 
@@ -214,18 +212,14 @@ class CommentSaveSchema(PlainCommentSchema):
     reply_to_comment_id = fields.Int(allow_none=True)
 
 
-
 class CommentUpdateSchema(PlainCommentSchema):
     comment_id = fields.Int()
-
-
-
 
 
 class CommentSchema(PlainCommentSchema):
     user = fields.Nested(UserDataSchema())
     reply_to_comment = fields.Nested(PlainCommentSchema())
-
+    paragraphus = fields.Nested(CommentedParagraphusSchema())
 
 class UserSchema(Schema):
     id = fields.Int(dump_only=True)
@@ -239,17 +233,12 @@ class UserRegisterSchema(UserSchema):
 
 class PlainDigestaTOCLexSchema(Schema):
     id = fields.Int(dump_only=True)
-    # address_lat = fields.Str()
-    # address_pl = fields.Str()
     lex_nr = fields.Str()
     author = fields.Nested(PlainAuthorSchema())
     author_id = fields.Int()
     titulus = fields.Nested(PlainDigestaTitulusSchema())
     opus_id = fields.Int()
     opus = fields.Nested(PlainOperaSchema())
-    # paragraphi = fields.List(fields.Nested(PlainParagraphusTocSchema()))
-
-
 
 
 class CommentedParagraphiSchema(Schema):
@@ -261,13 +250,9 @@ class AuthorSchema(PlainAuthorSchema):
     opera = fields.List(fields.Nested(PlainOperaSchema()))
 
 
-
-
-
 class DeleteResponseSchema(Schema):
     status = fields.Int()
     message = fields.Str()
-    # commentedParagraphi = fields.List(fields.Nested(CommentedParagraphiSchema()))
 
 
 class LikeSaveSchema(Schema):

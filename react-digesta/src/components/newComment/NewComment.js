@@ -18,7 +18,6 @@ const NewComment = (props) => {
     let token = tokenService.getLocalAccessToken()
 
     const refresh_token = tokenService.getLocalRefreshToken()
-    // console.log(token)
     const dispatch = useDispatch()
     const [isPrivate, setIsPrivate] = useState(false)
     let repliedId = null
@@ -33,7 +32,6 @@ const NewComment = (props) => {
         event.preventDefault()
         const sendComment = async () => {
             notificationSetter.setNotificationPending('komentarz', 'wysyłam komentarz')
-            // console.log('sending')
             const respons = await fetch(process.env.REACT_APP_BASE_API_URL + "comment/paragraphus/" + par_id,
                 {
                     method: "POST",
@@ -61,6 +59,7 @@ const NewComment = (props) => {
                 const data = response
                 notificationSetter.setNotificationSuccess("komentarz", "komentarz zamieszczony")
                 props.addNewComment(data)
+                console.log(data.paragraphus, "PARAGRAPHUS")
                 if (props.onClose) {
                     props.onClose()
                 }
@@ -70,7 +69,7 @@ const NewComment = (props) => {
                         paragraphus.id === par_id
                     ).length === 0) {
                     const newParagraphi = [...commentedParagraphi]
-                    newParagraphi.push(props.paragraphus)
+                    newParagraphi.push(data.paragraphus)
                     TokenService.updateCommentedParagraphi(newParagraphi)
                     dispatch(authActions.setCommentedParagraphi(newParagraphi))
 

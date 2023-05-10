@@ -55,7 +55,6 @@ export const refreshToken = (refresh_token) => {
             dispatch(authActions.setToken(access_token))
             tokenService.updateLocalAccessToken(access_token)
         } catch (e) {
-            // notificationSetter.setNotificationError("Wystąpił błąd na serwerze", "Logowanie się nie powiodło")
         }
 
 

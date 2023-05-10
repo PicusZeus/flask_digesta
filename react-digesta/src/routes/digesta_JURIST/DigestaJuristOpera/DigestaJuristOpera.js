@@ -8,7 +8,6 @@ import DigestaTocMobileOpera
 const DigestaJuristOpera = () => {
     const opera = useLoaderData()
     const params = useParams()
-    console.log(params.jurysta_id)
     const lexPath = `/jurysci/opera/${params.jurysta_id}/`
     return (
         <div className={classes.opera_main}>

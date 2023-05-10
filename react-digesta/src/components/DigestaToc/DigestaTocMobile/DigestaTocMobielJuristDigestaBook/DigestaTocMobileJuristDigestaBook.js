@@ -1,22 +1,13 @@
-import classes from "./DigestaTocMobileJuristDigestaBook.module.css"
-import DigestaTocMobileTitulus from "../DigestaTocMobileTitulus/DigestaTocMobileTitulus";
-import {useSelector, useDispatch} from "react-redux";
-import {digestaActions} from "../../../../store/digesta-slice";
-import {useNavigate} from "react-router-dom";
 import TocMobile from "../../../UI/TocMobile/TocMobile";
 import {useState} from "react";
 import {useEffect} from "react";
 import DigestaTocMobileJuristDigestaTitulus
     from "../DigestaTocMobileJuristDigestaTitulus/DigestaTocMobileJuristDigestaTitulus";
+
 const DigestaTocMobileJuristDigestaBook = ({book_id, author_id}) => {
-   const [tituli, setTituli] = useState([])
+    const [tituli, setTituli] = useState([])
     const [titulusId, setTitulusId] = useState(false)
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    // const chosenTitulusId = useSelector(state => state.digesta.chosenTitulusId)
     const onOptionChangeHandler = (event) => {
-        // dispatch(digestaActions.setChosenTitulusId(parseInt(event.target.value)))
-        // navigate(url)
         setTitulusId(event.target.value)
     }
     useEffect(() => {
@@ -29,12 +20,11 @@ const DigestaTocMobileJuristDigestaBook = ({book_id, author_id}) => {
             }
             return await response.json()
         }
-        sendRequest().then((response)=>{
+        sendRequest().then((response) => {
 
             setTituli(response)
-        }).catch((e)=>(console.log(e)))
+        }).catch((e) => (console.log(e)))
     }, [book_id, author_id])
-    // const tituli = props.tituli
 
     return (
         <>

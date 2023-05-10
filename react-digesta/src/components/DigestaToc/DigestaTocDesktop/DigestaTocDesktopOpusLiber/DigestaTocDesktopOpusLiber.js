@@ -1,12 +1,14 @@
 import {useState} from "react";
-import {Link} from "react-router-dom";
 import classes from "./DigestaTocDesktopOpusLiber.module.css"
 import DigestaTocDesktopLex from "../DigestaTocDesktopLex/DigestaTocDesktopLex";
+import {useDispatch} from "react-redux";
+import NotificationService from "../../../../services/notification.service";
 
 const DigestaTocDesktopOpusLiber = ({liber, libriLength, lexPath}) => {
     const [openLegesMenu, setOpenLegesMenu] = useState(false)
     const [leges, setLeges] = useState(false)
-    // console.log(lexPath, 'p')
+    const dispatch = useDispatch()
+    const notificationSetter = new NotificationService(dispatch)
     const liberLineClasses = [classes.liber__line]
     const urlLoadLeges = process.env.REACT_APP_BASE_API_URL + `digesta/opus/leges/${liber.id}`
     const loadLeges = () => {
@@ -17,19 +19,20 @@ const DigestaTocDesktopOpusLiber = ({liber, libriLength, lexPath}) => {
             }
             return await response.json()
         }
-        sendRequest().then((response)=>{
+        sendRequest().then((response) => {
             setLeges(response)
-        }).catch(e=>(console.log(e)))
+        }).catch(e => (
+            notificationSetter.setNotificationError("Błąd ładowanie", "Błąd serwera")
+        ))
 
     }
 
     const openLiberHandler = () => {
-        setOpenLegesMenu((current)=>!current)
+        setOpenLegesMenu((current) => !current)
         if (!openLegesMenu && !leges) {
             loadLeges()
         }
     }
-    console.log(leges, "OPUS")
 
 
     if (libriLength === 1) {
@@ -53,21 +56,13 @@ const DigestaTocDesktopOpusLiber = ({liber, libriLength, lexPath}) => {
 
                 <ul>
                     {leges.map(lex => {
-                        // <li key={lex.id} className={classes.liber__lex_group}>
-                        //     <span>&nbsp;</span>
-                        //     {/*<div>{lex.id.toString()}</div>*/}
-                        //     {/*<Link className={classes.liber__lex_link} to={lexPath + lex.id.toString()}>*/}
-                        //     {/*    D.{lex.titulus.book.book_nr}.{lex.titulus.number}.{lex.lex_nr}*/}
-                        //     {/*</Link>*/}
-                        //
-                        // </li>)
                         const address = `D.${lex.titulus.book.book_nr}.${lex.titulus.number}.${lex.lex_nr}`
-                            return ( < DigestaTocDesktopLex
-                        address = {address}
-                        key = {lex.id}
-                        path = {lexPath}
-                        lex = {lex}
-                        legesLength = {leges.length}
+                        return (< DigestaTocDesktopLex
+                            address={address}
+                            key={lex.id}
+                            path={lexPath}
+                            lex={lex}
+                            legesLength={leges.length}
                         />)
                     })}
                 </ul>

@@ -2,6 +2,7 @@ import {Link} from "react-router-dom";
 import classes from "./DigestaTocDesktopJurist.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {digestaActions} from "../../../../store/digesta-slice";
+
 const DigestaTocDesktopJurist = ({jurist}) => {
     const dispatch = useDispatch()
     const selectJuristHandler = () => {

@@ -1,5 +1,3 @@
-import {useSelector} from "react-redux";
-import {Link, Outlet} from "react-router-dom";
 import classes from "./DigestaTocDesktopJurists.module.css"
 import DigestaTocDesktopJurist from "../DigestaTocDesktopJurist/DigestaTocDesktopJurist";
 

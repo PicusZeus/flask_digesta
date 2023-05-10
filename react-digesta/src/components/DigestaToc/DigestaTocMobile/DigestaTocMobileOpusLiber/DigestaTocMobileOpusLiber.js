@@ -4,7 +4,6 @@ import {useNavigate} from "react-router-dom";
 
 
 const DigestaTocMobileOpusLiber = ({liber, lexPath}) => {
-    console.log(lexPath, 'LECPATGH')
     const [leges, setLeges] = useState([])
     const urlLoadLeges = process.env.REACT_APP_BASE_API_URL + `digesta/opus/leges/${liber.id}`
     const navigate = useNavigate()

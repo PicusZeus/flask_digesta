@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import classes from "./DigestaSearchViewer.module.css"
+
 const DigestaSearchViewer = ({paragraph, searchedTerm, lang}) => {
     const [showResult, setShowResult] = useState(false)
     const showResultHandler = () => {
@@ -13,7 +14,6 @@ const DigestaSearchViewer = ({paragraph, searchedTerm, lang}) => {
         keyLang = 'text_pl'
         keyTrLang = 'text_lat'
     }
-    // console.log(paragraph, "FOUND", paragraph[keyLang])
     const text = paragraph[keyLang]
     const re = new RegExp(searchedTerm, 'ig')
 
@@ -35,7 +35,6 @@ const DigestaSearchViewer = ({paragraph, searchedTerm, lang}) => {
     if (paragraph.key !== "pr") {
         url = `/digesta/${paragraph.lex.id}/${paragraph.id}`
     }
-    console.log(showResult, 'MODAL')
     return (
             <li className={classes.found_item}>
                 <button className={buttonClasses.join(" ")}

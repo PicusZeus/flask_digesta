@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import DigestaTocDesktopLex from "../DigestaTocDesktopLex/DigestaTocDesktopLex";
 import classes from './DigestaTocDesktopTitulus.module.css'
 import NotificationService from "../../../../services/notification.service";
@@ -11,10 +11,7 @@ const DigestaTocDesktopTitulus = ({titulus}) => {
     const [leges, setLeges] = useState([])
     //
     const dispatch = useDispatch()
-    // console.log('TITULUS', leges)
 
-    // let urlLoadLegesData = process.env.REACT_APP_BASE_API_URL + `digesta/titulus/leges/${titulus.id}`
-    // let leges = []
     const notificationSetter = new NotificationService(dispatch)
     const legesLoader =() => {
 
@@ -42,9 +39,7 @@ const DigestaTocDesktopTitulus = ({titulus}) => {
             legesLoader()
         }
 
-
     }
-
 
         return (
             <li className={classes.titulus_main}>

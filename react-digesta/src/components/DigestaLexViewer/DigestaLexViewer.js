@@ -5,7 +5,6 @@ import DigestaTocMobileParagraphi
     from "../DigestaToc/DigestaTocMobile/DigestaTocMobileParagraphi/DigestaTocMobileParagraphi";
 
 
-
 const DigestaLexViewer = (props) => {
     const navigate = useNavigate()
     let lex = useLoaderData()
@@ -20,12 +19,10 @@ const DigestaLexViewer = (props) => {
             navigate(paragraphId.id.toString())
         }
     }
-    console.log(lex.opus.liber.toString(), 'OPUS')
 
     const linkAuthor = "/jurysci/" + lex.author.id
     const linkOpus = '/opera/' + lex.opus.id
     const ksiega = "Księga " + lex.opus.liber.toString()
-    console.log(ksiega, 'KSIEGA')
     const address = "D " + lex.titulus.book.book_nr + '.' + lex.titulus.number + '.' + lex.lex_nr
     // const address = 'to do'
     const address_lat = lex.address_lat
@@ -35,7 +32,6 @@ const DigestaLexViewer = (props) => {
     const paragraphiDic = Object.assign({}, ...paragraphi.map((paragraphus) => ({[paragraphus.key]: paragraphus})));
     const paragraphiKeys = Object.keys(paragraphiDic).sort((a, b) => parseInt(a) - parseInt(b))
     paragraphiKeys.unshift(paragraphiKeys.pop())
-    console.log(paragraphiDic, 'dic', paragraphiKeys.length)
 
 
     return (
@@ -54,7 +50,6 @@ const DigestaLexViewer = (props) => {
                 <button><Link to={linkOpus}><span>{parseInt(lex.opus.liber) > 0 ? ksiega : null}</span><span> {lex.opus.opus.title_pl}</span></Link></button>
             </div>
             <DigestaParagraphusViewer paragraphus={paragraphiDic['pr']}/>
-            {/*{paragraphiKeys.length > 1 && <div>chuj</div>}*/}
             {paragraphiKeys.length > 1 &&
                 <div className={classes.main_lex__mobile_toc}><DigestaTocMobileParagraphi setParagraph={setParagraphHandler} paragraphiKeys={paragraphiKeys}/></div>}
 

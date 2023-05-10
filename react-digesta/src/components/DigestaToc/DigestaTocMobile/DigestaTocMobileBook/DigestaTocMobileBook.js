@@ -1,4 +1,3 @@
-import classes from "./DigestaTocMobileBook.module.css"
 import DigestaTocMobileTitulus from "../DigestaTocMobileTitulus/DigestaTocMobileTitulus";
 import {useSelector, useDispatch} from "react-redux";
 import {digestaActions} from "../../../../store/digesta-slice";

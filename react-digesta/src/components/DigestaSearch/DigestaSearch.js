@@ -2,9 +2,8 @@ import classes from "./DigestaSearch.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {digestaActions} from "../../store/digesta-slice";
 
-const DigestaSearch = (props) => {
+const DigestaSearch = () => {
 
-    // const [lang, setLang] = useState('lat')
     const dispatch = useDispatch()
     const lang = useSelector(state=>state.digesta.lang)
 

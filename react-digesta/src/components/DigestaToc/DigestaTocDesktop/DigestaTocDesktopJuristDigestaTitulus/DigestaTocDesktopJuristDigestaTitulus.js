@@ -1,5 +1,5 @@
 import classes from "./DigestaTocDesktopJuristDigestaTitulus.module.css"
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useDispatch} from "react-redux";
 import NotificationService from "../../../../services/notification.service";
 import DigestaTocDesktopLex from "../DigestaTocDesktopLex/DigestaTocDesktopLex";
@@ -39,7 +39,6 @@ const DigestaTocDesktopJuristDigestaTitulus = ({titulus, author_id}) => {
             legesLoader()
         }
     }
-
     const path = `/jurysci/digesta/${author_id}/`
 
     return (

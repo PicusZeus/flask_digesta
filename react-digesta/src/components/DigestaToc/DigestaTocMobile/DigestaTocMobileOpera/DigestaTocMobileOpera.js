@@ -1,4 +1,3 @@
-import classes from "./DigestaTocMobileOpera.module.css"
 import DigestaTocMobileOpus from "../DigestaTocMobileOpus/DigestaTocMobileOpus";
 import {useState} from "react";
 import TocMobile from "../../../UI/TocMobile/TocMobile";

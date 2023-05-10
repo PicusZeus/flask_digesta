@@ -1,11 +1,8 @@
-import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import classes from "./DigestaTocMobileJurists.module.css"
 import TocMobile from "../../../UI/TocMobile/TocMobile";
 
 const DigestaTocMobileJurists = ({jurists}) => {
 
-    // const jurists = useSelector(state => state.digesta.jurists)
     const navigate = useNavigate()
     const onOptionChangeHandler = (event) => {
 
@@ -15,10 +12,6 @@ const DigestaTocMobileJurists = ({jurists}) => {
     return (
 
             <TocMobile onOption={onOptionChangeHandler}>
-
-
-
-
 
                 <option key={'no_jurist'} value={''}>Wybierz Jurystę</option>
 

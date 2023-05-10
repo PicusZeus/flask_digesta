@@ -11,9 +11,10 @@ const DigestaJurists = () => {
     const [jurists, setJurists] = useState([])
 
     const dispatch = useDispatch()
-    const notificationSetter = new NotificationService(dispatch)
 
     useEffect(() => {
+        const notificationSetter = new NotificationService(dispatch)
+
         const sendRequest = async () => {
             const response = await fetch(process.env.REACT_APP_BASE_API_URL + "authors")
             if (!response.ok) {
@@ -21,14 +22,13 @@ const DigestaJurists = () => {
             }
 
             return response.json()
-
         }
         sendRequest().then((response) => {
             setJurists(response)
         }).catch((error)=>{
             notificationSetter.setNotificationError('ładowanie', error.message)
         })
-    }, [notificationSetter, jurists])
+    }, [dispatch, jurists])
 
     return (
         <div className={classes.jurists_main}>

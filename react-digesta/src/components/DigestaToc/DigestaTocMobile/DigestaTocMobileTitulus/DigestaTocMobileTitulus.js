@@ -1,11 +1,9 @@
-import classes from "../DigestaTocMobileBook/DigestaTocMobileBook.module.css";
 import {useDispatch} from "react-redux";
 import {digestaActions} from "../../../../store/digesta-slice";
 import {useNavigate} from "react-router-dom";
 import TocMobile from "../../../UI/TocMobile/TocMobile";
 import {useState} from "react";
 import {useEffect} from "react";
-// import NotificationService from "../../../../services/notification.service";
 import NotificationService from "../../../../services/notification.service";
 const DigestaTocMobileTitulus = ({id}) => {
     const [leges, setLeges] = useState([])
@@ -36,10 +34,7 @@ const DigestaTocMobileTitulus = ({id}) => {
         navigate(event.target.value)
 
     }
-    // let leges = props.leges
-    // if (leges) {
-    //     leges = props.leges.leges
-    // }
+
     return (
         <>
 

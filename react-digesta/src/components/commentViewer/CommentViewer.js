@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useDispatch} from "react-redux";
 
 import NewComment from "../newComment/NewComment";
@@ -10,21 +10,12 @@ import {authActions} from "../../store/auth-slice";
 import {uiActions} from "../../store/ui-slice";
 import Confirmation from "../UI/confirmation/Confirmation";
 import classes from './CommentViewer.module.css'
-import {current} from "@reduxjs/toolkit";
 
 const CommentViewer = (props) => {
     const [likes, setLikes] = useState(props.comment.likes.length)
     const user_id = tokenService.getUserId()
-    // console.log(user_id, props.comment.likes, )
     const [liked, setLiked] = useState(false)
-    useEffect(()=>{
-        // console.log(props.comment.likes.filter(like=>(like.user_id === parseInt(user_id))))
-        if (props.comment.likes.filter(like=>(like.user_id === parseInt(user_id))).length > 0)
-        {
-            setLiked(true)
-            // console.log('TRUE', comment)
-        }
-    }, [props.comment.likes, user_id])
+
     const [deleteDialog, setDeleteDialog] = useState(false)
     const [editOn, setEditOn] = useState(false)
     const dispatch = useDispatch()
@@ -33,12 +24,18 @@ const CommentViewer = (props) => {
     const comment_id = comment.id
     const [isReplying, setIsReplaying] = useState(false)
     const props_replies = props.replies
-
-
     const token = tokenService.getLocalAccessToken()
     const refresh_token = tokenService.getLocalRefreshToken()
 
     const commentText = useRef(comment)
+
+    useEffect(()=>{
+        if (props.comment.likes.filter(like=>(like.user_id === parseInt(user_id))).length > 0)
+        {
+            setLiked(true)
+        }
+    }, [props.comment.likes, user_id])
+
     useEffect(() => {
         if (props_replies) {
             setReplies(props_replies)
@@ -177,13 +174,11 @@ const CommentViewer = (props) => {
     const day = [date.getDay(), date.getMonth(), date.getFullYear()].map(t => leadingZero(t)).join('.')
     const commentCreated = `${day} ${hour}`
 
-    // console.log(commentCreated)
     function adjustHeight(event) {
         const el = event.target
         el.style.height = (el.scrollHeight > el.clientHeight) ? (el.scrollHeight) + "px" : "60px";
     }
 
-    console.log(comment)
     return (<>
         {deleteDialog && <Confirmation cancelAction={() => setDeleteDialog(false)} title="" message=""
                                        confirmAction={() => deleteCommentHandler(props.c_id, token)}/>}

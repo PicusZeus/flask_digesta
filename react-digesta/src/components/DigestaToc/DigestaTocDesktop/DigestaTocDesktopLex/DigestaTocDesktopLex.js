@@ -1,4 +1,4 @@
-import {NavLink, useParams} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import classes from "./DigestaTocDesktopLex.module.css"
 
 const DigestaTocDesktopLex = ({address, lex, legesLength, path}) => {
@@ -7,9 +7,7 @@ const DigestaTocDesktopLex = ({address, lex, legesLength, path}) => {
     const comp = (a, b) => { return parseInt(a.key) - parseInt(b.key) }
     paragraphi.sort(comp)
     paragraphi.pop()
-    // const params = useParams()
     const lexUrl = `${path}${lex.id}`
-    // console.log(params, lex.id)
     const tocLineClasses = [classes.lex__line]
     if (legesLength === 1) {
         tocLineClasses.push(classes.lex__line_single_lex)

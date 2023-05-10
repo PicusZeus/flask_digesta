@@ -17,11 +17,6 @@ class CommentModel(db.Model):
     reply_to_comment = db.relationship('CommentModel', remote_side=[id], back_populates='replies')
     replies = db.relationship("CommentModel", back_populates='reply_to_comment', cascade="all, delete")
     likes = db.relationship("LikeModel", cascade="all, delete")
-# class TagModel(db vc.Model):
-#     __tablename__ = "tags"
-#
-#     id = db.Column(db.Integer, primary_key=True)
-#     emoji = db.Column(db.File)
 
 
 class LikeModel(db.Model):

@@ -1,6 +1,6 @@
 import {json, useLoaderData} from "react-router-dom";
 import CommentViewer from "../commentViewer/CommentViewer";
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import NewComment from "../newComment/NewComment";
 import tokenService from "../../services/token.service";
@@ -51,14 +51,18 @@ const DigestaParagraphusViewer = (props) => {
         newComment = <NewComment type="Skomentuj!" paragraphus={paragraphus} addNewComment={addNewCommentHandler}/>
     }
 
-
-    const headers = useMemo(() => (
-        {"Content-Type": "application/json"}
-
-    ), [username])
-    // console.log(headers, token, 'HEADERS')
-
+    console.log('PARAGRAPHUS VIEWER')
+    // const headers = useMemo(() => (
+    //     {"Content-Type": "application/json"}
+    //
+    // ), [username])
+    // const headers = {
+    //     "Content-Type": "application/json"
+    // }
     useEffect(() => {
+        const headers = {
+            "Content-Type": "application/json"
+        }
         if (token !== "EXPIRED" && token) {
             headers['Authorization'] = "Bearer " + token
         }
@@ -89,7 +93,7 @@ const DigestaParagraphusViewer = (props) => {
 
 
         })
-    }, [token, dispatch, refresh_token, paragraphus, headers, username, rerender])
+    }, [token, dispatch, refresh_token, paragraphus, username, rerender])
 
     return (
         <>

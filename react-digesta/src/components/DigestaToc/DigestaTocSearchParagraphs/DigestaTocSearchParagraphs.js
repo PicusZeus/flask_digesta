@@ -16,7 +16,6 @@ const DigestaTocSearchParagraphs = ({paragraphi, searchedTerm, lang}) => {
 
     const sortByDigestaHandler = () => {
         setParagraphiSorted(paragraphi)
-        // paragraphiSorted = [...paragraphi]
     }
     let paragraphs = paragraphi
     if (paragraphiSorted) {paragraphs = paragraphiSorted}

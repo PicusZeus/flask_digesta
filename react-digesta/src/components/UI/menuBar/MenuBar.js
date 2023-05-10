@@ -24,7 +24,6 @@ const MenuBar = () => {
     const registering = useSelector((state) => state.ui.registering)
     const notification = useSelector(state => state.ui.notification)
     const commentedParagraphi = useSelector(state => state.auth.commentedParagraphi)
-
     const token = tokenService.getLocalAccessToken()
 
     const logingToggleHandler = () => {

@@ -4,15 +4,11 @@ import Main from "./routes/main/Main";
 import DigestaJurists from "./routes/digesta_JURIST/DigestaJurists/DigestaJurists";
 import DigestaTrad from "./routes/digesta_TRAD/DigestaTrad";
 import DigestaLookUp from "./routes/digesta_LOOKUP/DigestaLookUp";
-// import React, {useEffect} from "react";
-// import {loadJurists} from "./store/digesta-actions";
-// import {useDispatch} from "react-redux";
 import DigestaJurist from "./routes/digesta_JURIST/DigestaJurist/DigestaJurist";
 import DigestaJuristDigesta, {
     loader as juristLexLoader
 } from "./routes/digesta_JURIST/DigestaJuristDigesta/DigestaJuristDigesta";
 import ErrorPage from "./routes/Error/ErrorPage";
-// import {action as searchTextAction} from "./routes/digesta_LOOKUP/DigestaLookUp"
 import DigestaLexViewer, {loader as lexLoader} from "./components/DigestaLexViewer/DigestaLexViewer";
 import DigestaJuristOpera, {
     loader as digestaJuristOperaLoader

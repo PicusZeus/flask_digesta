@@ -3,7 +3,6 @@ import classes from "./DigestaTocDesktopOpera.module.css"
 
 const DigestaTocDesktopOpera = ({opera, lexPath}) => {
 
-    // console.log(lexPath)
     return (
         <div className={classes.main_toc}>
             <h4 className={classes.main_toc__title}>Prace cytowane w Digestach</h4>
