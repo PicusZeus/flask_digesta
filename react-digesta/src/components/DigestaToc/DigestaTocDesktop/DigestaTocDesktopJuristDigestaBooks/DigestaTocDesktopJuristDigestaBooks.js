@@ -10,7 +10,7 @@ const DigestaTocDesktopJuristDigestaBooks = ({books, author_id}) => {
             <h4 className={classes.main_toc__title}>Digesta Iustiniani</h4>
             <ul className={classes.main_toc__items}>
 
-                {books.map((book) => {
+                {sortedBooks.map((book) => {
                     return <DigestaTocDesktopJuristDigestaBook key={book.id} book={book} author_id={author_id}/>
 
                 })}

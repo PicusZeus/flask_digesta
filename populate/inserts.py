@@ -273,7 +273,7 @@ if __name__ == "__main__":
     #
     # insert_digesta_book(liber="LIBER TERTIUS", ksiega="KSIĘGA TRZECIA", number=3, file_name=FILE_PICKLE_LIBER_3)
     # insert_digesta_book(liber="LIBER QUARTUS", ksiega="KSIĘGA CZWARTA", number=4, file_name=FILE_PICKLE_LIBER_4)
-    #
+
     # insert_digesta_book(liber="LIBER QUINTUS", ksiega="KSIĘGA PIĄTA", number=5, file_name=FILE_PICKLE_LIBER_5)
     # insert_digesta_book(liber="LIBER SEXTUS", ksiega="KSIĘGA SZÓSTA", number=6, file_name=FILE_PICKLE_LIBER_6)
     # insert_digesta_book(liber="LIBER SEPTIMUS", ksiega="KSIĘGA SIÓDMA", number=7, file_name=FILE_PICKLE_LIBER_7)
@@ -309,21 +309,31 @@ if __name__ == "__main__":
     # insert_digesta_book(liber="LIBER TRIGESIMUS SEXTUS", ksiega="KSIĘGA TRZYDZIESTA SZÓSTA", number=36, file_name=FILE_PICKLE_LIBER_36)
     # insert_digesta_book(liber="LIBER TRIGESIMUS SEPTIMUS", ksiega="KSIĘGA TRZYDZIESTA SIÓDMA", number=37, file_name=FILE_PICKLE_LIBER_37)
     # insert_digesta_book(liber="LIBER TRIGESIMUS OCTAVUS", ksiega="KSIĘGA TRZYDZIESTA ÓSMA", number=38, file_name=FILE_PICKLE_LIBER_38)
-    insert_digesta_book(liber="LIBER TRIGESIMUS ENATUS", ksiega="KSIĘGA TRZYDZIESTA DZIEWIĄTA", number=39, file_name=FILE_PICKLE_LIBER_39)
-    insert_digesta_book(liber="LIBER QUADRAGESIMUS", ksiega="KSIĘGA CZTERDZIESTA", number=40, file_name=FILE_PICKLE_LIBER_40)
-    insert_digesta_book(liber="LIBER QUADRAGESIMUS PRIMUS", ksiega="KSIĘGA CZTERDZIESTA PIERWSZA", number=41, file_name=FILE_PICKLE_LIBER_41)
-    insert_digesta_book(liber="LIBER QUADRAGESIMUS SECUNDUS", ksiega="KSIĘGA CZTERDZIESTA DRUGA", number=42, file_name=FILE_PICKLE_LIBER_42)
-    insert_digesta_book(liber="LIBER QUADRAGESIMUS TERTIUS", ksiega="KSIĘGA CZTERDZIESTA TRZECIA", number=43, file_name=FILE_PICKLE_LIBER_43)
+    # insert_digesta_book(liber="LIBER TRIGESIMUS ENATUS", ksiega="KSIĘGA TRZYDZIESTA DZIEWIĄTA", number=39, file_name=FILE_PICKLE_LIBER_39)
+    # insert_digesta_book(liber="LIBER QUADRAGESIMUS", ksiega="KSIĘGA CZTERDZIESTA", number=40, file_name=FILE_PICKLE_LIBER_40)
+    # insert_digesta_book(liber="LIBER QUADRAGESIMUS PRIMUS", ksiega="KSIĘGA CZTERDZIESTA PIERWSZA", number=41, file_name=FILE_PICKLE_LIBER_41)
+    # insert_digesta_book(liber="LIBER QUADRAGESIMUS SECUNDUS", ksiega="KSIĘGA CZTERDZIESTA DRUGA", number=42, file_name=FILE_PICKLE_LIBER_42)
+    # insert_digesta_book(liber="LIBER QUADRAGESIMUS TERTIUS", ksiega="KSIĘGA CZTERDZIESTA TRZECIA", number=43, file_name=FILE_PICKLE_LIBER_43)
+    #
+    # insert_digesta_book(liber="LIBER QUADRAGESIMUS QUARTUS", ksiega="KSIĘGA CZTERDZIESTA CZWARTA", number=44, file_name=FILE_PICKLE_LIBER_44)
+    # insert_digesta_book(liber="LIBER QUADRAGESIMUS QUINTUS", ksiega="KSIĘGA CZTERDZIESTA PIĄTA", number=45, file_name=FILE_PICKLE_LIBER_45)
+    # insert_digesta_book(liber="LIBER QUADRAGESIMUS SEXTUS", ksiega="KSIĘGA CZTERDZIESTA SZÓSTA", number=46, file_name=FILE_PICKLE_LIBER_46)
+    # insert_digesta_book(liber="LIBER QUADRAGESIMUS SEPTIMUS", ksiega="KSIĘGA CZTERDZIESTA SIÓDMA", number=47, file_name=FILE_PICKLE_LIBER_47)
+    # insert_digesta_book(liber="LIBER QUADRAGESIMUS OCTAVUS", ksiega="KSIĘGA CZTERDZIESTA ÓSMA", number=48, file_name=FILE_PICKLE_LIBER_48)
+    # insert_digesta_book(liber="LIBER QUADRAGESIMUS ENATUS", ksiega="KSIĘGA CZTERDZIESTA DZIEWIĄTA", number=49, file_name=FILE_PICKLE_LIBER_49)
+    # insert_digesta_book(liber="LIBER QUINQUAGESIMUS", ksiega="KSIĘGA PIĘĆDZIESIĄTA", number=50, file_name=FILE_PICKLE_LIBER_50)
+    # book38 = DigestaBookModel.query.filter_by(book_nr=38).first()
+    # db.session.delete(book38)
+    # db.session.commit()
+    # insert_digesta_book(liber="LIBER TRIGESIMUS OCTAVUS", ksiega="KSIĘGA TRZYDZIESTA ÓSMA", number=38, file_name=FILE_PICKLE_LIBER_38)
 
-    insert_digesta_book(liber="LIBER QUADRAGESIMUS QUARTUS", ksiega="KSIĘGA CZTERDZIESTA CZWARTA", number=44, file_name=FILE_PICKLE_LIBER_44)
-    insert_digesta_book(liber="LIBER QUADRAGESIMUS QUINTUS", ksiega="KSIĘGA CZTERDZIESTA PIĄTA", number=45, file_name=FILE_PICKLE_LIBER_45)
-    insert_digesta_book(liber="LIBER QUADRAGESIMUS SEXTUS", ksiega="KSIĘGA CZTERDZIESTA SZÓSTA", number=46, file_name=FILE_PICKLE_LIBER_46)
-    insert_digesta_book(liber="LIBER QUADRAGESIMUS SEPTIMUS", ksiega="KSIĘGA CZTERDZIESTA SIÓDMA", number=47, file_name=FILE_PICKLE_LIBER_47)
-    insert_digesta_book(liber="LIBER QUADRAGESIMUS OCTAVUS", ksiega="KSIĘGA CZTERDZIESTA ÓSMA", number=48, file_name=FILE_PICKLE_LIBER_48)
-    insert_digesta_book(liber="LIBER QUADRAGESIMUS ENATUS", ksiega="KSIĘGA CZTERDZIESTA DZIEWIĄTA", number=49, file_name=FILE_PICKLE_LIBER_49)
-    insert_digesta_book(liber="LIBER QUINQUAGESIMUS", ksiega="KSIĘGA PIĘĆDZIESIĄTA", number=50, file_name=FILE_PICKLE_LIBER_50)
+    par13535 = DigestaParagraphusModel.query.filter_by(id=13536).first()
+    par13537 = DigestaParagraphusModel.query.filter_by(id=13537).first()
 
-
+    db.session.delete(par13535)
+    db.session.delete(par13537)
+    db.session.commit()
+    insert_digesta_book(liber="LIBER TRIGESIMUS OCTAVUS", ksiega="KSIĘGA TRZYDZIESTA ÓSMA", number=38, file_name=FILE_PICKLE_LIBER_38)
 
 
 

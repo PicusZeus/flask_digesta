@@ -11,7 +11,7 @@ class CommentModel(db.Model):
     user = db.relationship("UserModel", back_populates="comments")
     private = db.Column(db.Boolean)
     date = db.Column(db.DateTime, nullable=False)
-    paragraphus_id = db.Column(db.Integer, db.ForeignKey('digesta_paragraphi.id'), nullable=False)
+    paragraphus_id = db.Column(db.Integer, db.ForeignKey('digesta_paragraphi.id', ondelete="CASCADE"), nullable=False)
     paragraphus = db.relationship("DigestaParagraphusModel", back_populates='comments')
     reply_to_comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'), nullable=True)
     reply_to_comment = db.relationship('CommentModel', remote_side=[id], back_populates='replies')

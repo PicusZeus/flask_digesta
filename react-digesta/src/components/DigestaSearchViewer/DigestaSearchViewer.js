@@ -22,7 +22,7 @@ const DigestaSearchViewer = ({paragraph, searchedTerm, lang}) => {
     for (let i = 0; i < result.length; i++) {
         if (i < result.length - 1) {
             res.push(<>{result[i]}</>)
-            res.push(<b className={classes.found_item__match}>{searchedTerm.toUpperCase()}</b>)
+            res.push(<b key={i} className={classes.found_item__match}>{searchedTerm.toUpperCase()}</b>)
         } else {
             res.push(<>{result[i]}</>)
         }

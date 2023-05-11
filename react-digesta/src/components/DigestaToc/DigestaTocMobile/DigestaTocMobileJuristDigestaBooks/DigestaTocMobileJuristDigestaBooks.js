@@ -4,7 +4,8 @@ import DigestaTocMobileJuristDigestaBook from "../DigestaTocMobielJuristDigestaB
 
 const DigestaTocMobileJuristDigestaBooks = ({books, author_id}) => {
     const [book_id, setBookId] = useState(false)
-
+    const sortedBooks = [...books]
+    sortedBooks.sort((a, b) => {return a.book_nr - b.book_nr})
     const onOptionChangeHandler = (event) => {
         const book_id = event.target.value
         setBookId(book_id)
@@ -14,7 +15,7 @@ const DigestaTocMobileJuristDigestaBooks = ({books, author_id}) => {
 
             <TocMobile onOption={onOptionChangeHandler}>
                 <option value={''}>Wybierz księgę</option>
-                {books.map(book => (<option key={book.id} value={book.id}>{book.book_latin_name}</option>))}
+                {sortedBooks.map(book => (<option key={book.id} value={book.id}>{book.book_latin_name}</option>))}
                 })}
             </TocMobile>
 

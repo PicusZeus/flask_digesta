@@ -59,7 +59,6 @@ const NewComment = (props) => {
                 const data = response
                 notificationSetter.setNotificationSuccess("komentarz", "komentarz zamieszczony")
                 props.addNewComment(data)
-                console.log(data.paragraphus, "PARAGRAPHUS")
                 if (props.onClose) {
                     props.onClose()
                 }

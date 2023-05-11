@@ -25,7 +25,14 @@ class TokenService {
     }
 
     updateCommentedParagraphi(newParagraphi) {
-        localStorage.setItem("commented_paragraphi", JSON.stringify(newParagraphi))
+        if (newParagraphi) {
+            localStorage.setItem("commented_paragraphi", JSON.stringify(newParagraphi))
+
+        }
+        else {
+            localStorage.setItem("commented_paragraphi", JSON.stringify([]))
+
+        }
     }
 
     getCommentedParagraphi() {

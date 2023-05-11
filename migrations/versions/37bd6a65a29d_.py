@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 2fe744c8d0f3
+Revision ID: 37bd6a65a29d
 Revises: 
-Create Date: 2023-05-10 10:14:59.144616
+Create Date: 2023-05-11 17:08:25.351950
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2fe744c8d0f3'
+revision = '37bd6a65a29d'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -54,7 +54,7 @@ def upgrade():
     sa.Column('title_lat', sa.String(length=256), nullable=False),
     sa.Column('title_pl', sa.String(length=256), nullable=False),
     sa.Column('book_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['book_id'], ['digesta_books.id'], ),
+    sa.ForeignKeyConstraint(['book_id'], ['digesta_books.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('number', 'book_id')
     )
@@ -85,7 +85,7 @@ def upgrade():
     sa.Column('opus_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['author_id'], ['authors.id'], ),
     sa.ForeignKeyConstraint(['opus_id'], ['libri.id'], ),
-    sa.ForeignKeyConstraint(['titulus_id'], ['digesta_tituli.id'], ),
+    sa.ForeignKeyConstraint(['titulus_id'], ['digesta_tituli.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('lex_nr', 'titulus_id')
     )
@@ -95,7 +95,7 @@ def upgrade():
     sa.Column('text_lat', sa.Text(), nullable=False),
     sa.Column('text_pl', sa.Text(), nullable=False),
     sa.Column('lex_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['lex_id'], ['digesta_leges.id'], ),
+    sa.ForeignKeyConstraint(['lex_id'], ['digesta_leges.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('key', 'lex_id')
     )
@@ -107,7 +107,7 @@ def upgrade():
     sa.Column('date', sa.DateTime(), nullable=False),
     sa.Column('paragraphus_id', sa.Integer(), nullable=False),
     sa.Column('reply_to_comment_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['paragraphus_id'], ['digesta_paragraphi.id'], ),
+    sa.ForeignKeyConstraint(['paragraphus_id'], ['digesta_paragraphi.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['reply_to_comment_id'], ['comments.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')

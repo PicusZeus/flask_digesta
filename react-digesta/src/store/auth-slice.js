@@ -22,7 +22,11 @@ const authSlice = createSlice({
 
 
             setCommentedParagraphi(state, action) {
-                state.commentedParagraphi = action.payload
+                if (action.payload)
+                {state.commentedParagraphi = action.payload}
+                else {
+                    state.commentedParagraphi = []
+                }
             },
 
             resetToken(state) {
