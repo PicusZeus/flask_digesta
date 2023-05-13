@@ -6,11 +6,16 @@
 
 .main_toc__title {
     margin-top: 0;
-    padding-top: 1rem
+    padding-top: 1rem;
+    /*border-bottom: 1px solid black;*/
 }
 
 .main_toc__items {
     list-style: none;
     padding-left: 0;
     text-align: left;
+
+}
+.main_toc__items > li:first-of-type {
+   border-top: 1px solid black;
 }

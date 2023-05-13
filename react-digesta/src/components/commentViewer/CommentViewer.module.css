@@ -88,9 +88,14 @@
 }
 
 .comment_item__replies {
+    margin-top: 1rem;
     list-style: none;
     padding-left:2rem;
     margin-right: 0.5rem;
+}
+
+.comment_item__actions button:hover {
+    cursor: pointer;
 }
 /*.comment_item__actions button {*/
 /*    padding: 0.2rem;*/

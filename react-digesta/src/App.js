@@ -18,7 +18,7 @@ import DigestaParagraphusViewer, {
     loader as paragraphusLoader
 } from "./components/DigestaParagraphusViewer/DigestaParagraphusViewer";
 import {loader as juristLoader} from "./routes/digesta_JURIST/DigestaJurist/DigestaJurist";
-
+import {loader as digestaLoader} from "./routes/digesta_TRAD/DigestaTrad";
 const router = createBrowserRouter(
     [
         {
@@ -123,6 +123,7 @@ const router = createBrowserRouter(
                 {
                     path: '/digesta',
                     element: <DigestaTrad/>,
+                    loader: digestaLoader,
                     children: [
                         {
                             path: ':lex_id',

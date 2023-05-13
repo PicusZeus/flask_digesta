@@ -1,8 +1,28 @@
 .main_toc__book {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     font-size: 1.2rem;
-    background: rgba(0, 0, 0, 0.1);
-    width: 80%;
+    /*background: rgba(0, 0, 0, 0.1);*/
+    /*width: 80%;*/
+    text-align: left;
+    /*padding: 0.5rem;*/
+    /*background: #a0d8ef;*/
+    /*margin: 0 0 0 97%;*/
+    position: relative;
+    height: 3rem;
+    width: 11rem;
+    border: 5px solid #942343;
+    /*margin-left: 42vw;*/
+    border-radius: 10px 0 0 10px;
+    border-right-style: none;
+    background: #fffff0;
+    padding: 0.1rem;
+
+}
+
+.bookCut {
+ /*background: #a0d8ef;*/
+  /*margin: 0 0 0 97%;*/
+  margin-left: 2rem;
 }
 
 .main_toc__book:hover, .main_toc__book:active {
@@ -15,6 +35,10 @@
     position: relative;
 }
 
+.main_toc__tituli_items > li:last-child {
+    /*background: black;*/
+    margin-bottom: 1rem;
+}
 
 
 .main_toc__tituli_items {
@@ -34,4 +58,8 @@
 
 .main_toc__tituli_items li:first-child > div:first-of-type {
     display: block;
+}
+
+.main_toc__tituli_items li:only-child > div:first-of-type {
+    height: 2rem;
 }

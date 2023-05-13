@@ -1,22 +1,25 @@
 import {useRouteError} from "react-router-dom";
 import MenuBar from "../../components/UI/menuBar/MenuBar";
 import Footer from "../../components/UI/footer/Footer";
-
+import classes from "./ErrorPage.module.css"
 const ErrorPage = () => {
     const error = useRouteError()
     const errorCode = error.status
     let message
-    if (error.message) {
-        message = error.message
+    console.log(error)
+    if (error.data.message) {
+        message = error.data.message
     }
 
     return (
         <>
             <MenuBar/>
-            <section>
-                <h2>Coś poszło nie tak</h2>
-                <h1>{errorCode}</h1>
+            <section className={classes.main_error}>
+                <h1 className={classes.main_error__title}>Coś poszło nie tak</h1>
+
                 <h2>{message}</h2>
+                <h3>Kod błędu {errorCode}</h3>
+
 
             </section>
 

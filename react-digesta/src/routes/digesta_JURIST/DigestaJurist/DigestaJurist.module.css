@@ -1,6 +1,4 @@
-.main_jurist {
-    /*width: 100%;*/
-}
+
 
 .main_jurist__redirections {
     display: flex;
@@ -15,13 +13,10 @@
 }
 
 .main_jurist__redirections button {
-    /*padding: 0.4rem;*/
-    /*margin: 0.6rem;*/
     background-color: rgba(255,255, 255, 0.8);
     border-radius: 10px;
     font-weight: bold;
     font-size: 1rem;
-    /*flex-grow: 1;*/
     height: 100%;
     width: 100%;
 

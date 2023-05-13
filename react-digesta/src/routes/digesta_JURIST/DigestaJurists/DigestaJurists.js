@@ -6,6 +6,7 @@ import DigestaTocDesktopJurists
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import NotificationService from "../../../services/notification.service";
+import api from "../../../api/api";
 
 const DigestaJurists = () => {
     const [jurists, setJurists] = useState([])
@@ -15,18 +16,14 @@ const DigestaJurists = () => {
     useEffect(() => {
         const notificationSetter = new NotificationService(dispatch)
 
-        const sendRequest = async () => {
-            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "authors")
-            if (!response.ok) {
-                throw new Error('Błąd serwera')
-            }
 
-            return response.json()
+        const sendRequest = async () => {
+            return await api.get("authors")
         }
         sendRequest().then((response) => {
-            setJurists(response)
+            setJurists(response.data)
         }).catch((error)=>{
-            notificationSetter.setNotificationError('ładowanie', error.message)
+            notificationSetter.setNotificationError('Ładowanie spisu jurystów nie powiodło się', error.message)
         })
     }, [dispatch, jurists])
 

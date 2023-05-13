@@ -6,6 +6,7 @@ const initialState = {
     jurists: null,
     opera: null,
     chosenBookId: false,
+
     chosenTitulusId: false,
     chosenLexId: false,
     chosenParagraphKey: false,
@@ -24,6 +25,7 @@ const digestaSlice = createSlice({
             setFoundParagraphi(state, action) {
               state.foundParagraphi = action.payload
             },
+
             setSearchedTerm(state, action) {
                 state.searchedTerm = action.payload
             },

@@ -54,7 +54,7 @@
     }
     .trad_main__desktop_toc {
         display: block;
-        width: 15rem;
+        width: 17rem;
         position: fixed;
         overflow-y: scroll;
         height: calc(100% - 4rem);
@@ -63,7 +63,7 @@
 
     .trad_main__outlet {
         /*flex-grow: 1;*/
-        margin-left: 15rem;
+        margin-left: 17rem;
     }
 
     .trad_main__title {

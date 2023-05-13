@@ -8,10 +8,12 @@ const DigestaTocDesktopOpus = ({opus, lexPath}) => {
         setMenuLibriOpen((current) => !current)
     }
     const libriLength = opus.libri.length
+
+    const singleBook = opus.libri.length === 1 && opus.libri[0].liber === "0"
     return (
         <li>
             <button className={classes.main_toc__opus} onClick={openOpusHandler}>
-                <p>{opus.title_lat}</p><p>{opus.author.name}</p>
+                <p>{!singleBook ? "Libri" : "Liber"} {opus.title_lat}</p><p>{opus.author.name}</p>
             </button>
 
             {menuLibriOpen && <div className={classes.main_toc__libri}>

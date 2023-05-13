@@ -52,9 +52,9 @@ const DigestaTocDesktopOpusLiber = ({liber, libriLength, lexPath}) => {
 
             </div>
             {openLegesMenu && leges && <div className={classes.liber__leges_group}>
-                <div>&nbsp;</div>
-
-                <ul>
+                {/*<div>&nbsp;</div>*/}
+                {/*<div>{leges.length}</div>*/}
+                <ul className={classes.liber__leges_group__items}>
                     {leges.map(lex => {
                         const address = `D.${lex.titulus.book.book_nr}.${lex.titulus.number}.${lex.lex_nr}`
                         return (< DigestaTocDesktopLex

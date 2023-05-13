@@ -9,8 +9,8 @@ const DigestaTocSearchParagraphs = ({paragraphi, searchedTerm, lang}) => {
     const sortByAuthorHandler = () => {
         const sorted = [...paragraphi]
         sorted.sort((a, b) => (
-        a.lex.author.name.localeCompare(b.lex.author.name)
-    ));
+            a.lex.author.name.localeCompare(b.lex.author.name)
+        ));
         setParagraphiSorted(sorted)
     }
 
@@ -18,18 +18,25 @@ const DigestaTocSearchParagraphs = ({paragraphi, searchedTerm, lang}) => {
         setParagraphiSorted(paragraphi)
     }
     let paragraphs = paragraphi
-    if (paragraphiSorted) {paragraphs = paragraphiSorted}
+    if (paragraphiSorted) {
+        paragraphs = paragraphiSorted
+    }
 
     const results = paragraphs.map(paragraphus => (
         <DigestaSearchViewer key={paragraphus.id} paragraph={paragraphus} searchedTerm={searchedTerm} lang={lang}/>))
+
+
     return (
         <>
-            <button onClick={sortByAuthorHandler}>Posortuj według jurystów</button>
-            <button onClick={sortByDigestaHandler}>Posortuj według układu Digestów</button>
-        <ul className={classes.found_items}>
-            <h1>Szukany termin <span>{searchedTerm}</span> występuje w następujących ustawach</h1>
-            {results}
-        </ul>
+            <section className={classes.actions}>
+                <button className={classes.button} onClick={sortByAuthorHandler}>Posortuj według jurystów</button>
+                <button className={classes.button} onClick={sortByDigestaHandler}>Posortuj według układu Digestów
+                </button>
+            </section>
+            {paragraphs.length > 0 && <h1 className={classes.title}>Szukany tekst <span>- {searchedTerm} -</span> występuje {paragraphs.length} razy w następujących ustawach i paragrafach</h1>}
+            <ul className={classes.found_items}>
+                {paragraphs.length > 0 && results}
+            </ul>
         </>
 
     )

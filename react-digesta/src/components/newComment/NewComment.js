@@ -95,7 +95,7 @@ const NewComment = (props) => {
     }
 
     return (
-        <li className={classes.new_comment}>
+        <div className={classes.new_comment}>
             <form method="post" className={classes.new_comment__container}
                   onSubmit={(event) => postCommentHandler(event, newComment.current.value, token)}>
                 <div className={classes.new_comment__header}>
@@ -117,7 +117,7 @@ const NewComment = (props) => {
                 </div>
 
             </form>
-        </li>
+        </div>
     )
 }
 

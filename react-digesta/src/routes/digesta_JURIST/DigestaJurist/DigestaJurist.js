@@ -15,11 +15,17 @@ const DigestaJurist = () => {
 
     }, [juristId])
 
+    const [clicked, setClicked] = useState(false)
 
     const jurist_info = <div className={classes.main_jurist__container}>
             <div className={classes.main_jurist__info}>
                 <h1 className={classes.main_jurist__title}>{juristData.name}</h1>
                 <p className={classes.main_jurist__description}>{juristData.description}</p>
+
+                    <div>
+            <p style={clicked ? {color: "red"} : {color: "white"}}>Style me!</p>
+            <button onClick={()=>setClicked(current=>!current)}>Toggle style</button>
+        </div>
             </div>
             <div className={classes.main_jurist__redirections}>
                 <Link to={pathDigestaJurist}>

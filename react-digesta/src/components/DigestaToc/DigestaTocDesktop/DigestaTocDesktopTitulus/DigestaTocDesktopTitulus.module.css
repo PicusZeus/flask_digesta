@@ -9,6 +9,7 @@
     height: calc(100% + 2rem);
     background: black;
     position: absolute;
+    margin-left: 2rem;
 }
 
 
@@ -17,6 +18,9 @@
 .titulus_group {
     display: flex;
     position: relative;
+    margin-left: 2rem;
+    /*margin-bottom: 1rem;*/
+
 }
 
 .titulus_group > div {
@@ -27,16 +31,23 @@
     background: black;
 }
 
+
 .titulus_group > button {
     margin-top: 1rem;
-    width: 80%;
-    border: solid 2px black
+    width: 12rem;
+    /*max-width: 10rem;*/
+    border: solid 2px black;
+    word-break: break-word;
+    hyphens: auto;
 }
+
+
+
 
 .titulus__leges_group {
     display: flex;
     position: relative;
-    margin-left: 2rem;
+    margin-left: 4rem;
 }
 
 .titulus__leges_group > div {

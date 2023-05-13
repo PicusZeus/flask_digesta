@@ -1,5 +1,5 @@
 .main_jurist {
-    padding-top: 0.5rem;
+    /*padding: 0.5rem;*/
 
 }
 
@@ -9,6 +9,9 @@
     color: black;
     display: block;
     text-align: center;
+    padding: 0.5rem;
+
+    border-bottom: 1px solid black;
 }
 
 

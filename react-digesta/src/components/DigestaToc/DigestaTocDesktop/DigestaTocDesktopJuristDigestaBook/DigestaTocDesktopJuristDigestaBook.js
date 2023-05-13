@@ -1,16 +1,19 @@
 import classes from "./DigestaTocDesktopJuristDigestaBook.module.css"
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import DigestaTocDesktopJuristDigestaTitulus
     from "../DigestaTocDesktopJuristDigestaTitulus/DigestaTocDesktopJuristDigestaTitulus";
-
+import {useDispatch, useSelector} from "react-redux";
+import {digestaActions} from "../../../../store/digesta-slice";
+// import classes from "../../../UI/styling/DigestaDesktopBook/DigestaDesktopBook.module.css"
 const DigestaTocDesktopJuristDigestaBook = ({book, author_id}) => {
 
     const [bookMenuOpen, setBookMenuOpen] = useState(false)
     const [tituli, setTituli] = useState([])
-
+    const dispatch = useDispatch()
+    const chosenBookId = useSelector(state => state.digesta.chosenBookId)
     const loadTituli = () => {
            const urlLoadTituli = process.env.REACT_APP_BASE_API_URL + `digesta/tituli/author/${book.id}/${author_id}`
-
+console.log('loading')
         const sendRequest = async () => {
             const response = await fetch(urlLoadTituli)
             if (!response.ok) {
@@ -23,9 +26,19 @@ const DigestaTocDesktopJuristDigestaBook = ({book, author_id}) => {
             setTituli(response)
         }).catch((e)=>(console.log(e)))
     }
+    // console.log('done')
+
+    useEffect(() => {
+        if (book.id === chosenBookId) {
+            setBookMenuOpen(true)
+            loadTituli()
+        }
+    }, [])
 
     const openTituliHandler = () => {
-
+        if (!bookMenuOpen) {
+            dispatch(digestaActions.setChosenBookId(book.id))
+        }
         setBookMenuOpen((current)=>!current)
         if (!bookMenuOpen && tituli.length === 0) {
             loadTituli()}
@@ -34,7 +47,7 @@ const DigestaTocDesktopJuristDigestaBook = ({book, author_id}) => {
     return (
         <li>
             <button className={classes.main_toc__book}
-                    onClick={openTituliHandler}>Księga {book.book_nr} ({book.book_latin_name})
+                    onClick={openTituliHandler}><span className={classes.bookCut}>Księga {book.book_nr}</span>
             </button>
             {bookMenuOpen && <div className={classes.main_toc__tituli}>
                 <div>&nbsp;</div>

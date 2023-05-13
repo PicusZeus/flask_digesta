@@ -12,7 +12,7 @@ class NotificationService {
             message: message,
 
         }))
-        setTimeout(() => this.dispatch(uiActions.resetNotification()), 2000)
+        setTimeout(() => this.dispatch(uiActions.resetNotification()), 4000)
 
     }
 

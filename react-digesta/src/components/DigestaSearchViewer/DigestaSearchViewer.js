@@ -40,7 +40,8 @@ const DigestaSearchViewer = ({paragraph, searchedTerm, lang}) => {
                 <button className={buttonClasses.join(" ")}
                     onClick={showResultHandler}>
                     <p>D {paragraph.lex.titulus.book.book_nr}.{paragraph.lex.titulus.number}.{paragraph.lex.lex_nr}.{paragraph.key}</p>
-                    <p>{paragraph.lex.author.name}</p>
+                    <p>W tytule {paragraph.lex.titulus.title_pl}</p>
+                    <p>{paragraph.lex.address_pl}</p>
                 </button>
                 <div className={classes.found_item__texts}>
 
@@ -49,7 +50,7 @@ const DigestaSearchViewer = ({paragraph, searchedTerm, lang}) => {
 
                 </div>
 
-                {showResult && <button className={classes.found_item__redirect}><Link to={url}>Przejdź do układu Digestów</Link></button>}
+                {showResult && <button className={classes.found_item__redirect}><Link to={url}>Przejdź do widoku układu Digestów</Link></button>}
 
             </li>
 

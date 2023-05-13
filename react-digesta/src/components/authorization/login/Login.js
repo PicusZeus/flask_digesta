@@ -40,7 +40,7 @@ const Login = ({onClose}) => {
                     <button type="button" className={classes.button} onClick={onClose}>
                         Zamknij
                     </button>
-                    <button type="submit">Submit</button>
+                    <button type="submit">Prześlij</button>
                 </p>
             </form>
         </Modal>

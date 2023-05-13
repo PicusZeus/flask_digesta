@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import NewComment from "../newComment/NewComment";
 import tokenService from "../../services/token.service";
@@ -10,43 +10,38 @@ import {authActions} from "../../store/auth-slice";
 import {uiActions} from "../../store/ui-slice";
 import Confirmation from "../UI/confirmation/Confirmation";
 import classes from './CommentViewer.module.css'
+import api from "../../api/api";
 
-const CommentViewer = (props) => {
-    const [likes, setLikes] = useState(props.comment.likes.length)
+const CommentViewer = ({comment, replies, c_id, paragraphus}) => {
+    const [likes, setLikes] = useState(comment.likes.length)
     const user_id = tokenService.getUserId()
     const [liked, setLiked] = useState(false)
-
+    const rerender = useSelector(state=>state.ui.rerender)
+    // console.log(rerender)
     const [deleteDialog, setDeleteDialog] = useState(false)
     const [editOn, setEditOn] = useState(false)
     const dispatch = useDispatch()
-    const [replies, setReplies] = useState([])
-    const comment = props.comment
+    const [myReplies, setMyReplies] = useState(replies)
+
     const comment_id = comment.id
     const [isReplying, setIsReplaying] = useState(false)
-    const props_replies = props.replies
     const token = tokenService.getLocalAccessToken()
     const refresh_token = tokenService.getLocalRefreshToken()
 
     const commentText = useRef(comment)
 
-    useEffect(()=>{
-        if (props.comment.likes.filter(like=>(like.user_id === parseInt(user_id))).length > 0)
-        {
+    useEffect(() => {
+        if (comment.likes.filter(like => (like.user_id === parseInt(user_id))).length > 0) {
             setLiked(true)
         }
-    }, [props.comment.likes, user_id])
+    }, [comment.likes, user_id])
 
-    useEffect(() => {
-        if (props_replies) {
-            setReplies(props_replies)
-        }
-    }, [props_replies])
 
     const addReplyHandler = (reply) => {
-        const newReplies = [...replies]
+        const newReplies = [...myReplies]
 
         newReplies.push(reply)
-        setReplies(newReplies)
+        setMyReplies(newReplies)
     }
 
     const notificationSetter = new NotificationService(dispatch)
@@ -55,79 +50,62 @@ const CommentViewer = (props) => {
     const SaveEditedCommentHandler = (comment_id, token, newText) => {
         // console.log(user_id, newText.current.value, token)
 
-        const editComment = async () => {
-            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "comment/" + comment_id, {
-                method: "PUT", headers: {
-                    "Content-Type": "application/json", Authorization: "Bearer " + token
+        const sendRequest = async () => {
+            return await api.put(`comment/${comment_id}`,
+                {
+                    comment: newText.current.value
                 },
-                body: JSON.stringify({
-
-                    "comment": newText.current.value
-
-                })
-            })
-            if (response.status === 401) {
-                throw new Error('unauthorized')
-            }
-
-            const data = await response.json()
-            return data
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }
+                }
+            )
         }
 
-        editComment().then((response) => {
-            if (response.status === 200) {
-                notificationSetter.setNotificationSuccess("komentarz", "komentarz został zmodyfikowany")
+        sendRequest().then((response) => {
+            notificationSetter.setNotificationSuccess("komentarz", "komentarz został zmodyfikowany")
+            dispatch(refreshToken(refresh_token))
+            setEditOn(false)
 
-                dispatch(refreshToken(refresh_token))
-            } else if (response.status === 204) {
-                notificationSetter.setNotificationError("komentarz", "błąd autoryzacji")
-            }
         }).catch((e) => {
-            if (e.message === "unauthorised") {
+            if (e.response.status === 403) {
                 dispatch(logout(token))
-                notificationSetter.setNotificationError("komentarz", "zaloguj się ponownie")
+                notificationSetter.setNotificationError("Błąd", "Błąd autoryzacji: zaloguj się ponownie")
             } else {
-                notificationSetter.setNotificationError("komentarz", "błąd serwera")
-
+                notificationSetter.setNotificationError("Błąd", "Błąd serwera")
             }
 
         })
-
     }
 
 
     const deleteCommentHandler = (comment_id, token) => {
-        const deleteComment = async () => {
-            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "comment/" + comment_id, {
-                method: "DELETE", headers: {
-                    "Content-Type": "application/json", Authorization: "Bearer " + token
+        const sendRequest = async () => {
+            return await api.delete(`comment/${comment_id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
                 }
             })
-            if (response.status === 401) {
-                throw new Error('unauthorized')
-            }
-
-            const data = await response.json()
-            return data
         }
 
-        deleteComment().then((response) => {
-            if (response.status === 200) {
-                notificationSetter.setNotificationSuccess("komentarz", "komentarz usunięty")
-                dispatch(uiActions.rerender())
-                const commentedParagraphi = response.commentedParagraphi
-                dispatch(authActions.setCommentedParagraphi(commentedParagraphi))
-                tokenService.updateCommentedParagraphi(commentedParagraphi)
-                dispatch(refreshToken(refresh_token))
-            } else if (response.status === 204) {
-                notificationSetter.setNotificationError("komentarz", "błąd autoryzacji")
-            }
+
+        sendRequest().then((response) => {
+            notificationSetter.setNotificationSuccess("Sukces", "komentarz usunięty")
+            dispatch(authActions.setCommentedParagraphi(response.data.commentedParagraphi))
+            setDeleteDialog(false)
+            tokenService.updateCommentedParagraphi(response.data.commentedParagraphi)
+            dispatch(uiActions.rerender())
+            dispatch(refreshToken(refresh_token))
+
         }).catch((e) => {
-            if (e.message === "unauthorised") {
+            if (e.response.status === 403) {
                 dispatch(logout(token))
-                notificationSetter.setNotificationError("komentarz", "zaloguj się ponownie")
+                notificationSetter.setNotificationError("Błąd", "Błąd autoryzacji")
             } else {
-                notificationSetter.setNotificationError("komentarz", "błąd serwera")
+                notificationSetter.setNotificationError("Błąd", "Błąd serwera")
 
             }
 
@@ -144,34 +122,32 @@ const CommentViewer = (props) => {
             setLikes((current) => current + 1)
         }
         const likeComment = async () => {
-            const response = await fetch(process.env.REACT_APP_BASE_API_URL + 'like', {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json", Authorization: "Bearer " + token
 
-                    },
-                body: JSON.stringify({
-                    comment_id: comment.id
-                })
+            return await api.post("like", {
+                comment_id: comment_id
+            },{
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
                 }
-            )
-
-            return response;
+            })
         }
         if (token) {
-            likeComment().then((response) =>
-                console.log('success')
+            likeComment().then(
+                // notificationSetter.setNotificationSuccess("Sukces", "Komentarz polubiony")
             ).catch((e) =>
-                console.log(e))
+                notificationSetter.setNotificationError("Błąd", "Błąd autoryzacji"))
         }
 
 
     }
 
     const date = new Date(comment.date)
+
+    const timeLocal = new Date(date.getTime() - date.getTimezoneOffset() * 60 * 1000)
     const leadingZero = (num) => `0${num}`.slice(-2);
-    const hour = [date.getHours(), date.getMinutes()].map((t) => leadingZero(t)).join(':')
-    const day = [date.getDay(), date.getMonth(), date.getFullYear()].map(t => leadingZero(t)).join('.')
+    const hour = [timeLocal.getHours(), timeLocal.getMinutes()].map((t) => leadingZero(t)).join(':')
+    const day = [timeLocal.getDate(), timeLocal.getMonth() + 1, timeLocal.getFullYear()].map(t => leadingZero(t)).join('.')
     const commentCreated = `${day} ${hour}`
 
     function adjustHeight(event) {
@@ -181,7 +157,7 @@ const CommentViewer = (props) => {
 
     return (<>
         {deleteDialog && <Confirmation cancelAction={() => setDeleteDialog(false)} title="" message=""
-                                       confirmAction={() => deleteCommentHandler(props.c_id, token)}/>}
+                                       confirmAction={() => deleteCommentHandler(c_id, token)}/>}
         <li className={classes.comment_item}>
             <div className={classes.comment_item__header}>
                 <div className={classes.comment_item__header_info}>
@@ -223,7 +199,7 @@ const CommentViewer = (props) => {
 
 
                     {isReplying && <NewComment type="Odpowiedz!" onClose={() => setIsReplaying(false)}
-                                               paragraphus={props.paragraphus}
+                                               paragraphus={paragraphus}
                                                repliedId={comment_id}
                                                addNewComment={addReplyHandler}/>}
                 </div>
@@ -231,12 +207,12 @@ const CommentViewer = (props) => {
             <ul className={classes.comment_item__replies}>
 
 
-                {replies.map((reply) => (<CommentViewer key={reply.id}
-                                                        c_id={reply.id}
-                                                        paragraphus={props.paragraphus}
-                                                        comment={reply}
-                                                        type="Odpowiedz!"
-                                                        replies={reply.replies}
+                {myReplies.map((reply) => (<CommentViewer key={reply.id}
+                                                          c_id={reply.id}
+                                                          paragraphus={paragraphus}
+                                                          comment={reply}
+                                                          type="Odpowiedz!"
+                                                          replies={reply.replies}
                 />))}
 
             </ul>

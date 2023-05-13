@@ -19,9 +19,8 @@ const DigestaLexViewer = (props) => {
             navigate(paragraphId.id.toString())
         }
     }
-
+    const linkToAuthorOpera = `/jurysci/${lex.author.id}/opera/${lex.author.id}`
     const linkAuthor = "/jurysci/" + lex.author.id
-    const linkOpus = '/opera/' + lex.opus.id
     const ksiega = "Księga " + lex.opus.liber.toString()
     const address = "D " + lex.titulus.book.book_nr + '.' + lex.titulus.number + '.' + lex.lex_nr
     // const address = 'to do'
@@ -47,7 +46,7 @@ const DigestaLexViewer = (props) => {
             </div>
             <div className={classes.main_lex__redirections}>
                 <button><Link to={linkAuthor}>{lex.author.name}</Link></button>
-                <button><Link to={linkOpus}><span>{parseInt(lex.opus.liber) > 0 ? ksiega : null}</span><span> {lex.opus.opus.title_pl}</span></Link></button>
+                <button><Link to={linkToAuthorOpera}><span>{parseInt(lex.opus.liber) > 0 ? ksiega : null}</span><span> {lex.opus.opus.title_pl}</span></Link></button>
             </div>
             <DigestaParagraphusViewer paragraphus={paragraphiDic['pr']}/>
             {paragraphiKeys.length > 1 &&

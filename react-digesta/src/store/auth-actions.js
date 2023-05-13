@@ -3,61 +3,54 @@ import {authActions} from "./auth-slice";
 import TokenService from "../services/token.service";
 import tokenService from "../services/token.service";
 import NotificationService from "../services/notification.service";
+import api from "../api/api";
+import notificationService from "../services/notification.service";
 
 export const logout = (token) => {
     return async (dispatch) => {
         const notificationSetter = new NotificationService(dispatch)
 
-        const loggingOut = async () => {
-            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "logout", {
-                headers: {Authorization: "Bearer " + token, "Content-Type": "application-json"}
-            })
+        const sendRequest = async () => {
 
-            if (response.status !== 401 && !response.ok) {
-
-                throw new Error('błąd serwera')
-            }
+            return await api.get('logout', {
+                headers: {
+                    Authorization: "Bearer " + token,
+                    "Content-Type": "application/json"
+                }
+            });
         };
-
-        try {
-            await loggingOut()
+        sendRequest().then(response => {
             notificationSetter.setNotificationSuccess("wylogowane", "Wylogowanie się powiodło")
-
             tokenService.removeUser()
-
             dispatch(authActions.resetToken())
-            setTimeout(() => dispatch(uiActions.resetNotification()), 2000)
-        } catch (error) {
+
+        }).catch(error => {
             notificationSetter.setNotificationError("Coś poszło nie tak", "Błąd przy wylogowaniu")
-        }
+
+        })
+
     }
 }
 
 export const refreshToken = (refresh_token) => {
     return async (dispatch) => {
+        const notificationSetter = new notificationService(dispatch)
         const sendRequest = async () => {
-            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "refresh", {
-                method: "post",
+            return await api.post("refresh", {},{
                 headers: {
-                    "Content-Type": "application-json",
-                    Authorization: "Bearer " + refresh_token
+                    Authorization: "Bearer " + refresh_token,
+                    "Content-Type": "application/json"
+
                 }
             })
-            const data = await response.json()
-            return data
 
         }
-
-        try {
-
-            const data = await sendRequest()
-            const access_token = data.access_token
-            dispatch(authActions.setToken(access_token))
+        sendRequest().then(response => {
+            const access_token = response.data.access_token
             tokenService.updateLocalAccessToken(access_token)
-        } catch (e) {
-        }
-
-
+        }).catch(e => {
+            notificationSetter.setNotificationError('Refreshing', e.message.error)
+        })
     }
 }
 
@@ -68,43 +61,36 @@ export const loggingIn = (username, password) => {
 
         notificationSetter.setNotificationPending("wysyłam...", "Wysyłam dane do logowania")
 
-
         const sendRequest = async () => {
-            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "login",
-                {
-                    method: "POST",
-                    headers: {"Content-Type": "application/json"},
-
-                    body: JSON.stringify({
-                        username: username,
-                        password: password,
-                    }),
-                })
-
-            const data = await response.json()
-            return data
+            return await api.post("login", {
+                username: username,
+                password: password
+            }, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
 
         }
 
-        try {
-            const data = await sendRequest()
-            if (data.code === 401) {
-                notificationSetter.setNotificationError("Niepoprawne dane", "nieudane logowanie")
-
-                dispatch(uiActions.logingToggle())
-            } else {
-                notificationSetter.setNotificationSuccess("Zalogowane", "Udane logowanie")
-
-                dispatch(uiActions.logingToggle())
-                TokenService.setUser(data)
-                console.log('DISPATCH', data)
-                dispatch(authActions.setUserData(data))
+        sendRequest().then(response=>{
+            notificationSetter.setNotificationSuccess("Logowanie", "Logowanie się powiodło")
+            dispatch(uiActions.logingToggle())
+            TokenService.setUser(response.data)
+            dispatch(authActions.setUserData(response.data))
             }
-        } catch
-            (error) {
-            notificationSetter.setNotificationError("Wystąpił błąd na serwerze", "Logowanie się nie powiodło")
 
-        }
+        ).catch(e=>{
+            if (e.response.status === 401) {
+                notificationSetter.setNotificationError("Niepoprawne dane", "Nieudane logowanie")
+
+            } else {
+                notificationSetter.setNotificationError("Nieudane logowanie", "Błąd serwera")
+
+            }
+            dispatch(uiActions.logingToggle())
+        })
+
     }
 }
 
@@ -115,42 +101,34 @@ export const register = (username, password, email) => {
 
         const notificationSetter = new NotificationService(dispatch)
 
-        notificationSetter.setNotificationPending("Rejestracja przebiega...", "Wysyłam dane do rejestracji")
+        notificationSetter.setNotificationPending("Rejestracja rozpoczęta...", "Wysyłam dane do rejestracji")
 
         const sendRequest = async () => {
-            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "register",
-                {
-                    method: "POST",
-                    headers: {"Content-Type": "application/json"},
 
-                    body: JSON.stringify({
-                        username: username,
-                        password: password,
-                        email: email
-                    }),
-                })
-
-            return response;
+            return await api.post("register", {
+                username: username,
+                password: password,
+                email: email
+            }, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
 
         }
 
-        try {
-            const response = await sendRequest()
-            if (response.status === 409) {
-                notificationSetter.setNotificationError("Rejestracja się nie powiodła", "podany mail lub login są już zarejstrowane")
+        sendRequest().then(response=>{
+            notificationSetter.setNotificationSuccess("Sukces!", "Rejestracja powiodła się")
+            dispatch(uiActions.registeringToggle())
+        }).catch(e=>{
+            if (e.response.status === 409) {
+                notificationSetter.setNotificationError("Błąd", "Nazwa użytkownika lub email są już zarejestrowane")
             } else {
-                notificationSetter.setNotificationSuccess("Udało się", "Rejestracja się powiodła")
-
+                notificationSetter.setNotificationError("Błąd", "Błąd serwera")
             }
-
             dispatch(uiActions.registeringToggle())
+        })
 
 
-        } catch (error) {
-            notificationSetter.setNotificationError("Rejestracja się nie powiodła", "Błąd serwera")
-
-            dispatch(uiActions.registeringToggle())
-
-        }
     }
 }

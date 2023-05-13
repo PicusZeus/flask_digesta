@@ -5,6 +5,8 @@ import DigestaTocSearchParagraphs
 import {useDispatch, useSelector} from "react-redux";
 import NotificationService from "../../services/notification.service";
 import {digestaActions} from "../../store/digesta-slice";
+import api from "../../api/api";
+
 const DigestaLookUp = () => {
 
     const lang = useSelector(state=>state.digesta.lang)
@@ -24,38 +26,28 @@ const DigestaLookUp = () => {
         }
         const loadData = async (searched_term, lang) => {
 
-            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "digesta/" + lang, {
-                method: 'POST',
+            return await api.post(`digesta/${lang}`, {
+                searched_term: searched_term
+            }, {
                 headers: {
                     "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    searched_term: searched_term
-                })
+                }
             })
-            if (!response.ok) {
-                throw new Error()
-
-            } else {
-                const data = await response.json()
-                return data
-            }
 
         }
 
         loadData(searched_term, lang).then((response) => {
-            if (response.length > 0) {
-                notificationSetter.setNotificationSuccess("Wyszukiwanie", `Znaleziono ${response.length} wystąpień` )
-                console.log(response)
-                dispatch(digestaActions.setFoundParagraphi(response))
+            if (response.data.length > 0) {
+                notificationSetter.setNotificationSuccess("Sukces!", `Znaleziono ${response.data.length} wystąpień` )
+                dispatch(digestaActions.setFoundParagraphi(response.data))
                 dispatch(digestaActions.setSearchedTerm(searched_term))
 
             } else {
-                notificationSetter.setNotificationError("Wyszukiwanie", "Nie znaleziono niczego")
+                notificationSetter.setNotificationError("Błąd", "Nie znaleziono niczego")
             }
 
         }).catch((e) => {
-            notificationSetter.setNotificationError("Wyszukiwanie", "Błąd serwera")
+            notificationSetter.setNotificationError("Błąd", "Błąd serwera")
         })
 
     }
@@ -66,6 +58,7 @@ const DigestaLookUp = () => {
 
 
             <h1 className={classes.main_lookup__title}>Wyszukaj tekst w Digestach</h1>
+            <h4 className={classes.main_lookup__subtitle}>Wyszukiwany tekst musi składać się z co najmniej 3 znaków. Wielkość liter jest ignorowana.</h4>
 
 
             <form className={classes.search_form} onSubmit={getDataHandler}>

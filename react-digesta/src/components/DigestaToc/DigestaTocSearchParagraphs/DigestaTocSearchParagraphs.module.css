@@ -11,6 +11,25 @@
     margin: 1rem 2rem;
 
 }
+.actions {
+    display: flex;
+    /*align-content: center;*/
+    align-items: stretch;
+}
+.button {
+    margin: auto;
+    /*display: block;*/
+    display: block;
+    max-width: 8rem;
+    flex: 1 1 0;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.button:hover, .button:active {
+    background: #cccccc;
+    cursor: pointer;
+}
 
 .found_items h1 span {
     font-style: italic;
@@ -28,4 +47,13 @@
     /*    flex-wrap: wrap;*/
     /*    align-content: space-around;*/
     /*}*/
+}
+
+.title {
+    text-align: center;
+}
+
+.title span {
+    font-size: larger;
+    font-style: italic;
 }

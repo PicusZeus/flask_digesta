@@ -1,10 +1,10 @@
 import classes from "./DigestaTocDesktopJuristDigestaTitulus.module.css"
-import {useState} from "react";
-import {useDispatch} from "react-redux";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import NotificationService from "../../../../services/notification.service";
 import DigestaTocDesktopLex from "../DigestaTocDesktopLex/DigestaTocDesktopLex";
-
-
+// import classes from "../../../UI/styling/DigestaDesktopTitulus/DigestaDesktopTitulus.module.css"
+import {digestaActions} from "../../../../store/digesta-slice";
 const DigestaTocDesktopJuristDigestaTitulus = ({titulus, author_id}) => {
     const [titulusMenuOpen, setTitulusMenuOpen] = useState(false)
 
@@ -12,7 +12,7 @@ const DigestaTocDesktopJuristDigestaTitulus = ({titulus, author_id}) => {
 
     const dispatch = useDispatch()
 
-
+    const chosenTitulusId = useSelector(state=>state.digesta.chosenTitulusId)
     const legesLoader = () => {
         const notificationSetter = new NotificationService(dispatch)
 
@@ -32,8 +32,18 @@ const DigestaTocDesktopJuristDigestaTitulus = ({titulus, author_id}) => {
         })
     }
 
+    useEffect(()=>{
+        if (titulus.id === chosenTitulusId) {
+            setTitulusMenuOpen(true)
+            legesLoader()
+        }
+    }, [])
+
     const openTitulusHandler = () => {
         setTitulusMenuOpen((current) => !current)
+        if (!titulusMenuOpen) {
+            dispatch(digestaActions.setChosenTitulusId(titulus.id))
+        }
         if (!titulusMenuOpen && leges.length === 0) {
 
             legesLoader()

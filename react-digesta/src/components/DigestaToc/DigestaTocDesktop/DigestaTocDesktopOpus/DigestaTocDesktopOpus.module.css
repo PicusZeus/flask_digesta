@@ -1,10 +1,22 @@
 .main_toc__opus {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     background: rgba(0, 0, 0, 0.1);
-    width: 80%;
-    font-size: 1.2rem;
-    margin-top:1rem;
+    /*width: 80%;*/
+    font-size: 1rem;
+    /*margin-top: 1rem;*/
+    border: 5px solid brown;
+    border-radius: 10px 0 0 10px;
+    border-right-style: none;
+    background: #fffff0;
+    padding: 0.1rem;
+    position: relative;
+    /*height: 3rem;*/
+    width: 13rem;
 
+
+}
+.main_toc__opus p {
+    margin: 0;
 }
 
 .main_toc__opus:hover, .main_toc__opus:active {
@@ -25,13 +37,16 @@
     margin-left: 1rem;
 }
 
+.main_toc__libri_items li:last-child {
+    margin-bottom: 1rem;
+}
+
 
 .main_toc__libri_items li:last-child > div:first-of-type {
-        display: none;
+    display: none;
 
 }
 
 .main_toc__libri_items li:first-child > div:first-of-type {
     display: block;
 }
-

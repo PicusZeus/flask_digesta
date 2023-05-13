@@ -7,16 +7,19 @@
 }
 
 .toc_outlet {
-        width: 100%;}
+    width: 17rem;
+    /*width: 100%;*/
+}
 
 
 @media (min-width: 600px) {
     .desktop_toc {
         display: block;
         width: 14rem;
-                position: fixed;
+        position: fixed;
         overflow-y: scroll;
         height: calc(100% - 4rem);
+        /*background: black;*/
     }
 
     .mobile_toc {

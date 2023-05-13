@@ -3,7 +3,7 @@ import DigestaTocDesktopLex from "../DigestaTocDesktopLex/DigestaTocDesktopLex";
 import classes from './DigestaTocDesktopTitulus.module.css'
 import NotificationService from "../../../../services/notification.service";
 import {useDispatch} from "react-redux";
-
+// import classes from '../../../UI/styling/DigestaDesktopTitulus/DigestaDesktopTitulus.module.css'
 const DigestaTocDesktopTitulus = ({titulus}) => {
 
     const [titulusMenuOpen, setTitulusMenuOpen] = useState(false)

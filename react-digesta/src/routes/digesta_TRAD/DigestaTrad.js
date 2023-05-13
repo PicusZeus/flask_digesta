@@ -1,34 +1,12 @@
-import {Outlet} from "react-router-dom";
+import {json, Outlet, useLoaderData} from "react-router-dom";
 import classes from "./DigestaTrad.module.css";
 import DigestaTocMobileBooks
     from "../../components/DigestaToc/DigestaTocMobile/DigestaTocMobileBooks/DigestaTocMobileBooks";
 import DigestaTocDesktopBooks
     from "../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopBooks/DigestaTocDesktopBooks";
-import NotificationService from "../../services/notification.service";
-import {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
+
 const DigestaTrad = () => {
-
-    const [books, setBooks] = useState()
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-       const notificationSetter = new NotificationService(dispatch)
-        const sendRequest = async () => {
-            const response = await fetch(process.env.REACT_APP_BASE_API_URL + "digesta/books")
-            if (!response.ok) {
-                throw new Error('Błąd serwera')
-            }
-
-            return response.json()
-
-        }
-        sendRequest().then((response) => {
-            setBooks(response)
-        }).catch((error)=>{
-            notificationSetter.setNotificationError('ładowanie', error.message)
-        })
-    }, [dispatch])
+    const books = useLoaderData()
 
     return (
         <div className={classes.trad_main}>
@@ -54,3 +32,17 @@ const DigestaTrad = () => {
 }
 
 export default DigestaTrad
+
+
+export const loader = async () => {
+    const response = await fetch(process.env.REACT_APP_BASE_API_URL + "digesta/books")
+    if (!response.ok) {
+        throw json(
+            {message: "Nie udało się załadować listy ksiąg digestów"},
+            {status: 500}
+        )
+    } else {
+        return await response.json()
+    }
+
+}

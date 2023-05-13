@@ -1,0 +1,27 @@
+.main_error {
+    margin-top: 4rem;
+    min-height: calc(100vh - 7rem);
+    background: rgba(255, 0, 0, 0.2);
+
+}
+
+.main_error__title {
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    padding: 3rem;
+}
+
+.main_error h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    color: white;
+    padding: 2rem;
+}
+
+.main_error h3 {
+    font-size: 1.3rem;
+    text-align: center;
+    color: white;
+    padding: 1rem;
+}

@@ -1,7 +1,7 @@
 import {useState} from "react";
 import DigestaTocDesktopTitulus from "../DigestaTocDesktopTitulus/DigestaTocDesktopTitulus";
 import classes from "./DigestaTocDesktopBook.module.css"
-
+// import classes from "../../../UI/styling/DigestaDesktopBook/DigestaDesktopBook.module.css"
 const DigestaTocDesktopBook = ({book}) => {
     const [bookMenuOpen, setBookMenuOpen] = useState(false)
     const tituli = book.tituli
@@ -16,7 +16,7 @@ const DigestaTocDesktopBook = ({book}) => {
     return (
         <li>
             <button className={classes.main_toc__book}
-                    onClick={openTituliHandler}>Księga {book.book_nr} ({book.book_latin_name})
+                    onClick={openTituliHandler}><span className={classes.bookCut}>Księga {book.book_nr}</span>
             </button>
             {bookMenuOpen && <div className={classes.main_toc__tituli}>
                 <div>&nbsp;</div>

@@ -64,7 +64,7 @@ const Register = (props) => {
                            required/>
                 </p>
                 <p>
-                    <label htmlFor="password">Stwórz hasło</label>
+                    <label htmlFor="password">Stwórz hasło (min. 8 znaków)</label>
                     <input type="password"
                            id="password"
                            name="password"

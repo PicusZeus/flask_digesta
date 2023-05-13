@@ -5,19 +5,32 @@
 .found_item__button {
     padding: 0.3rem;
     border-radius: 3px;
-    width: 8rem;
+    width: 80%;
+    max-width: 45rem;
+
     margin: auto;
     display: block;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.8);
+
+}
+
+.found_item__button:hover, .found_item__button:active {
+    cursor: pointer;
 
 }
 
 .selected {
-    background: black;
+    background: rgba(0, 0, 0, 0.8);
     color: white;
 }
 
 .found_item__texts {
+    margin-top: 1rem;
     display: flex;
+    background: rgba(255, 255, 255, 0.6);
+    /*border: 1px solid black;*/
+    margin-bottom: 0.5rem;
 
 }
 
@@ -26,7 +39,12 @@
     padding: 0.5rem;
     text-align: justify-all;
     font-size: 0.9rem;
+    border: 1px solid black;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
+
 
 .found_item__match {
     font-weight: bold;
@@ -37,13 +55,14 @@
 .found_item__redirect {
     display: block;
     margin: auto;
+    font-weight: bold;
     padding: 0.2rem;
 }
 
 .found_item__redirect a {
     text-decoration: none;
     list-style: none;
-    color: black
+    color: rgba(0, 0, 0, 0.8);
 }
 
 
