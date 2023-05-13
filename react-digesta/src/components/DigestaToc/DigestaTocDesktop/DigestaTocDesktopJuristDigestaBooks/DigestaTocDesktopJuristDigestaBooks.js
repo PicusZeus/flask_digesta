@@ -1,7 +1,7 @@
 import classes from "./DigestaTocDesktopJuristDigestaBooks.module.css"
 import DigestaTocDesktopJuristDigestaBook
     from "../DigestaTocDesktopJuristDigestaBook/DigestaTocDesktopJuristDigestaBook";
-// import classes from "../../../UI/styling/DigestaDesktopBooks/DigestaDesktopBooks.module.css"
+
 const DigestaTocDesktopJuristDigestaBooks = ({books, author_id}) => {
     const sortedBooks = [...books]
     sortedBooks.sort((a, b) => {

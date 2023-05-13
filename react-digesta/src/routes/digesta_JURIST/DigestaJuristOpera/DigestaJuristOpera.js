@@ -4,10 +4,34 @@ import DigestaTocDesktopOpera
     from "../../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopOpera/DigestaTocDesktopOpera";
 import DigestaTocMobileOpera
     from "../../../components/DigestaToc/DigestaTocMobile/DigestaTocMobileOpera/DigestaTocMobileOpera";
+import api from "../../../api/api";
+import {useQuery} from "@tanstack/react-query";
+
+const getJuristOpera = (id) => {
+    return api.get("opera/jurist/" + id).then(response=>{
+        return response.data
+    }).catch((e)=>{
+        throw json(
+            {message: "Nie udało załadować się spisu prac jurysty"},
+            {status: e.status}
+        )
+    })
+}
+
+const getJuristOperaQuery = (id) => {
+    return {
+        queryKey: ["opera", "jurist", id],
+        queryFn: ()=>getJuristOpera(id)
+    }
+}
+
 
 const DigestaJuristOpera = () => {
-    const opera = useLoaderData()
+
+
+
     const params = useParams()
+    const { data: opera } = useQuery(getJuristOperaQuery(params.jurysta_id))
     const lexPath = `/jurysci/opera/${params.jurysta_id}/`
     return (
         <div className={classes.opera_main}>
@@ -31,17 +55,10 @@ const DigestaJuristOpera = () => {
 
 export default DigestaJuristOpera
 
-export const loader = async ({params, request}) => {
-    const id = params.jurysta_id;
-    const response = await fetch(process.env.REACT_APP_BASE_API_URL + "opera/jurist/" + id)
-
-    if (!response.ok) {
-        throw json(
-            {message: 'Nie udało załadować się spisu prac'},
-            {status: 500}
-        )
-    } else {
-        const data = await response.json()
-        return data
-    }
+export const loader = (queryClient) => async ({params}) => {
+    const query = getJuristOperaQuery(params.jurysta_id)
+    return (
+        queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query))
+    )
 }
+

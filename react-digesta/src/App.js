@@ -6,7 +6,7 @@ import DigestaTrad from "./routes/digesta_TRAD/DigestaTrad";
 import DigestaLookUp from "./routes/digesta_LOOKUP/DigestaLookUp";
 import DigestaJurist from "./routes/digesta_JURIST/DigestaJurist/DigestaJurist";
 import DigestaJuristDigesta, {
-    loader as juristLexLoader
+    loader as juristBooksLoader
 } from "./routes/digesta_JURIST/DigestaJuristDigesta/DigestaJuristDigesta";
 import ErrorPage from "./routes/Error/ErrorPage";
 import DigestaLexViewer, {loader as lexLoader} from "./components/DigestaLexViewer/DigestaLexViewer";
@@ -19,6 +19,12 @@ import DigestaParagraphusViewer, {
 } from "./components/DigestaParagraphusViewer/DigestaParagraphusViewer";
 import {loader as juristLoader} from "./routes/digesta_JURIST/DigestaJurist/DigestaJurist";
 import {loader as digestaLoader} from "./routes/digesta_TRAD/DigestaTrad";
+import {loader as juristsLoader} from "./routes/digesta_JURIST/DigestaJurists/DigestaJurists"
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+// import {ReactQueryDevtools, ReactQueryDevtoolsPanel} from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient()
+
 const router = createBrowserRouter(
     [
         {
@@ -33,18 +39,19 @@ const router = createBrowserRouter(
                 {
                     path: '/jurysci',
                     element: <DigestaJurists/>,
+                    loader: juristsLoader(queryClient),
                     children: [
                         {
                             path: 'digesta/:jurysta_id',
                             element: <DigestaJuristDigesta/>,
-                            loader: juristLexLoader,
+                            loader: juristBooksLoader(queryClient),
                             children: [
 
 
                                 {
                                     path: ':lex_id',
                                     element: <DigestaLexViewer/>,
-                                    loader: lexLoader,
+                                    loader: lexLoader(queryClient),
                                     children: [
                                         {
                                             path: ':paragraphus_id',
@@ -58,12 +65,12 @@ const router = createBrowserRouter(
 
                             path: "opera/:jurysta_id",
                             element: <DigestaJuristOpera/>,
-                            loader: digestaJuristOperaLoader,
+                            loader: digestaJuristOperaLoader(queryClient),
                             children: [
                                 {
                                     path: ':lex_id',
                                     element: <DigestaLexViewer/>,
-                                    loader: lexLoader,
+                                    loader: lexLoader(queryClient),
                                     children: [
                                         {
                                             path: ':paragraphus_id',
@@ -81,35 +88,21 @@ const router = createBrowserRouter(
                         {
                             path: ':jurysta_id',
                             element: <DigestaJurist/>,
-                            loader: juristLoader,
+                            loader: juristLoader(queryClient),
                             children: [
 
                                 {
                                     path: "opera/:jurysta_id",
                                     element: <DigestaJuristOpera/>,
-                                    loader: digestaJuristOperaLoader,
-                                    // children: [
-                                    //     {
-                                    //         path: ':lex_id',
-                                    //         element: <DigestaLexViewer/>,
-                                    //         loader: lexLoader,
-                                    //         children: [
-                                    //             {
-                                    //                 path: ':paragraphus_id',
-                                    //                 element: <DigestaParagraphusViewer/>,
-                                    //                 loader: paragraphusLoader
-                                    //             }
-                                    //         ]
-                                    //
-                                    //     },
-                                    // ]
+                                    loader: digestaJuristOperaLoader(queryClient),
+
                                 },
 
 
                                 {
                                     path: 'digesta/:jurysta_id',
                                     element: <DigestaJuristDigesta/>,
-                                    loader: juristLexLoader,
+                                    loader: juristBooksLoader(queryClient),
 
                                 }
 
@@ -123,12 +116,12 @@ const router = createBrowserRouter(
                 {
                     path: '/digesta',
                     element: <DigestaTrad/>,
-                    loader: digestaLoader,
+                    loader: digestaLoader(queryClient),
                     children: [
                         {
                             path: ':lex_id',
                             element: <DigestaLexViewer/>,
-                            loader: lexLoader,
+                            loader: lexLoader(queryClient),
                             children: [
                                 {
                                     path: ':paragraphus_id',
@@ -143,12 +136,12 @@ const router = createBrowserRouter(
                 {
                     path: '/opera',
                     element: <DigestaOpera/>,
-                    loader: operaLoader,
+                    loader: operaLoader(queryClient),
                     children: [
                         {
                             path: ':lex_id',
                             element: <DigestaLexViewer/>,
-                            loader: lexLoader,
+                            loader: lexLoader(queryClient),
                             children: [
                                 {
                                     path: ':paragraphus_id',
@@ -174,7 +167,12 @@ const router = createBrowserRouter(
 const App = () => {
 
     return (
-        <RouterProvider router={router}/>
+        <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router}/>
+            {/*<ReactQueryDevtoolsPanel/>*/}
+        </QueryClientProvider>
+
+
     )
 }
 

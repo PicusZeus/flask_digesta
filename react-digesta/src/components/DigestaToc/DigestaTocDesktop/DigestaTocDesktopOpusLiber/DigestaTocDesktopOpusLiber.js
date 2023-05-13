@@ -3,35 +3,31 @@ import classes from "./DigestaTocDesktopOpusLiber.module.css"
 import DigestaTocDesktopLex from "../DigestaTocDesktopLex/DigestaTocDesktopLex";
 import {useDispatch} from "react-redux";
 import NotificationService from "../../../../services/notification.service";
+import api from "../../../../api/api";
+import {useQuery} from "@tanstack/react-query";
 
 const DigestaTocDesktopOpusLiber = ({liber, libriLength, lexPath}) => {
     const [openLegesMenu, setOpenLegesMenu] = useState(false)
-    const [leges, setLeges] = useState(false)
     const dispatch = useDispatch()
     const notificationSetter = new NotificationService(dispatch)
     const liberLineClasses = [classes.liber__line]
-    const urlLoadLeges = process.env.REACT_APP_BASE_API_URL + `digesta/opus/leges/${liber.id}`
-    const loadLeges = () => {
-        const sendRequest = async () => {
-            const response = await fetch(urlLoadLeges)
-            if (!response.ok) {
-                throw new Error()
-            }
-            return await response.json()
-        }
-        sendRequest().then((response) => {
-            setLeges(response)
-        }).catch(e => (
-            notificationSetter.setNotificationError("Błąd ładowanie", "Błąd serwera")
-        ))
+    const getLeges = (id) => {
+        return api.get("digesta/opus/leges/" + id).then(response => {
+            return response.data
+        }).catch(() => {
+            notificationSetter.setNotificationError("Błąd połączenia", "Nie udało się załadować spisu ustaw")
 
+        })
     }
+
+
+    const { data: leges } = useQuery({
+        queryKey: ["digesta", "opus", "leges", liber.id],
+        queryFn: ()=>getLeges(liber.id)
+    })
 
     const openLiberHandler = () => {
         setOpenLegesMenu((current) => !current)
-        if (!openLegesMenu && !leges) {
-            loadLeges()
-        }
     }
 
 
@@ -52,8 +48,7 @@ const DigestaTocDesktopOpusLiber = ({liber, libriLength, lexPath}) => {
 
             </div>
             {openLegesMenu && leges && <div className={classes.liber__leges_group}>
-                {/*<div>&nbsp;</div>*/}
-                {/*<div>{leges.length}</div>*/}
+
                 <ul className={classes.liber__leges_group__items}>
                     {leges.map(lex => {
                         const address = `D.${lex.titulus.book.book_nr}.${lex.titulus.number}.${lex.lex_nr}`

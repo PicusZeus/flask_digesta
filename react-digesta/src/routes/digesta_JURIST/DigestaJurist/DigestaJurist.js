@@ -1,11 +1,34 @@
-import {json, Outlet, useLoaderData} from "react-router-dom";
+import {json, Outlet, useParams} from "react-router-dom";
 import {Link} from "react-router-dom";
 import classes from "./DigestaJurist.module.css"
 import {useState} from "react";
 import {useEffect} from "react";
+import api from "../../../api/api";
+import {useQuery} from "@tanstack/react-query";
+
+
+const getJurist = (id) => {
+    return api.get(`authors/${id}`).then((response)=> {
+        return response.data
+    }).catch(()=>{
+        throw json(
+           {message: 'Nie udało się załadować danych dla tego jurysty'},
+            {status: 500}
+        )
+    })
+}
+
+const getJuristQuery = (id) => {
+    return {
+        queryKey: ["jurists", id],
+        queryFn: () => getJurist(id)
+    }
+}
+
 
 const DigestaJurist = () => {
-    const juristData = useLoaderData()
+    const params = useParams()
+    const { data: juristData } = useQuery(getJuristQuery(params.jurysta_id))
     const juristId = parseInt(juristData.id)
     const [openOutlet, setOpenHandler] = useState(false)
     const pathDigestaJurist = "digesta/" + juristId
@@ -55,16 +78,10 @@ const DigestaJurist = () => {
 
 export default DigestaJurist
 
-export const loader = async ({params, request}) => {
-    const id = params.jurysta_id
-    const response = await fetch(process.env.REACT_APP_BASE_API_URL + `authors/${id}`)
 
-    if (!response.ok) {
-        throw json(
-            {message: 'Błąd serwera'},
-            {status: 500}
-        )
-    } else {
-        return await response.json()
-    }
+export const loader = (queryClient) => async ({params}) => {
+    const query = getJuristQuery(params.jurysta_id)
+    return (
+        queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query))
+    )
 }

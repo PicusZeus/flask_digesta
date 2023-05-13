@@ -1,7 +1,6 @@
 import {useState} from "react";
 import DigestaTocDesktopTitulus from "../DigestaTocDesktopTitulus/DigestaTocDesktopTitulus";
 import classes from "./DigestaTocDesktopBook.module.css"
-// import classes from "../../../UI/styling/DigestaDesktopBook/DigestaDesktopBook.module.css"
 const DigestaTocDesktopBook = ({book}) => {
     const [bookMenuOpen, setBookMenuOpen] = useState(false)
     const tituli = book.tituli

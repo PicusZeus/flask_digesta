@@ -62,11 +62,11 @@ class Comment(MethodView):
         if comment:
             db.session.delete(comment)
             db.session.commit()
-            newCommentedParagraphi = DigestaParagraphusModel.query.filter(
+            new_commented_paragraphi = DigestaParagraphusModel.query.filter(
                 DigestaParagraphusModel.comments.any(user_id=user_id))
-            return {"status": 200, "message": "Item deleted.", "commentedParagraphi": newCommentedParagraphi}
+            return {"status": 200, "message": "Item deleted.", "commentedParagraphi": new_commented_paragraphi}
 
-        return {"status": 204, "message": "No such comment or user privilege required."}
+        return {"status": 403, "message": "No such comment or user privilege required."}
 
 
 @blp.route("/comment/commented")
@@ -126,7 +126,7 @@ class Likes(MethodView):
         user_id = get_jwt_identity()
         comment_id = data["comment_id"]
         if comment_id is None or user_id is None:
-            return {'error': 'post_id and user_id are required'}, 400
+            return {'error': 'post_id and user_id are required'}, 403
 
         liked = LikeModel.query.filter(LikeModel.comment_id == comment_id, LikeModel.user_id == user_id).first()
         if liked:

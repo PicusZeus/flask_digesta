@@ -5,37 +5,34 @@ import NotificationService from "../../../../services/notification.service";
 import DigestaTocDesktopLex from "../DigestaTocDesktopLex/DigestaTocDesktopLex";
 // import classes from "../../../UI/styling/DigestaDesktopTitulus/DigestaDesktopTitulus.module.css"
 import {digestaActions} from "../../../../store/digesta-slice";
+import api from "../../../../api/api";
+import {useQuery} from "@tanstack/react-query";
 const DigestaTocDesktopJuristDigestaTitulus = ({titulus, author_id}) => {
     const [titulusMenuOpen, setTitulusMenuOpen] = useState(false)
 
-    const [leges, setLeges] = useState([])
 
     const dispatch = useDispatch()
-
-    const chosenTitulusId = useSelector(state=>state.digesta.chosenTitulusId)
-    const legesLoader = () => {
         const notificationSetter = new NotificationService(dispatch)
 
-        const urlLoadLegesData = process.env.REACT_APP_BASE_API_URL + `digesta/titulus/leges/author/${titulus.id}/${author_id}`
+    const chosenTitulusId = useSelector(state=>state.digesta.chosenTitulusId)
+    const getLeges = (titulusId, authorId) => {
+        return api.get(`digesta/titulus/leges/author/${titulusId}/${authorId}`).then(response=>{
+            return response.data
+        }).catch(()=>{
+            notificationSetter.setNotificationError('Błąd sieci', 'Nie udało się załadować spisu ustaw w tytule')
 
-        const sendRequest = async () => {
-            const response = await fetch(urlLoadLegesData)
-            return await response.json()
-
-        }
-        sendRequest().then((response) => {
-
-
-            setLeges(response)
-        }).catch((e) => {
-            notificationSetter.setNotificationError('Ładowanie tytułu', 'Błąd Servera')
         })
+
     }
+
+    const { data: leges } = useQuery({
+        queryKey: ["digesta", "titulus", "leges", "author", titulus.id, author_id],
+        queryFn: () => getLeges(titulus.id, author_id)
+    })
 
     useEffect(()=>{
         if (titulus.id === chosenTitulusId) {
             setTitulusMenuOpen(true)
-            legesLoader()
         }
     }, [])
 
@@ -43,10 +40,6 @@ const DigestaTocDesktopJuristDigestaTitulus = ({titulus, author_id}) => {
         setTitulusMenuOpen((current) => !current)
         if (!titulusMenuOpen) {
             dispatch(digestaActions.setChosenTitulusId(titulus.id))
-        }
-        if (!titulusMenuOpen && leges.length === 0) {
-
-            legesLoader()
         }
     }
     const path = `/jurysci/digesta/${author_id}/`

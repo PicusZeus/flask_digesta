@@ -1,7 +1,7 @@
 import os
 from datetime import timedelta
 
-from flask_cors import cross_origin, CORS
+from flask_cors import CORS
 
 from flask import Flask, jsonify
 from flask_smorest import Api

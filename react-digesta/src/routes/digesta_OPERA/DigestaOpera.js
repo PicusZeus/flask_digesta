@@ -4,9 +4,28 @@ import DigestaTocMobileOpera
 import classes from "./DigestaOpera.module.css";
 import DigestaTocDesktopOpera
     from "../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopOpera/DigestaTocDesktopOpera";
+import api from "../../api/api";
+import {useQuery} from "@tanstack/react-query";
+
+const getOpera = () => {
+    return api.get("opera").then((response)=>{return response.data}).catch(()=>{
+        throw json(
+            {message: "Nie udało się załadować listy prac jurystów"},
+            {status: 500}
+        )
+    })
+}
+
+const getOperaQuery = () => {
+    return {
+        queryKey: ["opera"],
+        queryFn: getOpera
+    }
+}
+
 
 const DigestaOpera = () => {
-    const opera = useLoaderData()
+    const { data: opera } = useQuery(getOperaQuery())
 
     return (
         <div className={classes.opera_main}>
@@ -33,20 +52,9 @@ const DigestaOpera = () => {
 
 export default DigestaOpera
 
-
-export const loader = async () => {
-
-    const response = await fetch(process.env.REACT_APP_BASE_API_URL + "opera")
-    if (!response.ok) {
-        throw json(
-            {message: 'Nie udało się załadować spisu dzieł jurystów'},
-            {status: 500}
-        )
-
-    } else {
-        const data = await response.json()
-
-
-        return data
-    }
+export const loader = (queryClient) => async () => {
+    const query = getOperaQuery()
+    return (
+        queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query))
+    )
 }

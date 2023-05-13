@@ -4,34 +4,31 @@ import DigestaTocDesktopJuristDigestaTitulus
     from "../DigestaTocDesktopJuristDigestaTitulus/DigestaTocDesktopJuristDigestaTitulus";
 import {useDispatch, useSelector} from "react-redux";
 import {digestaActions} from "../../../../store/digesta-slice";
-// import classes from "../../../UI/styling/DigestaDesktopBook/DigestaDesktopBook.module.css"
+import api from "../../../../api/api";
+import NotificationService from "../../../../services/notification.service";
+import {useQuery} from "@tanstack/react-query";
 const DigestaTocDesktopJuristDigestaBook = ({book, author_id}) => {
 
     const [bookMenuOpen, setBookMenuOpen] = useState(false)
-    const [tituli, setTituli] = useState([])
     const dispatch = useDispatch()
+    const notificationSetter = new NotificationService(dispatch)
     const chosenBookId = useSelector(state => state.digesta.chosenBookId)
-    const loadTituli = () => {
-           const urlLoadTituli = process.env.REACT_APP_BASE_API_URL + `digesta/tituli/author/${book.id}/${author_id}`
-console.log('loading')
-        const sendRequest = async () => {
-            const response = await fetch(urlLoadTituli)
-            if (!response.ok) {
-                throw new Error()
-            }
-            return await response.json()
-        }
-        sendRequest().then((response)=>{
+    const getTituli = (book_id, author_id) => {
+        return api.get(`digesta/tituli/author/${book_id}/${author_id}`).then(response=>{
+            return response.data
+        }).catch(()=>{
+            notificationSetter.setNotificationError("Błąd sieci", "Nie udało się załadować spisu tytułów dla księgi i jurysty")
+        })}
 
-            setTituli(response)
-        }).catch((e)=>(console.log(e)))
-    }
-    // console.log('done')
+
+    const { data: tituli } = useQuery({
+        queryKey: ["digesta", "tituli", "author", book.id, author_id],
+        queryFn: ()=>getTituli(book.id, author_id)
+    })
 
     useEffect(() => {
         if (book.id === chosenBookId) {
             setBookMenuOpen(true)
-            loadTituli()
         }
     }, [])
 
@@ -39,9 +36,7 @@ console.log('loading')
         if (!bookMenuOpen) {
             dispatch(digestaActions.setChosenBookId(book.id))
         }
-        setBookMenuOpen((current)=>!current)
-        if (!bookMenuOpen && tituli.length === 0) {
-            loadTituli()}
+        setBookMenuOpen((current) => !current)
     }
 
     return (

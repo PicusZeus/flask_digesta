@@ -100,6 +100,9 @@ class OpusLexSchema(PlainLexSchema):
 class LexSearchSchema(PlainLexSchema):
     titulus = fields.Nested(TitulusSchema())
     author = fields.Nested(PlainJuristSchema())
+    address_pl = fields.Str()
+    address_lat = fields.Str()
+    # opus = fields.Nested(OpusLiberSchema())
 # full lex
 
 
@@ -110,7 +113,6 @@ class ParagraphusSchema(PlainParagraphusSchema):
 
 class ParagraphusSearchSchema(ParagraphusSchema):
     lex = fields.Nested(LexSearchSchema())
-
 
 
 class FullLexSchema(PlainLexSchema):
@@ -220,6 +222,7 @@ class CommentSchema(PlainCommentSchema):
     user = fields.Nested(UserDataSchema())
     reply_to_comment = fields.Nested(PlainCommentSchema())
     paragraphus = fields.Nested(CommentedParagraphusSchema())
+
 
 class UserSchema(Schema):
     id = fields.Int(dump_only=True)
