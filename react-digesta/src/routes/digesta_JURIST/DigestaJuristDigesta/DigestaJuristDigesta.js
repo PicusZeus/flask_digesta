@@ -1,22 +1,12 @@
-import {json, Outlet, useLoaderData, useParams} from "react-router-dom";
+import { Outlet, useParams} from "react-router-dom";
 import classes from './DigestaJuristDigesta.module.css'
 import DigestaTocDesktopJuristDigestaBooks
     from "../../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopJuristDigestaBooks/DigestaTocDesktopJuristDigestaBooks";
 import DigestaTocMobileJuristDigestaBooks
     from "../../../components/DigestaToc/DigestaTocMobile/DigestaTocMobileJuristDigestaBooks/DigestaTocMobileJuristDigestaBooks";
-import api from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
+import {getJuristBooks} from "../../../api/api";
 
-const getJuristBooks = (id) => {
-    return api.get("digesta/books/author/" + id).then((response) => {
-        return response.data
-    }).catch((e) => {
-        throw json(
-            {message: "Nie udało się załadować spisu treści Digestów dla jurysty"},
-            {status: 500}
-        )
-    })
-}
 
 const getJuristBooksQuery = (id) => {
     return {

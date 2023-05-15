@@ -1,7 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import {useDispatch} from "react-redux";
 
-import NewComment from "../newComment/NewComment";
 import tokenService from "../../services/token.service";
 import NotificationService from "../../services/notification.service";
 
@@ -11,7 +10,6 @@ import {useMutation} from "@tanstack/react-query";
 import RepliesViewer from "../repliesViewer/RepliesViewer";
 import {saveEditedComment, likeComment} from "../../api/api";
 import {createPrettyDate, adjustHeight} from "../../services/helpers";
-import NewReply from "../newReply/NewReply";
 
 
 const CommentViewer = ({paragraphus_id, comment, username, onDelete, queryClient}) => {
@@ -25,7 +23,6 @@ const CommentViewer = ({paragraphus_id, comment, username, onDelete, queryClient
     const dispatch = useDispatch()
     const notificationSetter = new NotificationService(dispatch)
 
-    const token = tokenService.getLocalAccessToken()
 
     const commentText = useRef(comment)
 

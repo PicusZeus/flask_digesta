@@ -11,11 +11,10 @@ import {authActions} from "../../store/auth-slice";
 import {refreshToken} from "../../store/auth-actions";
 import {deleteComment, getComments} from "../../api/api";
 import {useState} from "react";
-import Modal from "../UI/modal/Modal";
 
 const CommentsViewer = ({paragraphus_id, repliedId, paragraphus}) => {
 
-    const [openCommentModal, setOpenCommentModal] = useState(false)
+    const [openNotes, setOpenNotes] = useState(false)
 
     const queryClient = useQueryClient()
     const username = useSelector(state => state.auth.username)
@@ -84,11 +83,13 @@ const CommentsViewer = ({paragraphus_id, repliedId, paragraphus}) => {
 
     return (
         <>
-            <h4>Notatki ({comments && comments.length})</h4>
+            <button className={classes.comments__open} onClick={()=>setOpenNotes(current=>!current)}>Notatki ({comments && comments.length})</button>
+
+            { openNotes && <>
             <NewComment paragraphus={paragraphus} paragraphus_id={paragraphus_id} username={username}
-                                 repliedId={repliedId} onClose={() => setOpenCommentModal(false)}
+                                 repliedId={repliedId}
                                  queryClient={queryClient}/>
-            <ul className={classes.paragraph_comments__items}>
+            <ul className={classes.comments__items}>
 
                 {comments && comments.map((comment) => (
                     <CommentViewer key={comment.id}
@@ -100,6 +101,7 @@ const CommentsViewer = ({paragraphus_id, repliedId, paragraphus}) => {
                                    onDelete={deleteCommentHandler}/>))}
 
             </ul>
+            </>}
         </>
     )
 }

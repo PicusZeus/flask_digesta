@@ -1,22 +1,12 @@
-import {json, Outlet} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import classes from "./DigestaTrad.module.css";
 import DigestaTocMobileBooks
     from "../../components/DigestaToc/DigestaTocMobile/DigestaTocMobileBooks/DigestaTocMobileBooks";
 import DigestaTocDesktopBooks
     from "../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopBooks/DigestaTocDesktopBooks";
-import api from "../../api/api";
 import {useQuery} from "@tanstack/react-query";
+import {getBooks} from "../../api/api";
 
-const getBooks = () => {
-    return api.get("digesta/books").then((response)=>{
-        return response.data
-    }).catch(()=>{
-        throw json(
-            {message: "Nie udało się załadować spisu treści Digestów"},
-            {status: 500}
-        )
-    })
-}
 
 const getBooksQuery = () => {
     return {

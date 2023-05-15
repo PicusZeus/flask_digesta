@@ -1,6 +1,5 @@
 import DigestaTocDesktopBook from "../DigestaTocDesktopBook/DigestaTocDesktopBook";
 import classes from "./DigestaTocDesktopBooks.module.css"
-// import classes from "../../../UI/styling/DigestaDesktopBooks/DigestaDesktopBooks.module.css"
 const DigestaTocDesktopBooks = ({books}) => {
 
     return (

@@ -5,3 +5,21 @@
 }
 
 
+.comments__open {
+    display: block;
+    margin: 1rem auto;
+    width: 8rem;
+    padding: 0.2rem;
+    border-radius: 3px;
+    background: white;
+    -webkit-box-shadow: 4px 4px 12px 0px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 4px 4px 12px 0px rgba(66, 68, 90, 1);
+    box-shadow: 4px 4px 12px 0px rgba(66, 68, 90, 1);
+
+}
+
+.comments__open:hover, .comments__open:active {
+    cursor: pointer;
+    background: black;
+    color: white;
+}

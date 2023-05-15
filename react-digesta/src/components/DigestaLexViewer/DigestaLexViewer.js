@@ -1,4 +1,4 @@
-import {json, Link, Outlet, useLoaderData, useNavigate, useParams} from "react-router-dom";
+import {json, Link, Outlet, useNavigate, useParams} from "react-router-dom";
 import classes from "./DigestaLexViewer.module.css"
 import DigestaParagraphusViewer from "../DigestaParagraphusViewer/DigestaParagraphusViewer";
 import DigestaTocMobileParagraphi
@@ -28,7 +28,7 @@ const getLexQuery = (id) => {
 const DigestaLexViewer = () => {
 
     const params = useParams()
-    const { status, isLoading, data: lex } = useQuery(getLexQuery(params.lex_id))
+    const { data: lex } = useQuery(getLexQuery(params.lex_id))
 
 
    const navigate = useNavigate()
@@ -46,7 +46,6 @@ const DigestaLexViewer = () => {
     const linkAuthor = "/jurysci/" + lex.author.id
     const ksiega = "Księga " + lex.opus.liber.toString()
     const address = "D " + lex.titulus.book.book_nr + '.' + lex.titulus.number + '.' + lex.lex_nr
-    // const address = 'to do'
     const address_lat = lex.address_lat
     const address_pl = lex.address_pl
 

@@ -1,22 +1,12 @@
-import {json, Outlet, useLoaderData, useParams} from "react-router-dom";
+import {Outlet, useParams} from "react-router-dom";
 import classes from "./DigestaJuristOpera.module.css"
 import DigestaTocDesktopOpera
     from "../../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopOpera/DigestaTocDesktopOpera";
 import DigestaTocMobileOpera
     from "../../../components/DigestaToc/DigestaTocMobile/DigestaTocMobileOpera/DigestaTocMobileOpera";
-import api from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
+import {getJuristOpera} from "../../../api/api";
 
-const getJuristOpera = (id) => {
-    return api.get("opera/jurist/" + id).then(response=>{
-        return response.data
-    }).catch((e)=>{
-        throw json(
-            {message: "Nie udało załadować się spisu prac jurysty"},
-            {status: e.status}
-        )
-    })
-}
 
 const getJuristOperaQuery = (id) => {
     return {

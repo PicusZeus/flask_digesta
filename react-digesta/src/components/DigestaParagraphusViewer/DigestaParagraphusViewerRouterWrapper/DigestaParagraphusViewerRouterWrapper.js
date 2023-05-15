@@ -1,20 +1,10 @@
 import DigestaParagraphusViewer from "../DigestaParagraphusViewer";
-import {json, useParams} from "react-router-dom";
-import api from "../../../api/api";
+import { useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
+import {getParagraph} from "../../../api/api";
 
 
 
-const getParagraph = (id) => {
-    return api.get("digesta/paragraphi/" + id)
-        .then(response => {return response.data}
-    ).catch(()=>{
-        throw json(
-            {message: "Nie udało się załadować danych dla tego paragrafu"},
-            {status: 500}
-        )
-        })
-}
 
 const getParagraphQuery = (id) => {
     return {

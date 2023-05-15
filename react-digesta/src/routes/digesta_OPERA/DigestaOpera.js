@@ -1,20 +1,12 @@
-import {json, Outlet, useLoaderData} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import DigestaTocMobileOpera
     from "../../components/DigestaToc/DigestaTocMobile/DigestaTocMobileOpera/DigestaTocMobileOpera";
 import classes from "./DigestaOpera.module.css";
 import DigestaTocDesktopOpera
     from "../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopOpera/DigestaTocDesktopOpera";
-import api from "../../api/api";
 import {useQuery} from "@tanstack/react-query";
+import {getOpera} from "../../api/api";
 
-const getOpera = () => {
-    return api.get("opera").then((response)=>{return response.data}).catch(()=>{
-        throw json(
-            {message: "Nie udało się załadować listy prac jurystów"},
-            {status: 500}
-        )
-    })
-}
 
 const getOperaQuery = () => {
     return {

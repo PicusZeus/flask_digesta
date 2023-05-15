@@ -3,34 +3,27 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import NotificationService from "../../../../services/notification.service";
 import DigestaTocDesktopLex from "../DigestaTocDesktopLex/DigestaTocDesktopLex";
-// import classes from "../../../UI/styling/DigestaDesktopTitulus/DigestaDesktopTitulus.module.css"
 import {digestaActions} from "../../../../store/digesta-slice";
-import api from "../../../../api/api";
 import {useQuery} from "@tanstack/react-query";
+import {getLeges} from "../../../../api/api";
 const DigestaTocDesktopJuristDigestaTitulus = ({titulus, author_id}) => {
     const [titulusMenuOpen, setTitulusMenuOpen] = useState(false)
 
 
     const dispatch = useDispatch()
-        const notificationSetter = new NotificationService(dispatch)
+    const notificationSetter = new NotificationService(dispatch)
 
-    const chosenTitulusId = useSelector(state=>state.digesta.chosenTitulusId)
-    const getLeges = (titulusId, authorId) => {
-        return api.get(`digesta/titulus/leges/author/${titulusId}/${authorId}`).then(response=>{
-            return response.data
-        }).catch(()=>{
-            notificationSetter.setNotificationError('Błąd sieci', 'Nie udało się załadować spisu ustaw w tytule')
+    const chosenTitulusId = useSelector(state => state.digesta.chosenTitulusId)
 
-        })
 
-    }
-
-    const { data: leges } = useQuery({
+    const {data: leges} = useQuery({
         queryKey: ["digesta", "titulus", "leges", "author", titulus.id, author_id],
-        queryFn: () => getLeges(titulus.id, author_id)
+        queryFn: () => getLeges(titulus.id, author_id),
+        onError: () => notificationSetter.setNotificationError('Błąd sieci', 'Nie udało się załadować spisu ustaw w tytule')
+
     })
 
-    useEffect(()=>{
+    useEffect(() => {
         if (titulus.id === chosenTitulusId) {
             setTitulusMenuOpen(true)
         }

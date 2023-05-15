@@ -50,7 +50,7 @@ const ReplyViewer = ({replyId, reply, onDelete, queryClient}) => {
     return (
         <>
             {deleteDialog && <Confirmation cancelAction={() => setDeleteDialog(false)} title="" message=""
-                                       confirmAction={() => onDelete(reply.id)}/>}
+                                           confirmAction={() => onDelete(reply.id)}/>}
             <li className={classes.reply__item}>
                 <div className={classes.reply__item_main}>
                     <header>
@@ -79,7 +79,8 @@ const ReplyViewer = ({replyId, reply, onDelete, queryClient}) => {
                     </button>
 
                 </div>
-                                    <RepliesViewer repliedId={reply.id} onCloseReply={() => setIsReplaying(false)} reply={isReplying} queryClient={queryClient}/>
+                <RepliesViewer repliedId={reply.id} onCloseReply={() => setIsReplaying(false)} reply={isReplying}
+                               queryClient={queryClient}/>
 
 
             </li>

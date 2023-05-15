@@ -5,7 +5,6 @@ import {Link} from "react-router-dom";
 
 
 const CommentedParagraphiModal = ({commentedParagraphi, onClose, onCloseMobileMenu}) => {
-    console.log(commentedParagraphi)
 
     return (
         <Modal onClose={onClose}>

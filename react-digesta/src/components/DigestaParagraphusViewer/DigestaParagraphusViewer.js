@@ -1,11 +1,4 @@
-import {json, useLoaderData} from "react-router-dom";
-import CommentViewer from "../commentViewer/CommentViewer";
-import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import NewComment from "../newComment/NewComment";
-import tokenService from "../../services/token.service";
-// import {refreshToken} from "../../store/auth-actions";
-import NotificationService from "../../services/notification.service";
+
 import classes from "./DigestaParagraphusViewer.module.css"
 import {addTags} from "../../services/text.service";
 
@@ -19,14 +12,7 @@ import CommentsViewer from "../commentsViewer/CommentsViewer";
 
 const DigestaParagraphusViewer = ({paragraphus}) => {
 
-    const [showComments, setShowComments] = useState(true)
 
-    // const rerender = useSelector(state => state.ui.rerender)
-
-    const showCommentsLoader = () => {
-
-        setShowComments((current) => !current)
-    }
 
 
     let paragraphusKey = null

@@ -1,24 +1,14 @@
 import classes from "./DigestaJurists.module.css"
 import DigestaTocMobileJurists
     from "../../../components/DigestaToc/DigestaTocMobile/DigestaTocMobileJurists/DigestaTocMobileJurists";
-import {json, Outlet} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import DigestaTocDesktopJurists
     from "../../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopJurists/DigestaTocDesktopJurists";
 
-import api from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
+import {getJurists} from "../../../api/api";
 
 
-const getJurists = () => {
-    return api.get("authors").then((response) => {
-        return response.data
-    }).catch(() => {
-        throw json(
-            {message: "Nie udało się załadować listy jurystów"},
-            {status: 500}
-        )}
-    )
-}
 const getJuristsQuery = () => {
     return {
         queryKey: ["jurists"],
