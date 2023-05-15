@@ -96,25 +96,70 @@ class CommentByLex(MethodView):
 
     @jwt_required()
     @blp.arguments(CommentSaveSchema())
-    @blp.response(200, CommentSchema())
+    @blp.response(200, PlainCommentSchema())
     def post(self, data, paragraphus_id):
         user_id = get_jwt_identity()
         comment_content = data["comment"]
         private = data["private"]
         reply_to_comment_id = data["reply_to_comment_id"]
         date = datetime.now()
+        par_id = paragraphus_id
+        if reply_to_comment_id:
+            par_id = None
 
         comment = CommentModel(comment=comment_content,
                                user_id=user_id,
                                private=private,
                                date=date,
-                               paragraphus_id=paragraphus_id,
+                               paragraphus_id=par_id,
                                reply_to_comment_id=reply_to_comment_id)
         # paragraphus = DigestaParagraphusModel.query.filter_by(id=paragraphus_id).first()
         db.session.add(comment)
         db.session.commit()
 
+        comments = CommentModel.query \
+            .filter(CommentModel.paragraphus_id == paragraphus_id) \
+            .filter(or_(CommentModel.private == false(), CommentModel.user_id == user_id)).all()
+
         return comment
+
+
+@blp.route("/comment/comments/<int:replied_id>")
+class RepliesByComment(MethodView):
+
+    @jwt_required(optional=True)
+    @blp.response(200, PlainCommentSchema(many=True))
+    def get(self, replied_id):
+        user_id = get_jwt_identity()
+        comments = CommentModel.query \
+            .filter(CommentModel.reply_to_comment_id == replied_id) \
+            .filter(or_(CommentModel.private == false(), CommentModel.user_id == user_id)).all()
+        return comments
+
+    @jwt_required()
+    @blp.arguments(CommentSaveSchema())
+    @blp.response(200, PlainCommentSchema(many=True))
+    def post(self, data, replied_id):
+        user_id = get_jwt_identity()
+        comment_content = data["comment"]
+        private = data["private"]
+        date = datetime.now()
+
+        comment = CommentModel(comment=comment_content,
+                               user_id=user_id,
+                               private=private,
+                               date=date,
+                               paragraphus_id=None,
+                               reply_to_comment_id=replied_id)
+        # paragraphus = DigestaParagraphusModel.query.filter_by(id=paragraphus_id).first()
+        db.session.add(comment)
+        db.session.commit()
+
+        comments = CommentModel.query \
+            .filter(CommentModel.reply_to_comment_id == replied_id) \
+            .filter(or_(CommentModel.private == false(), CommentModel.user_id == user_id)).all()
+
+        return comments
 
 
 @blp.route("/like")

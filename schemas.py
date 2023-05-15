@@ -172,7 +172,7 @@ class PlainCommentSchema(Schema):
     private = fields.Bool()
     date = fields.DateTime(dump_only=True)
     user = fields.Nested(UserDataSchema())
-    replies = fields.List(fields.Nested('self'))
+    # replies = fields.List(fields.Nested('self'))
     likes = fields.List(fields.Nested(PlainLikeSchema()))
 
 

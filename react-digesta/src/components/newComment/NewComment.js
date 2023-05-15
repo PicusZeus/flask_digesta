@@ -7,113 +7,105 @@ import {refreshToken} from "../../store/auth-actions";
 import tokenService from "../../services/token.service";
 import {useRef} from "react";
 import classes from './NewComment.module.css'
+import {useMutation} from "@tanstack/react-query";
+import {adjustHeight} from "../../services/helpers";
+import {postComment} from "../../api/api";
+import {uiActions} from "../../store/ui-slice";
 
-const NewComment = (props) => {
-
-
-    const newComment = useRef('')
-    let user = tokenService.getUserId()
-
-
-    let token = tokenService.getLocalAccessToken()
-
-    const refresh_token = tokenService.getLocalRefreshToken()
-    const dispatch = useDispatch()
+const NewComment = ({paragraphus_id, onClose, paragraphus, type, username, queryClient}) => {
     const [isPrivate, setIsPrivate] = useState(false)
-    let repliedId = null
-    if (props.repliedId) {
-        repliedId = props.repliedId
-    }
-    const authenticated = user
-    const commentedParagraphi = tokenService.getCommentedParagraphi()
-    const par_id = props.paragraphus.id
+    const newComment = useRef('')
+
+    const dispatch = useDispatch()
     const notificationSetter = new NotificationService(dispatch)
-    const postCommentHandler = (event, newComment, token) => {
-        event.preventDefault()
-        const sendComment = async () => {
-            notificationSetter.setNotificationPending('komentarz', 'wysyłam komentarz')
-            const respons = await fetch(process.env.REACT_APP_BASE_API_URL + "comment/paragraphus/" + par_id,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: "Bearer " + token
-                    },
-                    body: JSON.stringify({
-                        comment: newComment,
-                        private: isPrivate,
-                        "reply_to_comment_id": repliedId
-                    })
-                })
-            if (respons.status === 401) {
-                throw new Error('unauthorised')
 
-            }
 
-            const data = await respons.json()
-            return data
+    const updateCommentedParagrahi = (paragraphus) => {
+        const refresh_token = tokenService.getLocalRefreshToken()
+        const commentedParagraphi = tokenService.getCommentedParagraphi()
+        if (commentedParagraphi.filter(par => par.id === paragraphus.id).length === 0) {
+            commentedParagraphi.push(paragraphus)
+            TokenService.updateCommentedParagraphi(commentedParagraphi)
+            dispatch(authActions.setCommentedParagraphi(commentedParagraphi))
         }
-        sendComment().then((response => {
+        refreshToken(refresh_token)
+    }
 
-            if (response) {
-                const data = response
-                notificationSetter.setNotificationSuccess("komentarz", "komentarz zamieszczony")
-                props.addNewComment(data)
-                if (props.onClose) {
-                    props.onClose()
-                }
+    const postCommentMutation = useMutation({
+        mutationFn: ({newComment, isPrivate}) => postComment({newComment, isPrivate, id: paragraphus_id}),
+        onMutate: () => {
+            notificationSetter.setNotificationPending('Trwa wysyłanie komentarza', 'Czekamy na odpowiedź')
+        },
+        onSuccess: () => {
+            notificationSetter.setNotificationSuccess("Sukces", "Komentarz zamieszczony")
+            updateCommentedParagrahi(paragraphus)
+            queryClient.invalidateQueries(["comment", "paragraphus", username, paragraphus_id], {exact: false})
+        },
+        onError: (e) => {
+            if (e.response.status === 401) {
 
-                if (
-                    commentedParagraphi.filter((paragraphus) =>
-                        paragraphus.id === par_id
-                    ).length === 0) {
-                    const newParagraphi = [...commentedParagraphi]
-                    newParagraphi.push(data.paragraphus)
-                    TokenService.updateCommentedParagraphi(newParagraphi)
-                    dispatch(authActions.setCommentedParagraphi(newParagraphi))
-
-                }
-                dispatch(refreshToken(refresh_token))
-            }
-        })).catch((e) => {
-            console.log(e)
-            if (e.message === "unauthorised") {
                 dispatch(authActions.resetToken())
                 TokenService.removeUser()
-                notificationSetter.setNotificationError("komentarz", "zaloguj się ponownie jeśli chcesz dodać komentarz")
-
-
-            } else {
-                notificationSetter.setNotificationError("komentarz", "błąd serwera")
+                notificationSetter.setNotificationError("Błąd autoryzacji", "zaloguj się ponownie jeśli chcesz dodać komentarz")
             }
+            notificationSetter.setNotificationError("Błąd", "Nie udało się zamieścić komentarza")
+        }
+
+    })
+
+    const postCommentHandler = (e, newComment) => {
+        e.preventDefault()
+        postCommentMutation.mutate({
+            newComment: newComment,
+            isPrivate: isPrivate
         })
+
     }
 
-    function adjustHeight(event) {
-        const el = event.target
-        el.style.height = (el.scrollHeight > el.clientHeight) ? (el.scrollHeight) + "px" : "60px";
+    const openLoginModalHandler = (e) => {
+        e.preventDefault()
+        dispatch(uiActions.logingToggle())
     }
+
 
     return (
         <div className={classes.new_comment}>
             <form method="post" className={classes.new_comment__container}
-                  onSubmit={(event) => postCommentHandler(event, newComment.current.value, token)}>
-                <div className={classes.new_comment__header}>
-                    <label htmlFor="newComment">{props.type}</label>
+                  onSubmit={(event) => postCommentHandler(event, newComment.current.value)}>
 
-                </div>
 
-                <textarea onKeyUp={adjustHeight} id="newComment" className={classes.new_comment__text} defaultValue={newComment.current.value}
+                <textarea onKeyUp={adjustHeight} id="newComment" className={classes.new_comment__text}
+                          defaultValue={newComment.current.value} placeholder="Treść notatki" disabled={!username}
                           ref={newComment}/>
                 <div className={classes.new_comment__icons}>
-                    <button className="material-symbols-outlined" type="submit" disabled={!authenticated}>
-                        send
-                    </button>
+                    <div className={classes.new_comment__action}>
 
-                    <button type="button" className="material-symbols-outlined"
-                            onClick={() => setIsPrivate(!isPrivate)}>
-                        {isPrivate ? "visibility_off" : "visibility"}
-                    </button>
+                        {!username &&
+                            <>
+                                <button type="button" className="material-symbols-outlined" onClick={openLoginModalHandler}>
+                                    login
+                                </button>
+                                <label>Zaloguj się</label>
+                            </>}
+
+                        {username &&
+                            <>
+                                <button className="material-symbols-outlined" type="submit" disabled={!username}>
+                                    send
+                                </button>
+                                <label>Opublikuj</label>
+                            </>
+                        }
+                    </div>
+                    <div className={classes.new_comment__action}>
+                        <button type="button" className="material-symbols-outlined" disabled={!username}
+                                onClick={() => setIsPrivate(!isPrivate)}>
+                            {isPrivate ? "visibility_off" : "visibility"}
+                        </button>
+                        <label>{isPrivate ? "Notatka prywatna" : "Notatka publiczna"}</label>
+
+                    </div>
+
                 </div>
 
             </form>

@@ -16,12 +16,14 @@ import DigestaJuristOpera, {
 import DigestaOpera, {loader as operaLoader} from "./routes/digesta_OPERA/DigestaOpera";
 import DigestaParagraphusViewer, {
     loader as paragraphusLoader
-} from "./components/DigestaParagraphusViewer/DigestaParagraphusViewer";
+} from "./components/DigestaParagraphusViewer/DigestaParagraphusViewerRouterWrapper/DigestaParagraphusViewerRouterWrapper";
 import {loader as juristLoader} from "./routes/digesta_JURIST/DigestaJurist/DigestaJurist";
 import {loader as digestaLoader} from "./routes/digesta_TRAD/DigestaTrad";
 import {loader as juristsLoader} from "./routes/digesta_JURIST/DigestaJurists/DigestaJurists"
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-// import {ReactQueryDevtools, ReactQueryDevtoolsPanel} from "@tanstack/react-query-devtools";
+import DigestaParagraphusViewerRouterWrapper
+    from "./components/DigestaParagraphusViewer/DigestaParagraphusViewerRouterWrapper/DigestaParagraphusViewerRouterWrapper";
+import {ReactQueryDevtools, ReactQueryDevtoolsPanel} from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient()
 
@@ -55,8 +57,8 @@ const router = createBrowserRouter(
                                     children: [
                                         {
                                             path: ':paragraphus_id',
-                                            element: <DigestaParagraphusViewer/>,
-                                            loader: paragraphusLoader
+                                            element: <DigestaParagraphusViewerRouterWrapper/>,
+                                            loader: paragraphusLoader(queryClient)
                                         }
                                     ]
                                 }]
@@ -74,8 +76,8 @@ const router = createBrowserRouter(
                                     children: [
                                         {
                                             path: ':paragraphus_id',
-                                            element: <DigestaParagraphusViewer/>,
-                                            loader: paragraphusLoader
+                                            element: <DigestaParagraphusViewerRouterWrapper/>,
+                                            loader: paragraphusLoader(queryClient)
                                         }
                                     ]
 
@@ -125,8 +127,8 @@ const router = createBrowserRouter(
                             children: [
                                 {
                                     path: ':paragraphus_id',
-                                    element: <DigestaParagraphusViewer/>,
-                                    loader: paragraphusLoader
+                                    element: <DigestaParagraphusViewerRouterWrapper/>,
+                                    loader: paragraphusLoader(queryClient)
                                 }
                             ]
 
@@ -145,8 +147,8 @@ const router = createBrowserRouter(
                             children: [
                                 {
                                     path: ':paragraphus_id',
-                                    element: <DigestaParagraphusViewer/>,
-                                    loader: paragraphusLoader
+                                    element: <DigestaParagraphusViewerRouterWrapper/>,
+                                    loader: paragraphusLoader(queryClient)
                                 }
                             ]
                         }
@@ -169,7 +171,7 @@ const App = () => {
     return (
         <QueryClientProvider client={queryClient}>
             <RouterProvider router={router}/>
-            {/*<ReactQueryDevtoolsPanel/>*/}
+            <ReactQueryDevtools/>
         </QueryClientProvider>
 
 

@@ -10,45 +10,29 @@ import Spinner from "../UI/spinner/Spinner";
 const getLex = (id) => {
     return api.get("digesta/leges/" + id)
         .then(response=>{
-            console.log('response', response.data)
-            return response.data})
-
-    // return api.get(`authors/${id}`).then((response)=> {
-    //     return response.data
-    // }).catch(()=>{
-    //     throw json(
-    //        {message: 'Nie udało się załadować danych dla tego jurysty'},
-    //         {status: 500}
-    //     )
-    // })
-
+            return response.data}).catch(()=>{
+                throw json(
+                    {message: "Nie udało się załadować danych dla tej ustawy"},
+                    {status: 500}
+                )
+        })
 
 }
-//
 const getLexQuery = (id) => {
-    // const lId = parseInt(id)
     return {
-        queryKey: ["jurist", id],
+        queryKey: ["digesta", "leges", id],
         queryFn: () => getLex(id)
     }
 }
 
-const DigestaLexViewer = (props) => {
+const DigestaLexViewer = () => {
 
     const params = useParams()
-    console.log(params.lex_id)
     const { status, isLoading, data: lex } = useQuery(getLexQuery(params.lex_id))
-    console.log(lex, "LEX", status, isLoading)
 
-    // let lex = useLoaderData()
 
    const navigate = useNavigate()
-  // if (isLoading)
-  //   {return <Spinner/>}
-    // if (!lex) {
-    //    const { data } = getLexQuery(params.lex_id)
-    //     lex = data
-    // }
+
 
     const paragraphi = lex.paragraphi
     const setParagraphHandler = (event) => {
@@ -102,21 +86,6 @@ const DigestaLexViewer = (props) => {
 export default DigestaLexViewer
 
 
-// export const loader = async ({params}) => {
-//
-//     const id = params.lex_id
-//     const response = await fetch(process.env.REACT_APP_BASE_API_URL + "digesta/leges/" + id)
-//
-//     if (!response.ok) {
-//         throw json(
-//             {message: 'Błąd serwera'},
-//             {status: 500}
-//         )
-//     } else {
-//         const data = await response.json()
-//         return data
-//     }
-// }
 
 
 export const loader = (queryClient) => async ({params}) => {

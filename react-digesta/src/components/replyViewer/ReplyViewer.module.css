@@ -1,0 +1,82 @@
+.reply__item {
+    display: flex;
+    flex-direction: column;
+}
+
+.reply__item_main {
+    display: flex;
+    /*border: 1px solid black*/
+}
+
+.reply__item_main header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reply__item_main header p {
+    margin: 0;
+    padding: 0.2rem;
+    font-size: 0.7rem;
+}
+.reply__item_main header div {
+        margin: 0;
+    padding: 0.2rem;
+    font-size: 0.7rem;
+}
+
+
+
+
+.reply__item_text {
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    flex-grow: 1;
+    align-self: center;
+
+}
+
+.reply__item_actions {
+    width: 100%;
+      display: flex;
+    margin-left: 0.5rem;
+    /*justify-content: space-around;*/
+}
+
+.reply__item_actions button {
+    padding: 0;
+    margin: 0;
+    position: relative;
+    border: none;
+    background: rgba(255, 255, 255, 0);
+    font-size: 1rem;
+}
+
+.likes_num {
+    font-size: 0.5rem;
+}
+
+.reply__item_actions button .tooltiptext {
+    visibility: hidden;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*width: 120px;*/
+    /*background-color: rgba(0,0,0,0);*/
+    color: black;
+    text-align: center;
+    font-size: 0.7rem;
+    /*padding: 5px 0;*/
+    /*border-radius: 6px;*/
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+.reply__item_actions button:hover {
+    cursor: pointer;
+}
+.reply__item_actions button:hover .tooltiptext {
+    visibility: visible;
+}

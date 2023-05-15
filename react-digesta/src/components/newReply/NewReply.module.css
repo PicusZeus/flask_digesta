@@ -1,0 +1,33 @@
+.new_reply__form {
+    resize: none;
+    margin-left: 2rem;
+    /*widith: 80%;*/
+
+}
+
+.new_reply__text {
+    border-radius: 5px;
+    text-decoration: none;
+    resize: none;
+    width: 100%;
+    display: block;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background: rgba(255,255,255, 0.4);
+
+}
+
+.new_reply__action button {
+        padding: 0;
+    margin: auto;
+    display: block;
+    font-size: 1.4rem;
+    border: none;
+    color: white;
+    background: rgba(255, 255, 255, 0);
+}
+
+.new_reply__action button:hover {
+        cursor: pointer;
+    color: rgba(0,0,0,0.9);
+}
