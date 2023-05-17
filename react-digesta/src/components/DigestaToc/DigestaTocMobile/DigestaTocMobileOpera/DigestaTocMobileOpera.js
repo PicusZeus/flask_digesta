@@ -7,7 +7,6 @@ const DigestaTocMobileOpera = ({opera, lexPath}) => {
     const [opusId, setOpusId] = useState(false)
 
     const opus = opera.filter((opus)=>opus.id === opusId).find(e=>true)
-    console.log(opus)
     const onOptionChangeHandler = (event) => {
 
         setOpusId(parseInt(event.target.value))

@@ -5,11 +5,6 @@ import {addTags} from "../../services/text.service";
 import CommentsViewer from "../commentsViewer/CommentsViewer";
 
 
-
-
-
-
-
 const DigestaParagraphusViewer = ({paragraphus}) => {
 
 

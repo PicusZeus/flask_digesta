@@ -1,32 +1,25 @@
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import TocMobile from "../../../UI/TocMobile/TocMobile";
-import {useState} from "react";
-import {useEffect} from "react";
 import NotificationService from "../../../../services/notification.service";
+import {getLegesAuthor} from "../../../../api/api";
+import {useQuery} from "@tanstack/react-query";
+
 const DigestaTocMobileJuristDigestaTitulus = ({author_id, titulus_id}) => {
-    const [leges, setLeges] = useState([])
+    // const [leges, setLeges] = useState([])
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const notificationSetter = new NotificationService(dispatch)
 
-    useEffect(() => {
-
-        const notificationSetter = new NotificationService(dispatch)
-        const urlLoadLegesData = process.env.REACT_APP_BASE_API_URL + `digesta/titulus/leges/author/${titulus_id}/${author_id}`
-
-        const sendRequest = async () => {
-            const response = await fetch(urlLoadLegesData)
-            return await response.json()
+    const {data: leges} = useQuery({
+        queryKey: ["digesta", "titulus", "leges", "author", titulus_id, author_id],
+        queryFn: () => getLegesAuthor(titulus_id, author_id),
+        onError: () => {
+            notificationSetter.setNotificationError('Błąd ładowania', 'Nie udało się załadować ustaw')
 
         }
-        sendRequest().then((response) => {
+    })
 
-
-            setLeges(response)
-        }).catch((e) => {
-            notificationSetter.setNotificationError('Ładowanie tytułu', 'Błąd Servera')
-        })
-    }, [author_id, dispatch, titulus_id])
 
     const onOptionChangeLexHandler = (event) => {
         navigate("/jurysci/digesta/" + author_id + "/" + event.target.value)
@@ -34,21 +27,17 @@ const DigestaTocMobileJuristDigestaTitulus = ({author_id, titulus_id}) => {
     }
 
     return (
-        <>
 
 
-            <TocMobile onOption={onOptionChangeLexHandler}>
+        <TocMobile onOption={onOptionChangeLexHandler}>
 
-                <option value={''}>Wybierz ustawę</option>
+            <option value={''}>Wybierz ustawę</option>
 
-                {leges.map(lex => (<option key={lex.id} value={lex.id}>{lex.lex_nr}</option>))}
+            {leges && leges.map(lex => (<option key={lex.id} value={lex.id}>{lex.lex_nr}</option>))}
 
-            </TocMobile>
-
-
+        </TocMobile>
 
 
-        </>
     )
 }
 

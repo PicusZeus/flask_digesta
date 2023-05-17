@@ -128,7 +128,8 @@ const CommentViewer = ({paragraphus_id, comment, username, onDelete, queryClient
                                 edit
                                 <span className={classes.tooltiptext}>edytuj</span></button>
                             <button className="material-symbols-outlined" onClick={() => setDeleteDialog(true)}
-                                    disabled={user_id !== comment.user.id.toString()}>delete_forever
+                                    disabled={user_id !== comment.user.id.toString() }>
+                                delete_forever
                                 <span className={classes.tooltiptext}>usuń</span>
                             </button>
 
@@ -143,7 +144,6 @@ const CommentViewer = ({paragraphus_id, comment, username, onDelete, queryClient
 
 
         </li>
-        {/*<RepliesViewer repliedId={comment.id} queryClient={queryClient} onCloseReply={()=>setIsReplaying(false)} reply={isReplying}/>*/}
     </>)
 }
 

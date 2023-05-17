@@ -3,8 +3,8 @@ import DigestaTocDesktopLex from "../DigestaTocDesktopLex/DigestaTocDesktopLex";
 import classes from './DigestaTocDesktopTitulus.module.css'
 import NotificationService from "../../../../services/notification.service";
 import {useDispatch} from "react-redux";
-import api from "../../../../api/api";
 import {useQuery} from "@tanstack/react-query";
+import {getLeges} from "../../../../api/api";
 
 const DigestaTocDesktopTitulus = ({titulus}) => {
 
@@ -13,21 +13,15 @@ const DigestaTocDesktopTitulus = ({titulus}) => {
     const dispatch = useDispatch()
 
     const notificationSetter = new NotificationService(dispatch)
-    const getLeges = (id) => {
 
-        return api.get("digesta/titulus/leges/" + id).then((response) => {
-            return response.data
-        }).catch(() => {
-                notificationSetter.setNotificationError('Ładowanie tytułu', 'Błąd Servera')
-
-            }
-        )
-
-    }
 
     const {data: leges} = useQuery({
             queryKey: ["digesta", "titulus", "leges", titulus.id],
-            queryFn: () => getLeges(titulus.id)
+            queryFn: () => getLeges(titulus.id),
+            onError: () => {
+                notificationSetter.setNotificationError('Ładowanie tytułu', 'Błąd Servera')
+
+            }
         }
     )
 

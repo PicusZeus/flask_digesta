@@ -63,20 +63,32 @@ const ReplyViewer = ({replyId, reply, onDelete, queryClient}) => {
 
                 </div>
                 <div className={classes.reply__item_actions}>
-                    <button onClick={onLikedHandler} disabled={!user_id}
-                            className="material-symbols-outlined">
-                        {!liked ? "favorite" : "heart_check"}
-                        <span className={classes.likes_num}>{likes}</span>
+                    <div className={classes.reply__item_action}>
+                        <button onClick={onLikedHandler} disabled={!user_id}
+                                className="material-symbols-outlined">
+                            {!liked ? "favorite" : "heart_check"}
+                            <span className={classes.likes_num}>{likes}</span>
+
+                        </button>
                         <span className={classes.tooltiptext}>polub</span>
-                    </button>
-                    <button onClick={() => setIsReplaying(!isReplying)} disabled={!user_id}
-                            className="material-symbols-outlined"> reply
+                    </div>
+
+                    <div className={classes.reply__item_action}>
+                        <button onClick={() => setIsReplaying(!isReplying)} disabled={!user_id}
+                                className="material-symbols-outlined"> reply
+
+                        </button>
                         <span className={classes.tooltiptext}>odpowiedz</span>
-                    </button>
-                    <button className="material-symbols-outlined" onClick={() => setDeleteDialog(true)}
-                            disabled={user_id !== reply.user.id.toString()}>delete_forever
+                    </div>
+
+                    <div className={classes.reply__item_action}>
+                        <button className="material-symbols-outlined" onClick={() => setDeleteDialog(true)}
+                                disabled={user_id !== reply.user.id.toString()}>delete_forever
+
+                        </button>
                         <span className={classes.tooltiptext}>usuń</span>
-                    </button>
+                    </div>
+
 
                 </div>
                 <RepliesViewer repliedId={reply.id} onCloseReply={() => setIsReplaying(false)} reply={isReplying}

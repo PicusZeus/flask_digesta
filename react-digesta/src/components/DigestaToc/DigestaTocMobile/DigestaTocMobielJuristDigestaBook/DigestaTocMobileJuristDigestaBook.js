@@ -1,30 +1,27 @@
 import TocMobile from "../../../UI/TocMobile/TocMobile";
 import {useState} from "react";
-import {useEffect} from "react";
 import DigestaTocMobileJuristDigestaTitulus
     from "../DigestaTocMobileJuristDigestaTitulus/DigestaTocMobileJuristDigestaTitulus";
+import {getTituliAuthor} from "../../../../api/api";
+import {useDispatch} from "react-redux";
+import NotificationService from "../../../../services/notification.service";
+import {useQuery} from "@tanstack/react-query";
 
 const DigestaTocMobileJuristDigestaBook = ({book_id, author_id}) => {
-    const [tituli, setTituli] = useState([])
     const [titulusId, setTitulusId] = useState(false)
+
+    const dispatch = useDispatch()
+    const notificationSetter = new NotificationService(dispatch)
     const onOptionChangeHandler = (event) => {
         setTitulusId(event.target.value)
     }
-    useEffect(() => {
-        const urlLoadTituli = process.env.REACT_APP_BASE_API_URL + `digesta/tituli/author/${book_id}/${author_id}`
 
-        const sendRequest = async () => {
-            const response = await fetch(urlLoadTituli)
-            if (!response.ok) {
-                throw new Error()
-            }
-            return await response.json()
-        }
-        sendRequest().then((response) => {
+    const { data: tituli } = useQuery({
+        queryKey: ["digesta", "tituli", "author", book_id, author_id],
+        queryFn: () => getTituliAuthor(book_id, author_id),
+        onError: () => {notificationSetter.setNotificationError("Błąd ładowania", "Nie udało się załadować tytułów")}
+    })
 
-            setTituli(response)
-        }).catch((e) => (console.log(e)))
-    }, [book_id, author_id])
 
     return (
         <>

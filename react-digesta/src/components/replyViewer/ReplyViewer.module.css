@@ -45,7 +45,7 @@
     /*justify-content: space-around;*/
 }
 
-.reply__item_actions button {
+.reply__item_action button {
     padding: 0;
     margin: 0;
     position: relative;
@@ -58,7 +58,8 @@
     font-size: 0.5rem;
 }
 
-.reply__item_actions button .tooltiptext {
+.reply__item_action .tooltiptext {
+    display: block;
     visibility: hidden;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     /*width: 120px;*/
@@ -74,9 +75,9 @@
     z-index: 1;
 }
 
-.reply__item_actions button:hover {
+.reply__item_action button:hover {
     cursor: pointer;
 }
-.reply__item_actions button:hover .tooltiptext {
+.reply__item_action:hover .tooltiptext {
     visibility: visible;
 }

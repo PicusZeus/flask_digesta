@@ -1,11 +1,10 @@
-import {Outlet, useParams} from "react-router-dom";
+import {Outlet, useLocation, useParams} from "react-router-dom";
 import {Link} from "react-router-dom";
 import classes from "./DigestaJurist.module.css"
 import {useState} from "react";
 import {useEffect} from "react";
 import {useQuery} from "@tanstack/react-query";
 import {getJurist} from "../../../api/api";
-
 
 
 const getJuristQuery = (id) => {
@@ -18,15 +17,22 @@ const getJuristQuery = (id) => {
 
 const DigestaJurist = () => {
     const params = useParams()
+    const location = useLocation()
+    const opera = location.pathname.split("/").includes("opera")
     const {data: juristData} = useQuery(getJuristQuery(params.jurysta_id))
     const juristId = parseInt(juristData.id)
     const [openOutlet, setOpenHandler] = useState(false)
     const pathDigestaJurist = "digesta/" + juristId
     const pathOperaJurist = "opera/" + juristId
     useEffect(() => {
-        setOpenHandler(false)
+        if (!opera) {
+            setOpenHandler(false)
+        } else {
+            setOpenHandler(true)
+        }
 
-    }, [juristId])
+
+    }, [opera, juristId])
 
 
 

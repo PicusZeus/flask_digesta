@@ -12,6 +12,7 @@ const initialState = {
     chosenParagraphKey: false,
     chosenJuristId: false,
     chosenOpusId: false,
+    chosenOpusLiberId: false,
     foundParagraphi: [],
     searchedTerm: '',
     lang: 'lat'
@@ -24,6 +25,9 @@ const digestaSlice = createSlice({
         reducers: {
             setFoundParagraphi(state, action) {
               state.foundParagraphi = action.payload
+            },
+            setChosenOpusLiberId(state, action) {
+                state.chosenOpusLiberId = action.payload
             },
 
             setSearchedTerm(state, action) {

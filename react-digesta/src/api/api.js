@@ -55,16 +55,18 @@ export const postComment = ({newComment, isPrivate, id}) => {
 }
 
 export const saveEditedComment = ({newText, id}) => {
-        const token = TokenService.getLocalAccessToken()
-        return api.put(`comment/${id}`,
-                {
-                    comment: newText
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json"
-                    }})}
+    const token = TokenService.getLocalAccessToken()
+    return api.put(`comment/${id}`,
+        {
+            comment: newText
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        })
+}
 
 export const likeComment = (comment_id) => {
     console.log(comment_id, "COMID")
@@ -76,46 +78,53 @@ export const likeComment = (comment_id) => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json"
         }
-    }).then(()=>{})
+    }).then(() => {
+    })
 }
 
 
 export const getParagraph = (id) => {
     return api.get("digesta/paragraphi/" + id)
-        .then(response => {return response.data}
-    ).catch(()=>{
-        throw json(
-            {message: "Nie udało się załadować danych dla tego paragrafu"},
-            {status: 500}
-        )
+        .then(response => {
+                return response.data
+            }
+        ).catch(() => {
+            throw json(
+                {message: "Nie udało się załadować danych dla tego paragrafu"},
+                {status: 500}
+            )
         })
 }
 
-export const getTituli = (book_id, author_id) => {
-        return api.get(`digesta/tituli/author/${book_id}/${author_id}`).then(response=>{
-            return response.data})}
+export const getTituliAuthor = (book_id, author_id) => {
+    return api.get(`digesta/tituli/author/${book_id}/${author_id}`).then(response => {
+        return response.data
+    })
+}
 
-export const getLeges = (titulusId, authorId) => {
-        return api.get(`digesta/titulus/leges/author/${titulusId}/${authorId}`).then(response => {
-            return response.data
-        })}
+export const getLegesAuthor = (titulusId, authorId) => {
+    return api.get(`digesta/titulus/leges/author/${titulusId}/${authorId}`).then(response => {
+        return response.data
+    })
+}
 
 export const getReplies = (id, username) => {
 
-        if (username) {
-            const token = tokenService.getLocalAccessToken()
-            return api.get("comment/comments/" + id, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
+    if (username) {
+        const token = tokenService.getLocalAccessToken()
+        return api.get("comment/comments/" + id, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then((response) => response.data)
+    } else {
+        return api.get("comment/comments/" + id)
+            .then(response => {
+                return response.data
             })
-                .then((response) => response.data)
-        } else {
-            return api.get("comment/comments/" + id)
-                .then(response => {
-                    return response.data
-                })
-        }}
+    }
+}
 
 export const getJurist = (id) => {
     return api.get(`authors/${id}`).then((response) => {
@@ -140,9 +149,9 @@ export const getJuristBooks = (id) => {
 }
 
 export const getJuristOpera = (id) => {
-    return api.get("opera/jurist/" + id).then(response=>{
+    return api.get("opera/jurist/" + id).then(response => {
         return response.data
-    }).catch((e)=>{
+    }).catch((e) => {
         throw json(
             {message: "Nie udało załadować się spisu prac jurysty"},
             {status: e.status}
@@ -154,15 +163,18 @@ export const getJurists = () => {
     return api.get("authors").then((response) => {
         return response.data
     }).catch(() => {
-        throw json(
-            {message: "Nie udało się załadować listy jurystów"},
-            {status: 500}
-        )}
+            throw json(
+                {message: "Nie udało się załadować listy jurystów"},
+                {status: 500}
+            )
+        }
     )
 }
 
 export const getOpera = () => {
-    return api.get("opera").then((response)=>{return response.data}).catch(()=>{
+    return api.get("opera").then((response) => {
+        return response.data
+    }).catch(() => {
         throw json(
             {message: "Nie udało się załadować listy prac jurystów"},
             {status: 500}
@@ -171,12 +183,26 @@ export const getOpera = () => {
 }
 
 export const getBooks = () => {
-    return api.get("digesta/books").then((response)=>{
+    return api.get("digesta/books").then((response) => {
         return response.data
-    }).catch(()=>{
+    }).catch(() => {
         throw json(
             {message: "Nie udało się załadować spisu treści Digestów"},
             {status: 500}
         )
+    })
+}
+
+export const getLeges = (id) => {
+
+    return api.get("digesta/titulus/leges/" + id).then((response) => {
+        return response.data
+    })
+
+}
+
+export const getLegesOpus = (id) => {
+    return api.get("digesta/opus/leges/" + id).then(response => {
+        return response.data
     })
 }

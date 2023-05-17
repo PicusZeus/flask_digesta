@@ -6,6 +6,8 @@ import DigestaTocMobileParagraphi
 import api from "../../api/api";
 import {useQuery} from "@tanstack/react-query";
 import Spinner from "../UI/spinner/Spinner";
+import {digestaActions} from "../../store/digesta-slice";
+import {useDispatch} from "react-redux";
 
 const getLex = (id) => {
     return api.get("digesta/leges/" + id)
@@ -29,7 +31,7 @@ const DigestaLexViewer = () => {
 
     const params = useParams()
     const { data: lex } = useQuery(getLexQuery(params.lex_id))
-
+    const dispatch = useDispatch()
 
    const navigate = useNavigate()
 
@@ -54,6 +56,12 @@ const DigestaLexViewer = () => {
     const paragraphiKeys = Object.keys(paragraphiDic).sort((a, b) => parseInt(a) - parseInt(b))
     paragraphiKeys.unshift(paragraphiKeys.pop())
 
+    const showOpusHandler = () => {
+        dispatch(digestaActions.setChosenJuristId(lex.author.id))
+        dispatch(digestaActions.setChosenOpusId(lex.opus.opus.id))
+        dispatch(digestaActions.setChosenOpusLiberId(lex.opus.id))
+        // dispatch()
+    }
 
     return (
 
@@ -68,7 +76,7 @@ const DigestaLexViewer = () => {
             </div>
             <div className={classes.main_lex__redirections}>
                 <button><Link to={linkAuthor}>{lex.author.name}</Link></button>
-                <button><Link
+                <button onClick={showOpusHandler}><Link
                     to={linkToAuthorOpera}><span>{parseInt(lex.opus.liber) > 0 ? ksiega : null}</span><span> {lex.opus.opus.title_pl}</span></Link>
                 </button>
             </div>

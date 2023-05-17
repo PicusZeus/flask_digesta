@@ -7,8 +7,8 @@
 }
 
 .toc_outlet {
-    width: 17rem;
-    /*width: 100%;*/
+    /*width: 17rem;*/
+    width: 100%;
 }
 
 
@@ -21,7 +21,10 @@
         height: calc(100% - 4rem);
         /*background: black;*/
     }
-
+/*    .toc_outlet {*/
+/*    width: 17rem;*/
+/*    !*width: 100%;*!*/
+/*}*/
     .mobile_toc {
         display: none;
     }

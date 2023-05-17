@@ -1,32 +1,34 @@
-import {useState} from "react";
+import { useState} from "react";
 import classes from "./DigestaTocDesktopOpusLiber.module.css"
 import DigestaTocDesktopLex from "../DigestaTocDesktopLex/DigestaTocDesktopLex";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import NotificationService from "../../../../services/notification.service";
-import api from "../../../../api/api";
 import {useQuery} from "@tanstack/react-query";
+import {getLegesOpus} from "../../../../api/api";
+import {digestaActions} from "../../../../store/digesta-slice";
 
 const DigestaTocDesktopOpusLiber = ({liber, libriLength, lexPath}) => {
-    const [openLegesMenu, setOpenLegesMenu] = useState(false)
+
+    const chosenOpusLiberId = useSelector(state => state.digesta.chosenOpusLiberId)
+
+    const [openLegesMenu, setOpenLegesMenu] = useState(chosenOpusLiberId === liber.id)
     const dispatch = useDispatch()
     const notificationSetter = new NotificationService(dispatch)
     const liberLineClasses = [classes.liber__line]
-    const getLeges = (id) => {
-        return api.get("digesta/opus/leges/" + id).then(response => {
-            return response.data
-        }).catch(() => {
-            notificationSetter.setNotificationError("Błąd połączenia", "Nie udało się załadować spisu ustaw")
-
-        })
-    }
 
 
-    const { data: leges } = useQuery({
+    const {data: leges} = useQuery({
         queryKey: ["digesta", "opus", "leges", liber.id],
-        queryFn: ()=>getLeges(liber.id)
+        queryFn: () => getLegesOpus(liber.id),
+        onError: () => {
+            notificationSetter.setNotificationError("Błąd połączenia", "Nie udało się załadować spisu ustaw")
+        }
     })
 
     const openLiberHandler = () => {
+        if (!openLegesMenu) {
+            dispatch(digestaActions.setChosenOpusLiberId(liber.id))
+        }
         setOpenLegesMenu((current) => !current)
     }
 

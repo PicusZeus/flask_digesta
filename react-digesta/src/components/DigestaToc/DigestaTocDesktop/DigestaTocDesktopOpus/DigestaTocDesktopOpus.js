@@ -1,10 +1,21 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import DigestaTocDesktopOpusLiber from "../DigestaTocDesktopOpusLiber/DigestaTocDesktopOpusLiber";
 import classes from "./DigestaTocDesktopOpus.module.css"
+import {useDispatch, useSelector} from "react-redux";
+import {digestaActions} from "../../../../store/digesta-slice";
 
 const DigestaTocDesktopOpus = ({opus, lexPath}) => {
-    const [menuLibriOpen, setMenuLibriOpen] = useState(false)
+    const chosenOpusId = useSelector(state => state.digesta.chosenOpusId)
+    console.log(chosenOpusId, 'CHOSEN', opus)
+    const [menuLibriOpen, setMenuLibriOpen] = useState(chosenOpusId === opus.id)
+
+    const dispatch = useDispatch()
+
+
     const openOpusHandler = () => {
+        if (!menuLibriOpen) {
+            dispatch(digestaActions.setChosenOpusId(opus.id))
+        }
         setMenuLibriOpen((current) => !current)
     }
     const libriLength = opus.libri.length
@@ -18,7 +29,9 @@ const DigestaTocDesktopOpus = ({opus, lexPath}) => {
 
             {menuLibriOpen && <div className={classes.main_toc__libri}>
                 <ul className={classes.main_toc__libri_items}>
-                    {opus.libri.map((liber) => (<DigestaTocDesktopOpusLiber key={liber.id} liber={liber} libriLength={libriLength} lexPath={lexPath}/>))}
+                    {opus.libri.map((liber) => (
+                        <DigestaTocDesktopOpusLiber key={liber.id} liber={liber} libriLength={libriLength}
+                                                    lexPath={lexPath}/>))}
                 </ul>
 
             </div>}

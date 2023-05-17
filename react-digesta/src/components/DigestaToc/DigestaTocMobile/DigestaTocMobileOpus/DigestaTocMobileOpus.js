@@ -12,7 +12,6 @@ const DigestaTocMobileOpus = ({opus, lexPath}) => {
             setChosenBook(liber)
     }
 
-// }
 
     const libri = opus.libri
     return (
