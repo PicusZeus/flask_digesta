@@ -1,9 +1,9 @@
 .main_toc__book {
     /*border: 1px solid black;*/
-    font-size: 1.2rem;
+    font-size: 1rem;
     /*background: rgba(0, 0, 0, 0.1);*/
     /*width: 80%;*/
-    text-align: left;
+    /*text-align: left;*/
     /*padding: 0.5rem;*/
     /*background: #a0d8ef;*/
     /*margin: 0 0 0 97%;*/
@@ -16,12 +16,14 @@
     border-right-style: none;
     background: #fffff0;
     padding: 0.1rem;
+    text-align: center;
 }
 
 .bookCut {
+    /*margin: auto;*/
  /*background: #a0d8ef;*/
   /*margin: 0 0 0 97%;*/
-  margin-left: 2rem;
+  /*margin-left: 2rem;*/
 }
 
 .main_toc__book:hover, .main_toc__book:active {

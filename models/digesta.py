@@ -10,7 +10,7 @@ class DigestaBookModel(db.Model):
     book_polish_name = db.Column(db.String(256), unique=True, nullable=False)
     tituli = db.relationship("DigestaTitulusModel", passive_deletes=True, back_populates="book")
     # leges = db.relationship("DigestaLexModel", back_populates="book")
-
+    jurists_authorship = db.relationship("BookAuthorshipModel", back_populates='book')
 
 class DigestaTitulusModel(db.Model):
     __tablename__ = "digesta_tituli"
@@ -21,6 +21,7 @@ class DigestaTitulusModel(db.Model):
     book_id = db.Column(db.Integer, db.ForeignKey("digesta_books.id", ondelete="CASCADE"), unique=False, nullable=False)
     book = db.relationship("DigestaBookModel",  back_populates="tituli",  order_by="DigestaBookModel.id")
     leges = db.relationship("DigestaLexModel",  back_populates="titulus", passive_deletes=True,  order_by="DigestaLexModel.lex_nr")
+    jurists_authorship = db.relationship("TitulusAuthorshipModel", back_populates='titulus')
     __table_args__ = (UniqueConstraint('number', 'book_id'),)
 
 

@@ -17,15 +17,15 @@ const DigestaParagraphusViewer = ({paragraphus}) => {
 
 
     const latinText = addTags(paragraphus.text_lat)
-    const polText = addTags(paragraphus.text_pl)
+    // const polText = addTags(paragraphus.text_pl)
 
 
     return (
         <>
-            {paragraphusKey && <h2>Paragraf {paragraphusKey}</h2>}
+            {paragraphusKey && <h2>Paragraphus {paragraphusKey}</h2>}
             <section className={classes.paragraph_text__container}>
                 <div>{latinText}</div>
-                <div>{polText}</div>
+                {/*<div>{polText}</div>*/}
             </section>
             <section className={classes.paragraph_comments__container}>
 

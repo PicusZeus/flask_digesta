@@ -12,7 +12,7 @@ const DigestaTocDesktopLex = ({address, lex, legesLength, path}) => {
     if (legesLength === 1) {
         tocLineClasses.push(classes.lex__line_single_lex)
     }
-    const lexAddress = address ? address : "Ustawa " + lex.lex_nr
+    const lexAddress = address ? address : "Lex " + lex.lex_nr
     return (
         <li className={classes.lex_main}>
            <div className={tocLineClasses.join(" ")}>&nbsp;</div>

@@ -29,15 +29,15 @@ const DigestaTocDesktopTitulus = ({titulus}) => {
         setTitulusMenuOpen((current) => !current)
 
     }
-
+    console.log(titulus, "titulus")
     return (
         <li className={classes.titulus_main}>
             <div className={classes.titulus__line}>&nbsp;</div>
             <div className={classes.titulus_group}>
                 <div>&nbsp;</div>
                 <button onClick={openTitulusHandler}>
-                    <p>Tytuł {titulus.number}</p>
-                    <p>{titulus.title_pl}</p>
+                    <p>Titulus {titulus.number}</p>
+                    {/*<p>{titulus.title_pl}</p>*/}
                     <p>{titulus.title_lat}</p>
                 </button>
 

@@ -41,8 +41,8 @@ const DigestaTocDesktopJuristDigestaTitulus = ({titulus, author_id}) => {
             <div className={classes.titulus_group}>
                 <div>&nbsp;</div>
                 <button onClick={openTitulusHandler}>
-                    <p>Tytuł {titulus.number}</p>
-                    <p>{titulus.title_pl}</p>
+                    <p>Titulus {titulus.number}</p>
+                    {/*<p>{titulus.title_pl}</p>*/}
                     <p>{titulus.title_lat}</p>
                 </button>
 

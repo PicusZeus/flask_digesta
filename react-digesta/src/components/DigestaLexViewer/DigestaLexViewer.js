@@ -46,10 +46,10 @@ const DigestaLexViewer = () => {
     }
     const linkToAuthorOpera = `/jurysci/${lex.author.id}/opera/${lex.author.id}`
     const linkAuthor = "/jurysci/" + lex.author.id
-    const ksiega = "Księga " + lex.opus.liber.toString()
+    const ksiega = "Liber " + lex.opus.liber.toString()
     const address = "D " + lex.titulus.book.book_nr + '.' + lex.titulus.number + '.' + lex.lex_nr
     const address_lat = lex.address_lat
-    const address_pl = lex.address_pl
+    // const address_pl = lex.address_pl
 
 
     const paragraphiDic = Object.assign({}, ...paragraphi.map((paragraphus) => ({[paragraphus.key]: paragraphus})));
@@ -70,14 +70,14 @@ const DigestaLexViewer = () => {
             <div className={classes.main_lex__title}>
                 <h1>{address}</h1>
                 <h4>{address_lat}</h4>
-                <h4>{address_pl}</h4>
+                {/*<h4>{address_pl}</h4>*/}
 
 
             </div>
             <div className={classes.main_lex__redirections}>
                 <button><Link to={linkAuthor}>{lex.author.name}</Link></button>
                 <button onClick={showOpusHandler}><Link
-                    to={linkToAuthorOpera}><span>{parseInt(lex.opus.liber) > 0 ? ksiega : null}</span><span> {lex.opus.opus.title_pl}</span></Link>
+                    to={linkToAuthorOpera}><span>{parseInt(lex.opus.liber) > 0 ? ksiega : null}</span><span> {lex.opus.opus.title_lat}</span></Link>
                 </button>
             </div>
             <DigestaParagraphusViewer paragraphus={paragraphiDic['pr']}/>

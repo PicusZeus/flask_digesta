@@ -31,11 +31,12 @@ const DigestaTocDesktopJuristDigestaBook = ({book, author_id}) => {
         }
         setBookMenuOpen((current) => !current)
     }
+    console.log(book, "BOOK")
 
     return (
         <li>
             <button className={classes.main_toc__book}
-                    onClick={openTituliHandler}><span className={classes.bookCut}>Księga {book.book_nr}</span>
+                    onClick={openTituliHandler}><span className={classes.bookCut}>Liber {book.book_nr}</span>
             </button>
             {bookMenuOpen && <div className={classes.main_toc__tituli}>
                 <div>&nbsp;</div>

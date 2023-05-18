@@ -11,11 +11,11 @@ const DigestaTocDesktopBook = ({book}) => {
         if (!bookMenuOpen && !tituli) {
         }
     }
-
+    console.log(book)
     return (
         <li>
             <button className={classes.main_toc__book}
-                    onClick={openTituliHandler}><span className={classes.bookCut}>Księga {book.book_nr}</span>
+                    onClick={openTituliHandler}><span className={classes.bookCut}>Liber {book.book_latin_name}</span>
             </button>
             {bookMenuOpen && <div className={classes.main_toc__tituli}>
                 <div>&nbsp;</div>

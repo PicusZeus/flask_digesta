@@ -3,7 +3,7 @@ from app import create_app
 app = create_app()
 app.app_context().push()
 from db import db
-from models import AuthorModel, OpusModel, CommentModel, DigestaBookModel, DigestaLexModel, DigestaTitulusModel, DigestaParagraphusModel, OpusLibriModel
+from models import AuthorModel, OpusModel, CommentModel, DigestaBookModel, BookAuthorshipModel, DigestaLexModel, DigestaTitulusModel, DigestaParagraphusModel, OpusLibriModel, TitulusAuthorshipModel
 import pickle
 from populate.resources import int_to_roman
 from sqlalchemy.exc import IntegrityError
@@ -327,16 +327,86 @@ if __name__ == "__main__":
     # db.session.commit()
     # insert_digesta_book(liber="LIBER TRIGESIMUS OCTAVUS", ksiega="KSIĘGA TRZYDZIESTA ÓSMA", number=38, file_name=FILE_PICKLE_LIBER_38)
 
-    par13535 = DigestaParagraphusModel.query.filter_by(id=13536).first()
-    par13537 = DigestaParagraphusModel.query.filter_by(id=13537).first()
+    # par13535 = DigestaParagraphusModel.query.filter_by(id=13536).first()
+    # par13537 = DigestaParagraphusModel.query.filter_by(id=13537).first()
+    #
+    # db.session.delete(par13535)
+    # db.session.delete(par13537)
+    # db.session.commit()
+    # insert_digesta_book(liber="LIBER TRIGESIMUS OCTAVUS", ksiega="KSIĘGA TRZYDZIESTA ÓSMA", number=38, file_name=FILE_PICKLE_LIBER_38)
+    #
+    # Ulpian = AuthorModel.query.filter(AuthorModel.name == "PAULUS").first()
+    # text = 0
+    # for l in Ulpian.leges:
+    #     for p in l.paragraphi:
+    #         text += len(p.text_lat)
+    # whole = sum([len(x.text_lat) for x in DigestaParagraphusModel.query.all()])
+    #
+    #
+    #
+    # print(text)
+    # print(text / whole)
+    def authorship():
+        all_digesta = sum([len(x.text_lat) for x in DigestaParagraphusModel.query.all()])
+        authors = AuthorModel.query.all()
+        for author in authors:
+            all_for_author = sum([sum([len(p.text_lat) for p in lex.paragraphi]) for lex in author.leges])
+            print(author.name, round((all_for_author / all_digesta) * 100, 4))
+            author.authorship = round((all_for_author / all_digesta) * 100, 4)
+            db.session.commit()
 
-    db.session.delete(par13535)
-    db.session.delete(par13537)
-    db.session.commit()
-    insert_digesta_book(liber="LIBER TRIGESIMUS OCTAVUS", ksiega="KSIĘGA TRZYDZIESTA ÓSMA", number=38, file_name=FILE_PICKLE_LIBER_38)
+
+
+        for book in DigestaBookModel.query.all():
+            all_paragraphi = DigestaParagraphusModel.query.join(DigestaLexModel, DigestaLexModel.id == DigestaParagraphusModel.lex_id).join(DigestaTitulusModel, DigestaTitulusModel.id == DigestaLexModel.titulus_id).filter(DigestaTitulusModel.book_id == book.id).all()
+            book_text = sum([len(p.text_lat) for p in all_paragraphi])
+
+
+            for author in authors:
+                print(author.name)
+                all_paragraphi_book_author = DigestaParagraphusModel.query.join(DigestaLexModel, DigestaParagraphusModel.lex_id == DigestaLexModel.id).join(DigestaTitulusModel, DigestaTitulusModel.id == DigestaLexModel.titulus_id).filter(DigestaTitulusModel.book_id == book.id, DigestaLexModel.author_id == author.id).all()
+                author_text_for_book = sum([len(p.text_lat) for p in all_paragraphi_book_author])
+                authorship = BookAuthorshipModel(author_id=author.id, book_id=book.id, authorship=round((author_text_for_book / book_text) * 100, 4))
+                db.session.add(authorship)
+                db.session.commit()
+
+                # print(author.name)
+                # print(round((author_text_for_book / book_text) * 100, 4))
+
+
+    # authorship()
+
+
+    def tituli_authorship():
+        db.session.rollback()
+        for book in DigestaBookModel.query.all():
+            for titulus in book.tituli:
+                 print(titulus.title_lat, titulus.book.book_nr)
+                 all_paragraphi = DigestaParagraphusModel.query.join(DigestaLexModel,
+                                                                     DigestaLexModel.id == DigestaParagraphusModel.lex_id).filter(DigestaLexModel.titulus_id == titulus.id).all()
+                 titulus_text = sum([len(p.text_lat) for p in all_paragraphi])
+                 print(titulus_text)
+
+                 for author in AuthorModel.query.all():
+                     print(author.name)
+                     all_paragraphi_titulus_author = DigestaParagraphusModel.query.join(DigestaLexModel,
+                                                                     DigestaLexModel.id == DigestaParagraphusModel.lex_id).filter(DigestaLexModel.titulus_id == titulus.id).filter(DigestaLexModel.author_id==author.id).all()
+
+                     author_text_for_titulus = sum([len(p.text_lat) for p in all_paragraphi_titulus_author])
+                     print(author_text_for_titulus)
+
+                     authorship = TitulusAuthorshipModel(author_id=author.id,
+                                                        titulus_id=titulus.id,authorship=round((author_text_for_titulus / titulus_text) * 100, 4))
+                     try:
+                        db.session.add(authorship)
+                        db.session.commit()
+                     except:
+                         db.session.rollback()
+                         print('in')
 
 
 
+    tituli_authorship()
 
 
 

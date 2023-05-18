@@ -5,7 +5,7 @@ import {digestaActions} from "../../store/digesta-slice";
 const DigestaSearch = () => {
 
     const dispatch = useDispatch()
-    const lang = useSelector(state=>state.digesta.lang)
+    const lang = 'lat'
 
 
     const setLanguageHandler = (event) => {
@@ -18,10 +18,10 @@ const DigestaSearch = () => {
             <div className={classes.form__search}>
                 <div className={classes.form__choose_language}>
                     <label htmlFor="selectLang">Wyszukiwanie w tekście</label>
-                    <select id="selectLang" onChange={setLanguageHandler}>
-                        <option value='lat'>oryginalnym</option>
-                        <option value='pl'>polskim</option>
-                    </select>
+                    {/*<select id="selectLang" onChange={setLanguageHandler}>*/}
+                    {/*    <option value='lat'>oryginalnym</option>*/}
+                    {/*    <option value='pl'>polskim</option>*/}
+                    {/*</select>*/}
                 </div>
 
                 <input className={classes.form__input} id="searched_term" name="searched_term" type="text"/>
