@@ -52,15 +52,24 @@ class LexOpusSchema(LexTocSchema):
 # authorship
 
 
+
+# class AuthorshipBookSchema(Schema):
+#     book = fields.Nested(PlainBookSchema())
+#     authorship = fields.Float()
+#
+#
+# class AuthorshipTitulusSchema(Schema):
+#     titulus = fields.Nested(PlainTitulusSchema())
+#     authorship = fields.Float()
+
+
+
+
 # jurist
 
-class BookAuthorshipSchema(Schema):
-    book = fields.Nested(PlainBookSchema())
-    authorship = fields.Float()
 
-class TitulusAuthorshipSchema(Schema):
-    titulus = fields.Nested(PlainTitulusSchema())
-    authorship = fields.Float()
+
+
 
 class BookTocAuthorSchema(PlainBookSchema):
     tituli = fields.List(fields.Nested(TitulusTocSchema()))
@@ -75,9 +84,12 @@ class JuristInfoSchema(PlainJuristSchema):
     description = fields.Str()
     flourished_start = fields.Int()
     flourished_end = fields.Int()
-    authorship = fields.Float()
-    books_authorship = fields.List(fields.Nested(BookAuthorshipSchema()))
-    tituli_authorship = fields.List(fields.Nested(TitulusAuthorshipSchema()))
+    # authorship = fields.Float()
+    # books_authorship = fields.List(fields.Nested(AuthorshipBookSchema()))
+    # tituli_authorship = fields.List(fields.Nested(AuthorshipTitulusSchema()))
+
+
+
 
 
 # opus
@@ -275,3 +287,53 @@ class DeleteResponseSchema(Schema):
 class LikeSaveSchema(Schema):
 
     comment_id = fields.Int()
+
+
+# authorship, coverage
+
+# class AuthorshipBooksSchema(Schema):
+#     id = fields.Int()
+#     author = fields.Nested(PlainAuthorSchema())
+#     authorship = fields.Float()
+
+# class AuthorshipTituliSchema(Schema):
+#     id = fields.Int()
+#     author = fields.Nested(PlainAuthorSchema())
+#     authorship = fields.Float()
+
+
+# class OpusBookCoverageSchema(Schema):
+#     id = fields.Int()
+#     coverage = fields.Float()
+#     opus = fields.Nested(PlainOpusSchema())
+
+# class OpusTitulusCoverageSchema(Schema):
+#     id = fields.Int()
+#     coverage = fields.Float()
+#     opus = fields.Nested(PlainOpusSchema())
+
+# class TitulusAuthorshipSchema(PlainTitulusSchema):
+#     jurists_authorship = fields.List(fields.Nested(AuthorshipTituliSchema()))
+#     opera_coverage = fields.List(fields.Nested(OpusTitulusCoverageSchema()))
+#
+
+# class BookAuthorshipSchema(PlainBookSchema):
+#     # tituli = fields.List(fields.Nested(TitulusAuthorshipSchema()))
+#     jurists_authorship = fields.List(fields.Nested(AuthorshipBookSchema()))
+#     opera_coverage = fields.List(fields.Nested(OpusBookCoverageSchema()))
+
+# stats
+
+class JuristAuthorshipSchema(PlainJuristSchema):
+    authorship = fields.Float()
+
+class OpusCoverageSchema(PlainOpusSchema):
+    coverage = fields.Float()
+
+class BookShareSchema(PlainBookSchema):
+    share = fields.Float()
+
+class DigestaStats(Schema):
+    jurists_authorship = fields.List(fields.Nested(JuristAuthorshipSchema()))
+    opera_coverage = fields.List(fields.Nested(OpusCoverageSchema()))
+    books_share = fields.List(fields.Nested(BookShareSchema()))

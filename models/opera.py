@@ -13,7 +13,32 @@ class OpusModel(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey("authors.id"), unique=False, nullable=False)
     author = db.relationship("AuthorModel", back_populates="opera")
     libri = db.relationship("OpusLibriModel", back_populates="opus")
+    coverage = db.Column(db.Float(4))
+
+    books_coverage = db.relationship("OpusBookCoverageModel")
+    tituli_coverage = db.relationship("OpusTitulusCoverageModel")
     __table_args__ = (UniqueConstraint('title_lat', 'author_id'),)
+
+class OpusBookCoverageModel(db.Model):
+    __tablename__ = "opera_book_coverage"
+    id = db.Column(db.Integer, primary_key=True)
+    opus_id = db.Column(db.Integer, db.ForeignKey("opera.id"))
+    book_id = db.Column(db.Integer, db.ForeignKey("digesta_books.id"))
+    coverage = db.Column(db.Float(4))
+    book = db.relationship("DigestaBookModel", back_populates='opera_coverage')
+    __table_args__ = (UniqueConstraint('opus_id', 'book_id'),)
+
+
+class OpusTitulusCoverageModel(db.Model):
+    __tablename__ = "opera_titulus_coverage"
+    id = db.Column(db.Integer, primary_key=True)
+    opus_id = db.Column(db.Integer, db.ForeignKey("opera.id"))
+    titulus_id = db.Column(db.Integer, db.ForeignKey("digesta_tituli.id"))
+    coverage = db.Column(db.Float(4))
+    opus = db.relationship("OpusModel", back_populates="tituli_coverage")
+    titulus = db.relationship("DigestaTitulusModel", back_populates="opera_coverage")
+    __table_args__ = (UniqueConstraint('opus_id', 'titulus_id'),)
+
 
 
 class OpusLibriModel(db.Model):

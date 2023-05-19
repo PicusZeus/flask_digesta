@@ -16,6 +16,7 @@ from resources.digesta import blp as digesta_blp
 from resources.opera import blp as opera_blp
 from resources.users import blp as users_blp
 from resources.comments import blp as comments_blp
+from resources.stats import blp as statistics_blp
 
 
 def create_app(db_url=None):
@@ -44,6 +45,7 @@ def create_app(db_url=None):
     api.register_blueprint(opera_blp)
     api.register_blueprint(users_blp)
     api.register_blueprint(comments_blp)
+    api.register_blueprint(statistics_blp)
 
     app.config["JWT_SECRET_KEY"] = "picus"
     jwt = JWTManager(app)

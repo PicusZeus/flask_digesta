@@ -3,13 +3,16 @@ from app import create_app
 app = create_app()
 app.app_context().push()
 from db import db
-from models import AuthorModel, OpusModel, CommentModel, DigestaBookModel, BookAuthorshipModel, DigestaLexModel, DigestaTitulusModel, DigestaParagraphusModel, OpusLibriModel, TitulusAuthorshipModel
+from models import AuthorModel, OpusModel, CommentModel, DigestaBookModel, BookAuthorshipModel, DigestaLexModel, \
+    DigestaTitulusModel, DigestaParagraphusModel, OpusLibriModel, TitulusAuthorshipModel, OpusTitulusCoverageModel, \
+    OpusBookCoverageModel
 import pickle
 from populate.resources import int_to_roman
 from sqlalchemy.exc import IntegrityError
 from .Data.jurists import jurists
 
 from sqlalchemy import func
+
 FILE_PICKLE_LIBER_1 = "populate/Data/digestaplikiend/d1.txt_extracted.pickle"
 FILE_PICKLE_LIBER_2 = 'populate/Data/digestaplikiend/d2.txt_extracted.pickle'
 FILE_PICKLE_LIBER_3 = 'populate/Data/digestaplikiend/d3.txt_extracted.pickle'
@@ -60,6 +63,7 @@ FILE_PICKLE_LIBER_47 = 'populate/Data/digestaplikiend/d47.txt_extracted.pickle'
 FILE_PICKLE_LIBER_48 = 'populate/Data/digestaplikiend/d48.txt_extracted.pickle'
 FILE_PICKLE_LIBER_49 = 'populate/Data/digestaplikiend/d49.txt_extracted.pickle'
 FILE_PICKLE_LIBER_50 = 'populate/Data/digestaplikiend/d50.txt_extracted.pickle'
+
 
 def insert_books(lat, pl, nr):
     # lat = 'LIBER PRIMUS'
@@ -140,6 +144,7 @@ def insert_opera(file_name):
                 print('opus Integrity error')
                 db.session.rollback()
 
+
 def insert_opera_books(file_name):
     with open(file_name, 'rb') as file:
         book_data = pickle.load(file)
@@ -164,6 +169,7 @@ def insert_opera_books(file_name):
                 print('opus Integrity error')
                 db.session.rollback()
 
+
 def insert_leges(file_name, book):
     liber = DigestaBookModel.query.filter_by(book_latin_name=book).one()
     liber_id = liber.id
@@ -184,7 +190,8 @@ def insert_leges(file_name, book):
             liber = lex['opus']['liber']
             opus = OpusModel.query.filter_by(title_lat=lex['opus']['title_lat'], author_id=author_id).one()
             opus_id = opus.id
-            opus_liber = OpusLibriModel.query.filter(OpusLibriModel.opus_id == opus_id, OpusLibriModel.liber == liber).one()
+            opus_liber = OpusLibriModel.query.filter(OpusLibriModel.opus_id == opus_id,
+                                                     OpusLibriModel.liber == liber).one()
 
             lex = DigestaLexModel(address_lat=address_lat,
                                   address_pl=address_pl,
@@ -223,7 +230,8 @@ def insert_paragraphi(file_name, book):
                 print(book_data[titulus_nr]['leges'][lex_nr]['content_pl'])
                 content_pl = book_data[titulus_nr]['leges'][lex_nr]['content_pl'][paragraph_nr]
                 print(content_pl)
-                paragraph = DigestaParagraphusModel(key=paragraph_nr, text_lat=content_lat, text_pl=content_pl, lex_id=lex.id)
+                paragraph = DigestaParagraphusModel(key=paragraph_nr, text_lat=content_lat, text_pl=content_pl,
+                                                    lex_id=lex.id)
 
                 db.session.add(paragraph)
                 try:
@@ -231,7 +239,6 @@ def insert_paragraphi(file_name, book):
                 except IntegrityError:
                     print('paragraph integrity error')
                     db.session.rollback()
-
 
             db.session.add(lex)
             try:
@@ -256,6 +263,172 @@ def addBio(jurists_bio):
             db.session.commit()
 
 
+def authorship():
+    all_digesta = sum([len(x.text_lat) for x in DigestaParagraphusModel.query.all()])
+    authors = AuthorModel.query.all()
+    for author in authors:
+        all_for_author = sum([sum([len(p.text_lat) for p in lex.paragraphi]) for lex in author.leges])
+        print(author.name, round((all_for_author / all_digesta) * 100, 4))
+        author.authorship = round((all_for_author / all_digesta) * 100, 4)
+        db.session.commit()
+
+
+def book_authorship():
+    for book in DigestaBookModel.query.all():
+        all_paragraphi = DigestaParagraphusModel.query \
+            .join(DigestaLexModel, DigestaLexModel.id == DigestaParagraphusModel.lex_id) \
+            .join(DigestaTitulusModel, DigestaTitulusModel.id == DigestaLexModel.titulus_id) \
+            .filter(DigestaTitulusModel.book_id == book.id).all()
+        book_text = sum([len(p.text_lat) for p in all_paragraphi])
+        for author in AuthorModel.query.all():
+            print(author.name)
+            all_paragraphi_book_author = DigestaParagraphusModel.query \
+                .join(DigestaLexModel, DigestaParagraphusModel.lex_id == DigestaLexModel.id) \
+                .join(DigestaTitulusModel, DigestaTitulusModel.id == DigestaLexModel.titulus_id) \
+                .filter(DigestaTitulusModel.book_id == book.id, DigestaLexModel.author_id == author.id).all()
+            author_text_for_book = sum([len(p.text_lat) for p in all_paragraphi_book_author])
+            if author_text_for_book:
+                authorship = BookAuthorshipModel(author_id=author.id, book_id=book.id,
+                                                 authorship=round((author_text_for_book / book_text) * 100, 4))
+                try:
+                    db.session.add(authorship)
+                    db.session.commit()
+                except:
+                    db.session.rollback()
+                    print('in')
+
+
+def tituli_authorship():
+    for book in DigestaBookModel.query.all():
+        for titulus in book.tituli:
+            print(titulus.title_lat, titulus.book.book_nr)
+            all_paragraphi = DigestaParagraphusModel.query \
+                .join(DigestaLexModel, DigestaLexModel.id == DigestaParagraphusModel.lex_id) \
+                .filter(DigestaLexModel.titulus_id == titulus.id).all()
+            titulus_text = sum([len(p.text_lat) for p in all_paragraphi])
+            print(titulus_text)
+
+            for author in AuthorModel.query.all():
+                print(author.name)
+                all_paragraphi_titulus_author = DigestaParagraphusModel.query \
+                    .join(DigestaLexModel, DigestaLexModel.id == DigestaParagraphusModel.lex_id) \
+                    .filter(DigestaLexModel.titulus_id == titulus.id).filter(
+                    DigestaLexModel.author_id == author.id).all()
+
+                author_text_for_titulus = sum([len(p.text_lat) for p in all_paragraphi_titulus_author])
+                if author_text_for_titulus:
+                    print(author_text_for_titulus)
+
+                    tit_authorship = TitulusAuthorshipModel(author_id=author.id,
+                                                            titulus_id=titulus.id,
+                                                            authorship=round(
+                                                                (author_text_for_titulus / titulus_text) * 100,
+                                                                4))
+                    try:
+                        db.session.add(tit_authorship)
+                        db.session.commit()
+                    except:
+                        db.session.rollback()
+                        print('in')
+
+
+def coverage():
+    all_digesta = sum([len(x.text_lat) for x in DigestaParagraphusModel.query.all()])
+
+    for opus in OpusModel.query.all():
+        all_paragraphi = DigestaParagraphusModel.query \
+            .join(DigestaLexModel, DigestaLexModel.id == DigestaParagraphusModel.lex_id) \
+            .join(OpusLibriModel, OpusLibriModel.id == DigestaLexModel.opus_id) \
+            .filter(OpusLibriModel.opus_id == opus.id).all()
+        opus_text = sum([len(p.text_lat) for p in all_paragraphi])
+
+        percentage = round((opus_text / all_digesta) * 100, 4)
+        opus.coverage = percentage
+        print(opus.title_lat, percentage)
+        db.session.commit()
+
+
+def book_coverage():
+    for book in DigestaBookModel.query.all():
+        all_paragraphi = DigestaParagraphusModel.query \
+            .join(DigestaLexModel, DigestaLexModel.id == DigestaParagraphusModel.lex_id) \
+            .join(DigestaTitulusModel, DigestaTitulusModel.id == DigestaLexModel.titulus_id) \
+            .filter(DigestaTitulusModel.book_id == book.id).all()
+        book_text = sum([len(p.text_lat) for p in all_paragraphi])
+
+        for opus in OpusModel.query.all():
+            all_paragraphi_book_opus = DigestaParagraphusModel.query \
+                .join(DigestaLexModel, DigestaLexModel.id == DigestaParagraphusModel.lex_id) \
+                .join(OpusLibriModel, OpusLibriModel.id == DigestaLexModel.opus_id) \
+                .join(DigestaTitulusModel, DigestaTitulusModel.id == DigestaLexModel.titulus_id) \
+                .filter(DigestaTitulusModel.book_id == book.id, opus.id == OpusLibriModel.opus_id).all()
+            book_opus_text = sum([len(p.text_lat) for p in all_paragraphi_book_opus])
+            if book_opus_text:
+                percentage = round((book_opus_text / book_text) * 100, 4)
+                print(book.book_latin_name, opus.title_lat, percentage)
+                book_coverage = OpusBookCoverageModel(opus_id=opus.id, book_id=book.id, coverage=percentage)
+                try:
+                    db.session.add(book_coverage)
+                    db.session.commit()
+                except:
+                    db.session.rollback()
+                    print("in")
+
+
+def titulus_coverage():
+    for titulus in DigestaTitulusModel.query.all():
+        all_paragraphi_tituli = DigestaParagraphusModel.query \
+            .join(DigestaLexModel, DigestaLexModel.id == DigestaParagraphusModel.lex_id) \
+            .filter(DigestaLexModel.titulus_id == titulus.id).all()
+        titulus_text = sum([len(p.text_lat) for p in all_paragraphi_tituli])
+        for opus in OpusModel.query.all():
+            all_paragraphi_tituli_opus = DigestaParagraphusModel.query \
+                .join(DigestaLexModel, DigestaLexModel.id == DigestaParagraphusModel.lex_id) \
+                .join(OpusLibriModel, OpusLibriModel.id == DigestaLexModel.opus_id) \
+                .filter(OpusLibriModel.opus_id == opus.id, DigestaLexModel.titulus_id == titulus.id).all()
+            titulus_opus_text = sum([len(p.text_lat) for p in all_paragraphi_tituli_opus])
+            if titulus_opus_text:
+                percentage = round((titulus_opus_text / titulus_text) * 100, 4)
+                print(titulus.title_lat, opus.title_lat, percentage)
+
+                titulus_coverage_m = OpusTitulusCoverageModel(opus_id=opus.id, titulus_id=titulus.id,
+                                                              coverage=percentage)
+                try:
+                    db.session.add(titulus_coverage_m)
+                    db.session.commit()
+                except:
+                    db.session.rollback()
+                    print('in')
+
+
+def boook_and_tituli_share():
+    all_digesta = sum([len(x.text_lat) for x in DigestaParagraphusModel.query.all()])
+
+    for book in DigestaBookModel.query.all():
+        book_paragraphs = DigestaParagraphusModel.query \
+            .join(DigestaLexModel, DigestaLexModel.id == DigestaParagraphusModel.lex_id) \
+            .join(DigestaTitulusModel, DigestaTitulusModel.id == DigestaLexModel.titulus_id) \
+            .filter(DigestaTitulusModel.book_id == book.id).all()
+        book_text = sum([len(p.text_lat) for p in book_paragraphs])
+
+        percentage = round((book_text / all_digesta) * 100, 4)
+        print(all_digesta, book_text, percentage)
+        book.share = percentage
+        db.session.commit()
+
+        for titulus in DigestaTitulusModel.query.filter(DigestaTitulusModel.book_id==book.id).all():
+            titulus_paragraphs = DigestaParagraphusModel.query\
+                .join(DigestaLexModel, DigestaLexModel.id == DigestaParagraphusModel.lex_id)\
+                .filter(DigestaLexModel.titulus_id == titulus.id).all()
+            titulus_text = sum([len(p.text_lat) for p in titulus_paragraphs])
+            percentage = round((titulus_text / all_digesta) * 100, 4)
+            percentage_book = round((titulus_text / book_text) * 100, 4)
+            titulus.share = percentage
+            titulus.book_share = percentage_book
+            print(percentage_book, titulus.title_lat)
+            db.session.commit()
+
+
 def insert_digesta_book(liber, ksiega, number, file_name):
     insert_books(lat=liber, pl=ksiega, nr=number)
     insert_tituli(liber, file_name)
@@ -265,8 +438,8 @@ def insert_digesta_book(liber, ksiega, number, file_name):
     insert_leges(file_name, liber)
     insert_paragraphi(file_name, liber)
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     # insert_digesta_book(liber="LIBER PRIMUS", ksiega="KSIĘGA PIERWSZA", number=1, file_name=FILE_PICKLE_LIBER_1)
     # addBio(jurists)
     # insert_digesta_book(liber="LIBER SECUNDUS", ksiega="KSIĘGA DRUGA", number=2, file_name=FILE_PICKLE_LIBER_2)
@@ -346,87 +519,13 @@ if __name__ == "__main__":
     #
     # print(text)
     # print(text / whole)
-    def authorship():
-        all_digesta = sum([len(x.text_lat) for x in DigestaParagraphusModel.query.all()])
-        authors = AuthorModel.query.all()
-        for author in authors:
-            all_for_author = sum([sum([len(p.text_lat) for p in lex.paragraphi]) for lex in author.leges])
-            print(author.name, round((all_for_author / all_digesta) * 100, 4))
-            author.authorship = round((all_for_author / all_digesta) * 100, 4)
-            db.session.commit()
 
-
-
-        for book in DigestaBookModel.query.all():
-            all_paragraphi = DigestaParagraphusModel.query.join(DigestaLexModel, DigestaLexModel.id == DigestaParagraphusModel.lex_id).join(DigestaTitulusModel, DigestaTitulusModel.id == DigestaLexModel.titulus_id).filter(DigestaTitulusModel.book_id == book.id).all()
-            book_text = sum([len(p.text_lat) for p in all_paragraphi])
-
-
-            for author in authors:
-                print(author.name)
-                all_paragraphi_book_author = DigestaParagraphusModel.query.join(DigestaLexModel, DigestaParagraphusModel.lex_id == DigestaLexModel.id).join(DigestaTitulusModel, DigestaTitulusModel.id == DigestaLexModel.titulus_id).filter(DigestaTitulusModel.book_id == book.id, DigestaLexModel.author_id == author.id).all()
-                author_text_for_book = sum([len(p.text_lat) for p in all_paragraphi_book_author])
-                authorship = BookAuthorshipModel(author_id=author.id, book_id=book.id, authorship=round((author_text_for_book / book_text) * 100, 4))
-                db.session.add(authorship)
-                db.session.commit()
-
-                # print(author.name)
-                # print(round((author_text_for_book / book_text) * 100, 4))
-
+    # print(author.name)
+    # print(round((author_text_for_book / book_text) * 100, 4))
 
     # authorship()
 
-
-    def tituli_authorship():
-        db.session.rollback()
-        for book in DigestaBookModel.query.all():
-            for titulus in book.tituli:
-                 print(titulus.title_lat, titulus.book.book_nr)
-                 all_paragraphi = DigestaParagraphusModel.query.join(DigestaLexModel,
-                                                                     DigestaLexModel.id == DigestaParagraphusModel.lex_id).filter(DigestaLexModel.titulus_id == titulus.id).all()
-                 titulus_text = sum([len(p.text_lat) for p in all_paragraphi])
-                 print(titulus_text)
-
-                 for author in AuthorModel.query.all():
-                     print(author.name)
-                     all_paragraphi_titulus_author = DigestaParagraphusModel.query.join(DigestaLexModel,
-                                                                     DigestaLexModel.id == DigestaParagraphusModel.lex_id).filter(DigestaLexModel.titulus_id == titulus.id).filter(DigestaLexModel.author_id==author.id).all()
-
-                     author_text_for_titulus = sum([len(p.text_lat) for p in all_paragraphi_titulus_author])
-                     print(author_text_for_titulus)
-
-                     authorship = TitulusAuthorshipModel(author_id=author.id,
-                                                        titulus_id=titulus.id,authorship=round((author_text_for_titulus / titulus_text) * 100, 4))
-                     try:
-                        db.session.add(authorship)
-                        db.session.commit()
-                     except:
-                         db.session.rollback()
-                         print('in')
-
-
-
-    tituli_authorship()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    # book_coverage()
+    # titulus_coverage()
+    # tituli_authorship()
+    titulus_coverage()

@@ -206,3 +206,8 @@ export const getLegesOpus = (id) => {
         return response.data
     })
 }
+
+
+export const getDigestaStats = () => {
+    return api.get("stats/digesta/books").then(response=>response.data)
+}

@@ -14,7 +14,7 @@ import DigestaJuristOpera, {
     loader as digestaJuristOperaLoader
 } from "./routes/digesta_JURIST/DigestaJuristOpera/DigestaJuristOpera";
 import DigestaOpera, {loader as operaLoader} from "./routes/digesta_OPERA/DigestaOpera";
-import DigestaParagraphusViewer, {
+import {
     loader as paragraphusLoader
 } from "./components/DigestaParagraphusViewer/DigestaParagraphusViewerRouterWrapper/DigestaParagraphusViewerRouterWrapper";
 import {loader as juristLoader} from "./routes/digesta_JURIST/DigestaJurist/DigestaJurist";
@@ -23,7 +23,15 @@ import {loader as juristsLoader} from "./routes/digesta_JURIST/DigestaJurists/Di
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import DigestaParagraphusViewerRouterWrapper
     from "./components/DigestaParagraphusViewer/DigestaParagraphusViewerRouterWrapper/DigestaParagraphusViewerRouterWrapper";
-import {ReactQueryDevtools, ReactQueryDevtoolsPanel} from "@tanstack/react-query-devtools";
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
+import DigestaStats from "./routes/digesta_STATS/DigestaStats/DigestaStats";
+import DigestaStatsDigesta from "./routes/digesta_STATS/DigestaStatsDigesta/DigestaStatsDigesta";
+import BookStats from "./components/DigestaStatistics/BookStats/BookStats";
+import TitulusStats from "./components/DigestaStatistics/TitulusStats/TitulusStats";
+import DigestaStatsJurists from "./routes/digesta_STATS/DigestaStatsJurists/DigestaStatsJurists";
+import JuristStats from "./components/DigestaStatistics/JuristStats/JuristStats";
+import DigestaStatsOpera from "./routes/digesta_STATS/DigestaStatsOpera/DigestaStatsOpera";
+import OpusStats from "./components/DigestaStatistics/OpusStats/OpusStats";
 
 const queryClient = new QueryClient()
 
@@ -37,6 +45,48 @@ const router = createBrowserRouter(
                 {
                     path: '/',
                     element: <Main/>,
+                },
+                {
+                    path: '/statystyki',
+                    element: <DigestaStats/>,
+                    children: [
+                        {
+                            path: "digesta",
+                            element: <DigestaStatsDigesta/>,
+                            children: [
+                                {
+                                    path: "libri/:book_id",
+                                    element: <BookStats/>
+                                },
+                                {
+                                    path: "tituli/:titulus_id",
+                                    element: <TitulusStats/>
+                                }
+                            ]
+                        },
+                        {
+                            path: "jurysci",
+                            element: <DigestaStatsJurists/>,
+                            children: [
+                                {
+                                    path: ":jurysta_id",
+                                    element: <JuristStats/>
+                                }
+                            ]
+                        },
+                        {
+                            path: 'opera',
+                            element: <DigestaStatsOpera/>,
+                            children: [
+                                {
+                                    path: ":opus_id",
+                                    element: <OpusStats/>
+                                }
+                            ]
+
+                        }
+                    ]
+
                 },
                 {
                     path: '/jurysci',

@@ -3,8 +3,19 @@ from flask_cors import cross_origin, CORS
 from flask_smorest import Blueprint
 from db import db
 from models import DigestaBookModel, DigestaLexModel, DigestaTitulusModel, DigestaParagraphusModel
-from schemas import SearchTermSchema, ParagraphusSchema, BookTocSchema, FullLexSchema, PlainBookSchema, PlainTitulusSchema, LexTocSchema, ParagraphusSearchSchema, LexOpusSchema
+from schemas import SearchTermSchema, ParagraphusSchema, BookTocSchema, FullLexSchema, PlainBookSchema,\
+    PlainTitulusSchema, LexTocSchema, ParagraphusSearchSchema, LexOpusSchema
 blp = Blueprint("digesta", __name__, description="Operations on digesta")
+
+
+
+
+# @blp.route("/authorship")
+# class AuthorshipDigesta(MethodView):
+#     @blp.response(200, BookAuthorshipSchema(many=True))
+#     def get(self):
+#         books = DigestaBookModel.query.all()
+#         return books
 
 
 @blp.route("/digesta/leges/<int:lex_id>")

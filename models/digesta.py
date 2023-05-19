@@ -11,6 +11,9 @@ class DigestaBookModel(db.Model):
     tituli = db.relationship("DigestaTitulusModel", passive_deletes=True, back_populates="book")
     # leges = db.relationship("DigestaLexModel", back_populates="book")
     jurists_authorship = db.relationship("BookAuthorshipModel", back_populates='book')
+    opera_coverage = db.relationship("OpusBookCoverageModel", back_populates="book")
+    share = db.Column(db.Float(4))
+
 
 class DigestaTitulusModel(db.Model):
     __tablename__ = "digesta_tituli"
@@ -22,6 +25,9 @@ class DigestaTitulusModel(db.Model):
     book = db.relationship("DigestaBookModel",  back_populates="tituli",  order_by="DigestaBookModel.id")
     leges = db.relationship("DigestaLexModel",  back_populates="titulus", passive_deletes=True,  order_by="DigestaLexModel.lex_nr")
     jurists_authorship = db.relationship("TitulusAuthorshipModel", back_populates='titulus')
+    opera_coverage = db.relationship("OpusTitulusCoverageModel", back_populates='titulus')
+    share = db.Column(db.Float(4))
+    book_share = db.Column(db.Float(4))
     __table_args__ = (UniqueConstraint('number', 'book_id'),)
 
 

@@ -29,7 +29,7 @@ const MobileNav = (props) => {
                 </li>
             </>
 
-    )
+        )
     }
 
     const mobileNav = [classes.mobile_nav]
@@ -63,6 +63,11 @@ const MobileNav = (props) => {
                     <li className={classes.mobile_nav__item}>
                         <Link onClick={() => props.onToggle(!props.open)} to="/wyszukaj">
                             Wyszukaj
+                        </Link>
+                    </li>
+                    <li className={classes.mobile_nav__item}>
+                        <Link onClick={() => props.onToggle(!props.open)} to="/statystyki">
+                            Statystyki
                         </Link>
                     </li>
                     {logging}

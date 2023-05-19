@@ -43,9 +43,9 @@ const DigestaJurist = () => {
         <div className={classes.main_jurist__info}>
             <h1 className={classes.main_jurist__title}>{juristData.name}</h1>
             <p className={classes.main_jurist__description}>{juristData.description}</p>
-            <BookAuthorshipChart bookAuthorship={juristData.books_authorship}/>
-            <PieChart jurist={juristData.name} authorship={juristData.authorship}/>
-            <TitulusAuthorshipChart tituliAuthorship={juristData.tituli_authorship}/>
+            {/*<BookAuthorshipChart bookAuthorship={juristData.books_authorship}/>*/}
+            {/*<PieChart jurist={juristData.name} authorship={juristData.authorship}/>*/}
+            {/*<TitulusAuthorshipChart tituliAuthorship={juristData.tituli_authorship}/>*/}
 
         </div>
         <div className={classes.main_jurist__redirections}>

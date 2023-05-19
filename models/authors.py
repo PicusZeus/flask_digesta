@@ -16,6 +16,7 @@ class AuthorModel(db.Model):
     books_authorship = db.relationship("BookAuthorshipModel", passive_deletes=True, back_populates="author")
     tituli_authorship = db.relationship("TitulusAuthorshipModel", passive_deletes=True, back_populates="author")
 
+
 class BookAuthorshipModel(db.Model):
     __tablename__ = "authorships"
     id = db.Column(db.Integer, primary_key=True)

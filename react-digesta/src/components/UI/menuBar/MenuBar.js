@@ -82,8 +82,10 @@ const MenuBar = () => {
                             {!loggedIn && <li className={classes.main_nav__login}>
                                 <button onClick={registerToggleHandler}>Rejestracja</button>
                             </li>}
-                            {loggedIn && <li className={classes.main_nav__comments}><button onClick={commentedParagraphiOpenHandler}>Skomentowane
-                                Paragrafy {commentedParagraphi.length}</button></li>}
+                            {loggedIn && <li className={classes.main_nav__comments}>
+                                <button onClick={commentedParagraphiOpenHandler}>Skomentowane
+                                    Paragrafy {commentedParagraphi.length}</button>
+                            </li>}
 
                             <li className={classes.main_nav__item_space}/>
 
@@ -99,6 +101,9 @@ const MenuBar = () => {
                             </li>
                             <li className={classes.main_nav__item}>
                                 <Link to={"/wyszukaj"}>Wyszukaj</Link>
+                            </li>
+                            <li className={classes.main_nav__item}>
+                                <Link to={"/statystyki"}>Statystyki</Link>
                             </li>
                         </ul>
 
