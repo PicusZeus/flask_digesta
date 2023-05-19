@@ -48,9 +48,19 @@ class TitulusSchema(PlainTitulusSchema):
 
 class LexOpusSchema(LexTocSchema):
     titulus = fields.Nested(TitulusSchema())
+
+# authorship
+
+
 # jurist
 
+class BookAuthorshipSchema(Schema):
+    book = fields.Nested(PlainBookSchema())
+    authorship = fields.Float()
 
+class TitulusAuthorshipSchema(Schema):
+    titulus = fields.Nested(PlainTitulusSchema())
+    authorship = fields.Float()
 
 class BookTocAuthorSchema(PlainBookSchema):
     tituli = fields.List(fields.Nested(TitulusTocSchema()))
@@ -65,6 +75,10 @@ class JuristInfoSchema(PlainJuristSchema):
     description = fields.Str()
     flourished_start = fields.Int()
     flourished_end = fields.Int()
+    authorship = fields.Float()
+    books_authorship = fields.List(fields.Nested(BookAuthorshipSchema()))
+    tituli_authorship = fields.List(fields.Nested(TitulusAuthorshipSchema()))
+
 
 # opus
 
