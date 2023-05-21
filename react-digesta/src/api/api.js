@@ -211,3 +211,15 @@ export const getLegesOpus = (id) => {
 export const getDigestaStats = () => {
     return api.get("stats/digesta/books").then(response=>response.data)
 }
+
+export const getJuristsStats = () => {
+    return api.get("stats/digesta/jurists").then(response=>response.data)
+}
+
+export const getBookStats = (id) => {
+    return api.get('stats/digesta/books/' + id).then(response=>response.data)
+}
+
+export const getTitulusStats = (id) => {
+    return api.get('stats/digesta/tituli/' + id).then(response=>response.data)
+}

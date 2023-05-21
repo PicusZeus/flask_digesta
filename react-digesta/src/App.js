@@ -32,6 +32,8 @@ import DigestaStatsJurists from "./routes/digesta_STATS/DigestaStatsJurists/Dige
 import JuristStats from "./components/DigestaStatistics/JuristStats/JuristStats";
 import DigestaStatsOpera from "./routes/digesta_STATS/DigestaStatsOpera/DigestaStatsOpera";
 import OpusStats from "./components/DigestaStatistics/OpusStats/OpusStats";
+import {loader as digestaStatsLoader} from "./routes/digesta_STATS/DigestaStatsDigesta/DigestaStatsDigesta";
+import {loader as bookStatsLoader} from "./components/DigestaStatistics/BookStats/BookStats";
 
 const queryClient = new QueryClient()
 
@@ -53,16 +55,16 @@ const router = createBrowserRouter(
                         {
                             path: "digesta",
                             element: <DigestaStatsDigesta/>,
-                            children: [
-                                {
-                                    path: "libri/:book_id",
-                                    element: <BookStats/>
-                                },
-                                {
-                                    path: "tituli/:titulus_id",
-                                    element: <TitulusStats/>
-                                }
-                            ]
+                            loader: digestaStatsLoader(queryClient)
+                        },
+                        {
+                            path: "digesta/libri/:book_id",
+                            element: <BookStats/>,
+                            loader: bookStatsLoader(queryClient)
+                        },
+                        {
+                            path: "digesta/tituli/:titulus_id",
+                            element: <TitulusStats/>
                         },
                         {
                             path: "jurysci",

@@ -5,8 +5,8 @@ import {useState} from "react";
 import {useEffect} from "react";
 import {useQuery} from "@tanstack/react-query";
 import {getJurist} from "../../../api/api";
-import BookAuthorshipChart from "../../../components/charts/bookAuthorshipChart/BookAuthorshipChart";
-import PieChart from "../../../components/charts/PieChart/PieChart";
+import BooksShareChart from "../../../components/charts/BooksShareChart/BooksShareChart";
+import AuhtorshipBooksChart from "../../../components/charts/AuthorshipShare/AuhtorshipBooksChart";
 import TitulusAuthorshipChart from "../../../components/charts/titulusAuthorshipChart/TitulusAuthorshipChart";
 
 
@@ -43,8 +43,8 @@ const DigestaJurist = () => {
         <div className={classes.main_jurist__info}>
             <h1 className={classes.main_jurist__title}>{juristData.name}</h1>
             <p className={classes.main_jurist__description}>{juristData.description}</p>
-            {/*<BookAuthorshipChart bookAuthorship={juristData.books_authorship}/>*/}
-            {/*<PieChart jurist={juristData.name} authorship={juristData.authorship}/>*/}
+            {/*<BooksShareChart bookAuthorship={juristData.books_authorship}/>*/}
+            {/*<AuhtorshipBooksChart jurist={juristData.name} authorship={juristData.authorship}/>*/}
             {/*<TitulusAuthorshipChart tituliAuthorship={juristData.tituli_authorship}/>*/}
 
         </div>

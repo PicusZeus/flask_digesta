@@ -333,7 +333,35 @@ class OpusCoverageSchema(PlainOpusSchema):
 class BookShareSchema(PlainBookSchema):
     share = fields.Float()
 
-class DigestaStats(Schema):
-    jurists_authorship = fields.List(fields.Nested(JuristAuthorshipSchema()))
-    opera_coverage = fields.List(fields.Nested(OpusCoverageSchema()))
+class TituliShareSchema(PlainTitulusSchema):
+    share = fields.Float()
+
+
+class DigestaStatsSchema(Schema):
+    # jurists_authorship = fields.List(fields.Nested(JuristAuthorshipSchema()))
+    # opera_coverage = fields.List(fields.Nested(OpusCoverageSchema()))
     books_share = fields.List(fields.Nested(BookShareSchema()))
+
+class JuristAuthorshipSchemaJurist(JuristAuthorshipSchema):
+    author = fields.Nested(PlainJuristSchema())
+
+
+class OpusSchema(PlainOpusSchema):
+    author = fields.Nested(PlainJuristSchema())
+
+class OpusCoverageSchemaOpus(OpusCoverageSchema):
+    opus = fields.Nested(OpusSchema())
+
+class TitulusBookShareSchema(PlainTitulusSchema):
+    book_share = fields.Float()
+
+class DigestaBookStatsSchema(Schema):
+    jurists_authorship = fields.List(fields.Nested(JuristAuthorshipSchemaJurist()))
+    opera_coverage = fields.List(fields.Nested(OpusCoverageSchemaOpus()))
+    tituli_book_share = fields.List(fields.Nested(TitulusBookShareSchema()))
+
+
+class DigestaTitulusStatsSchema(Schema):
+    jurists_authorship = fields.List(fields.Nested(JuristAuthorshipSchemaJurist()))
+    opera_coverage = fields.List(fields.Nested(OpusCoverageSchemaOpus()))
+

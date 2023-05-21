@@ -528,4 +528,4 @@ if __name__ == "__main__":
     # book_coverage()
     # titulus_coverage()
     # tituli_authorship()
-    titulus_coverage()
+    book_coverage()

@@ -24,6 +24,7 @@ class OpusBookCoverageModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     opus_id = db.Column(db.Integer, db.ForeignKey("opera.id"))
     book_id = db.Column(db.Integer, db.ForeignKey("digesta_books.id"))
+    opus = db.relationship("OpusModel", back_populates="books_coverage")
     coverage = db.Column(db.Float(4))
     book = db.relationship("DigestaBookModel", back_populates='opera_coverage')
     __table_args__ = (UniqueConstraint('opus_id', 'book_id'),)
