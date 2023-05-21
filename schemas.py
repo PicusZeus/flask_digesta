@@ -365,3 +365,8 @@ class DigestaTitulusStatsSchema(Schema):
     jurists_authorship = fields.List(fields.Nested(JuristAuthorshipSchemaJurist()))
     opera_coverage = fields.List(fields.Nested(OpusCoverageSchemaOpus()))
 
+
+class JuristBookAuthorshipSchema(Schema):
+    book = fields.Nested(PlainBookSchema())
+    authorship = fields.Float()
+    # author = fields.Nested(PlainAuthorSchema())

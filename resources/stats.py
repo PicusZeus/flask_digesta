@@ -5,7 +5,7 @@ from models import DigestaBookModel, AuthorModel, OpusModel,\
     BookAuthorshipModel, OpusBookCoverageModel, TitulusAuthorshipModel,\
     DigestaTitulusModel, OpusTitulusCoverageModel
 from schemas import DigestaStatsSchema, DigestaBookStatsSchema,\
-    DigestaTitulusStatsSchema, BookShareSchema, JuristAuthorshipSchema
+    DigestaTitulusStatsSchema, BookShareSchema, JuristAuthorshipSchema, JuristBookAuthorshipSchema
 
 
 blp = Blueprint("stats", __name__, description="Operations on statistic data")
@@ -33,6 +33,15 @@ class DigestaJuristsStats(MethodView):
         # books = DigestaBookModel.query.all()
 
         return jurists
+
+@blp.route("/stats/digesta/jurists/<int:jurysta_id>")
+class DigestaJuristStats(MethodView):
+
+    @blp.response(200, JuristBookAuthorshipSchema(many=True))
+    def get(self, jurysta_id):
+        books = BookAuthorshipModel.query.filter(BookAuthorshipModel.author_id == jurysta_id).all()
+        return books
+
 
 @blp.route("/stats/digesta/books/<int:book_id>")
 class DigestaBooksStats(MethodView):

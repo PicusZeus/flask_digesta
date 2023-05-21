@@ -2,7 +2,7 @@ import {Outlet} from "react-router-dom";
 import {getDigestaStats} from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
 import BooksShareChart from "../../../components/charts/BooksShareChart/BooksShareChart";
-import AuhtorshipBooksChart from "../../../components/charts/AuthorshipShare/AuhtorshipBooksChart";
+import AuthorshipBooksChart from "../../../components/charts/AuthorshipShare/AuthorshipBooksChart";
 import DoughnatOperaShare from "../../../components/charts/OperaShare/OperaBooksShare";
 import OpusStats from "../../../components/DigestaStatistics/OpusStats/OpusStats";
 import OperaShare from "../../../components/charts/OperaShare/OperaBooksShare";

@@ -69,12 +69,11 @@ const router = createBrowserRouter(
                         {
                             path: "jurysci",
                             element: <DigestaStatsJurists/>,
-                            children: [
-                                {
-                                    path: ":jurysta_id",
-                                    element: <JuristStats/>
-                                }
-                            ]
+
+                        },
+                        {
+                            path: "jurysci/:jurysta_id",
+                            element: <JuristStats/>
                         },
                         {
                             path: 'opera',

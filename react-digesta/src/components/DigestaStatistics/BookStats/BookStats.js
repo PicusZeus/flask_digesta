@@ -2,7 +2,7 @@ import {getBookStats} from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
 import {useParams} from "react-router-dom";
 import BooksShareChart from "../../charts/BooksShareChart/BooksShareChart";
-import AuhtorshipBooksChart from "../../charts/AuthorshipShare/AuhtorshipBooksChart";
+import AuthorshipBooksChart from "../../charts/AuthorshipShare/AuthorshipBooksChart";
 import OperaShare from "../../charts/OperaShare/OperaBooksShare";
 import BookShareChart from "../../charts/BooksShareChart/BookShareChart";
 import PieAuthorshipBookChart from "../../charts/AuthorshipShare/PieAuthorshipBookChart";

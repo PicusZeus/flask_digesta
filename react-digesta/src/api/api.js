@@ -223,3 +223,7 @@ export const getBookStats = (id) => {
 export const getTitulusStats = (id) => {
     return api.get('stats/digesta/tituli/' + id).then(response=>response.data)
 }
+
+export const getJuristStats = (id) => {
+    return api.get("stats/digesta/jurists/" + id).then(response=>response.data)
+}

@@ -1,7 +1,7 @@
 import {Outlet} from "react-router-dom";
 import {getDigestaStats, getJuristsStats} from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
-import AuhtorshipBooksChart from "../../../components/charts/AuthorshipShare/AuhtorshipBooksChart";
+import AuthorshipBooksChart from "../../../components/charts/AuthorshipShare/AuthorshipBooksChart";
 
 
 const getJuristsStatsQuery = () => {
@@ -18,7 +18,7 @@ const DigestaStatsJurists = () => {
 
         <>
             <h1>Juryśli</h1>
-            {stats && <AuhtorshipBooksChart authors={stats}/>}
+            {stats && <AuthorshipBooksChart authors={stats}/>}
             <div>wykres liniowy z objętością wg wieku Jurysty</div>
 
 
