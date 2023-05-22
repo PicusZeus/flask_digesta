@@ -1,21 +1,18 @@
-
 import {Bar} from "react-chartjs-2";
-import {Chart as ChartJS} from 'chart.js/auto'
 import {useRef} from "react";
 import {useNavigate} from "react-router-dom";
 
 
-
-const BooksAuthorshipShare = ({books}) => {
-
-    const chartRef = useRef(null)
+const BooksOpusCoverage = ({books}) => {
     const navigate = useNavigate()
+    console.log(books)
+    const chartRef = useRef(null)
     const data = {
-        labels: books.map(book=>book.book.book_latin_name),
+        labels: books.map(book=> book.book.book_latin_name),
         datasets: [
             {
-                label: "coś tam",
-                data: books.map(book=>book.authorship)
+                label: 'coś tam',
+                data: books.map(book=>book.coverage)
             }
         ]
     }
@@ -24,22 +21,18 @@ const BooksAuthorshipShare = ({books}) => {
         indexAxis: "y"
     }
 
-    const clickHandler = (e) => {
+    const onClickHandler = (e) => {
         const points = chartRef.current.getElementsAtEventForMode(e, "nearest", {intersect: true}, true)
         if (points.length > 0) {
             const index = points[0].index
             const book_id = books[index].book.id
-            console.log(book_id)
             navigate(book_id.toString())
         }
     }
 
-    return (
-
-        <Bar onClick={clickHandler} ref={chartRef} data={data} options={options}/>
-    )
-
-
+    return <>
+        <Bar onClick={onClickHandler} ref={chartRef} data={data} options={options}/>
+    </>
 }
 
-export default BooksAuthorshipShare
+export default BooksOpusCoverage

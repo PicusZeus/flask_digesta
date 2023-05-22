@@ -370,3 +370,54 @@ class JuristBookAuthorshipSchema(Schema):
     book = fields.Nested(PlainBookSchema())
     authorship = fields.Float()
     # author = fields.Nested(PlainAuthorSchema())
+
+# class OpusCoverageSchema(PlainOpusSchema):
+#     coverage = fields.Float()
+
+class JuristStatsMainSchema(Schema):
+    books = fields.List(fields.Nested(JuristBookAuthorshipSchema()))
+    opera = fields.List(fields.Nested(OpusCoverageSchema()))
+    jurist = fields.Nested(PlainJuristSchema())
+
+class TitulusAuthorshipSchema(Schema):
+    titulus = fields.Nested(PlainTitulusSchema())
+    authorship = fields.Float()
+
+
+class OpusBookCoverageSchema(Schema):
+    opus = fields.Nested(PlainOpusSchema())
+    coverage = fields.Float()
+
+
+class JuristStatsBookSchema(Schema):
+    tituli = fields.List(fields.Nested(TitulusAuthorshipSchema()))
+    book = fields.Nested(PlainBookSchema())
+    author = fields.Nested(PlainAuthorSchema())
+    opera = fields.List(fields.Nested(OpusBookCoverageSchema()))
+
+
+class JuristStatsTitulusSchema(Schema):
+    titulus = fields.Nested(TitulusAuthorshipSchema())
+    author = fields.Nested(PlainAuthorSchema())
+    opera = fields.List(fields.Nested(OpusBookCoverageSchema()))
+
+
+class OpusAuthorCoverageSchema(OpusCoverageSchema):
+    author = fields.Nested(PlainAuthorSchema())
+
+class OpusBookCoverageBookSchema(Schema):
+    book = fields.Nested(PlainBookSchema())
+    coverage = fields.Float()
+
+class OpusTitulusCoverageSchema(Schema):
+    titulus = fields.Nested(PlainTitulusSchema())
+    coverage = fields.Float()
+
+class OpusBooksStatsSchema(Schema):
+    books = fields.List(fields.Nested(OpusBookCoverageBookSchema()))
+    opus = fields.Nested(OpusSchema())
+
+class OpusBookStatsSchema(Schema):
+    tituli = fields.List(fields.Nested(OpusTitulusCoverageSchema()))
+    opus = fields.Nested(OpusSchema())
+    book = fields.Nested(PlainBookSchema())

@@ -19,6 +19,7 @@ class OpusModel(db.Model):
     tituli_coverage = db.relationship("OpusTitulusCoverageModel")
     __table_args__ = (UniqueConstraint('title_lat', 'author_id'),)
 
+
 class OpusBookCoverageModel(db.Model):
     __tablename__ = "opera_book_coverage"
     id = db.Column(db.Integer, primary_key=True)

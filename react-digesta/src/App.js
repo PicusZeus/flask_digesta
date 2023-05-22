@@ -34,6 +34,9 @@ import DigestaStatsOpera from "./routes/digesta_STATS/DigestaStatsOpera/DigestaS
 import OpusStats from "./components/DigestaStatistics/OpusStats/OpusStats";
 import {loader as digestaStatsLoader} from "./routes/digesta_STATS/DigestaStatsDigesta/DigestaStatsDigesta";
 import {loader as bookStatsLoader} from "./components/DigestaStatistics/BookStats/BookStats";
+import JuristBookStats from "./components/DigestaStatistics/JuristBookStats/JuristBookStats";
+import JuristTitulusStats from "./components/DigestaStatistics/JuristTitulusStats/JuristTitulusStats";
+import OpusBookStats from "./components/DigestaStatistics/OpusBookStats/OpusBookStats";
 
 const queryClient = new QueryClient()
 
@@ -76,15 +79,28 @@ const router = createBrowserRouter(
                             element: <JuristStats/>
                         },
                         {
+                            path: "jurysci/:jurysta_id/:book_id",
+                            element: <JuristBookStats/>
+                        },
+                        {
+                            path: "jurysci/:jurysta_id/:book_id/:titulus_id",
+                            element: <JuristTitulusStats/>
+                        },
+                        {
                             path: 'opera',
                             element: <DigestaStatsOpera/>,
-                            children: [
-                                {
-                                    path: ":opus_id",
-                                    element: <OpusStats/>
-                                }
-                            ]
 
+
+                        },
+                        {
+
+                            path: "opera/:opus_id",
+                            element: <OpusStats/>
+
+                        },
+                        {
+                            path: "opera/:opus_id/:book_id",
+                            element: <OpusBookStats/>
                         }
                     ]
 

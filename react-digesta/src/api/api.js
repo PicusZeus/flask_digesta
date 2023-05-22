@@ -227,3 +227,19 @@ export const getTitulusStats = (id) => {
 export const getJuristStats = (id) => {
     return api.get("stats/digesta/jurists/" + id).then(response=>response.data)
 }
+
+export const getJuristBookStats = (jurysta_id, book_id) => {
+    return api.get(`stats/digesta/jurists/${jurysta_id}/${book_id}`).then(response=>response.data)
+}
+
+export const getJuristTitulusStats = (jurysta_id, book_id, titulus_id) => {
+    return api.get(`stats/digesta/jurists/${jurysta_id}/${book_id}/${titulus_id}`).then(response=>response.data)
+}
+
+export const getOperaStats = () => {
+    return api.get("stats/digesta/opera").then(response=>response.data)
+}
+
+export const getOpusStats = (id) => {
+    return api.get("stats/digesta/opera/" + id).then(response=>response.data)
+}

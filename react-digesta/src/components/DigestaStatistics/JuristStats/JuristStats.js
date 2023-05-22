@@ -2,6 +2,7 @@ import {getJuristStats} from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
 import {useParams} from "react-router-dom";
 import BooksAuthorshipShare from "../../charts/BooksAuthorshipShare/BooksAuthorshipShare";
+import OperaCoverage from "../../charts/OperaCoverage/OperaCoverage";
 
 
 
@@ -23,9 +24,10 @@ const JuristStats = () => {
     return (
         <>
         <div>chart dla ksiąg</div>
-            {stats && <BooksAuthorshipShare books={stats}/>}
+            {stats && <BooksAuthorshipShare books={stats.books}/>}
 
             <div>chart dla tytułów</div>
+            {stats && <OperaCoverage opera={stats.opera}/> }
 
 
         <div>Jurystat stats</div>
