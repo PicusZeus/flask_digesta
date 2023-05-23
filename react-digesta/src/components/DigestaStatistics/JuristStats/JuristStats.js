@@ -1,8 +1,8 @@
 import {getJuristStats} from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
 import {useParams} from "react-router-dom";
-import BooksAuthorshipShare from "../../charts/BooksAuthorshipShare/BooksAuthorshipShare";
-import OperaCoverage from "../../charts/OperaCoverage/OperaCoverage";
+import BooksAuthorshipShareChart from "../../charts/BooksAuthorshipShareChart/BooksAuthorshipShareChart";
+import OperaCoverageChart from "../../charts/OperaCoverageChart/OperaCoverageChart";
 
 
 
@@ -23,14 +23,14 @@ const JuristStats = () => {
 
     return (
         <>
-        <div>chart dla ksiąg</div>
-            {stats && <BooksAuthorshipShare books={stats.books}/>}
+            {stats && <h1>{stats.jurist.name} w Digestach</h1>}
+            <h2>Udział w poszczególnych księgach</h2>
+            {stats && <BooksAuthorshipShareChart books={stats.books}/>}
 
-            <div>chart dla tytułów</div>
-            {stats && <OperaCoverage opera={stats.opera}/> }
+            {stats && <h2>Prace {stats.jurist.name}A i ich udział w Digestach</h2>}
+            {stats && <OperaCoverageChart opera={stats.opera}/> }
 
 
-        <div>Jurystat stats</div>
             </>
     )
 }

@@ -96,11 +96,12 @@ class DigestaBooksStats(MethodView):
         jurists = BookAuthorshipModel.query.filter(BookAuthorshipModel.book_id==book_id).all()
         opera = OpusBookCoverageModel.query.filter(OpusBookCoverageModel.book_id == book_id).all()
         tituli = DigestaTitulusModel.query.filter(DigestaTitulusModel.book_id==book_id).all()
-
+        book = DigestaBookModel.query.filter_by(id=book_id).first()
         return {
             "jurists_authorship": jurists,
             "opera_coverage": opera,
-            "tituli_book_share": tituli
+            "tituli_book_share": tituli,
+            "book": book
 
         }
 
@@ -111,11 +112,13 @@ class DigestaTitulusStats(MethodView):
     def get(self, titulus_id):
         jurists = TitulusAuthorshipModel.query.filter(TitulusAuthorshipModel.titulus_id==titulus_id).all()
         opera = OpusTitulusCoverageModel.query.filter(OpusTitulusCoverageModel.titulus_id == titulus_id).all()
+        titulus = DigestaTitulusModel.query.filter_by(id=titulus_id).first()
         # tituli = DigestaTitulusModel.query.filter(DigestaTitulusModel.book_id==book_id).all()
 
         return {
             "jurists_authorship": jurists,
             "opera_coverage": opera,
+            "titulus": titulus
         }
 
 @blp.route("/stats/digesta/opera")
@@ -142,4 +145,14 @@ class DigestaOpusBookSchema(MethodView):
 
     @blp.response(200, OpusBookStatsSchema())
     def get(self, opus_id, book_id):
-        pass
+        tituli = OpusTitulusCoverageModel.query\
+            .join(DigestaTitulusModel, DigestaTitulusModel.id == OpusTitulusCoverageModel.titulus_id)\
+            .filter(DigestaTitulusModel.book_id == book_id, OpusTitulusCoverageModel.opus_id == opus_id).all()
+        opus = OpusModel.query.filter_by(id=opus_id).first()
+        book = DigestaBookModel.query.filter_by(id=book_id).first()
+
+        return {
+            "tituli": tituli,
+            "opus": opus,
+            "book": book
+        }

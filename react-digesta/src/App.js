@@ -27,17 +27,16 @@ import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import DigestaStats from "./routes/digesta_STATS/DigestaStats/DigestaStats";
 import DigestaStatsDigesta from "./routes/digesta_STATS/DigestaStatsDigesta/DigestaStatsDigesta";
 import BookStats from "./components/DigestaStatistics/BookStats/BookStats";
-import TitulusStats from "./components/DigestaStatistics/TitulusStats/TitulusStats";
-import DigestaStatsJurists from "./routes/digesta_STATS/DigestaStatsJurists/DigestaStatsJurists";
-import JuristStats from "./components/DigestaStatistics/JuristStats/JuristStats";
+import TitulusStats, {loader as titulusStatsLoader} from "./components/DigestaStatistics/TitulusStats/TitulusStats";
+import DigestaStatsJurists, {loader as digestaStatsJuristsLoader} from "./routes/digesta_STATS/DigestaStatsJurists/DigestaStatsJurists";
+import JuristStats, {loader as juristStatsLoader} from "./components/DigestaStatistics/JuristStats/JuristStats";
 import DigestaStatsOpera from "./routes/digesta_STATS/DigestaStatsOpera/DigestaStatsOpera";
-import OpusStats from "./components/DigestaStatistics/OpusStats/OpusStats";
+import OpusStats, {loader as opusStatsLoader} from "./components/DigestaStatistics/OpusStats/OpusStats";
 import {loader as digestaStatsLoader} from "./routes/digesta_STATS/DigestaStatsDigesta/DigestaStatsDigesta";
 import {loader as bookStatsLoader} from "./components/DigestaStatistics/BookStats/BookStats";
-import JuristBookStats from "./components/DigestaStatistics/JuristBookStats/JuristBookStats";
-import JuristTitulusStats from "./components/DigestaStatistics/JuristTitulusStats/JuristTitulusStats";
-import OpusBookStats from "./components/DigestaStatistics/OpusBookStats/OpusBookStats";
-
+import JuristBookStats, { loader as juristBookStatsLoader } from "./components/DigestaStatistics/JuristBookStats/JuristBookStats";
+import OpusBookStats, {loader as opusBookStatsLoader} from "./components/DigestaStatistics/OpusBookStats/OpusBookStats";
+import {loader as digestaStatsOperaLoader} from "./routes/digesta_STATS/DigestaStatsOpera/DigestaStatsOpera"
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter(
@@ -67,40 +66,44 @@ const router = createBrowserRouter(
                         },
                         {
                             path: "digesta/tituli/:titulus_id",
-                            element: <TitulusStats/>
+                            element: <TitulusStats/>,
+                            loader: titulusStatsLoader(queryClient)
                         },
                         {
                             path: "jurysci",
                             element: <DigestaStatsJurists/>,
+                            loader: digestaStatsJuristsLoader(queryClient)
 
                         },
                         {
                             path: "jurysci/:jurysta_id",
-                            element: <JuristStats/>
+                            element: <JuristStats/>,
+                            loader: juristStatsLoader(queryClient)
                         },
                         {
                             path: "jurysci/:jurysta_id/:book_id",
-                            element: <JuristBookStats/>
+                            element: <JuristBookStats/>,
+                            loader: juristBookStatsLoader(queryClient)
                         },
-                        {
-                            path: "jurysci/:jurysta_id/:book_id/:titulus_id",
-                            element: <JuristTitulusStats/>
-                        },
+
                         {
                             path: 'opera',
                             element: <DigestaStatsOpera/>,
+                            loader: digestaStatsOperaLoader(queryClient)
 
 
                         },
                         {
 
                             path: "opera/:opus_id",
-                            element: <OpusStats/>
+                            element: <OpusStats/>,
+                            loader: opusStatsLoader(queryClient)
 
                         },
                         {
                             path: "opera/:opus_id/:book_id",
-                            element: <OpusBookStats/>
+                            element: <OpusBookStats/>,
+                            loader: opusBookStatsLoader(queryClient)
                         }
                     ]
 

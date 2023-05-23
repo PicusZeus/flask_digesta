@@ -355,16 +355,18 @@ class OpusCoverageSchemaOpus(OpusCoverageSchema):
 class TitulusBookShareSchema(PlainTitulusSchema):
     book_share = fields.Float()
 
+
 class DigestaBookStatsSchema(Schema):
     jurists_authorship = fields.List(fields.Nested(JuristAuthorshipSchemaJurist()))
     opera_coverage = fields.List(fields.Nested(OpusCoverageSchemaOpus()))
     tituli_book_share = fields.List(fields.Nested(TitulusBookShareSchema()))
+    book = fields.Nested(PlainBookSchema())
 
 
 class DigestaTitulusStatsSchema(Schema):
     jurists_authorship = fields.List(fields.Nested(JuristAuthorshipSchemaJurist()))
     opera_coverage = fields.List(fields.Nested(OpusCoverageSchemaOpus()))
-
+    titulus = fields.Nested(TitulusSchema())
 
 class JuristBookAuthorshipSchema(Schema):
     book = fields.Nested(PlainBookSchema())

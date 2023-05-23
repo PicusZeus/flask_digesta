@@ -1,5 +1,5 @@
 from app import create_app
-
+from populate.juristDoublets import doublets_authors
 app = create_app()
 app.app_context().push()
 from db import db
@@ -108,6 +108,8 @@ def insert_authors(file_name):
     for titulus_nr in book_data:
         for lex_nr in book_data[titulus_nr]['leges']:
             author_name = book_data[titulus_nr]['leges'][lex_nr]['jurist']
+            if author_name in doublets_authors:
+                author_name = doublets_authors[author_name]
             author = AuthorModel(name=author_name, description=description, flourished_start=flourished_start,
                                  flourished_end=flourished_end)
             db.session.add(author)
@@ -127,6 +129,8 @@ def insert_opera(file_name):
             lex = book_data[titulus_nr]['leges'][lex_nr]
             opus_title_lat = lex['opus']['title_lat']
             jurist_name = lex['jurist']
+            if jurist_name in doublets_authors:
+                jurist_name = doublets_authors[jurist_name]
             author = AuthorModel.query.filter_by(name=jurist_name).one()
             author_id = author.id
             print(titulus_nr, lex_nr, lex)
@@ -528,4 +532,12 @@ if __name__ == "__main__":
     # book_coverage()
     # titulus_coverage()
     # tituli_authorship()
-    book_coverage()
+    # book_coverage()
+    tituli_l = len(DigestaTitulusModel.query.all())
+    leges_l = len(DigestaLexModel.query.all())
+    paragraphi_l = len(DigestaParagraphusModel.query.all())
+    jurists_l = len(AuthorModel.query.all())
+    opera = len(OpusModel.query.all())
+    znaki = sum([len(p.text_lat) for p in DigestaParagraphusModel.query.all()])
+    verba = sum([len(p.text_lat.split(' ')) for p in DigestaParagraphusModel.query.all()])
+    print(tituli_l, leges_l, paragraphi_l, jurists_l, opera, znaki, verba)

@@ -6,7 +6,7 @@ import {useEffect} from "react";
 import {useQuery} from "@tanstack/react-query";
 import {getJurist} from "../../../api/api";
 import BooksShareChart from "../../../components/charts/BooksShareChart/BooksShareChart";
-import AuthorshipBooksChart from "../../../components/charts/AuthorshipShare/AuthorshipBooksChart";
+import BooksAuthorshipChart from "../../../components/charts/BooksAuthorshipChart/BooksAuthorshipChart";
 import TitulusAuthorshipChart from "../../../components/charts/titulusAuthorshipChart/TitulusAuthorshipChart";
 
 

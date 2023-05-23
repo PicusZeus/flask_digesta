@@ -1,6 +1,7 @@
 from resources import roman_num, roman_ordinal_numeral, rom_ord_num_to_num
 import re
 import pickle
+from juristDoublets import doublets_authors, doublets_opera
 
 int_pat = "^[0-9]*$"
 int_p = re.compile(int_pat)
@@ -358,7 +359,7 @@ def extract_text_data_from_plain_text(file_name):
 
                 opus_title = ' '.join(opus_title)
                 if not opus_title:
-                    opus_title = "ignotum"
+                    opus_title = "opus ignotum"
 
 
 
@@ -374,7 +375,10 @@ def extract_text_data_from_plain_text(file_name):
             #         lex[lex_splitted[index]] = lex_splitted[index + 1]
 
             # print(res)
-
+            if jurist.strip().upper() in doublets_authors:
+                jurist = doublets_authors[jurist.strip().upper()]
+            if opus_title.strip() in doublets_opera:
+                opus_title = doublets_opera[opus_title.strip()]
             lex = split_lex_into_sections(text)
 
             book[title_nr]['leges'][lex_nr] = {'address_lat': first_line.strip(), 'jurist': jurist.strip().upper(),

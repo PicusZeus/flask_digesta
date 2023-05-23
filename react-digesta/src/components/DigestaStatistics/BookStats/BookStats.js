@@ -2,11 +2,11 @@ import {getBookStats} from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
 import {useParams} from "react-router-dom";
 import BooksShareChart from "../../charts/BooksShareChart/BooksShareChart";
-import AuthorshipBooksChart from "../../charts/AuthorshipShare/AuthorshipBooksChart";
+import BooksAuthorshipChart from "../../charts/BooksAuthorshipChart/BooksAuthorshipChart";
 import OperaShare from "../../charts/OperaShare/OperaBooksShare";
-import BookShareChart from "../../charts/BooksShareChart/BookShareChart";
-import PieAuthorshipBookChart from "../../charts/AuthorshipShare/PieAuthorshipBookChart";
-import OperaBookShare from "../../charts/OperaShare/OperaBookShare";
+import BookShareChart from "../../charts/BookShareChart/BookShareChart";
+import BookAuthorshipChart from "../../charts/BookAuthorshipChart/BookAuthorshipChart";
+import BookOperaShareChart from "../../charts/BookOperaShareChart/BookOperaShareChart";
 
 const getBookStatsQuery = (id) => {
     return {
@@ -18,18 +18,23 @@ const BookStats = () => {
 
     const params = useParams()
 
-    const { data: stats } = useQuery(getBookStatsQuery(params.book_id))
+    const {data: stats} = useQuery(getBookStatsQuery(params.book_id))
 
-    console.log(stats)
+
+    let book
+    if (stats) {
+        book = <h1>{stats.book.book_latin_name}</h1>
+    }
+
     return (
         <>
-               <div>Book stats</div>
-                 <div>chart z tytułami i ich procentowym udziałem</div>
+            {book}
+            <h2>Tytuły i ich udział w objętości księgi</h2>
             {stats && <BookShareChart tituli={stats.tituli_book_share}/>}
-            <div>pie z udziałem Jurystów</div>
-            {stats && <PieAuthorshipBookChart authors={stats.jurists_authorship}/>}
-            <div>pie z udziałem opera</div>
-            {stats && <OperaBookShare opera={stats.opera_coverage}/>}
+            <h2>Juryści, których dzieła stanowią ponad 1% zawartości księgi</h2>
+            {stats && <BookAuthorshipChart authors={stats.jurists_authorship}/>}
+            <h2>Dzieła jurystów z udziałem powyżej pół procenta w objętości księgi</h2>
+            {stats && <BookOperaShareChart opera={stats.opera_coverage}/>}
         </>
 
     )

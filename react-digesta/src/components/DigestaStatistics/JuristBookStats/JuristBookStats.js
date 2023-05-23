@@ -1,8 +1,8 @@
 import {useParams} from "react-router-dom";
 import {getJuristBookStats} from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
-import TituliAuthorshipShare from "../../charts/TituliAuthorshipShare/TituliAuthorshipShare";
-import OperaBookShare from "../../charts/OperaShare/OperaBookShare";
+import TituliAuthorshipShareChart from "../../charts/TituliAuthorshipShareChart/TituliAuthorshipShareChart";
+import OperaBookShare from "../../charts/BookOperaShareChart/BookOperaShareChart";
 
 const getJuristBookStatsQuery = (jurysta_id, book_id) => {
     return {
@@ -12,17 +12,16 @@ const getJuristBookStatsQuery = (jurysta_id, book_id) => {
 }
 const JuristBookStats = () => {
     const params = useParams()
-    console.log(params)
     const {data: stats} = useQuery(
         getJuristBookStatsQuery(params.jurysta_id, params.book_id)
     )
 
-    console.log(stats)
-
-
 
     return <>
-        {stats && <TituliAuthorshipShare tituli={stats.tituli}/>}
+        {stats && <h1>{stats.author.name} w księdze {stats.book.book_nr}</h1>}
+        <h3>Udział w poszczególnych tytułach</h3>
+        {stats && <TituliAuthorshipShareChart tituli={stats.tituli}/>}
+        <h3>Udział prac jurysty w księdze</h3>
         {stats && <OperaBookShare opera={stats.opera}/>}
     </>
 }

@@ -16,7 +16,8 @@ const OpusStats = () => {
     console.log(stats)
     return (
                <>
-        <div>chart dla ksiąg</div>
+                   <h1>Libri {stats.opus.title_lat} {stats.opus.author.name}A</h1>
+                   <h3> Udział pracy w księgach Digestów </h3>
                    {stats && <BooksOpusCoverage books={stats.books}/>}
 
             <div>chart dla tytułów</div>

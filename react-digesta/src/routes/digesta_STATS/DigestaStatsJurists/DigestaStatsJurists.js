@@ -1,7 +1,8 @@
 import {Outlet} from "react-router-dom";
 import {getDigestaStats, getJuristsStats} from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
-import AuthorshipBooksChart from "../../../components/charts/AuthorshipShare/AuthorshipBooksChart";
+import BooksAuthorshipChart from "../../../components/charts/BooksAuthorshipChart/BooksAuthorshipChart";
+import {useState} from "react";
 
 
 const getJuristsStatsQuery = () => {
@@ -11,18 +12,25 @@ const getJuristsStatsQuery = () => {
     }
 }
 const DigestaStatsJurists = () => {
+    const [authorsSetIndex, setAuthorsSetIndex] = useState(0)
+    const {data: authors} = useQuery(getJuristsStatsQuery())
 
-    const {data: stats} = useQuery(getJuristsStatsQuery())
-    console.log(stats)
+    const authorsMoreOnePercent = authors.filter(author => (author.authorship > 1))
+    const authorsLessOnePercentMoreOnePromile = authors.filter(author => (author.authorship <= 1 && author.authorship > 0.1))
+    const authorsLessOnePromile = authors.filter(author=>(author.authorship <= 0.1))
+
+    const authorsSets = [authorsMoreOnePercent, authorsLessOnePercentMoreOnePromile, authorsLessOnePromile]
+
     return (
 
         <>
-            <h1>Juryśli</h1>
-            {stats && <AuthorshipBooksChart authors={stats}/>}
-            <div>wykres liniowy z objętością wg wieku Jurysty</div>
+            <button onClick={()=>setAuthorsSetIndex(0)}>pokaż jurystów z udziałem ponad jeden procent</button>
+            <button onClick={()=>setAuthorsSetIndex(1)}>pokaż jurystów z udziałem poniżej jeden procent a więcej niż jeden promil</button>
+            <button onClick={()=>setAuthorsSetIndex(2)}>pokaż jurystów z udziałem poniżej jeden promil</button>
+
+            {authors && <BooksAuthorshipChart authors={authorsSets[authorsSetIndex]}/>}
 
 
-            <h4>Chart z jurystami i ich procentowym udziałem</h4>
             <Outlet/>
         </>
     )

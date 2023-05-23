@@ -243,3 +243,8 @@ export const getOperaStats = () => {
 export const getOpusStats = (id) => {
     return api.get("stats/digesta/opera/" + id).then(response=>response.data)
 }
+
+export const getOpusBookStats = (opus_id, book_id) => {
+    console.log(`stats/digesta/opera/${opus_id}/${book_id}`)
+    return api.get(`stats/digesta/opera/${opus_id}/${book_id}`).then(response=>response.data)
+}

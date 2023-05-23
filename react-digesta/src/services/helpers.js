@@ -12,3 +12,17 @@ export const createPrettyDate = (commentDate) => {
     return `${day} ${hour}`
 
 }
+
+export const splitLabels = (label, factor) => {
+
+    const labelA = label.split(' ')
+    if (labelA.length > factor)
+    {
+        const half = Math.ceil(labelA.length / 2)
+        const firstHalf = labelA.slice(0, half).join(" ")
+        const secondHalf = labelA.slice(half).join(" ")
+        return [firstHalf, secondHalf]
+    } else {
+        return label
+    }
+}

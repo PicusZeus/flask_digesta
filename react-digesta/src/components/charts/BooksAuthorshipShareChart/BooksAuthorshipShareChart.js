@@ -1,24 +1,28 @@
 import {Bar} from "react-chartjs-2";
+import {Chart as ChartJS} from 'chart.js/auto'
 import {useRef} from "react";
 import {useNavigate} from "react-router-dom";
 import {options} from "../chartOptions";
 import ChartContainer from "../ChartContainer/ChartContainer";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
-const BooksOpusCoverage = ({books}) => {
-    const navigate = useNavigate()
+
+const BooksAuthorshipShareChart = ({books}) => {
+
     const chartRef = useRef(null)
+    const navigate = useNavigate()
     const data = {
-        labels: books.map(book=> book.book.book_latin_name),
+        labels: books.map(book => book.book.book_latin_name),
         datasets: [
             {
-                label: 'Udział pracy w poszczególnych księgach Digestów',
-                data: books.map(book=>book.coverage)
+                label: "Procentowy udział dzieł jurysty w księdze",
+                data: books.map(book => book.authorship)
             }
         ]
     }
 
-    const onClickHandler = (e) => {
+
+    const clickHandler = (e) => {
         const points = chartRef.current.getElementsAtEventForMode(e, "nearest", {intersect: true}, true)
         if (points.length > 0) {
             const index = points[0].index
@@ -27,11 +31,16 @@ const BooksOpusCoverage = ({books}) => {
         }
     }
     const plugins = [ChartDataLabels]
-    const height = data.labels.length * 40
 
-    return <ChartContainer height={height}>
-        <Bar onClick={onClickHandler} ref={chartRef} data={data} options={options} plugins={plugins} />
-   </ChartContainer>
+    const height = books.length * 40
+
+    return (
+        <ChartContainer height={height}>
+            <Bar onClick={clickHandler} ref={chartRef} data={data} options={options} plugins={plugins}/>
+        </ChartContainer>
+    )
+
+
 }
 
-export default BooksOpusCoverage
+export default BooksAuthorshipShareChart
