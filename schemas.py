@@ -382,7 +382,7 @@ class JuristStatsMainSchema(Schema):
     jurist = fields.Nested(PlainJuristSchema())
 
 class TitulusAuthorshipSchema(Schema):
-    titulus = fields.Nested(PlainTitulusSchema())
+    titulus = fields.Nested(TitulusSchema())
     authorship = fields.Float()
 
 

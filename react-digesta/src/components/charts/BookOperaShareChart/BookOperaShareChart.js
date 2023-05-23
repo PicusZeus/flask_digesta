@@ -4,9 +4,12 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 import {options} from "../chartOptions";
 import ChartContainer from "../ChartContainer/ChartContainer";
 import {splitLabels} from "../../../services/helpers";
+import {useRef} from "react";
+import {useNavigate} from "react-router-dom";
 
-const BookOperaShareChart = ({opera}) => {
-
+const BookOperaShareChart = ({opera, book_id}) => {
+    const chartRef = useRef(null)
+    const navigate = useNavigate()
     opera.sort((a, b) => {
         return b.coverage - a.coverage
     })
@@ -24,21 +27,32 @@ const BookOperaShareChart = ({opera}) => {
         }]
     }
 
+    const clickHandler = (e) => {
+        const points = chartRef.current.getElementsAtEventForMode(e, "nearest", {intersect: true}, true)
+        if (points.length > 0) {
 
+
+            const index = points[0].index
+            const opus_id = opera[index].opus.id
+            navigate(`/statystyki/opera/${opus_id}/${book_id}`)
+
+        }
+
+
+    }
 
     const plugins = [ChartDataLabels]
 
     const height = data.labels.length * 40
 
     return (
-        <>
+
             <ChartContainer height={height}>
-                <Bar data={data} options={options} plugins={plugins}/>
+                <Bar onClick={clickHandler} ref={chartRef} data={data} options={options} plugins={plugins}/>
             </ChartContainer>
 
 
-
-        </>)
+            )
 
 }
 

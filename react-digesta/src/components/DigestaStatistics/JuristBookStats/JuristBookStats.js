@@ -22,7 +22,7 @@ const JuristBookStats = () => {
         <h3>Udział w poszczególnych tytułach</h3>
         {stats && <TituliAuthorshipShareChart tituli={stats.tituli}/>}
         <h3>Udział prac jurysty w księdze</h3>
-        {stats && <OperaBookShare opera={stats.opera}/>}
+        {stats && <OperaBookShare opera={stats.opera} book_id={stats.book.id}/>}
     </>
 }
 

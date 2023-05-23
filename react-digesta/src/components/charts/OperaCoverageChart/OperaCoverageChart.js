@@ -19,7 +19,10 @@ const OperaCoverageChart = ({opera}) => {
         labels: opera.map(opus => {
             let author = ''
             if (opus.author) {author=opus.author.name}
-            const label = `${author} Libri ${opus.title_lat}`.trim()
+            let label = `${author} Libri ${opus.title_lat}`.trim()
+            if (opus.opus) {
+               label = `${author} Libri ${opus.opus.title_lat}`.trim()
+            }
 
             return splitLabels(label, 2)
         }),
@@ -38,8 +41,9 @@ const OperaCoverageChart = ({opera}) => {
         const points = chartRef.current.getElementsAtEventForMode(e, "nearest", {intersect: true}, true)
         if (points.length > 0) {
             const index = points[0].index
-            const opus_id = opera[index].id
-            navigate(opus_id.toString())
+            let opus_id = opera[index].id
+            if (!opus_id) {opus_id = opera[index].opus.id}
+            navigate(`/statystyki/opera/${opus_id.toString()}`)
         }
     }
 

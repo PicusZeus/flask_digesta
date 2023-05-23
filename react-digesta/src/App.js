@@ -1,42 +1,30 @@
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Layout from "./routes/layout/Layout";
 import Main from "./routes/main/Main";
-import DigestaJurists from "./routes/digesta_JURIST/DigestaJurists/DigestaJurists";
-import DigestaTrad from "./routes/digesta_TRAD/DigestaTrad";
+import DigestaJurists, {loader as digestaJuristsLoader} from "./routes/digesta_JURIST/DigestaJurists/DigestaJurists";
+import DigestaTrad, {loader as digestaTradLoader}  from "./routes/digesta_TRAD/DigestaTrad";
 import DigestaLookUp from "./routes/digesta_LOOKUP/DigestaLookUp";
-import DigestaJurist from "./routes/digesta_JURIST/DigestaJurist/DigestaJurist";
-import DigestaJuristDigesta, {
-    loader as juristBooksLoader
-} from "./routes/digesta_JURIST/DigestaJuristDigesta/DigestaJuristDigesta";
+import DigestaJurist, {loader as digestaJuristLoader} from "./routes/digesta_JURIST/DigestaJurist/DigestaJurist";
+import DigestaJuristDigesta, {loader as digestaJuristDigestaLoader} from "./routes/digesta_JURIST/DigestaJuristDigesta/DigestaJuristDigesta";
 import ErrorPage from "./routes/Error/ErrorPage";
-import DigestaLexViewer, {loader as lexLoader} from "./components/DigestaLexViewer/DigestaLexViewer";
-import DigestaJuristOpera, {
-    loader as digestaJuristOperaLoader
-} from "./routes/digesta_JURIST/DigestaJuristOpera/DigestaJuristOpera";
-import DigestaOpera, {loader as operaLoader} from "./routes/digesta_OPERA/DigestaOpera";
-import {
-    loader as paragraphusLoader
-} from "./components/DigestaParagraphusViewer/DigestaParagraphusViewerRouterWrapper/DigestaParagraphusViewerRouterWrapper";
-import {loader as juristLoader} from "./routes/digesta_JURIST/DigestaJurist/DigestaJurist";
-import {loader as digestaLoader} from "./routes/digesta_TRAD/DigestaTrad";
-import {loader as juristsLoader} from "./routes/digesta_JURIST/DigestaJurists/DigestaJurists"
+import DigestaLexViewer, {loader as digestaLexLoader} from "./components/DigestaLexViewer/DigestaLexViewer";
+import DigestaJuristOpera, {loader as digestaJuristOperaLoader} from "./routes/digesta_JURIST/DigestaJuristOpera/DigestaJuristOpera";
+import DigestaOpera, {loader as digestaOperaLoader} from "./routes/digesta_OPERA/DigestaOpera";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import DigestaParagraphusViewerRouterWrapper
+import DigestaParagraphusViewerRouterWrapper, {loader as digestaParagraphusViewerRouterWrapper}
     from "./components/DigestaParagraphusViewer/DigestaParagraphusViewerRouterWrapper/DigestaParagraphusViewerRouterWrapper";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import DigestaStats from "./routes/digesta_STATS/DigestaStats/DigestaStats";
-import DigestaStatsDigesta from "./routes/digesta_STATS/DigestaStatsDigesta/DigestaStatsDigesta";
-import BookStats from "./components/DigestaStatistics/BookStats/BookStats";
+import DigestaStatsDigesta, {loader as digestaStatsDigestaLoader} from "./routes/digesta_STATS/DigestaStatsDigesta/DigestaStatsDigesta";
+import BookStats, {loader as bookStatsLoader}  from "./components/DigestaStatistics/BookStats/BookStats";
 import TitulusStats, {loader as titulusStatsLoader} from "./components/DigestaStatistics/TitulusStats/TitulusStats";
 import DigestaStatsJurists, {loader as digestaStatsJuristsLoader} from "./routes/digesta_STATS/DigestaStatsJurists/DigestaStatsJurists";
 import JuristStats, {loader as juristStatsLoader} from "./components/DigestaStatistics/JuristStats/JuristStats";
-import DigestaStatsOpera from "./routes/digesta_STATS/DigestaStatsOpera/DigestaStatsOpera";
+import DigestaStatsOpera, {loader as digestaStatsOperaLoader}  from "./routes/digesta_STATS/DigestaStatsOpera/DigestaStatsOpera";
 import OpusStats, {loader as opusStatsLoader} from "./components/DigestaStatistics/OpusStats/OpusStats";
-import {loader as digestaStatsLoader} from "./routes/digesta_STATS/DigestaStatsDigesta/DigestaStatsDigesta";
-import {loader as bookStatsLoader} from "./components/DigestaStatistics/BookStats/BookStats";
 import JuristBookStats, { loader as juristBookStatsLoader } from "./components/DigestaStatistics/JuristBookStats/JuristBookStats";
 import OpusBookStats, {loader as opusBookStatsLoader} from "./components/DigestaStatistics/OpusBookStats/OpusBookStats";
-import {loader as digestaStatsOperaLoader} from "./routes/digesta_STATS/DigestaStatsOpera/DigestaStatsOpera"
+import JuristTitulusStats, { loader as juristTitulusStatsLoader } from "./components/DigestaStatistics/JuristTitulusStats/JuristTitulusStats";
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter(
@@ -57,7 +45,7 @@ const router = createBrowserRouter(
                         {
                             path: "digesta",
                             element: <DigestaStatsDigesta/>,
-                            loader: digestaStatsLoader(queryClient)
+                            loader: digestaStatsDigestaLoader(queryClient)
                         },
                         {
                             path: "digesta/libri/:book_id",
@@ -85,7 +73,11 @@ const router = createBrowserRouter(
                             element: <JuristBookStats/>,
                             loader: juristBookStatsLoader(queryClient)
                         },
-
+                        {
+                            path: "jurysci/:jurysta_id/:book_id/:titulus_id",
+                            element: <JuristTitulusStats/>,
+                            loader: juristTitulusStatsLoader(queryClient)
+                        },
                         {
                             path: 'opera',
                             element: <DigestaStatsOpera/>,
@@ -111,24 +103,24 @@ const router = createBrowserRouter(
                 {
                     path: '/jurysci',
                     element: <DigestaJurists/>,
-                    loader: juristsLoader(queryClient),
+                    loader: digestaJuristsLoader(queryClient),
                     children: [
                         {
                             path: 'digesta/:jurysta_id',
                             element: <DigestaJuristDigesta/>,
-                            loader: juristBooksLoader(queryClient),
+                            loader: digestaJuristDigestaLoader(queryClient),
                             children: [
 
 
                                 {
                                     path: ':lex_id',
                                     element: <DigestaLexViewer/>,
-                                    loader: lexLoader(queryClient),
+                                    loader: digestaLexLoader(queryClient),
                                     children: [
                                         {
                                             path: ':paragraphus_id',
                                             element: <DigestaParagraphusViewerRouterWrapper/>,
-                                            loader: paragraphusLoader(queryClient)
+                                            loader: digestaParagraphusViewerRouterWrapper(queryClient)
                                         }
                                     ]
                                 }]
@@ -142,12 +134,12 @@ const router = createBrowserRouter(
                                 {
                                     path: ':lex_id',
                                     element: <DigestaLexViewer/>,
-                                    loader: lexLoader(queryClient),
+                                    loader: digestaLexLoader(queryClient),
                                     children: [
                                         {
                                             path: ':paragraphus_id',
                                             element: <DigestaParagraphusViewerRouterWrapper/>,
-                                            loader: paragraphusLoader(queryClient)
+                                            loader: digestaParagraphusViewerRouterWrapper(queryClient)
                                         }
                                     ]
 
@@ -160,7 +152,7 @@ const router = createBrowserRouter(
                         {
                             path: ':jurysta_id',
                             element: <DigestaJurist/>,
-                            loader: juristLoader(queryClient),
+                            loader: digestaJuristLoader(queryClient),
                             children: [
 
                                 {
@@ -174,7 +166,7 @@ const router = createBrowserRouter(
                                 {
                                     path: 'digesta/:jurysta_id',
                                     element: <DigestaJuristDigesta/>,
-                                    loader: juristBooksLoader(queryClient),
+                                    loader: digestaJuristDigestaLoader(queryClient),
 
                                 }
 
@@ -188,17 +180,17 @@ const router = createBrowserRouter(
                 {
                     path: '/digesta',
                     element: <DigestaTrad/>,
-                    loader: digestaLoader(queryClient),
+                    loader: digestaTradLoader(queryClient),
                     children: [
                         {
                             path: ':lex_id',
                             element: <DigestaLexViewer/>,
-                            loader: lexLoader(queryClient),
+                            loader: digestaLexLoader(queryClient),
                             children: [
                                 {
                                     path: ':paragraphus_id',
                                     element: <DigestaParagraphusViewerRouterWrapper/>,
-                                    loader: paragraphusLoader(queryClient)
+                                    loader: digestaParagraphusViewerRouterWrapper(queryClient)
                                 }
                             ]
 
@@ -208,17 +200,17 @@ const router = createBrowserRouter(
                 {
                     path: '/opera',
                     element: <DigestaOpera/>,
-                    loader: operaLoader(queryClient),
+                    loader: digestaOperaLoader(queryClient),
                     children: [
                         {
                             path: ':lex_id',
                             element: <DigestaLexViewer/>,
-                            loader: lexLoader(queryClient),
+                            loader: digestaLexLoader(queryClient),
                             children: [
                                 {
                                     path: ':paragraphus_id',
                                     element: <DigestaParagraphusViewerRouterWrapper/>,
-                                    loader: paragraphusLoader(queryClient)
+                                    loader: digestaParagraphusViewerRouterWrapper(queryClient)
                                 }
                             ]
                         }
