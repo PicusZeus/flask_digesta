@@ -6,6 +6,7 @@ import DigestaTocMobileJuristDigestaBooks
     from "../../../components/DigestaToc/DigestaTocMobile/DigestaTocMobileJuristDigestaBooks/DigestaTocMobileJuristDigestaBooks";
 import {useQuery} from "@tanstack/react-query";
 import {getJuristBooks} from "../../../api/api";
+import {useSelector} from "react-redux";
 
 
 const getJuristBooksQuery = (id) => {
@@ -16,19 +17,25 @@ const getJuristBooksQuery = (id) => {
 }
 
 
-const DigestaJuristDigesta = () => {
+const DigestaJuristDigesta = ({location}) => {
     const params = useParams()
-
+    console.log(location)
     const author_id = params.jurysta_id
     const { data: books } = useQuery(getJuristBooksQuery(author_id))
+    // const chosenTitulusId = useSelector(state=>state.digesta.chosenTitulusId)
+    //     if (chosenTitulusId) {
+    //     const titulusSection = document.querySelector("#" + chosenTitulusId)
+    //     titulusSection.scrollIntoView({behavior: "smooth", block: "start"})
+    // }
     return (
+
         <div className={classes.toc_container}>
             <div className={classes.mobile_toc}>
-                <DigestaTocMobileJuristDigestaBooks books={books} author_id={author_id}/>
+                {books && <DigestaTocMobileJuristDigestaBooks books={books} author_id={author_id}/>}
 
             </div>
             <div className={classes.desktop_toc}>
-                <DigestaTocDesktopJuristDigestaBooks books={books} author_id={author_id}/>
+                {books && <DigestaTocDesktopJuristDigestaBooks books={books} author_id={author_id}/>}
 
             </div>
 

@@ -1,5 +1,5 @@
 import classes from "./DigestaTocDesktopJuristDigestaTitulus.module.css"
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import NotificationService from "../../../../services/notification.service";
 import DigestaTocDesktopLex from "../DigestaTocDesktopLex/DigestaTocDesktopLex";
@@ -9,10 +9,14 @@ import {getLegesAuthor} from "../../../../api/api";
 
 const DigestaTocDesktopJuristDigestaTitulus = ({titulus, author_id}) => {
     const chosenTitulusId = useSelector(state => state.digesta.chosenTitulusId)
-
+    const ref = useRef(null)
     const [titulusMenuOpen, setTitulusMenuOpen] = useState(chosenTitulusId === titulus.id)
 
-
+    useEffect(()=>{
+        if (chosenTitulusId === titulus.id) {
+            ref.current.scrollIntoView({behavior: "smooth", block: "start"})
+        }
+    })
     const dispatch = useDispatch()
     const notificationSetter = new NotificationService(dispatch)
 
@@ -35,7 +39,7 @@ const DigestaTocDesktopJuristDigestaTitulus = ({titulus, author_id}) => {
 
     return (
 
-        <li className={classes.titulus_main}>
+        <li ref={ref} className={classes.titulus_main}>
             <div className={classes.titulus__line}>&nbsp;</div>
 
             <div className={classes.titulus_group}>
@@ -50,7 +54,7 @@ const DigestaTocDesktopJuristDigestaTitulus = ({titulus, author_id}) => {
             {titulusMenuOpen && leges && <div className={classes.titulus__leges_group}>
                 <ul>
                     {leges.map((lex) => (
-                        <DigestaTocDesktopLex key={lex.id} path={path} lex={lex} legesLength={leges.length}/>))}
+                        <DigestaTocDesktopLex  key={lex.id} path={path} lex={lex} legesLength={leges.length}/>))}
                 </ul>
 
             </div>}

@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import DigestaTocDesktopOpusLiber from "../DigestaTocDesktopOpusLiber/DigestaTocDesktopOpusLiber";
 import classes from "./DigestaTocDesktopOpus.module.css"
 import {useDispatch, useSelector} from "react-redux";
@@ -6,15 +6,15 @@ import {digestaActions} from "../../../../store/digesta-slice";
 
 const DigestaTocDesktopOpus = ({opus, lexPath}) => {
     const chosenOpusId = useSelector(state => state.digesta.chosenOpusId)
-    console.log(chosenOpusId, 'CHOSEN', opus)
     const [menuLibriOpen, setMenuLibriOpen] = useState(chosenOpusId === opus.id)
-
+    // const ref = useRef(null)
     const dispatch = useDispatch()
 
 
     const openOpusHandler = () => {
         if (!menuLibriOpen) {
             dispatch(digestaActions.setChosenOpusId(opus.id))
+            dispatch(digestaActions.setChosenOpusLiberId(null))
         }
         setMenuLibriOpen((current) => !current)
     }

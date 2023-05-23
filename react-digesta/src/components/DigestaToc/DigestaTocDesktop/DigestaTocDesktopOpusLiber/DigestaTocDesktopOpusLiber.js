@@ -1,4 +1,4 @@
-import { useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import classes from "./DigestaTocDesktopOpusLiber.module.css"
 import DigestaTocDesktopLex from "../DigestaTocDesktopLex/DigestaTocDesktopLex";
 import {useDispatch, useSelector} from "react-redux";
@@ -8,7 +8,7 @@ import {getLegesOpus} from "../../../../api/api";
 import {digestaActions} from "../../../../store/digesta-slice";
 
 const DigestaTocDesktopOpusLiber = ({liber, libriLength, lexPath}) => {
-
+    const ref = useRef(null)
     const chosenOpusLiberId = useSelector(state => state.digesta.chosenOpusLiberId)
 
     const [openLegesMenu, setOpenLegesMenu] = useState(chosenOpusLiberId === liber.id)
@@ -31,14 +31,18 @@ const DigestaTocDesktopOpusLiber = ({liber, libriLength, lexPath}) => {
         }
         setOpenLegesMenu((current) => !current)
     }
-
+    useEffect(()=>{
+        if (chosenOpusLiberId===liber.id) {
+            ref.current.scrollIntoView({behavior: "smooth", block: "start"})
+        }
+    })
 
     if (libriLength === 1) {
         liberLineClasses.push(classes.liber__line_single)
     }
 
     return (
-        <li className={classes.liber_main}>
+        <li ref={ref} className={classes.liber_main}>
             <div className={liberLineClasses.join(" ")}>&nbsp;</div>
 
             <div className={classes.liber_group}>

@@ -82,15 +82,11 @@ const router = createBrowserRouter(
                             path: 'opera',
                             element: <DigestaStatsOpera/>,
                             loader: digestaStatsOperaLoader(queryClient)
-
-
                         },
                         {
-
                             path: "opera/:opus_id",
                             element: <OpusStats/>,
                             loader: opusStatsLoader(queryClient)
-
                         },
                         {
                             path: "opera/:opus_id/:book_id",
@@ -98,7 +94,6 @@ const router = createBrowserRouter(
                             loader: opusBookStatsLoader(queryClient)
                         }
                     ]
-
                 },
                 {
                     path: '/jurysci',
@@ -110,8 +105,6 @@ const router = createBrowserRouter(
                             element: <DigestaJuristDigesta/>,
                             loader: digestaJuristDigestaLoader(queryClient),
                             children: [
-
-
                                 {
                                     path: ':lex_id',
                                     element: <DigestaLexViewer/>,
@@ -154,29 +147,20 @@ const router = createBrowserRouter(
                             element: <DigestaJurist/>,
                             loader: digestaJuristLoader(queryClient),
                             children: [
-
                                 {
                                     path: "opera/:jurysta_id",
                                     element: <DigestaJuristOpera/>,
                                     loader: digestaJuristOperaLoader(queryClient),
-
                                 },
-
-
                                 {
                                     path: 'digesta/:jurysta_id',
                                     element: <DigestaJuristDigesta/>,
                                     loader: digestaJuristDigestaLoader(queryClient),
-
                                 }
-
-
                             ]
                         }
                     ]
                 },
-
-
                 {
                     path: '/digesta',
                     element: <DigestaTrad/>,
@@ -193,7 +177,6 @@ const router = createBrowserRouter(
                                     loader: digestaParagraphusViewerRouterWrapper(queryClient)
                                 }
                             ]
-
                         }
                     ]
                 },
@@ -222,7 +205,6 @@ const router = createBrowserRouter(
                     // action: searchTextAction
                 }
             ]
-
         }
     ]
 )

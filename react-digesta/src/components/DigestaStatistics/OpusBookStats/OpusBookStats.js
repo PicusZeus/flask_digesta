@@ -2,6 +2,7 @@ import {getOpusBookStats} from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
 import {useParams} from "react-router-dom";
 import TituliCoverage from "../../charts/TituliCoverage/TituliCoverage";
+import {useRef} from "react";
 
 
 const getOpusBookStatsQuery = (opus_id, book_id) => {
@@ -19,7 +20,7 @@ const OpusBookStats = () => {
 
     return <>
         <h1>Libri {stats.opus.title_lat} {stats.opus.author.name}A w księdze {stats.book.book_nr}</h1>
-        {stats && <TituliCoverage tituli={stats.tituli}/>}
+        {stats && <TituliCoverage tituli={stats.tituli} book_id={stats.book.id} jurysta_id={stats.opus.author.id}/>}
     </>
 }
 

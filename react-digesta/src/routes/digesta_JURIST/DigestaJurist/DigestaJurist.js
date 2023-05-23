@@ -23,19 +23,20 @@ const DigestaJurist = () => {
     const location = useLocation()
     const opera = location.pathname.split("/").includes("opera")
     const {data: juristData} = useQuery(getJuristQuery(params.jurysta_id))
+    const digesta = location.pathname.split("/").includes("digesta")
     const juristId = parseInt(juristData.id)
     const [openOutlet, setOpenHandler] = useState(false)
     const pathDigestaJurist = "digesta/" + juristId
     const pathOperaJurist = "opera/" + juristId
     useEffect(() => {
-        if (!opera) {
+        if (!opera && !digesta) {
             setOpenHandler(false)
         } else {
             setOpenHandler(true)
         }
 
 
-    }, [opera, juristId])
+    }, [digesta, opera, juristId])
 
 
 

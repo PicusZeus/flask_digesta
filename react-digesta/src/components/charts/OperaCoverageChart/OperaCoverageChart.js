@@ -33,11 +33,10 @@ const OperaCoverageChart = ({opera}) => {
             }
         ]
     }
-    console.log(opera)
 
     const plugins = [ChartDataLabels]
 
-    const onClickMoreHandler = (e) => {
+    const onClickHandler = (e) => {
         const points = chartRef.current.getElementsAtEventForMode(e, "nearest", {intersect: true}, true)
         if (points.length > 0) {
             const index = points[0].index
@@ -55,7 +54,7 @@ const OperaCoverageChart = ({opera}) => {
     return (
         <>
             <ChartContainer height={height}>
-                <Bar onClick={onClickMoreHandler} ref={chartRef} data={dataAbove} options={options}
+                <Bar onClick={onClickHandler} ref={chartRef} data={dataAbove} options={options}
                      plugins={plugins}/>
             </ChartContainer>
 
