@@ -19,9 +19,10 @@ const DigestaStatsDigesta = () => {
     return (
         <>
 
-            <h1>Digesta albo Pandekta</h1>
-            <h3>Digesta lub pandekta składają się z 50 ksiąg o różnej długości</h3>
-            {stats && <BooksShareChart books={stats}/>}
+            <h1 className={classes.digesta_stats__title}>Digesta seu Pandecta</h1>
+            <h2 className={classes.digesta_stats__info}>Digesta składają się z 50 ksiąg o różnej długości.</h2>
+            <h3 className={classes.digesta_stats__info}>Wybierz księgę, dla której chcesz poznać dalsze statystyki.</h3>
+            <div className={classes.digesta_stats__chart}>{stats && <BooksShareChart books={stats}/>}</div>
 
 
         </>

@@ -4,6 +4,7 @@ import BooksAuthorshipChart from "../../../components/charts/BooksAuthorshipChar
 import {useState} from "react";
 import Spinner from "../../../components/UI/spinner/Spinner";
 import classes from "./DigestaStatsJurists.module.css"
+import Button from "../../../components/UI/button/Button";
 
 const getJuristsStatsQuery = () => {
     return {
@@ -25,17 +26,34 @@ const DigestaStatsJurists = () => {
 
     const authorsSets = [authorsMoreOnePercent, authorsLessOnePercentMoreOnePromile, authorsLessOnePromile]
 
+
+    const onOption = (e) => {
+        e.preventDefault()
+        const index = parseInt(e.target.value)
+        setAuthorsSetIndex(index)
+
+    }
+
     return (
 
         <>
-            <button onClick={() => setAuthorsSetIndex(0)}>pokaż jurystów z udziałem ponad jeden procent</button>
-            <button onClick={() => setAuthorsSetIndex(1)}>pokaż jurystów z udziałem poniżej jeden procent a więcej niż
-                jeden promil
-            </button>
-            <button onClick={() => setAuthorsSetIndex(2)}>pokaż jurystów z udziałem poniżej jeden promil</button>
+            <h1 className={classes.jur_stats__title}>Juryści cytowani w Digestach</h1>
+            <h3>Wybierz jurystę, o którym chcesz się dowiedzieć więcej</h3>
 
-            {authors && <BooksAuthorshipChart authors={authorsSets[authorsSetIndex]}/>}
 
+            <form className={classes.jur_stats__options}>
+                <label htmlFor="selectJurs">Zobacz jurystów z udziałem</label>
+                <select id="selectJurs" onChange={onOption}>
+                    <option value='0'>z udziałem ponad jeden procent</option>
+                    <option value='1'>z udziałem poniżej jeden procent a więcej niż jeden promil</option>
+                    <option value='2'>z udziałem poniżej jednego promila</option>
+                </select>
+            </form>
+
+
+            <div className={classes.jur_stats__chart}>
+                {authors && <BooksAuthorshipChart authors={authorsSets[authorsSetIndex]}/>}
+            </div>
         </>
     )
 }

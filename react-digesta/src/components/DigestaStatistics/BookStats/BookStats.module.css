@@ -1,0 +1,28 @@
+.book_stats__title {
+    margin-top: 10rem;
+    text-align: center;
+}
+
+.book_stats__subtitle {
+    text-align: center;
+}
+
+
+.book_stats__info {
+    text-align: center;
+}
+
+.book_stats__options {
+    display: flex;
+    justify-content: center;
+}
+
+.book_stats__options > label {
+    /*margin-left: 6rem;*/
+
+}
+
+.book_stats__options > select {
+    background: none;
+    border: none;
+}

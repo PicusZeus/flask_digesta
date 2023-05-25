@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 import TituliCoverage from "../../charts/TituliCoverage/TituliCoverage";
 import {useRef} from "react";
 import Spinner from "../../UI/spinner/Spinner";
+import classes from "./OpusBookStats.css"
 
 
 const getOpusBookStatsQuery = (opus_id, book_id) => {

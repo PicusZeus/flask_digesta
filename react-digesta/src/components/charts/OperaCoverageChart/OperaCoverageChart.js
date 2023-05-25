@@ -28,7 +28,7 @@ const OperaCoverageChart = ({opera}) => {
         }),
         datasets: [
             {
-                label: "opera",
+                label: "Procentowy udział pracy",
                 data: opera.map(opus => opus.coverage)
             }
         ]

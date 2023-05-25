@@ -5,6 +5,7 @@ import BooksAuthorshipShareChart from "../../charts/BooksAuthorshipShareChart/Bo
 import OperaCoverageChart from "../../charts/OperaCoverageChart/OperaCoverageChart";
 import {useState} from "react";
 import Spinner from "../../UI/spinner/Spinner";
+import classes from "./JuristStats.module.css"
 
 
 const getJuristStatsQuery = (id) => {
@@ -25,16 +26,26 @@ const JuristStats = () => {
     const operaMoreHalfPercent = stats.opera.filter(o => o.coverage > 0.1)
     const operaLessHalfPercent = stats.opera.filter(o => o.coverage <= 0.1)
     const operaSets = [operaMoreHalfPercent, operaLessHalfPercent]
+  const onOption = (e) => {
+        e.preventDefault()
+        const index = parseInt(e.target.value)
+        setOperaSetIndex(index)
 
+    }
     return (
         <>
-            {stats && <h1>{stats.jurist.name} w Digestach</h1>}
+            {stats && <h1 className={classes.jurist_stats__title}>{stats.jurist.name} w Digestach</h1>}
             <h2>Udział w poszczególnych księgach</h2>
             {stats && <BooksAuthorshipShareChart books={stats.books}/>}
 
             {stats && <h2>Prace {stats.jurist.name}A i ich udział w Digestach</h2>}
-            <button onClick={() => setOperaSetIndex(0)}>Prace obejmujące ponad promil Digestów</button>
-            <button onClick={() => setOperaSetIndex(1)}>Prace obejmujące mniej niż pół promil Digestów</button>
+            <form className={classes.jur_stats__options}>
+                <label htmlFor="selectJurs">Zobacz jurystów z udziałem</label>
+                <select id="selectJurs" onChange={onOption}>
+                    <option value='0'>ponad jeden promil</option>
+                    <option value='1'> poniżej promila</option>
+                </select>
+            </form>
 
             {stats && <OperaCoverageChart opera={operaSets[operaSetIndex]}/>}
 

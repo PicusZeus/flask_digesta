@@ -7,6 +7,7 @@ import {useRef} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {digestaActions} from "../../../store/digesta-slice";
+import {uiActions} from "../../../store/ui-slice";
 
 const TituliCoverage = ({tituli, jurysta_id, book_id}) => {
     const dispatch = useDispatch()
@@ -33,6 +34,7 @@ const TituliCoverage = ({tituli, jurysta_id, book_id}) => {
             dispatch(digestaActions.setChosenBookId(book_id))
             dispatch(digestaActions.setChosenTitulusId(titulus_id))
             dispatch(digestaActions.setChosenJuristId(jurysta_id))
+            dispatch(uiActions.setActiveSection("juristsNav"))
             const url = `/jurysci/${jurysta_id}/digesta/${jurysta_id}#id=howdy`
             navigate(url)
         }

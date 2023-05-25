@@ -26,29 +26,42 @@ const DigestaStatsOpera = () => {
     const operaLessTenthMoreFiftinth = opera.filter(opus => opus.coverage <= 0.1 && opus.coverage > 0.05)
     const operaLessFiftinthMorehudreth = opera.filter(opus => opus.coverage <= 0.05 && opus.coverage > 0.01)
     const operaLessHundretth = opera.filter(opus => opus.coverage <= 0.01)
+    const onOption = (e) => {
+        e.preventDefault()
+        const index = parseInt(e.target.value)
+        setChartOperaIndex(index)
 
+    }
     const operaSets = [operaAbovePercent, operaLessOneMoreHalf, operaLessHalfMoreTenth, operaLessTenthMoreFiftinth, operaLessFiftinthMorehudreth, operaLessHundretth]
     return (
 
         <>
             <h1>Prace jurystów cytowane w Digestach</h1>
-            <button onClick={() => setChartOperaIndex(0)}>Pokaż prace z udziałem powyżej jednego procenta</button>
-            <button onClick={() => setChartOperaIndex(1)}>Pokaż prace z udziałem poniżej jednego procenta a powyżej pół
-                procenta
-            </button>
-            <button onClick={() => setChartOperaIndex(2)}>Pokaż prace z udziałem poniżej pół procenta a powyżej jednego
-                promila
-            </button>
-            <button onClick={() => setChartOperaIndex(3)}>Pokaż prace z udziałem poniżej jednego promila a powyżej pół
-                promila
-            </button>
-            <button onClick={() => setChartOperaIndex(4)}>Pokaż prace z udziałem poniżej pół promila a powyżej
-                dziesiątej części promila
+            <h3>Wybierz pracę jurysty, o której chcesz się dowiedzieć więcej.</h3>
 
-            </button>
-            <button onClick={() => setChartOperaIndex(5)}>Pokaż prace z udziałem poniżej dziesiątej części promila
+            <form className={classes.opera_stats__options}>
+                <label htmlFor="selectOpera">Pokaż prace jurystów z udziałem</label>
+                <select id="selectOpera" onChange={onOption}>
+                    <option value='0'> ponad jeden procent</option>
+                    <option value='1'>poniżej jednego procenta a powyżej pół
+                        procenta
+                    </option>
+                    <option value='2'>poniżej pół procenta a powyżej jednego
+                        promila
+                    </option>
+                    <option value="3"> poniżej jednego promila a powyżej pół
+                        promila
+                    </option>
+                    <option value="4">poniżej pół promila a powyżej
+                        dziesiątej części promila
+                    </option>
+                    <option value="5">poniżej dziesiątej części promila
+                    </option>
 
-            </button>
+                </select>
+            </form>
+
+
             {opera && <OperaCoverageChart opera={operaSets[chartOperaIndex]}/>}
         </>
     )

@@ -4,6 +4,8 @@ import {useQuery} from "@tanstack/react-query";
 import TituliAuthorshipShareChart from "../../charts/TituliAuthorshipShareChart/TituliAuthorshipShareChart";
 import OperaBookShare from "../../charts/BookOperaShareChart/BookOperaShareChart";
 import Spinner from "../../UI/spinner/Spinner";
+import classes from "./JuristBookStats.module.css"
+
 
 const getJuristBookStatsQuery = (jurysta_id, book_id) => {
     return {
@@ -22,11 +24,13 @@ const JuristBookStats = () => {
 
 
     return <>
-        {stats && <h1>{stats.author.name} w księdze {stats.book.book_nr}</h1>}
-        <h3>Udział w poszczególnych tytułach</h3>
-        {stats && <TituliAuthorshipShareChart tituli={stats.tituli}/>}
-        <h3>Udział prac jurysty w księdze</h3>
-        {stats && <OperaBookShare opera={stats.opera} book_id={stats.book.id}/>}
+        {stats && <h1 className={classes.jurist_book_stats__title}>{stats.author.name} w księdze {stats.book.book_nr}</h1>}
+        {stats && <h3 className={classes.jurist_book_stats__info}>Udział prac {stats.author.name}A w objętości księgi</h3>}
+        {stats && <h3 className={classes.jurist_book_stats__info}>Wybierz tytuł, dla którego chcesz poznać dodatkowe statystyki dla tego {stats.author.name}A</h3>}
+        <div className={classes.chart}>{stats && <TituliAuthorshipShareChart tituli={stats.tituli}/>}</div>
+        {stats && <h3 className={classes.jurist_book_stats__info}>Prace {stats.author.name}A w księdze {stats.book.book_nr}</h3>}
+        <h3 className={classes.jurist_book_stats__info}>Wybierz pracę, dla której chcesz poznać dodatkowe statystyki dla tej księgi</h3>
+        <div className={classes.chart}>{stats && <OperaBookShare opera={stats.opera} book_id={stats.book.id}/>}</div>
     </>
 }
 

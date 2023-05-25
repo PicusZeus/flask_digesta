@@ -26,13 +26,7 @@ const DigestaLexViewer = () => {
 
     const params = useParams()
     const {data: lex, isFetching} = useQuery(getLexQuery(params.lex_id))
-    // useEffect(()=>{
-    //     if (lex && lex.paragraphi.length > 1 && !params.paragraphus_id) {
-    //         console.log(lex.paragraphi)
-    //         const paragraphus_id = lex.paragraphi[0].id
-    //         navigate(`/digesta/${params.lex_id}/${paragraphus_id}`)
-    //     }
-    // })
+
 
 
     if (isFetching) {
@@ -70,31 +64,47 @@ const DigestaLexViewer = () => {
     console.log(paragraphiDic)
 
 
-    console.log(paragraphiKeys, params.paragraphus_id, paragraphi)
 
-    let nextUrl = `/digesta/${parseInt(params.lex_id) + 1}`
-    let previousUrl = `/digesta/${parseInt(params.lex_id) -1}`
-    if (params.lex_id == 1 ) { previousUrl = ''}
-    if (params.lex_id == 9142) { nextUrl = ''}
+    console.log(paragraphiKeys, params.paragraphus_id, paragraphi)
+    const lex_id = parseInt(params.lex_id)
+
+    let nextUrl = `/digesta/${lex_id + 1}`
+    let previousUrl = `/digesta/${lex_id -1}`
+
+    let chosenLexIdNext = lex_id + 1
+    let chosenLexIdPrevious = lex_id -1
+     if (lex_id === 1 ) { previousUrl = ''; chosenLexIdPrevious = lex_id}
+    if (lex_id === 9142) { nextUrl = ''; chosenLexIdNext = lex_id}
+
     if (paragraphi) {
         if (params.paragraphus_id)
         {const par_id = parseInt(params.paragraphus_id)
         const previous = paragraphi.filter(p=>p.id === par_id - 1)
         if (previous.length === 1) {
-            previousUrl = `/digesta/${parseInt(params.lex_id)}/${par_id -1}`
+            previousUrl = `/digesta/${lex_id}/${par_id -1}`
+            chosenLexIdPrevious = lex_id
         }
         const next = paragraphi.filter(p=>p.id === par_id + 1)
         if (next.length === 1) {
-            nextUrl = `/digesta/${parseInt(params.lex_id)}/${par_id +1}`
+            nextUrl = `/digesta/${lex_id}/${par_id +1}`
+            chosenLexIdNext = lex_id
         }}
         else if (paragraphi.length > 1) {
 
-           nextUrl = `/digesta/${parseInt(params.lex_id)}/${paragraphi[0].id}`
+           nextUrl = `/digesta/${lex_id}/${paragraphi[0].id}`
+            chosenLexIdNext = lex_id
         }
 
     }
 
+    const setChosenLexHandler = (id) => {
+        dispatch(digestaActions.setChosenLexId(id))
+        dispatch(digestaActions.setChosenBookId(lex.titulus.book.id))
 
+        dispatch(digestaActions.setChosenTitulusId(lex.titulus.id))
+        dispatch(uiActions.setActiveSection("digestaNav"))
+        console.log(lex.titulus.id, lex.titulus.book.id, "dispatching")
+    }
 
 
     return (
@@ -103,7 +113,7 @@ const DigestaLexViewer = () => {
 
             <div className={classes.main_lex__next}>
                 <div className={classes.main_lex__next_redirection}>
-                    <Link to={previousUrl}>
+                    <Link onClick={()=>setChosenLexHandler(chosenLexIdPrevious)} to={previousUrl}>
                         <span className="material-symbols-outlined">
                             arrow_back_ios
                         </span>
@@ -120,7 +130,7 @@ const DigestaLexViewer = () => {
 
                 </div>
                 <div className={classes.main_lex__next_redirection}>
-                    <Link to={nextUrl}>
+                    <Link onClick={()=>setChosenLexHandler(chosenLexIdNext)} to={nextUrl}>
                         <span className="material-symbols-outlined">
                             arrow_forward_ios
                         </span>
