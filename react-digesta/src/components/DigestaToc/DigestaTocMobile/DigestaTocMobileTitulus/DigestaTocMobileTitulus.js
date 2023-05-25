@@ -5,6 +5,7 @@ import TocMobile from "../../../UI/TocMobile/TocMobile";
 import NotificationService from "../../../../services/notification.service";
 import {getLeges} from "../../../../api/api";
 import {useQuery} from "@tanstack/react-query";
+import Spinner from "../../../UI/spinner/Spinner";
 
 const DigestaTocMobileTitulus = ({id}) => {
     // const [leges, setLeges] = useState([])
@@ -13,10 +14,9 @@ const DigestaTocMobileTitulus = ({id}) => {
     const notificationSetter = new NotificationService(dispatch)
 
 
-    const {data: leges} = useQuery({
+    const {data: leges, isFetching} = useQuery({
         queryKey: ["digesta", "titulus", "leges", id],
-        queryFn: () => getLeges(id)
-        ,
+        queryFn: () => getLeges(id),
         onError: () => {
             notificationSetter.setNotificationError('Ładowanie tytułu', 'Błąd Servera')
 
@@ -24,11 +24,13 @@ const DigestaTocMobileTitulus = ({id}) => {
     })
 
 
-
     const onOptionChangeLexHandler = (event) => {
         dispatch(digestaActions.setChosenLexId(parseInt(event.target.value)))
         navigate(event.target.value)
 
+    }
+    if (isFetching) {
+        return <Spinner/>
     }
 
     return (

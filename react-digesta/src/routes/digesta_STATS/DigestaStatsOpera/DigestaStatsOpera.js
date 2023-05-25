@@ -1,8 +1,9 @@
-import {Outlet} from "react-router-dom";
 import {getOperaStats} from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
 import OperaCoverageChart from "../../../components/charts/OperaCoverageChart/OperaCoverageChart";
 import {useState} from "react";
+import Spinner from "../../../components/UI/spinner/Spinner";
+import classes from "./DigestaStatsOpera.module.css"
 
 const getOperaStatsQuery = () => {
     return {
@@ -14,8 +15,11 @@ const getOperaStatsQuery = () => {
 const DigestaStatsOpera = () => {
     const [chartOperaIndex, setChartOperaIndex] = useState(0)
 
-    const {data: opera} = useQuery(getOperaStatsQuery())
-    // console.log(stats)
+    const {data: opera, isFetching} = useQuery(getOperaStatsQuery())
+
+    if (isFetching) {
+        return <Spinner/>
+    }
     const operaAbovePercent = opera.filter(opus => opus.coverage > 1)
     const operaLessOneMoreHalf = opera.filter(opus => opus.coverage <= 1 && opus.coverage > 0.5)
     const operaLessHalfMoreTenth = opera.filter(opus => opus.coverage <= 0.5 && opus.coverage > 0.1)
@@ -42,7 +46,7 @@ const DigestaStatsOpera = () => {
                 dziesiątej części promila
 
             </button>
-         <button onClick={() => setChartOperaIndex(5)}>Pokaż prace z udziałem poniżej dziesiątej części promila
+            <button onClick={() => setChartOperaIndex(5)}>Pokaż prace z udziałem poniżej dziesiątej części promila
 
             </button>
             {opera && <OperaCoverageChart opera={operaSets[chartOperaIndex]}/>}

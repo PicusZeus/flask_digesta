@@ -6,19 +6,32 @@ import DigestaTocDesktopBooks
     from "../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopBooks/DigestaTocDesktopBooks";
 import {useQuery} from "@tanstack/react-query";
 import {getBooks} from "../../api/api";
+import {useDispatch} from "react-redux";
+import NotificationService from "../../services/notification.service";
+import Spinner from "../../components/UI/spinner/Spinner";
 
 
 const getBooksQuery = () => {
     return {
         queryKey: ["books"],
         queryFn: getBooks
+
     }
 }
 
 
 
 const DigestaTrad = () => {
-    const { data: books } = useQuery(getBooksQuery())
+    const dispatch = useDispatch()
+    const notificationsSetter = new NotificationService(dispatch)
+
+    const { data: books, isFetching } = useQuery(
+        {...getBooksQuery(),
+            onError: ()=>{notificationsSetter.setNotificationError("Błąd ładowania", "Nie powiodło się ładowanie spisu treści")}
+        }
+    )
+    if (isFetching) {return <Spinner/>}
+
     return (
         <div className={classes.trad_main}>
             <h1 className={classes.trad_main__title}>Digesta - po spisie treści</h1>

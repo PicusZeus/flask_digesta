@@ -8,9 +8,19 @@
     flex-grow: 1;
     flex-basis: 0;
     padding: 0.5rem;
-    font-size: 0.9rem;
-    text-align: left;
+    font-size: 1.1rem;
+    text-align: justify;
+    font-family: Playfair, serif;
+    text-indent: 20px;
+    word-break: normal;
+    /*initial-letter: 2;*/
     /*width: 50%;*/;
+}
+
+.paragraph_text__container div:first-letter {
+    initial-letter: 2 1;
+    margin-right: 0.25rem;
+    /*color: orange;*/
 }
 
 .paragraph_text__container div i {

@@ -3,8 +3,8 @@ import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import BookAuthorshipChart from "../../charts/BookAuthorshipChart/BookAuthorshipChart";
 import BookOperaShareChart from "../../charts/BookOperaShareChart/BookOperaShareChart";
-import juristTitulusStats from "../JuristTitulusStats/JuristTitulusStats";
 import {useState} from "react";
+import Spinner from "../../UI/spinner/Spinner";
 
 const getTitulusStatsQuery = (id) => {
     return {
@@ -18,17 +18,15 @@ const TitulusStats = () => {
 
     const params = useParams()
 
-    const {data: stats} = useQuery(getTitulusStatsQuery(params.titulus_id))
+    const {data: stats, isFetching} = useQuery(getTitulusStatsQuery(params.titulus_id))
 
-    console.log(stats, 'STATS')
-
+    if ( isFetching ) {return <Spinner/>}
     const authorsMoreOnePercent = stats.jurists_authorship.filter(a => a.authorship > 1)
     const authorsLessOnePercent = stats.jurists_authorship.filter(a => a.authorship <= 1)
 
     const authorsSets = [authorsMoreOnePercent, authorsLessOnePercent]
 
     const operaMoreOnePercent = stats.opera_coverage.filter(o => o.coverage > 1)
-    // const operaLessOnePercentMoreHalfPercent = stats.opera_coverage.filter(o => o.coverage <= 1 && o.coverage > 0.5)
     const operaLessOnePercent = stats.opera_coverage.filter(o => o.coverage <= 1)
 
     const operaSets = [operaMoreOnePercent, operaLessOnePercent]

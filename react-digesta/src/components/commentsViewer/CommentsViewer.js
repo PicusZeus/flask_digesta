@@ -11,6 +11,7 @@ import {authActions} from "../../store/auth-slice";
 import {refreshToken} from "../../store/auth-actions";
 import {deleteComment, getComments} from "../../api/api";
 import {useState} from "react";
+import Spinner from "../UI/spinner/Spinner";
 
 const CommentsViewer = ({paragraphus_id, repliedId, paragraphus}) => {
 
@@ -59,7 +60,7 @@ const CommentsViewer = ({paragraphus_id, repliedId, paragraphus}) => {
     }
 
 
-    const {data: comments} = useQuery({
+    const {data: comments, isFetching} = useQuery({
         queryKey: ["comment", "paragraphus", username, paragraphus_id],
         queryFn: () => getComments(paragraphus_id, username),
         onError: (e) => {
@@ -71,6 +72,9 @@ const CommentsViewer = ({paragraphus_id, repliedId, paragraphus}) => {
             }
         }
     })
+    if (isFetching) {
+        return <Spinner/>
+    }
 
     if (comments) {
 

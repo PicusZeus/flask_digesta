@@ -5,24 +5,47 @@
     justify-content: space-around;
     margin-bottom: 3rem;
 
+
 }
 
 .main_jurist__redirections a {
+    text-decoration: none;
+    color: black;
+    display: table;
     /*flex-grow: 0.5;*/
-    width: 40%;
-}
-
-.main_jurist__redirections button {
-    background-color: rgba(255,255, 255, 0.8);
-    border-radius: 10px;
+    /*width: 40%;*/
+    /*flex-grow: 0.2*/
+    /*width: 14rem;*/
+    border: 2px solid black;
+    margin: 3rem;
+    flex: 1 1 0;
+       background-color: rgba(255,255, 255, 0.8);
+    border-radius: 25px;
     font-weight: bold;
     font-size: 1rem;
-    height: 100%;
-    width: 100%;
+}
+
+.main_jurist__redirections a span {
+
+   display: table-cell;
+    vertical-align: middle;
 
 
 }
 
+.main_jurist__redirections a:hover, .main_jurist__redirections a:active {
+    background: black;
+    color: white;
+}
+
+.main_jurist__title_group {
+    display: flex;
+}
+
+.pie {
+    height: 15rem;
+    width: 15rem;
+}
 .main_jurist__info {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(221, 221, 221, 0.8) 18%, rgba(255, 255, 255, 0.85) 50%, rgba(230, 230, 230, .8) 86%, rgba(0, 0, 0, 0) 100%);
 
@@ -30,7 +53,8 @@
 
 .main_jurist__title {
     padding-top: 2rem;
-
+    flex-grow: 1;
+    align-self: center;
 }
 
 .main_jurist__description {
@@ -69,3 +93,4 @@
     }
 
 }
+

@@ -11,6 +11,7 @@ import MobileNav from "../mobileNav/MobileNav";
 import {useState} from "react";
 import tokenService from "../../../services/token.service";
 import CommentedParagraphiModal from "../../commentedParagraphiModal/CommentedParagraphiModal";
+import DropDownStatistics from "../dropDownStatistics/DropDownStatistics";
 
 const MenuBar = () => {
     const dispatch = useDispatch()
@@ -25,6 +26,33 @@ const MenuBar = () => {
     const notification = useSelector(state => state.ui.notification)
     const commentedParagraphi = useSelector(state => state.auth.commentedParagraphi)
     const token = tokenService.getLocalAccessToken()
+    // const [activeSection, setActiveSection] = useState('')
+    const activeSection = useSelector(state=>state.ui.activeSection)
+
+    const digestaNav = [classes.main_nav__item]
+    const juristsNav = [classes.main_nav__item]
+    const operaNav = [classes.main_nav__item]
+    const lookUpNav = [classes.main_nav__item]
+    const statisticsNav = [classes.main_nav__item]
+    switch (activeSection) {
+        case "digestaNav":
+            digestaNav.push(classes.main_nav__active)
+            break
+        case "juristsNav":
+            juristsNav.push(classes.main_nav__active)
+            break
+        case "operaNav":
+            operaNav.push(classes.main_nav__active)
+            break
+        case "lookUpNav":
+            lookUpNav.push(classes.main_nav__active)
+            break
+        case "statisticsNav":
+            statisticsNav.push(classes.main_nav__active)
+            break
+        default:
+            break
+    }
 
     const logingToggleHandler = () => {
         dispatch(uiActions.logingToggle())
@@ -42,11 +70,15 @@ const MenuBar = () => {
         dispatch(logout(token))
     }
 
+    const chooseSectionHandler = (e) => {
+        dispatch(uiActions.setActiveSection(e.target.id))
+    }
+
     return (
         <>
             {commentedParagraphiModalOpen && <CommentedParagraphiModal commentedParagraphi={commentedParagraphi}
                                                                        onClose={commentedParagraphiOpenHandler}
-                                                                       onCloseMobileMenu={mobileMenuOpen}/>}
+                                                                       onCloseMobileMenu={setMobileMenuOpen}/>}
             {logging && <Login onClose={logingToggleHandler}/>}
 
             {registering && <Register onClose={registerToggleHandler}/>}
@@ -90,20 +122,26 @@ const MenuBar = () => {
                             <li className={classes.main_nav__item_space}/>
 
 
-                            <li className={classes.main_nav__item}>
-                                <Link to={"/digesta"}>Digesta</Link>
+                            <li className={digestaNav.join(' ')}>
+                                <Link onClick={chooseSectionHandler} to={"/digesta"}><span
+                                    id="digestaNav">Digesta</span></Link>
                             </li>
-                            <li className={classes.main_nav__item}>
-                                <Link to={"/jurysci"}>Juryści</Link>
+                            <li className={juristsNav.join(' ')}>
+                                <Link onClick={chooseSectionHandler} to={"/jurysci"}><span
+                                    id="juristsNav">Juryści</span></Link>
                             </li>
-                            <li className={classes.main_nav__item}>
-                                <Link to={"/opera"}>Dzieła jurystów</Link>
+                            <li className={operaNav.join(' ')}>
+                                <Link onClick={chooseSectionHandler} to={"/opera"}><span
+                                    id="operaNav">Prace jurystów</span></Link>
                             </li>
-                            <li className={classes.main_nav__item}>
-                                <Link to={"/wyszukaj"}>Wyszukaj</Link>
+                            <li className={lookUpNav.join(' ')}>
+                                <Link onClick={chooseSectionHandler} to={"/wyszukaj"}><span
+                                    id="lookUpNav">Wyszukaj</span> </Link>
                             </li>
-                            <li className={classes.main_nav__item}>
-                                <Link to={"/statystyki"}>Statystyki</Link>
+                            <li className={statisticsNav.join(' ')}>
+                                {/*<Link onClick={chooseSectionHandler} to={"/statystyki"}><span*/}
+                                {/*    id="statisticsNav">Statystyki</span></Link>*/}
+                                <DropDownStatistics onClick={chooseSectionHandler}/>
                             </li>
                         </ul>
 

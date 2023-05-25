@@ -5,6 +5,8 @@ import NotificationService from "../../services/notification.service";
 import NewReply from "../newReply/NewReply";
 import ReplyViewer from "../replyViewer/ReplyViewer";
 import {getReplies} from "../../api/api";
+import {deleteComment} from "../../api/api";
+import Spinner from "../UI/spinner/Spinner";
 
 const RepliesViewer = ({repliedId, reply, onCloseReply, queryClient}) => {
     const username = useSelector(state => state.auth.username)
@@ -15,7 +17,7 @@ const RepliesViewer = ({repliedId, reply, onCloseReply, queryClient}) => {
     const notificationSetter = new NotificationService(dispatch)
 
 
-    const {data: replies} = useQuery({
+    const {data: replies, isFetching} = useQuery({
         queryKey: ["comment", "comments", username, repliedId],
         queryFn: () => getReplies(repliedId, username),
         onError: () => {
@@ -49,6 +51,8 @@ const RepliesViewer = ({repliedId, reply, onCloseReply, queryClient}) => {
     const deleteCommentHandler = (id) => {
         deleteMutation.mutate(id)
     }
+
+    if (isFetching) {return <Spinner/>}
     return (
         <>
 

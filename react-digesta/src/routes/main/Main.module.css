@@ -9,15 +9,24 @@
 
 }
 
+.main_title {
+    display: block;
+    margin-top: 10rem;
+    text-align: center;
+    font-size: 4rem;
+    font-family: Playfair, serif;
+
+}
+
 .main__info {
     display: none;
 }
 
 .main_item {
-    border: black solid 1px;
+    border: black solid 3px;
     border-radius: 15px;
     margin: 1rem;
-    background-color: #717f4d;
+    background-color: white;
 
 }
 
@@ -26,21 +35,37 @@
     .main_items {
         flex-direction: row;
         flex-wrap: wrap;
+        /*width: 80%;*/
         align-content: center;
 
     }
 
     .main_item {
-        width: 45%;
+        width: 40%;
         margin: 1rem auto;
     }
 
     .main__info {
-        margin-top: 8rem;
+        margin: 10rem 4rem 0 4rem;
         padding: 3rem;
         display: block;
         font-size: 1.1rem;
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.7) 15%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.7) 85%, rgba(0, 0, 0, 0) 100%);
+        font-weight: bold;
+        text-align: justify;
+        text-justify: inter-word;
+        border: 3px solid black;
+        background: white;
+        border-radius: 10px;
+        text-indent: 20px;
+        initial-letter: 5;
+        /*background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.7) 15%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.7) 85%, rgba(0, 0, 0, 0) 100%);*/
+    }
+
+    .main__info:first-letter {
+        initial-letter: 2;
+        color: orange;
+        font-weight: bold;
+        margin-right: .75em;
     }
 }
 
@@ -75,6 +100,11 @@
     color: black;
     font-size: 1.1rem;
 
+}
+
+.main_item_link:hover, .main_item_link:active {
+    background: black;
+    color: white
 }
 
 

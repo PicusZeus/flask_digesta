@@ -6,12 +6,13 @@ import DigestaTocMobileOpera
     from "../../../components/DigestaToc/DigestaTocMobile/DigestaTocMobileOpera/DigestaTocMobileOpera";
 import {useQuery} from "@tanstack/react-query";
 import {getJuristOpera} from "../../../api/api";
+import Spinner from "../../../components/UI/spinner/Spinner";
 
 
 const getJuristOperaQuery = (id) => {
     return {
         queryKey: ["opera", "jurist", id],
-        queryFn: ()=>getJuristOpera(id)
+        queryFn: () => getJuristOpera(id)
     }
 }
 
@@ -19,9 +20,12 @@ const getJuristOperaQuery = (id) => {
 const DigestaJuristOpera = () => {
 
 
-
     const params = useParams()
-    const { data: opera } = useQuery(getJuristOperaQuery(params.jurysta_id))
+    const {data: opera, isFetching} = useQuery(getJuristOperaQuery(params.jurysta_id))
+    if (isFetching) {
+        return <Spinner/>
+    }
+
     const lexPath = `/jurysci/opera/${params.jurysta_id}/`
     return (
         <div className={classes.opera_main}>

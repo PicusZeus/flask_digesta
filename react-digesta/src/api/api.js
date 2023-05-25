@@ -36,12 +36,13 @@ export const getComments = (id, username) => {
             .then(response => response.data)
     }
 }
-export const postComment = ({newComment, isPrivate, id}) => {
+export const postComment = ({newComment, isPrivate, id, repliedId}) => {
+    console.log(id, 'id')
     const token = tokenService.getLocalAccessToken()
     return api.post(`comment/paragraphus/${id}`, {
         comment: newComment,
         private: isPrivate,
-        "reply_to_comment_id": null
+        "reply_to_comment_id": repliedId
     }, {
         headers: {
             "Content-Type": "application/json",
@@ -94,6 +95,18 @@ export const getParagraph = (id) => {
                 {status: 500}
             )
         })
+}
+
+export const getLex = (id) => {
+    return api.get("digesta/leges/" + id)
+        .then(response=>{
+            return response.data}).catch(()=>{
+                throw json(
+                    {message: "Nie udało się załadować danych dla tej ustawy"},
+                    {status: 500}
+                )
+        })
+
 }
 
 export const getTituliAuthor = (book_id, author_id) => {

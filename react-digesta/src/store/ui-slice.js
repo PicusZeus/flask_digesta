@@ -4,7 +4,8 @@ const initialState = {
     logging: false,
     notification: false,
     registering: false,
-    rerender: false
+    rerender: false,
+    activeSection: ''
 
 }
 
@@ -30,6 +31,9 @@ const uiSlice = createSlice({
                     message: action.payload.message
                 }
 
+            },
+            setActiveSection(state, action) {
+                state.activeSection = action.payload
             },
             resetNotification(state) {
                state.notification = null

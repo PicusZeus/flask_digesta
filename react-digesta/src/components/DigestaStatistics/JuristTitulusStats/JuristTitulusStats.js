@@ -2,6 +2,7 @@ import {getJuristTitulusStats} from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
 import {useParams} from "react-router-dom";
 import OperaCoverageChart from "../../charts/OperaCoverageChart/OperaCoverageChart";
+import Spinner from "../../UI/spinner/Spinner";
 
 const getJuristTitulusStatsQuery = (jurysta_id, book_id, titulus_id) => {
     return {
@@ -13,8 +14,9 @@ const JuristTitulusStats = () => {
 
     const params = useParams()
 
-    const {data: stats} = useQuery(getJuristTitulusStatsQuery(params.jurysta_id, params.book_id, params.titulus_id))
-    console.log(stats)
+    const {data: stats, isFetching} = useQuery(getJuristTitulusStatsQuery(params.jurysta_id, params.book_id, params.titulus_id))
+    if (isFetching) {return <Spinner/>}
+
     return <>
         <h1>{stats.author.name} w tytule {stats.titulus.titulus.number} {stats.titulus.titulus.title_lat} w księdze {stats.titulus.titulus.book.book_nr}</h1>
 

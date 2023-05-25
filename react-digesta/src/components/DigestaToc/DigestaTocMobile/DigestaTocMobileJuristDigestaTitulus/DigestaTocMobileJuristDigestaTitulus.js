@@ -4,6 +4,8 @@ import TocMobile from "../../../UI/TocMobile/TocMobile";
 import NotificationService from "../../../../services/notification.service";
 import {getLegesAuthor} from "../../../../api/api";
 import {useQuery} from "@tanstack/react-query";
+import Spinner from "../../../UI/spinner/Spinner";
+import {digestaActions} from "../../../../store/digesta-slice";
 
 const DigestaTocMobileJuristDigestaTitulus = ({author_id, titulus_id}) => {
     // const [leges, setLeges] = useState([])
@@ -11,7 +13,7 @@ const DigestaTocMobileJuristDigestaTitulus = ({author_id, titulus_id}) => {
     const navigate = useNavigate()
     const notificationSetter = new NotificationService(dispatch)
 
-    const {data: leges} = useQuery({
+    const {data: leges, isFetching} = useQuery({
         queryKey: ["digesta", "titulus", "leges", "author", titulus_id, author_id],
         queryFn: () => getLegesAuthor(titulus_id, author_id),
         onError: () => {
@@ -19,9 +21,11 @@ const DigestaTocMobileJuristDigestaTitulus = ({author_id, titulus_id}) => {
 
         }
     })
+    if (isFetching) {return <Spinner/>}
 
 
     const onOptionChangeLexHandler = (event) => {
+        dispatch(digestaActions.setChosenTitulusId(event.target.value))
         navigate("/jurysci/digesta/" + author_id + "/" + event.target.value)
 
     }

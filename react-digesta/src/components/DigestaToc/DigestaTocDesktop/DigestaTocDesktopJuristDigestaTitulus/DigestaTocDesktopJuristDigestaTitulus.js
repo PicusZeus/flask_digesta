@@ -6,6 +6,7 @@ import DigestaTocDesktopLex from "../DigestaTocDesktopLex/DigestaTocDesktopLex";
 import {digestaActions} from "../../../../store/digesta-slice";
 import {useQuery} from "@tanstack/react-query";
 import {getLegesAuthor} from "../../../../api/api";
+import Spinner from "../../../UI/spinner/Spinner";
 
 const DigestaTocDesktopJuristDigestaTitulus = ({titulus, author_id}) => {
     const chosenTitulusId = useSelector(state => state.digesta.chosenTitulusId)
@@ -13,7 +14,7 @@ const DigestaTocDesktopJuristDigestaTitulus = ({titulus, author_id}) => {
     const [titulusMenuOpen, setTitulusMenuOpen] = useState(chosenTitulusId === titulus.id)
 
     useEffect(()=>{
-        if (chosenTitulusId === titulus.id) {
+        if (chosenTitulusId === titulus.id && ref.current) {
             ref.current.scrollIntoView({behavior: "smooth", block: "start"})
         }
     })
@@ -21,13 +22,13 @@ const DigestaTocDesktopJuristDigestaTitulus = ({titulus, author_id}) => {
     const notificationSetter = new NotificationService(dispatch)
 
 
-    const {data: leges} = useQuery({
+    const {data: leges, isFetching} = useQuery({
         queryKey: ["digesta", "titulus", "leges", "author", titulus.id, author_id],
         queryFn: () => getLegesAuthor(titulus.id, author_id),
         onError: () => notificationSetter.setNotificationError('Błąd sieci', 'Nie udało się załadować spisu ustaw w tytule')
 
     })
-
+    if (isFetching) {return <Spinner/>}
 
     const openTitulusHandler = () => {
         setTitulusMenuOpen((current) => !current)

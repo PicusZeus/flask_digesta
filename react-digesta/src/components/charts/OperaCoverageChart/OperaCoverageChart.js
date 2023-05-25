@@ -48,9 +48,7 @@ const OperaCoverageChart = ({opera}) => {
 
 
     const height = opera.length * 40
-    console.log(height)
 
-    console.log(opera)
     return (
         <>
             <ChartContainer height={height}>

@@ -7,8 +7,11 @@
 }
 
 .main_toc__title {
-    margin-top: 0;
-    padding-top: 1rem
+    margin: 0 1rem 0 0;
+    padding-top: 1rem;
+    font-family: "Playfair", serif;
+    font-weight: bold;
+    font-size: 1.4rem;
 }
 
 .main_toc__items {

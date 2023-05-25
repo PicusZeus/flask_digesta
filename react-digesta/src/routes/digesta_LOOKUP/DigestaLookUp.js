@@ -6,9 +6,12 @@ import {useDispatch, useSelector} from "react-redux";
 import NotificationService from "../../services/notification.service";
 import {digestaActions} from "../../store/digesta-slice";
 import api from "../../api/api";
+import {useState} from "react";
+import Spinner from "../../components/UI/spinner/Spinner";
 
 const DigestaLookUp = () => {
 
+    const [spinner, setSpinner] = useState(false)
     const lang = useSelector(state=>state.digesta.lang)
     const foundParagraphi = useSelector(state=>state.digesta.foundParagraphi)
     const searchedTerm = useSelector(state=>state.digesta.searchedTerm)
@@ -25,6 +28,7 @@ const DigestaLookUp = () => {
             return false
         }
         const loadData = async (searched_term, lang) => {
+            setSpinner(true)
 
             return await api.post(`digesta/${lang}`, {
                 searched_term: searched_term
@@ -37,6 +41,7 @@ const DigestaLookUp = () => {
         }
 
         loadData(searched_term, lang).then((response) => {
+            notificationSetter.setNotificationPending("Wysłano zapytanie", "Trwa wyszukiwanie")
             if (response.data.length > 0) {
                 notificationSetter.setNotificationSuccess("Sukces!", `Znaleziono ${response.data.length} wystąpień` )
                 dispatch(digestaActions.setFoundParagraphi(response.data))
@@ -48,7 +53,9 @@ const DigestaLookUp = () => {
 
         }).catch((e) => {
             notificationSetter.setNotificationError("Błąd", "Błąd serwera")
-        })
+        }).finally(()=>{setSpinner(false) }
+
+        )
 
     }
 
@@ -65,9 +72,10 @@ const DigestaLookUp = () => {
                 <DigestaSearch/>
 
             </form>
-
+            {spinner && <Spinner/>}
             {foundParagraphi && <DigestaTocSearchParagraphs paragraphi={foundParagraphi} lang={lang}
                                                        searchedTerm={searchedTerm}/>}
+
         </div>
     )
 }

@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 import BooksAuthorshipShareChart from "../../charts/BooksAuthorshipShareChart/BooksAuthorshipShareChart";
 import OperaCoverageChart from "../../charts/OperaCoverageChart/OperaCoverageChart";
 import {useState} from "react";
+import Spinner from "../../UI/spinner/Spinner";
 
 
 const getJuristStatsQuery = (id) => {
@@ -15,10 +16,12 @@ const getJuristStatsQuery = (id) => {
 const JuristStats = () => {
     const [operaSetIndex, setOperaSetIndex] = useState(0)
     const params = useParams()
-    console.log(params.jurysta_id)
 
-    const {data: stats} = useQuery(getJuristStatsQuery(params.jurysta_id))
-    console.log(stats)
+    const {data: stats, isFetching} = useQuery(getJuristStatsQuery(params.jurysta_id))
+    if (isFetching) {
+        return <Spinner/>
+    }
+
     const operaMoreHalfPercent = stats.opera.filter(o => o.coverage > 0.1)
     const operaLessHalfPercent = stats.opera.filter(o => o.coverage <= 0.1)
     const operaSets = [operaMoreHalfPercent, operaLessHalfPercent]

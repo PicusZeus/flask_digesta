@@ -4,6 +4,8 @@ import {getLegesOpus} from "../../../../api/api";
 import {useQuery} from "@tanstack/react-query";
 import {useDispatch} from "react-redux";
 import NotificationService from "../../../../services/notification.service";
+import Spinner from "../../../UI/spinner/Spinner";
+import {digestaActions} from "../../../../store/digesta-slice";
 
 const DigestaTocMobileOpusLiber = ({liber, lexPath}) => {
     const navigate = useNavigate()
@@ -11,7 +13,7 @@ const DigestaTocMobileOpusLiber = ({liber, lexPath}) => {
     const dispatch = useDispatch()
     const notificationSetter = new NotificationService(dispatch)
 
-    const {data: leges} = useQuery({
+    const {data: leges, isFetching} = useQuery({
         queryKey: ["digesta", "opus", "leges", liber.id],
         queryFn: () => getLegesOpus(liber.id),
         onError: () => {
@@ -19,10 +21,14 @@ const DigestaTocMobileOpusLiber = ({liber, lexPath}) => {
         }
     })
 
+    if (isFetching) {
+        return <Spinner/>
+    }
 
 
     const onChoseLexHandler = event => {
         const lex_id = event.target.value
+        dispatch(digestaActions.setChosenLexId(lex_id))
         navigate(lexPath + lex_id.toString())
     }
 

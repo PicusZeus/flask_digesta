@@ -1,9 +1,9 @@
-import {Outlet} from "react-router-dom";
-import {getDigestaStats, getJuristsStats} from "../../../api/api";
+import {getJuristsStats} from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
 import BooksAuthorshipChart from "../../../components/charts/BooksAuthorshipChart/BooksAuthorshipChart";
 import {useState} from "react";
-
+import Spinner from "../../../components/UI/spinner/Spinner";
+import classes from "./DigestaStatsJurists.module.css"
 
 const getJuristsStatsQuery = () => {
     return {
@@ -13,25 +13,29 @@ const getJuristsStatsQuery = () => {
 }
 const DigestaStatsJurists = () => {
     const [authorsSetIndex, setAuthorsSetIndex] = useState(0)
-    const {data: authors} = useQuery(getJuristsStatsQuery())
+    const {data: authors, isFetching} = useQuery(getJuristsStatsQuery())
+    if (isFetching) {
+        return <Spinner/>
+    }
+
 
     const authorsMoreOnePercent = authors.filter(author => (author.authorship > 1))
     const authorsLessOnePercentMoreOnePromile = authors.filter(author => (author.authorship <= 1 && author.authorship > 0.1))
-    const authorsLessOnePromile = authors.filter(author=>(author.authorship <= 0.1))
+    const authorsLessOnePromile = authors.filter(author => (author.authorship <= 0.1))
 
     const authorsSets = [authorsMoreOnePercent, authorsLessOnePercentMoreOnePromile, authorsLessOnePromile]
 
     return (
 
         <>
-            <button onClick={()=>setAuthorsSetIndex(0)}>pokaż jurystów z udziałem ponad jeden procent</button>
-            <button onClick={()=>setAuthorsSetIndex(1)}>pokaż jurystów z udziałem poniżej jeden procent a więcej niż jeden promil</button>
-            <button onClick={()=>setAuthorsSetIndex(2)}>pokaż jurystów z udziałem poniżej jeden promil</button>
+            <button onClick={() => setAuthorsSetIndex(0)}>pokaż jurystów z udziałem ponad jeden procent</button>
+            <button onClick={() => setAuthorsSetIndex(1)}>pokaż jurystów z udziałem poniżej jeden procent a więcej niż
+                jeden promil
+            </button>
+            <button onClick={() => setAuthorsSetIndex(2)}>pokaż jurystów z udziałem poniżej jeden promil</button>
 
             {authors && <BooksAuthorshipChart authors={authorsSets[authorsSetIndex]}/>}
 
-
-            <Outlet/>
         </>
     )
 }

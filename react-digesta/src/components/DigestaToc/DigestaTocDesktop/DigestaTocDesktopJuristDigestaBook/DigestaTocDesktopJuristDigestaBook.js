@@ -1,5 +1,5 @@
 import classes from "./DigestaTocDesktopJuristDigestaBook.module.css"
-import {useEffect, useRef, useState} from "react";
+import {useState} from "react";
 import DigestaTocDesktopJuristDigestaTitulus
     from "../DigestaTocDesktopJuristDigestaTitulus/DigestaTocDesktopJuristDigestaTitulus";
 import {useDispatch, useSelector} from "react-redux";
@@ -7,17 +7,17 @@ import {digestaActions} from "../../../../store/digesta-slice";
 import NotificationService from "../../../../services/notification.service";
 import {useQuery} from "@tanstack/react-query";
 import {getTituliAuthor} from "../../../../api/api";
+import Spinner from "../../../UI/spinner/Spinner";
 
 const DigestaTocDesktopJuristDigestaBook = ({book, author_id}) => {
     const chosenBookId = useSelector(state => state.digesta.chosenBookId)
-    const ref = useRef(null)
     const [bookMenuOpen, setBookMenuOpen] = useState(chosenBookId === book.id)
     const dispatch = useDispatch()
     const notificationSetter = new NotificationService(dispatch)
 
 
 
-    const {data: tituli} = useQuery({
+    const {data: tituli, isFetching} = useQuery({
         queryKey: ["digesta", "tituli", "author", book.id, author_id],
         queryFn: () => getTituliAuthor(book.id, author_id),
         onError: () => {
@@ -25,6 +25,7 @@ const DigestaTocDesktopJuristDigestaBook = ({book, author_id}) => {
         },
         initialData: []
     })
+    if (isFetching) {return <Spinner/>}
 
 
     const openTituliHandler = () => {
@@ -33,13 +34,7 @@ const DigestaTocDesktopJuristDigestaBook = ({book, author_id}) => {
         }
         setBookMenuOpen((current) => !current)
     }
-    // const chosenTitulusId = useSelector(state=>state.digesta.chosenTitulusId)
-    // useEffect(()=>{
-    //     if (chosenTitulusId) {
-    //                const section = document.querySelector("#" + chosenTitulusId)
-    //         section.scrollIntoView({behavior: 'smooth', block: 'center'})
-    //     }
-    // },[])
+
 
     return (
         <li>

@@ -1,25 +1,16 @@
-import {json, Link, Outlet, useNavigate, useParams} from "react-router-dom";
+import {Link, Outlet, useNavigate, useParams} from "react-router-dom";
 import classes from "./DigestaLexViewer.module.css"
 import DigestaParagraphusViewer from "../DigestaParagraphusViewer/DigestaParagraphusViewer";
 import DigestaTocMobileParagraphi
     from "../DigestaToc/DigestaTocMobile/DigestaTocMobileParagraphi/DigestaTocMobileParagraphi";
-import api from "../../api/api";
 import {useQuery} from "@tanstack/react-query";
 import Spinner from "../UI/spinner/Spinner";
 import {digestaActions} from "../../store/digesta-slice";
 import {useDispatch} from "react-redux";
+import {getLex} from "../../api/api";
+import {uiActions} from "../../store/ui-slice";
 
-const getLex = (id) => {
-    return api.get("digesta/leges/" + id)
-        .then(response=>{
-            return response.data}).catch(()=>{
-                throw json(
-                    {message: "Nie udało się załadować danych dla tej ustawy"},
-                    {status: 500}
-                )
-        })
 
-}
 const getLexQuery = (id) => {
     return {
         queryKey: ["digesta", "leges", id],
@@ -28,12 +19,15 @@ const getLexQuery = (id) => {
 }
 
 const DigestaLexViewer = () => {
-
-    const params = useParams()
-    const { data: lex } = useQuery(getLexQuery(params.lex_id))
     const dispatch = useDispatch()
 
-   const navigate = useNavigate()
+    const navigate = useNavigate()
+
+    const params = useParams()
+    const {data: lex, isFetching} = useQuery(getLexQuery(params.lex_id))
+    if (isFetching) {
+        return <Spinner/>
+    }
 
 
     const paragraphi = lex.paragraphi
@@ -57,6 +51,7 @@ const DigestaLexViewer = () => {
     paragraphiKeys.unshift(paragraphiKeys.pop())
 
     const showOpusHandler = () => {
+        dispatch(uiActions.setActiveSection("juristsNav"))
         dispatch(digestaActions.setChosenJuristId(lex.author.id))
         dispatch(digestaActions.setChosenOpusId(lex.opus.opus.id))
         dispatch(digestaActions.setChosenOpusLiberId(lex.opus.id))
@@ -75,7 +70,7 @@ const DigestaLexViewer = () => {
 
             </div>
             <div className={classes.main_lex__redirections}>
-                <button><Link to={linkAuthor}>{lex.author.name}</Link></button>
+                <button onClick={()=>{dispatch(uiActions.setActiveSection("juristsNav"))}}><Link to={linkAuthor}>{lex.author.name}</Link></button>
                 <button onClick={showOpusHandler}><Link
                     to={linkToAuthorOpera}><span>{parseInt(lex.opus.liber) > 0 ? ksiega : null}</span><span> {lex.opus.opus.title_lat}</span></Link>
                 </button>
@@ -91,8 +86,6 @@ const DigestaLexViewer = () => {
     )
 }
 export default DigestaLexViewer
-
-
 
 
 export const loader = (queryClient) => async ({params}) => {

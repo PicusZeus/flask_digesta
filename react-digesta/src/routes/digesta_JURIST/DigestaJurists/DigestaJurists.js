@@ -7,6 +7,7 @@ import DigestaTocDesktopJurists
 
 import {useQuery} from "@tanstack/react-query";
 import {getJurists} from "../../../api/api";
+import Spinner from "../../../components/UI/spinner/Spinner";
 
 
 const getJuristsQuery = () => {
@@ -18,7 +19,8 @@ const getJuristsQuery = () => {
 
 const DigestaJurists = () => {
 
-    const { data: jurists } = useQuery(getJuristsQuery())
+    const { data: jurists, isFetching } = useQuery(getJuristsQuery())
+    if (isFetching) {return <Spinner/>}
 
     return (
         <div className={classes.jurists_main}>

@@ -1,6 +1,6 @@
-import {Chart, Pie, Bar} from "react-chartjs-2";
+import { Bar} from "react-chartjs-2";
 import {Chart as ChartJS} from 'chart.js/auto'
-import {useRef, useState} from "react";
+import {useRef} from "react";
 import {useNavigate} from "react-router-dom";
 import {options} from "../chartOptions";
 import ChartContainer from "../ChartContainer/ChartContainer";

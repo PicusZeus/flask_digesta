@@ -17,7 +17,7 @@
 .comment_item__left span {
 
 
-    color: white;
+    color: black;
     font-size: 2rem;
     height: 4rem;
     line-height: 4rem;
@@ -26,7 +26,7 @@
 .comment_item__left div {
 
     width: 2px;
-    background: white;
+    background: black;
     margin: 1rem auto;
     flex-grow: 1;
 
@@ -63,6 +63,8 @@
 
 .comment_item__text {
     text-decoration: none;
+    border: none;
+    border-bottom: 2px solid black;
     width: 100%;
     resize: none;
     word-wrap: break-word;

@@ -32,6 +32,10 @@
     background: black;
 }
 
+.titulus_group p {
+    font-family: Playfair, serif;
+}
+
 
 .titulus_group > button {
     margin-top: 1rem;
@@ -49,7 +53,9 @@
     display: flex;
     position: relative;
     margin-left: 4rem;
+
 }
+
 
 .titulus__leges_group > div {
    width: 2px;

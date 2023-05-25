@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import classes from "./BooksShareChart.module.css";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import {options} from "../chartOptions";
-const BooksShareChart = ({books, tituli, author}) => {
+const BooksShareChart = ({books}) => {
 
     const chartRef = useRef(null)
 

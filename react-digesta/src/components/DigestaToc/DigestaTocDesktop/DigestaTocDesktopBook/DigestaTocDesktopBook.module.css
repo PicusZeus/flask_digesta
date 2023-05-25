@@ -8,7 +8,7 @@
     /*background: #a0d8ef;*/
     /*margin: 0 0 0 97%;*/
     position: relative;
-    height: 3rem;
+    height: 3.4rem;
     width: 12rem;
     border: 5px solid #942343;
     /*margin-left: 42vw;*/
@@ -23,6 +23,8 @@
     /*margin: auto;*/
  /*background: #a0d8ef;*/
   /*margin: 0 0 0 97%;*/
+    font-family: Playfair, serif;
+    /*padding: 0.4rem;*/
   /*margin-left: 2rem;*/
 }
 

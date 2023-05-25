@@ -6,6 +6,7 @@ import DigestaTocDesktopOpera
     from "../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopOpera/DigestaTocDesktopOpera";
 import {useQuery} from "@tanstack/react-query";
 import {getOpera} from "../../api/api";
+import Spinner from "../../components/UI/spinner/Spinner";
 
 
 const getOperaQuery = () => {
@@ -17,7 +18,12 @@ const getOperaQuery = () => {
 
 
 const DigestaOpera = () => {
-    const { data: opera } = useQuery(getOperaQuery())
+    const {data: opera, isFetching} = useQuery(getOperaQuery())
+
+    if (isFetching) {
+        return <Spinner/>
+    }
+
 
     return (
         <div className={classes.opera_main}>

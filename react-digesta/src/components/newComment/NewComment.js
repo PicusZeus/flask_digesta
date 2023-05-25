@@ -32,7 +32,7 @@ const NewComment = ({paragraphus_id, onClose, paragraphus, type, username, query
     }
 
     const postCommentMutation = useMutation({
-        mutationFn: ({newComment, isPrivate}) => postComment({newComment, isPrivate, id: paragraphus_id}),
+        mutationFn: ({newComment, isPrivate}) => postComment({newComment, isPrivate, id: paragraphus_id, repliedId: null}),
         onMutate: () => {
             notificationSetter.setNotificationPending('Trwa wysyłanie komentarza', 'Czekamy na odpowiedź')
         },

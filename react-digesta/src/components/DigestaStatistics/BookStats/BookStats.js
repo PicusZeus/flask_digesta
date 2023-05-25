@@ -1,13 +1,11 @@
 import {getBookStats} from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
 import {useParams} from "react-router-dom";
-import BooksShareChart from "../../charts/BooksShareChart/BooksShareChart";
-import BooksAuthorshipChart from "../../charts/BooksAuthorshipChart/BooksAuthorshipChart";
-import OperaShare from "../../charts/OperaShare/OperaBooksShare";
 import BookShareChart from "../../charts/BookShareChart/BookShareChart";
 import BookAuthorshipChart from "../../charts/BookAuthorshipChart/BookAuthorshipChart";
 import BookOperaShareChart from "../../charts/BookOperaShareChart/BookOperaShareChart";
 import {useState} from "react";
+import Spinner from "../../UI/spinner/Spinner";
 
 const getBookStatsQuery = (id) => {
     return {
@@ -20,8 +18,9 @@ const BookStats = () => {
     const [operaSetIndex, setOperaSetIndex] = useState(0)
     const params = useParams()
 
-    const {data: stats} = useQuery(getBookStatsQuery(params.book_id))
+    const {data: stats, isFetching} = useQuery(getBookStatsQuery(params.book_id))
 
+    if (isFetching) {return <Spinner/>}
 
     let book
     if (stats) {

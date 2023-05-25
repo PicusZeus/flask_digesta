@@ -2,6 +2,7 @@ import {getOpusStats} from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
 import {useParams} from "react-router-dom";
 import BooksOpusCoverage from "../../charts/BooksOpusCoverage/BooksOpusCoverage";
+import Spinner from "../../UI/spinner/Spinner";
 
 
 const getOpusStatsQuery = (id) => {
@@ -12,8 +13,9 @@ const getOpusStatsQuery = (id) => {
 }
 const OpusStats = () => {
     const params = useParams()
-    const { data: stats } = useQuery(getOpusStatsQuery(params.opus_id))
-    console.log(stats)
+    const { data: stats, isFetching } = useQuery(getOpusStatsQuery(params.opus_id))
+
+    if ( isFetching ) {return <Spinner/>}
     return (
                <>
                    <h1>Libri {stats.opus.title_lat} {stats.opus.author.name}A</h1>

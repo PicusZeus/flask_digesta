@@ -3,6 +3,7 @@ import {getJuristBookStats} from "../../../api/api";
 import {useQuery} from "@tanstack/react-query";
 import TituliAuthorshipShareChart from "../../charts/TituliAuthorshipShareChart/TituliAuthorshipShareChart";
 import OperaBookShare from "../../charts/BookOperaShareChart/BookOperaShareChart";
+import Spinner from "../../UI/spinner/Spinner";
 
 const getJuristBookStatsQuery = (jurysta_id, book_id) => {
     return {
@@ -12,9 +13,12 @@ const getJuristBookStatsQuery = (jurysta_id, book_id) => {
 }
 const JuristBookStats = () => {
     const params = useParams()
-    const {data: stats} = useQuery(
+    const {data: stats, isFetching} = useQuery(
         getJuristBookStatsQuery(params.jurysta_id, params.book_id)
     )
+    if (isFetching) {
+        return <Spinner/>
+    }
 
 
     return <>

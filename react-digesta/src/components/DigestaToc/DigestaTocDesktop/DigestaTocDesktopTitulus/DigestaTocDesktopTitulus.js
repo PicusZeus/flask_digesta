@@ -5,6 +5,7 @@ import NotificationService from "../../../../services/notification.service";
 import {useDispatch} from "react-redux";
 import {useQuery} from "@tanstack/react-query";
 import {getLeges} from "../../../../api/api";
+import Spinner from "../../../UI/spinner/Spinner";
 
 const DigestaTocDesktopTitulus = ({titulus}) => {
 
@@ -15,7 +16,7 @@ const DigestaTocDesktopTitulus = ({titulus}) => {
     const notificationSetter = new NotificationService(dispatch)
 
 
-    const {data: leges} = useQuery({
+    const {data: leges, isFetching} = useQuery({
             queryKey: ["digesta", "titulus", "leges", titulus.id],
             queryFn: () => getLeges(titulus.id),
             onError: () => {
@@ -25,11 +26,12 @@ const DigestaTocDesktopTitulus = ({titulus}) => {
         }
     )
 
+    if (isFetching) {return <Spinner/>}
+
     const openTitulusHandler = () => {
         setTitulusMenuOpen((current) => !current)
 
     }
-    console.log(titulus, "titulus")
     return (
         <li className={classes.titulus_main}>
             <div className={classes.titulus__line}>&nbsp;</div>
@@ -37,7 +39,6 @@ const DigestaTocDesktopTitulus = ({titulus}) => {
                 <div>&nbsp;</div>
                 <button onClick={openTitulusHandler}>
                     <p>Titulus {titulus.number}</p>
-                    {/*<p>{titulus.title_pl}</p>*/}
                     <p>{titulus.title_lat}</p>
                 </button>
 

@@ -1,4 +1,4 @@
-import { Outlet, useParams} from "react-router-dom";
+import {Outlet, useParams} from "react-router-dom";
 import classes from './DigestaJuristDigesta.module.css'
 import DigestaTocDesktopJuristDigestaBooks
     from "../../../components/DigestaToc/DigestaTocDesktop/DigestaTocDesktopJuristDigestaBooks/DigestaTocDesktopJuristDigestaBooks";
@@ -7,6 +7,7 @@ import DigestaTocMobileJuristDigestaBooks
 import {useQuery} from "@tanstack/react-query";
 import {getJuristBooks} from "../../../api/api";
 import {useSelector} from "react-redux";
+import Spinner from "../../../components/UI/spinner/Spinner";
 
 
 const getJuristBooksQuery = (id) => {
@@ -17,16 +18,16 @@ const getJuristBooksQuery = (id) => {
 }
 
 
-const DigestaJuristDigesta = ({location}) => {
+const DigestaJuristDigesta = () => {
     const params = useParams()
-    console.log(location)
     const author_id = params.jurysta_id
-    const { data: books } = useQuery(getJuristBooksQuery(author_id))
-    // const chosenTitulusId = useSelector(state=>state.digesta.chosenTitulusId)
-    //     if (chosenTitulusId) {
-    //     const titulusSection = document.querySelector("#" + chosenTitulusId)
-    //     titulusSection.scrollIntoView({behavior: "smooth", block: "start"})
-    // }
+    const {data: books, isFetching} = useQuery(getJuristBooksQuery(author_id))
+
+    if (isFetching) {
+        return <Spinner/>
+    }
+
+
     return (
 
         <div className={classes.toc_container}>
@@ -50,7 +51,7 @@ const DigestaJuristDigesta = ({location}) => {
 export default DigestaJuristDigesta
 
 
-export const loader = (queryClient) =>  async ({params}) => {
+export const loader = (queryClient) => async ({params}) => {
     const query = getJuristBooksQuery(params.jurysta_id)
     return (
         queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query))

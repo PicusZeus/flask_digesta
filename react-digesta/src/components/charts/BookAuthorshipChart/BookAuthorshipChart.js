@@ -1,7 +1,5 @@
 import {Bar} from "react-chartjs-2";
-import {Chart as ChartJS} from 'chart.js/auto'
 import {splitLabels} from "../../../services/helpers";
-import classes from "./BookAuthorshipChart.module.css"
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import {options} from "../chartOptions";
 import ChartContainer from "../ChartContainer/ChartContainer";
@@ -46,8 +44,6 @@ const BookAuthorshipChart = ({authors, book_id, titulus_id}) => {
             navigate(url)
 
         }
-
-
     }
     return (
 

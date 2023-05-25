@@ -1,10 +1,7 @@
 import {useDispatch} from "react-redux";
-import {useState} from "react";
 import {authActions} from "../../store/auth-slice";
 import TokenService from "../../services/token.service";
 import NotificationService from "../../services/notification.service";
-import {refreshToken} from "../../store/auth-actions";
-import tokenService from "../../services/token.service";
 import {useRef} from "react";
 import classes from './NewReply.module.css'
 import {useMutation} from "@tanstack/react-query";
@@ -18,7 +15,7 @@ const NewReply = ({paragraphus_id, onUpdate, onClose, paragraphus, repliedId, ty
 
 
     const mutation = useMutation({
-        mutationFn: ({newComment, isPrivate, repliedId}) => postComment({newComment, isPrivate, repliedId}),
+        mutationFn: ({newComment, isPrivate, id, repliedId}) => postComment({newComment, isPrivate, id, repliedId}),
         onMutate: ()=> {notificationSetter.setNotificationPending('Trwa wysyłanie komentarza', 'Czekamy na odpowiedź')},
         onSuccess: () => {
             notificationSetter.setNotificationSuccess("Sukces", "Komentarz zamieszczony")
@@ -43,6 +40,7 @@ const NewReply = ({paragraphus_id, onUpdate, onClose, paragraphus, repliedId, ty
         mutation.mutate({
             newComment: newComment,
             isPrivate: false,
+            id: 0,
             repliedId: repliedId,
         })
         onClose()

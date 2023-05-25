@@ -1,26 +1,28 @@
 import DigestaParagraphusViewer from "../DigestaParagraphusViewer";
-import { useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {getParagraph} from "../../../api/api";
-
-
+import Spinner from "../../UI/spinner/Spinner";
 
 
 const getParagraphQuery = (id) => {
     return {
         queryKey: ["digesta", "paragraphi", id],
-        queryFn: ()=>getParagraph(id),
+        queryFn: () => getParagraph(id),
         staleTime: Infinity
     }
 }
-
 
 
 const DigestaParagraphusViewerRouterWrapper = () => {
 
     const params = useParams()
     const paragraphId = params.paragraphus_id
-    const { data: paragraphus } = useQuery(getParagraphQuery(paragraphId))
+    const {data: paragraphus, isFetching} = useQuery(getParagraphQuery(paragraphId))
+    if (isFetching) {
+        return <Spinner/>
+    }
+
     return (
         <DigestaParagraphusViewer paragraphus={paragraphus}/>
     )

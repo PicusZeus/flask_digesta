@@ -6,7 +6,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background: #705707;
+    background: black;
     /*padding: 0.5rem 1rem;*/
     z-index: 60;
     display: flex;
@@ -56,7 +56,9 @@
 
     display: flex;
     align-items: center;
-    flex: 1
+    flex: 1;
+    align-content: center;
+
 
 
 }
@@ -79,29 +81,45 @@
 }
 
 .main_nav__item {
-    margin: 0 1rem;
+    height: 100%;
+    /*margin: 0 1rem;*/
     /*width: 7rem;*/
     /*align-self: center;*/
     /*justify-self: right;*/
     /*margin-left: 1rem;*/
 }
 
-.main_nav__item a {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-    border: 1px solid black;
-    height: 100%;
-    display: block;
-    padding: 0.4rem;
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.8);
-    text-align: center;
+.main_nav__item {
+    /*vertical-align: center;*/
 
+
+}
+
+.main_nav__item a, .main_nav__item > div {
+    text-decoration: none;
+    font-weight: bold;
+    /*border: 1px solid black;*/
+    height: 100%;
+     color: white;
+    display: table;
+
+
+
+}
+
+.main_nav__active a, .main_nav__active > div {
+    color: black;
+    background: white;
+}
+.main_nav__item a span {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 1rem;
 }
 
 .main_nav__login, .main_nav__logout, .main_nav__comments {
     margin: 0 1rem;
+    display: flex;
     /*padding: 0.2rem;*/
     /*color: black;*/
     /*height: 100%;*/
@@ -109,10 +127,14 @@
 }
 
 .main_nav__login button, .main_nav__logout button {
-    padding: 0.3rem;
+    padding: 0.75rem;
+    border: none;
     /*color: black;*/
-    height: 100%;
-    display: block;
+    /*height: 100%;*/
+    align-self: center;
+    border-radius: 15px;
+    /*vertical-align: middle;*/
+    display: table-cell;
     font-weight: bold;
     background: #544207;
     color: white
@@ -120,6 +142,7 @@
 
 .main_nav__comments button {
     padding: 0.3rem;
+    /*border-radius: ;*/
     /*color: black;*/
     height: 100%;
     display: block;
@@ -146,6 +169,7 @@
 .main_nav__item a:hover,
 .main_nav__item a:active {
     background: white;
+    color: black;
     /*border: none;*/
 }
 
@@ -164,21 +188,23 @@
 
     .main_nav {
         display: flex;
+        align-self: stretch;
         width: 100%;
+
     }
 }
 
 
-.button {
-    background: #0e4f1f;
-    color: white;
-    font: inherit;
-    border: 1px solid #0e4f1f;
-    padding: 0.5rem;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-}
+/*.button {*/
+/*    background: #0e4f1f;*/
+/*    color: white;*/
+/*    font: inherit;*/
+/*    border: 1px solid #0e4f1f;*/
+/*    padding: 0.5rem;*/
+/*    border-radius: 8px;*/
+/*    font-weight: bold;*/
+/*    cursor: pointer;*/
+/*}*/
 
 .button:hover,
 .button:active {

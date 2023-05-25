@@ -2,7 +2,7 @@
 .list {
     list-style: none;
     position: fixed;
-    background-color: #717f4d;
+    background-color: grey;
     left: 50%;
     transform: translate(-50%, 0);
     padding: 1rem;
@@ -37,12 +37,12 @@
 
 
 
-.list a {
+.list button {
     font: inherit;
     font-weight: bold;
     text-decoration: none;
     color: white;
-    background-color: #5B4D7F;
+    background-color: black;
     padding: 0.5rem 1.5rem;
     margin-bottom: 2rem;
     display: block;

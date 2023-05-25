@@ -5,9 +5,9 @@ import TocMobile from "../../../UI/TocMobile/TocMobile";
 const DigestaTocMobileOpera = ({opera, lexPath}) => {
 
     const [opusId, setOpusId] = useState(false)
-
     const opus = opera.filter((opus)=>opus.id === opusId).find(e=>true)
     const onOptionChangeHandler = (event) => {
+
 
         setOpusId(parseInt(event.target.value))
 

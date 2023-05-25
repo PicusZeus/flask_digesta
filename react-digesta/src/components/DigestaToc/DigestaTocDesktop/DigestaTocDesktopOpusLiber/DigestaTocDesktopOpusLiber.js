@@ -6,6 +6,7 @@ import NotificationService from "../../../../services/notification.service";
 import {useQuery} from "@tanstack/react-query";
 import {getLegesOpus} from "../../../../api/api";
 import {digestaActions} from "../../../../store/digesta-slice";
+import Spinner from "../../../UI/spinner/Spinner";
 
 const DigestaTocDesktopOpusLiber = ({liber, libriLength, lexPath}) => {
     const ref = useRef(null)
@@ -17,7 +18,7 @@ const DigestaTocDesktopOpusLiber = ({liber, libriLength, lexPath}) => {
     const liberLineClasses = [classes.liber__line]
 
 
-    const {data: leges} = useQuery({
+    const {data: leges, isFetching} = useQuery({
         queryKey: ["digesta", "opus", "leges", liber.id],
         queryFn: () => getLegesOpus(liber.id),
         onError: () => {
@@ -32,7 +33,7 @@ const DigestaTocDesktopOpusLiber = ({liber, libriLength, lexPath}) => {
         setOpenLegesMenu((current) => !current)
     }
     useEffect(()=>{
-        if (chosenOpusLiberId===liber.id) {
+        if (chosenOpusLiberId===liber.id && ref.current) {
             ref.current.scrollIntoView({behavior: "smooth", block: "start"})
         }
     })
@@ -40,6 +41,7 @@ const DigestaTocDesktopOpusLiber = ({liber, libriLength, lexPath}) => {
     if (libriLength === 1) {
         liberLineClasses.push(classes.liber__line_single)
     }
+    if (isFetching) {return <Spinner/>}
 
     return (
         <li ref={ref} className={classes.liber_main}>

@@ -13,16 +13,20 @@
 	/*font-size: calc(16px + (20 - 16) * (100vw - 320px) / (1280 - 320));*/
 }
 .spinner_main {
-	background-color: var(--bg);
+	/*background-color: var(--bg);*/
 	color: var(--fg);
 	font: 1em/1.5 sans-serif;
-	height: 100vh;
+	/*height: 100vh;*/
+	margin: auto;
 	display: grid;
 	place-items: center;
 	transition:
 		background-color var(--trans-dur),
 		color var(--trans-dur);
 }
+
+
+
 .smiley {
 	width: 8em;
 	height: 8em;

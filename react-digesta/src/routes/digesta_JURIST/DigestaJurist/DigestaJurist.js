@@ -5,10 +5,10 @@ import {useState} from "react";
 import {useEffect} from "react";
 import {useQuery} from "@tanstack/react-query";
 import {getJurist} from "../../../api/api";
-import BooksShareChart from "../../../components/charts/BooksShareChart/BooksShareChart";
-import BooksAuthorshipChart from "../../../components/charts/BooksAuthorshipChart/BooksAuthorshipChart";
-import TitulusAuthorshipChart from "../../../components/charts/titulusAuthorshipChart/TitulusAuthorshipChart";
-
+import Spinner from "../../../components/UI/spinner/Spinner";
+import {useDispatch} from "react-redux";
+import {uiActions} from "../../../store/ui-slice";
+import AuthorPieChart from "../../../components/charts/authorPieChart/AuthorPieChart";
 
 const getJuristQuery = (id) => {
     return {
@@ -21,8 +21,11 @@ const getJuristQuery = (id) => {
 const DigestaJurist = () => {
     const params = useParams()
     const location = useLocation()
+    const dispatch = useDispatch()
     const opera = location.pathname.split("/").includes("opera")
-    const {data: juristData} = useQuery(getJuristQuery(params.jurysta_id))
+    const {data: juristData, isFetching} = useQuery(getJuristQuery(params.jurysta_id))
+    console.log(juristData, 'jurdata')
+
     const digesta = location.pathname.split("/").includes("digesta")
     const juristId = parseInt(juristData.id)
     const [openOutlet, setOpenHandler] = useState(false)
@@ -38,25 +41,38 @@ const DigestaJurist = () => {
 
     }, [digesta, opera, juristId])
 
-
+    if (isFetching) {
+        return <Spinner/>
+    }
 
     const jurist_info = <div className={classes.main_jurist__container}>
         <div className={classes.main_jurist__info}>
-            <h1 className={classes.main_jurist__title}>{juristData.name}</h1>
+
+            <div className={classes.main_jurist__title_group}>
+
+                <h1 className={classes.main_jurist__title}>{juristData.name}</h1>
+
+                <div className={classes.pie}><AuthorPieChart author={juristData.name}
+                                                             authorship={juristData.authorship}/></div>
+
+            </div>
+
+            <div className={classes.main_jurist__redirections}>
+                <Link onClick={() => setOpenHandler(true)} to={pathDigestaJurist}>
+                    <span>Zobacz w układzie Digestów</span>
+                </Link>
+                <Link onClick={() => setOpenHandler(true)} to={pathOperaJurist}>
+                    <span>Zobacz prace</span>
+                </Link>
+                <Link onClick={()=> {dispatch(uiActions.setActiveSection("statisticsNav"))}} to={"/statystyki/jurysci/" + juristId}>
+                    <span>Przejdź do statystyk</span>
+                </Link>
+            </div>
             <p className={classes.main_jurist__description}>{juristData.description}</p>
-            {/*<BooksShareChart bookAuthorship={juristData.books_authorship}/>*/}
-            {/*<AuhtorshipBooksChart jurist={juristData.name} authorship={juristData.authorship}/>*/}
-            {/*<TitulusAuthorshipChart tituliAuthorship={juristData.tituli_authorship}/>*/}
 
         </div>
-        <div className={classes.main_jurist__redirections}>
-            <Link to={pathDigestaJurist}>
-                <button onClick={() => setOpenHandler(true)}>w digestach</button>
-            </Link>
-            <Link to={pathOperaJurist}>
-                <button onClick={() => setOpenHandler(true)}>według cytowanych w digestach prac</button>
-            </Link>
-        </div>
+
+
     </div>
 
 

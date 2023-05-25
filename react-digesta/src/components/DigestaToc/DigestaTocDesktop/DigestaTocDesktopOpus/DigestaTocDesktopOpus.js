@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useState} from "react";
 import DigestaTocDesktopOpusLiber from "../DigestaTocDesktopOpusLiber/DigestaTocDesktopOpusLiber";
 import classes from "./DigestaTocDesktopOpus.module.css"
 import {useDispatch, useSelector} from "react-redux";
