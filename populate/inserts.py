@@ -1,5 +1,7 @@
 from app import create_app
+import re
 from populate.juristDoublets import doublets_authors
+
 app = create_app()
 app.app_context().push()
 from db import db
@@ -12,6 +14,11 @@ from sqlalchemy.exc import IntegrityError
 from .Data.jurists import jurists
 
 from sqlalchemy import func
+
+greek_regex = "^([α-ωά-ώἀ-ὠἄ-ὤᾶ-ῶὰ-ὼἂ-ὢἆ-ὦἇ-ὧᾳ-ῳἃ-ὣἅ-ὥἁ-ὡᾷ-ῷᾆ-ᾦᾇ-ᾧᾲ-ῲᾴ-ῴᾃ-ᾣᾂ-ᾢᾄ-ᾤᾅ-ᾥᾀ-ᾠᾁ-ᾡϑ·᾽’.,\]\[\)\( ]*)$"
+gr_p = re.compile(greek_regex, re.IGNORECASE)
+greek_regex_partial = ".*[α-ωά-ώἀ-ὠἄ-ὤᾶ-ῶὰ-ὼἂ-ὢἆ-ὦἇ-ὧᾳ-ῳἃ-ὣἅ-ὥἁ-ὡ]+.*"
+gr_p_part = re.compile(greek_regex_partial, re.IGNORECASE)
 
 FILE_PICKLE_LIBER_1 = "populate/Data/digestaplikiend/d1.txt_extracted.pickle"
 FILE_PICKLE_LIBER_2 = 'populate/Data/digestaplikiend/d2.txt_extracted.pickle'
@@ -63,6 +70,24 @@ FILE_PICKLE_LIBER_47 = 'populate/Data/digestaplikiend/d47.txt_extracted.pickle'
 FILE_PICKLE_LIBER_48 = 'populate/Data/digestaplikiend/d48.txt_extracted.pickle'
 FILE_PICKLE_LIBER_49 = 'populate/Data/digestaplikiend/d49.txt_extracted.pickle'
 FILE_PICKLE_LIBER_50 = 'populate/Data/digestaplikiend/d50.txt_extracted.pickle'
+
+
+def find_greek():
+    gr_paragraphs = [p for p in DigestaParagraphusModel.query.all() if gr_p.match(p.text_lat)]
+    gr_paragraphs_p = [p for p in DigestaParagraphusModel.query.all() if gr_p_part.match(p.text_lat)]
+
+    print(gr_paragraphs, len(gr_paragraphs))
+    lexInGreek = set()
+    for p in gr_paragraphs:
+        lexInGreek.add(p.lex.id)
+        print(f"<li>D.{p.lex.titulus.book.book_nr}.{p.lex.titulus.number}.{p.lex.lex_nr}</li>")
+    print(len(lexInGreek))
+    lexwithGreek = set()
+    for p in gr_paragraphs_p:
+        lexwithGreek.add(p.lex.id)
+    print('includes', len(lexwithGreek))
+    # print(gr_p_part.match(gr_paragraphs_p[1].text_lat)[0])
+    return gr_paragraphs
 
 
 def insert_books(lat, pl, nr):
@@ -420,9 +445,9 @@ def boook_and_tituli_share():
         book.share = percentage
         db.session.commit()
 
-        for titulus in DigestaTitulusModel.query.filter(DigestaTitulusModel.book_id==book.id).all():
-            titulus_paragraphs = DigestaParagraphusModel.query\
-                .join(DigestaLexModel, DigestaLexModel.id == DigestaParagraphusModel.lex_id)\
+        for titulus in DigestaTitulusModel.query.filter(DigestaTitulusModel.book_id == book.id).all():
+            titulus_paragraphs = DigestaParagraphusModel.query \
+                .join(DigestaLexModel, DigestaLexModel.id == DigestaParagraphusModel.lex_id) \
                 .filter(DigestaLexModel.titulus_id == titulus.id).all()
             titulus_text = sum([len(p.text_lat) for p in titulus_paragraphs])
             percentage = round((titulus_text / all_digesta) * 100, 4)
@@ -533,11 +558,13 @@ if __name__ == "__main__":
     # titulus_coverage()
     # tituli_authorship()
     # book_coverage()
-    tituli_l = len(DigestaTitulusModel.query.all())
-    leges_l = len(DigestaLexModel.query.all())
-    paragraphi_l = len(DigestaParagraphusModel.query.all())
-    jurists_l = len(AuthorModel.query.all())
-    opera = len(OpusModel.query.all())
-    znaki = sum([len(p.text_lat) for p in DigestaParagraphusModel.query.all()])
-    verba = sum([len(p.text_lat.split(' ')) for p in DigestaParagraphusModel.query.all()])
-    print(tituli_l, leges_l, paragraphi_l, jurists_l, opera, znaki, verba)
+    # tituli_l = len(DigestaTitulusModel.query.all())
+    # leges_l = len(DigestaLexModel.query.all())
+    # paragraphi_l = len(DigestaParagraphusModel.query.all())
+    # jurists_l = len(AuthorModel.query.all())
+    # opera = len(OpusModel.query.all())
+    # znaki = sum([len(p.text_lat) for p in DigestaParagraphusModel.query.all()])
+    # verba = sum([len(p.text_lat.split(' ')) for p in DigestaParagraphusModel.query.all()])
+    # print(tituli_l, leges_l, paragraphi_l, jurists_l, opera, znaki, verba)
+
+    find_greek()

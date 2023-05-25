@@ -9,6 +9,7 @@ import {digestaActions} from "../../store/digesta-slice";
 import {useDispatch} from "react-redux";
 import {getLex} from "../../api/api";
 import {uiActions} from "../../store/ui-slice";
+import {useEffect} from "react";
 
 
 const getLexQuery = (id) => {
@@ -25,6 +26,15 @@ const DigestaLexViewer = () => {
 
     const params = useParams()
     const {data: lex, isFetching} = useQuery(getLexQuery(params.lex_id))
+    // useEffect(()=>{
+    //     if (lex && lex.paragraphi.length > 1 && !params.paragraphus_id) {
+    //         console.log(lex.paragraphi)
+    //         const paragraphus_id = lex.paragraphi[0].id
+    //         navigate(`/digesta/${params.lex_id}/${paragraphus_id}`)
+    //     }
+    // })
+
+
     if (isFetching) {
         return <Spinner/>
     }
@@ -57,25 +67,79 @@ const DigestaLexViewer = () => {
         dispatch(digestaActions.setChosenOpusLiberId(lex.opus.id))
         // dispatch()
     }
+    console.log(paragraphiDic)
+
+
+    console.log(paragraphiKeys, params.paragraphus_id, paragraphi)
+
+    let nextUrl = `/digesta/${parseInt(params.lex_id) + 1}`
+    let previousUrl = `/digesta/${parseInt(params.lex_id) -1}`
+    if (params.lex_id == 1 ) { previousUrl = ''}
+    if (params.lex_id == 9142) { nextUrl = ''}
+    if (paragraphi) {
+        if (params.paragraphus_id)
+        {const par_id = parseInt(params.paragraphus_id)
+        const previous = paragraphi.filter(p=>p.id === par_id - 1)
+        if (previous.length === 1) {
+            previousUrl = `/digesta/${parseInt(params.lex_id)}/${par_id -1}`
+        }
+        const next = paragraphi.filter(p=>p.id === par_id + 1)
+        if (next.length === 1) {
+            nextUrl = `/digesta/${parseInt(params.lex_id)}/${par_id +1}`
+        }}
+        else if (paragraphi.length > 1) {
+
+           nextUrl = `/digesta/${parseInt(params.lex_id)}/${paragraphi[0].id}`
+        }
+
+    }
+
+
+
 
     return (
 
         <section className={classes.main_lex}>
 
-            <div className={classes.main_lex__title}>
-                <h1>{address}</h1>
-                <h4>{address_lat}</h4>
-                {/*<h4>{address_pl}</h4>*/}
+            <div className={classes.main_lex__next}>
+                <div className={classes.main_lex__next_redirection}>
+                    <Link to={previousUrl}>
+                        <span className="material-symbols-outlined">
+                            arrow_back_ios
+                        </span>
+                    </Link>
 
+
+                </div>
+
+                <div className={classes.main_lex__title}>
+                    <h1>{address}</h1>
+                    <h4>{address_lat}</h4>
+                    {/*<h4>{address_pl}</h4>*/}
+
+
+                </div>
+                <div className={classes.main_lex__next_redirection}>
+                    <Link to={nextUrl}>
+                        <span className="material-symbols-outlined">
+                            arrow_forward_ios
+                        </span>
+                    </Link>
+                </div>
 
             </div>
+
             <div className={classes.main_lex__redirections}>
-                <button onClick={()=>{dispatch(uiActions.setActiveSection("juristsNav"))}}><Link to={linkAuthor}>{lex.author.name}</Link></button>
+                <button onClick={() => {
+                    dispatch(uiActions.setActiveSection("juristsNav"))
+                }}><Link to={linkAuthor}>{lex.author.name}</Link></button>
                 <button onClick={showOpusHandler}><Link
                     to={linkToAuthorOpera}><span>{parseInt(lex.opus.liber) > 0 ? ksiega : null}</span><span> {lex.opus.opus.title_lat}</span></Link>
                 </button>
             </div>
             <DigestaParagraphusViewer paragraphus={paragraphiDic['pr']}/>
+
+
             {paragraphiKeys.length > 1 &&
                 <div className={classes.main_lex__mobile_toc}><DigestaTocMobileParagraphi
                     setParagraph={setParagraphHandler} paragraphiKeys={paragraphiKeys}/></div>}

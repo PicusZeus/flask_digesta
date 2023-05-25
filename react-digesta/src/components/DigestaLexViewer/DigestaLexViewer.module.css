@@ -11,6 +11,7 @@
     font-family: inherit;
     font-weight: bold;
     font-size: 2.5rem;
+    flex-grow: 1;
 }
 
 .main_lex__title h4 {
@@ -75,4 +76,25 @@
     .main_lex__mobile_toc {
         display: none;
     }
+}
+
+.main_lex__next {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.main_lex__next_redirection {
+
+    display: table;
+    margin: 1rem;
+
+}
+
+.main_lex__next_redirection a {
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0.5rem;
+    color: black
+
 }

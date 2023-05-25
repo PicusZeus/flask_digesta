@@ -23,7 +23,7 @@ const DigestaLookUp = () => {
         event.preventDefault()
         const searched_term = event.target[0].value
 
-        if (searched_term.length < 3) {
+        if (searched_term.length < 1) {
             notificationSetter.setNotificationSuccess("wyszukiwanie", "wpisane słowo musi mieć co najmniej 3 znaki")
             return false
         }
