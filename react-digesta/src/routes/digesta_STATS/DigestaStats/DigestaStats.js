@@ -22,28 +22,28 @@ const DigestaStats = () => {
 
                         <li>50 ksiąg</li>
                         <li>432 tytułów</li>
-                        <li>9142 ustaw</li>
-                        <li>21084 paragrafów</li>
+                        <li>9 142 ustaw</li>
+                        <li>21 084 paragrafów</li>
 
 
                     </ul>
                 </div>
                 <div>
                     <h2 className={classes.main_subtitle}>Oryginalny tekst Digestów obejmuje </h2>
-                    <h3>(bez tytułów i adresów)</h3>
+                    <h3 className={classes.main_subtitle}>(bez tytułów i adresów)</h3>
                     <ul className={classes.main_items}>
-                        <li>z 8394355 słów</li>
-                        <li>z około 5588000 znaków</li>
+                        <li>8 394 355 słów</li>
+                        <li>około 5 588 000 znaków</li>
                     </ul>
                 </div>
                 <div>
                     <h2 className={classes.main_subtitle}>Digesta są kompilacją prac wcześniejszej jurysprudencji</h2>
-                    <h3>Cytuje się w nich</h3>
+                    <h3 className={classes.main_subtitle}>Cytuje się w nich</h3>
                     <ul className={classes.main_items}>
                         <li>54 jurystów</li>
                         <li>384 prace jurystów</li>
                     </ul>
-                    <p> Należy jednak nadmienić, że niektóre imiona pomniejszych Jurystów mogą odnosić się do tego
+                    <p className={classes.main_info}> Należy jednak nadmienić, że niektóre imiona pomniejszych Jurystów mogą odnosić się do tego
                         samego
                         Jurysty, oraz, co występuje z pewnością częściej, że wiele prac o podobnych tytułach mogą
                         odnosić się do tego
@@ -55,7 +55,7 @@ const DigestaStats = () => {
                 </div>
                 <div>
                     <h2 className={classes.main_subtitle}>Tekst oryginalny to w przeważającej części łacina</h2>
-                    <h2>jednak 20 ustaw jest w całości po grecku</h2>
+                    <h2 className={classes.main_subtitle}>jednak 20 ustaw jest w całości po grecku</h2>
                     <ul className={classes.main_items_leges}>
                         <li>D.1.4.4</li>
                         <li>D.14.2.9</li>
@@ -90,12 +90,12 @@ const DigestaStats = () => {
 
 
                     </ul>
-                    <h2 className={classes.main_subtitle}>Natomiast w 166 greka występuje</h2>
+                    <h3 className={classes.main_subtitle}>Natomiast w 166 greka występuje</h3>
                 </div>
             </div>
 
 
-            <h3>Jeśli chcesz poznać szczegółowe statystyki dotyczące udziału poszczególnych ksiąg, tytułów, jurystów i
+            <h3 className={classes.main_info}>Jeśli chcesz poznać szczegółowe statystyki dotyczące udziału poszczególnych ksiąg, tytułów, jurystów i
                 ich
                 dzieł w Digestach, w księgach i tytułach, przejdź do odpowiedniej sekcji.</h3>
 

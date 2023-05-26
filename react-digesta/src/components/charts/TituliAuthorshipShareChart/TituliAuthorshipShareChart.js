@@ -1,5 +1,6 @@
 import {Bar} from "react-chartjs-2";
 import {useRef} from "react";
+import {Chart as ChartJS} from 'chart.js/auto'
 import {useNavigate} from "react-router-dom";
 import {options} from "../chartOptions";
 import ChartContainer from "../ChartContainer/ChartContainer";
@@ -36,7 +37,7 @@ const TituliAuthorshipShareChart = ({tituli}) => {
     }
     const plugins = [ChartDataLabels]
 
-    const height = tituli.length * 40
+    const height = tituli.length
     return <ChartContainer height={height}>
 
 

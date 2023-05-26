@@ -2,7 +2,6 @@ import {Bar} from "react-chartjs-2";
 import {Chart as ChartJS} from 'chart.js/auto'
 import {useRef} from "react";
 import {useNavigate} from "react-router-dom";
-import classes from "./BookShareChart.module.css"
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import {splitLabels} from "../../../services/helpers";
 import {options} from "../chartOptions";
@@ -45,7 +44,7 @@ const BooksShareChart = ({tituli}) => {
 
     }
 
-    const height = tituli.length * 40
+    const height = tituli.length
 
     return (
         <ChartContainer height={height}>

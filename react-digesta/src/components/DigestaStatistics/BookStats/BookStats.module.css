@@ -23,6 +23,7 @@
 }
 
 .book_stats__options > select {
+    font-weight: bold;
     background: none;
     border: none;
 }

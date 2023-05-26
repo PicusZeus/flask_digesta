@@ -5,7 +5,7 @@ import BookAuthorshipChart from "../../charts/BookAuthorshipChart/BookAuthorship
 import BookOperaShareChart from "../../charts/BookOperaShareChart/BookOperaShareChart";
 import {useState} from "react";
 import Spinner from "../../UI/spinner/Spinner";
-import classes from "../../../routes/digesta_STATS/DigestaStatsJurists/DigestaStatsJurists.module.css";
+import classes from "./TitulusStats.module.css";
 
 const getTitulusStatsQuery = (id) => {
     return {
@@ -49,10 +49,12 @@ const TitulusStats = () => {
     }
     return (
         <>
-            {stats &&
-                <h1>Księga {stats.titulus.book.book_latin_name} tytuł {stats.titulus.number} {stats.titulus.title_lat}</h1>}
+            <h1 className={classes.titulus_stats__title}>Księga {stats.titulus.book.book_nr}</h1>
+            <h2 className={classes.titulus_stats__subtitle}>tytuł {stats.titulus.number} </h2>
+            <h2 className={classes.titulus_stats__subtitle}>{stats.titulus.title_lat}</h2>
+            <h3 className={classes.titulus_stats__info}>Wybierz jurystę, dla którego chcesz poznać listę jego prac
+                zawartych w tym tytule</h3>
 
-            <h3>Wybierz jurystę, o którym chcesz się dowiedzieć więcej</h3>
             <form className={classes.titulus_stats__options}>
                 <label htmlFor="selectJurs">Zobacz jurystów z udziałem w tytule</label>
                 <select id="selectJurs" onChange={onOptionJr}>
@@ -61,10 +63,10 @@ const TitulusStats = () => {
                 </select>
             </form>
 
-            {stats && <BookAuthorshipChart authors={authorsSets[authorsSetIndex]} book_id={stats.titulus.book.id}
-                                           titulus_id={stats.titulus.id}/>}
+            <BookAuthorshipChart authors={authorsSets[authorsSetIndex]} book_id={stats.titulus.book.id}
+                                 titulus_id={stats.titulus.id}/>
 
-            <h3>Wybierz pracę cytowaną w tej księdze</h3>
+            <h3 className={classes.titulus_stats__info}>Wybierz pracę cytowaną w tym tytule, dla której chcesz poznać jej udział we poszczególnych tytułach księgi</h3>
             <form className={classes.titulus_stats__options}>
                 <label htmlFor="selectOpera">Zobacz prace z udziałem w tym tytule</label>
                 <select id="selectOpera" onChange={onOptionOp}>
@@ -74,7 +76,7 @@ const TitulusStats = () => {
                 </select>
             </form>
 
-            {stats && <BookOperaShareChart opera={operaSets[operaSetIndex]} book_id={stats.titulus.book.id}/>}
+            <BookOperaShareChart opera={operaSets[operaSetIndex]} book_id={stats.titulus.book.id}/>
         </>
     )
 }

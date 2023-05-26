@@ -3,6 +3,7 @@ import {options} from "../chartOptions";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import ChartContainer from "../ChartContainer/ChartContainer";
 import {splitLabels} from "../../../services/helpers";
+import {Chart as ChartJS} from 'chart.js/auto'
 import {useRef} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
@@ -41,7 +42,7 @@ const TituliCoverage = ({tituli, jurysta_id, book_id}) => {
     }
     const plugins = [ChartDataLabels]
 
-    const height = tituli.length * 40
+    const height = tituli.length
     return <ChartContainer height={height}>
         <Bar onClick={onClickHandler} ref={chartRef} data={data} options={options} plugins={plugins}/>
     </ChartContainer>

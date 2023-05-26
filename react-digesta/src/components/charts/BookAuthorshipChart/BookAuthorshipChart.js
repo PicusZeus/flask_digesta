@@ -1,5 +1,6 @@
 import {Bar} from "react-chartjs-2";
 import {splitLabels} from "../../../services/helpers";
+import {Chart as ChartJS} from 'chart.js/auto'
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import {options} from "../chartOptions";
 import ChartContainer from "../ChartContainer/ChartContainer";
@@ -31,7 +32,7 @@ const BookAuthorshipChart = ({authors, book_id, titulus_id}) => {
     const plugins = [ChartDataLabels]
 
 
-    const height = data.labels.length * 40
+    const height = data.labels.length
 
     const clickHandler = (e) => {
         const points = chartRef.current.getElementsAtEventForMode(e, "nearest", {intersect: true}, true)

@@ -3,11 +3,14 @@ doublets_authors = {
     "ARCADIUS QUI ET CHARISIUS": "ARCADIUS CHARISIUS",
     "AURELIUS ARCADIUS CHARISIUS MAGISTER LIBELLORUM": "ARCADIUS CHARISIUS",
     "PAPIRIUS IUSTUS": "IUSTUS PAPIRIUS",
-    "HERENNIUS MODESTINUS": "MODESTINUS",
+    "MODESTINUS": "HERENNIUS MODESTINUS",
     "QUINTUS MUCIUS SCAEVOLA": "SCAEVOLA",
     "SATURNINUS": "VENULEIUS SATURNINUS",
     "VENULEIUS": "VENULEIUS SATURNINUS",
-    "MACER": "AEMILIUS MACER"
+    "MACER": "AEMILIUS MACER",
+    "MAECIANUS": "VOLUSIUS MAECIANUS",
+    "VALENS": "ABURNIUS VALENS"
+
 }
 
 doublets_opera = {
@@ -24,6 +27,7 @@ doublets_opera = {
     "posteriorum epitomatorum a Iavoleno": "posteriorum a Iavoleno epitomatorum",
     "publicorum": "publicorum iudiciorum",
     "rerum cottidianarum sive aureorum": "rerum cottidianarum",
-    "rerum cottidianarum vel aureorum": " rerum cottidianarum"
+    "rerum cottidianarum vel aureorum": "rerum cottidianarum",
+    "ad edictum urbicum": "ad edictum praetoris urbani"
 
 }

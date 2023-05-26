@@ -12,7 +12,6 @@ const BooksAuthorshipChart = ({authors}) => {
         return (b.authorship - a.authorship)
     })
 
-
     const chartRef = useRef(null)
     const navigate = useNavigate()
 
@@ -46,7 +45,7 @@ const BooksAuthorshipChart = ({authors}) => {
     const plugins = [ChartDataLabels]
 
 
-    const height = data.labels.length * 40
+    const height = data.labels.length
     return (
         <>
             <ChartContainer height={height}>

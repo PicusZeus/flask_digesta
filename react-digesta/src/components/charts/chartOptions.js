@@ -1,3 +1,8 @@
+import {Chart} from "chart.js";
+
+
+
+Chart.defaults.font.size = 16
 export const options = {
 
     layout: {
@@ -19,8 +24,20 @@ export const options = {
 
         },
         legend: {
-            position: "top"
+            position: "top",
+            labels: {
+                font: {
+                    weight: "bold",
+                    // color: "black",
+                    // size: 25
+                }
+            }
         },
+    },
+    labels: {
+        font: {
+            weight: "bold"
+        }
     },
     scales: {
         x: {
@@ -28,6 +45,7 @@ export const options = {
                 display: false,
             },
             ticks: {
+                display: false,
                 callback: (value, index, items) => {
                     return `${value} %`
                 }
@@ -36,8 +54,11 @@ export const options = {
         y: {
             grid: {
                 display: false
-            }
-        },
-    },
+            },
+            ticks: {
+                fontsize: 125
+            },
 
-};
+        },
+
+    }};

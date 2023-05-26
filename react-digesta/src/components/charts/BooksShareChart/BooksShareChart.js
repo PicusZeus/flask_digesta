@@ -1,26 +1,22 @@
 import {Bar} from "react-chartjs-2";
-// import {Chart as ChartJS} from 'chart.js/auto'
 import {useRef} from "react";
+import {Chart as ChartJS} from 'chart.js/auto'
 import {useNavigate} from "react-router-dom";
-import classes from "./BooksShareChart.module.css";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import {options} from "../chartOptions";
+import ChartContainer from "../ChartContainer/ChartContainer";
 const BooksShareChart = ({books}) => {
 
     const chartRef = useRef(null)
 
-    const randomColorGenerator = function () {
-        return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
-    };
+
     const data = {
-        labels: books.map(book => book.book_latin_name),
+        labels: books.map(book =>
+        { return `Księga ${book.book_nr}`}
+        ),
         datasets: [{
             label: "Procentowy udział księgi w objętości Digestów",
-            // backgroundColor: books.map(b=>{return randomColorGenerator()}),
-            // fillColor: randomColorGenerator(),
-            // strokeColor: randomColorGenerator(),
-            // highlightFill: randomColorGenerator(),
-            // highlightStroke: randomColorGenerator(),
+
             data: books.map(book => book.share),
             datalabels: {
                 color: 'black',
@@ -38,7 +34,7 @@ const BooksShareChart = ({books}) => {
 
 
     const plugins = [ChartDataLabels]
-    const height = books.length * 50
+    const height = books.length
 
 
     const navigate = useNavigate()
@@ -55,10 +51,9 @@ const BooksShareChart = ({books}) => {
     }
 
     return (
-        <div style={{height: height}} className={classes.chart_container}>
+        <ChartContainer height={height}>
             <Bar ref={chartRef} onClick={clickHandler} data={data} options={options} plugins={plugins}/>
-        </div>
-
+        </ChartContainer>
     )
 }
 

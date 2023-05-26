@@ -12,7 +12,7 @@ const BooksAuthorshipShareChart = ({books}) => {
     const chartRef = useRef(null)
     const navigate = useNavigate()
     const data = {
-        labels: books.map(book => book.book.book_latin_name),
+        labels: books.map(book => {return `Księga ${book.book.book_nr}`}),
         datasets: [
             {
                 label: "Procentowy udział dzieł jurysty w księdze",
@@ -32,7 +32,7 @@ const BooksAuthorshipShareChart = ({books}) => {
     }
     const plugins = [ChartDataLabels]
 
-    const height = books.length * 40
+    const height = books.length
 
     return (
         <ChartContainer height={height}>

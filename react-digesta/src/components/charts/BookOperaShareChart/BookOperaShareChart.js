@@ -1,7 +1,7 @@
 import {Bar} from "react-chartjs-2";
-import {Chart as ChartJS} from "chart.js/auto"
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import {options} from "../chartOptions";
+import {Chart as ChartJS} from 'chart.js/auto'
 import ChartContainer from "../ChartContainer/ChartContainer";
 import {splitLabels} from "../../../services/helpers";
 import {useRef} from "react";
@@ -43,7 +43,7 @@ const BookOperaShareChart = ({opera, book_id}) => {
 
     const plugins = [ChartDataLabels]
 
-    const height = data.labels.length * 40
+    const height = data.labels.length
 
     return (
 

@@ -26,7 +26,7 @@ const JuristStats = () => {
     const operaMoreHalfPercent = stats.opera.filter(o => o.coverage > 0.1)
     const operaLessHalfPercent = stats.opera.filter(o => o.coverage <= 0.1)
     const operaSets = [operaMoreHalfPercent, operaLessHalfPercent]
-  const onOption = (e) => {
+    const onOption = (e) => {
         e.preventDefault()
         const index = parseInt(e.target.value)
         setOperaSetIndex(index)
@@ -35,11 +35,13 @@ const JuristStats = () => {
     return (
         <>
             {stats && <h1 className={classes.jurist_stats__title}>{stats.jurist.name} w Digestach</h1>}
-            <h2>Udział w poszczególnych księgach</h2>
+            <h2 className={classes.jurist_stats__info}>Udział prac {stats.jurist.name}A w poszczególnych księgach</h2>
+            <h3 className={classes.jurist_stats__info}>Wybierz księgę, dla której chcesz poznać spis i udział prac {stats.jurist.name}A</h3>
             {stats && <BooksAuthorshipShareChart books={stats.books}/>}
 
-            {stats && <h2>Prace {stats.jurist.name}A i ich udział w Digestach</h2>}
-            <form className={classes.jur_stats__options}>
+            {stats && <h2 className={classes.jurist_stats__info}>Prace {stats.jurist.name}A i ich udział w Digestach</h2>}
+            <h3 className={classes.jurist_stats__info}>Wybierz pracę, dla której chcesz poznać jej udział w poszczególnych księgach Digestów</h3>
+            <form className={classes.jurist_stats__form}>
                 <label htmlFor="selectJurs">Zobacz jurystów z udziałem</label>
                 <select id="selectJurs" onChange={onOption}>
                     <option value='0'>ponad jeden promil</option>

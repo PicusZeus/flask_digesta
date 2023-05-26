@@ -4,7 +4,6 @@ import BooksAuthorshipChart from "../../../components/charts/BooksAuthorshipChar
 import {useState} from "react";
 import Spinner from "../../../components/UI/spinner/Spinner";
 import classes from "./DigestaStatsJurists.module.css"
-import Button from "../../../components/UI/button/Button";
 
 const getJuristsStatsQuery = () => {
     return {
@@ -37,11 +36,11 @@ const DigestaStatsJurists = () => {
     return (
 
         <>
-            <h1 className={classes.jur_stats__title}>Juryści cytowani w Digestach</h1>
-            <h3>Wybierz jurystę, o którym chcesz się dowiedzieć więcej</h3>
+            <h1 className={classes.digesta_stats_jurists__title}>Juryści cytowani w Digestach</h1>
+            <h3 className={classes.digesta_stats_jurists__info}>Wybierz jurystę, o którym chcesz się dowiedzieć więcej</h3>
 
 
-            <form className={classes.jur_stats__options}>
+            <form className={classes.digesta_stats_jurists__form}>
                 <label htmlFor="selectJurs">Zobacz jurystów z udziałem</label>
                 <select id="selectJurs" onChange={onOption}>
                     <option value='0'>z udziałem ponad jeden procent</option>

@@ -4,7 +4,7 @@ import {useParams} from "react-router-dom";
 import TituliCoverage from "../../charts/TituliCoverage/TituliCoverage";
 import {useRef} from "react";
 import Spinner from "../../UI/spinner/Spinner";
-import classes from "./OpusBookStats.css"
+import classes from "./OpusBookStats.module.css"
 
 
 const getOpusBookStatsQuery = (opus_id, book_id) => {
@@ -20,7 +20,8 @@ const OpusBookStats = () => {
     const { data: stats, isFetching } = useQuery(getOpusBookStatsQuery(params.opus_id, params.book_id))
     if ( isFetching ) {return <Spinner/>}
     return <>
-        <h1>Libri {stats.opus.title_lat} {stats.opus.author.name}A w księdze {stats.book.book_nr}</h1>
+        <h1 className={classes.opus_book_stats__title}>Libri {stats.opus.title_lat} {stats.opus.author.name}A w księdze {stats.book.book_nr}</h1>
+        <h3 className={classes.opus_book_stats__info}>Wybierz tytuł i zobacz jego zawartość dla {stats.opus.author.name}A</h3>
         {stats && <TituliCoverage tituli={stats.tituli} book_id={stats.book.id} jurysta_id={stats.opus.author.id}/>}
     </>
 }

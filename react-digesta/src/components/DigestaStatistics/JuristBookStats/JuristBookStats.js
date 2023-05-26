@@ -25,11 +25,11 @@ const JuristBookStats = () => {
 
     return <>
         {stats && <h1 className={classes.jurist_book_stats__title}>{stats.author.name} w księdze {stats.book.book_nr}</h1>}
-        {stats && <h3 className={classes.jurist_book_stats__info}>Udział prac {stats.author.name}A w objętości księgi</h3>}
-        {stats && <h3 className={classes.jurist_book_stats__info}>Wybierz tytuł, dla którego chcesz poznać dodatkowe statystyki dla tego {stats.author.name}A</h3>}
+        {stats && <h3 className={classes.jurist_book_stats__info}>Udział prac {stats.author.name}A w objętości księgi {stats.book.book_nr}</h3>}
+        {stats && <h3 className={classes.jurist_book_stats__info}>Wybierz tytuł, dla którego chcesz poznać dodatkowe statystyki dla {stats.author.name}A</h3>}
         <div className={classes.chart}>{stats && <TituliAuthorshipShareChart tituli={stats.tituli}/>}</div>
         {stats && <h3 className={classes.jurist_book_stats__info}>Prace {stats.author.name}A w księdze {stats.book.book_nr}</h3>}
-        <h3 className={classes.jurist_book_stats__info}>Wybierz pracę, dla której chcesz poznać dodatkowe statystyki dla tej księgi</h3>
+        <h3 className={classes.jurist_book_stats__info}>Wybierz pracę, dla której chcesz poznać dodatkowe statystyki dla księgi {stats.book.book_nr}</h3>
         <div className={classes.chart}>{stats && <OperaBookShare opera={stats.opera} book_id={stats.book.id}/>}</div>
     </>
 }

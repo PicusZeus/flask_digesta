@@ -2,3 +2,18 @@
     margin-top: 8rem;
     text-align: center;
 }
+
+.jurist_stats__info {
+    text-align: center;
+}
+
+.jurist_stats__form {
+    display: flex;
+    justify-content: center;
+}
+
+.jurist_stats__form > select {
+    border: none;
+    background: none;
+    font-weight: bold;
+}

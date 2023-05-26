@@ -36,10 +36,10 @@ const DigestaStatsOpera = () => {
     return (
 
         <>
-            <h1>Prace jurystów cytowane w Digestach</h1>
-            <h3>Wybierz pracę jurysty, o której chcesz się dowiedzieć więcej.</h3>
+            <h1 className={classes.digesta_stats_opera__title}>Prace jurystów cytowane w Digestach</h1>
+            <h3 className={classes.digesta_stats_opera__info}>Wybierz pracę jurysty, o której chcesz się dowiedzieć więcej.</h3>
 
-            <form className={classes.opera_stats__options}>
+            <form className={classes.digesta_stats_opera__options}>
                 <label htmlFor="selectOpera">Pokaż prace jurystów z udziałem</label>
                 <select id="selectOpera" onChange={onOption}>
                     <option value='0'> ponad jeden procent</option>

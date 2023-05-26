@@ -1,8 +1,9 @@
 jurists = {
-    "Aurelius Arcadius Charisius magister libellorum":
-        {'bio': "Arcadius Charisius był rzymskim jurystą, który żył prawdopodobnie w IV wieku n.e. Był autorem jednego z traktatów (Digesta Artis Veteris), który był jednym z źródeł prawa rzymskiego. Ten traktat przetrwał jedynie we fragmentach i jest znany z cytowania go w późniejszych dziełach. Arcadius Charisius był ważną postacią w rozwoju prawa rzymskiego i jego prace przyczyniły się do rozwinięcia prawa cywilnego w starożytnym Rzymie. Mimo że niewiele wiadomo o jego życiu, to jego dzieło przetrwało do naszych czasów i jest wciąż przedmiotem zainteresowania i badań przez naukowców zajmujących się historią prawa rzymskiego.",
-         "start": 300,
-         "end": 400},
+    "Arcadius Charisius":
+        {
+            'bio': "Arcadius Charisius był rzymskim jurystą, który żył prawdopodobnie w IV wieku n.e..",
+            "start": 300,
+            "end": 400},
     "Callistratus": {
         "bio": "Callistratus, autor 'De Cognitionibus', był rzymskim prawnikiem i pisarzem, który żył prawdopodobnie w IV wieku n.e. ",
         "start": 300,
@@ -42,43 +43,43 @@ jurists = {
         "end": 200
     },
     "Marcellus": {
-        "bio": "?",
-        "start": 0,
-        "end": 0
+        "bio": "Ulpius Marcellus był rzymskim ekwitą i członkiem rodu Ulpia. Był prawnikiem z Azji Mniejszej, możliwe, że był doradcą Antoninusa Piusa i Marka Aureliusza. Marcellus mógł być również legatem i pro-praetorem w prowincji Pannonia Inferior gdzieś pomiędzy 105 a 180 rokiem n.e., namiestnikiem prowncji Britania od 161 do 169 n.e. W 158 n.e. Ulpius mógł zostać konsulem.",
+        "start": 100,
+        "end": 200
     },
     "Marcianus": {
         "bio": "Marcianus to rzymski prawnik żyjący w IV i V wieku naszej ery. Znany jest przede wszystkim jako autor jednego z najważniejszych dzieł z zakresu prawa rzymskiego - 'Institutiones', czyli 'Podstawy' (nie należy mylić go z innym rzymskim prawnikiem - Ulpianem, którego imię to również Marcianus).'Institutiones' to podręcznik prawa rzymskiego składający się z czterech ksiąg, których tematyka obejmuje m.in. własność, zobowiązania, dziedziczenie i małżeństwo. Dzieło to powstało w oparciu o poprzednie prace prawników, m.in. Gaiusa i Ulpiana, ale zawiera również oryginalne komentarze i interpretacje prawa rzymskiego autorstwa Marcianusa. Marcianus był również autorem innych dzieł z zakresu prawa rzymskiego, m.in. 'Responsorum libri VIII', czyli zbioru odpowiedzi na pytania prawne, które otrzymywał od swoich klientów.",
         "start": 350,
         "end": 450
     },
-    "Modestinus": {
+    "Herennius Modestinus": {
         "bio": "Modestinus był rzymskim prawnikiem, żyjącym w III wieku naszej ery. Był uczniem Gaiusa, jednego z najwybitniejszych prawników rzymskich, i zasłynął jako autor kilku dzieł z zakresu prawa rzymskiego. Modestinus był między innymi autorem innych 'Regulae iuris', czyli zbiór zasad prawa rzymskiego, oraz 'Libri XV ad Quintum Mucium', traktatu o egzekucji sądowej.",
         "start": 200,
         "end": 300
-    },    "Neratius": {
+    }, "Neratius": {
         "bio": "Neratius to rzymski prawnik, który żył w II wieku naszej ery. Niewiele wiadomo o jego życiu, ale znany jest przede wszystkim jako autor jednego z najważniejszych dzieł z zakresu prawa rzymskiego - 'Libri ad Sabinum'. 'Libri ad Sabinum' to zbiór sześciu ksiąg, w których Neratius omawia m.in. zobowiązania, umowy i prawo własnościowe. Dzieło to było napisane w formie komentarza do 'Edyktu pretorskiego', czyli rozporządzenia wydanego przez pretora rzymskiego, który regulował kwestie prawne związane z rozmaitymi sytuacjami życiowymi.'Libri ad Sabinum' cieszyły się dużym uznaniem wśród rzymskich prawników i stanowiły ważne źródło prawa rzymskiego. Dzieło to było także wykorzystywane przez późniejszych prawników, m.in. przez Ulpiana. Neratius był również autorem innych dzieł, m.in. 'De actionibus', czyli traktatu o sposobie dochodzenia roszczeń przed sądem.",
         "start": 100,
         "end": 200
-    },    "Papinianus": {
+    }, "Papinianus": {
         "bio": "Papinianus był jednym z najwybitniejszych rzymskich prawników, żyjącym w II i III wieku naszej ery. Był znany z niezwykłych umiejętności prawniczych i uważany był za jednego z największych autorów prawa rzymskiego. Papinianus pracował jako prawnik i nauczyciel prawa. Był bliskim współpracownikiem cesarza Septimiusza Sewera i jego synów, którzy bardzo go szanowali za jego mądrość i erudycję. Papinianus pełnił również ważne funkcje w administracji cesarskiej, m.in. jako prefekt pretorianów. Papinianus jest autorem wielu dzieł z zakresu prawa rzymskiego, ale niestety większość z nich nie przetrwała do czasów współczesnych. Najważniejszym dziełem Papinianusa były 'Quaestiones', czyli 'Pytania', których celem było rozwiązanie skomplikowanych problemów prawnych. 'Quaestiones' były uważane za jedno z najważniejszych dzieł prawa rzymskiego i były często cytowane przez późniejszych prawników. Papinianus zginął tragicznie za panowania cesarza Karakalli, który nakazał jego aresztowanie i skazanie na śmierć za odmowę wydania jednego ze swoich uczniów. Jego śmierć była uważana za duży ubytek dla prawa rzymskiego i jego dziedzictwo przetrwało jako jeden z najważniejszych elementów rzymskiego dziedzictwa prawniczego.",
         "start": 150,
         "end": 250
-    },    "Paulus": {
+    }, "Paulus": {
         "bio": "Paulus to rzymski prawnik, który żył w III wieku naszej ery. Był jednym z najwybitniejszych prawników swojego czasu i jego dzieła odegrały ważną rolę w rozwoju prawa rzymskiego. Paulus był jednym z uczniów Papinianusa, innego słynnego rzymskiego prawnika. Po śmierci swojego nauczyciela, Paulus kontynuował jego pracę i stał się jednym z najważniejszych prawników swojego czasu. Pełnił również ważne funkcje państwowe, m.in. jako prefekt pretorianów za panowania cesarza Aureliana. Najważniejszym dziełem Paula było 'Sententiae', które były zbiorem jego decyzji w sprawach prawnych. 'Sententiae' były bardzo cenione wśród prawników rzymskich i stanowiły ważne źródło prawa rzymskiego. Paulus napisał również wiele innych dzieł z zakresu prawa rzymskiego, m.in. komentarze do różnych rozporządzeń prawnych oraz traktaty na temat prawa cywilnego i karnej. Niestety, większość jego dzieł nie przetrwała do czasów współczesnych i zachowały się jedynie fragmenty w innych źródłach. Paulus zmarł prawdopodobnie w wyniku epidemii w Rzymie, gdzie żył i pracował przez większość swojego życia. Jego dziedzictwo przetrwało jako ważny element rzymskiego dziedzictwa prawniczego i do dziś wpływa na rozwój prawa na całym świecie.",
         "start": 200,
         "end": 300
-    },    "Pomponius": {
+    }, "Pomponius": {
         "bio": "Pomponius to rzymski prawnik, który żył w II wieku n.e. Jest autorem jednego z najważniejszych dzieł z zakresu prawa rzymskiego - 'Institutiones'. Pomponius był prawnikiem i nauczycielem prawa. Służył w armii rzymskiej i pełnił wiele ważnych funkcji publicznych, m.in. jako pretor i konsul. Znany był również jako wykładowca prawa i jego lekcje cieszyły się dużą popularnością wśród studentów. Pomponius zmarł w Rzymie na skutek epidemii choroby, która wybuchła w mieście. Jego dzieło 'Institutiones' stało się jednak kluczowym źródłem prawa rzymskiego i odegrało ważną rolę w rozwoju prawa na całym świecie.",
         "start": 100,
         "end": 200
-    },    "Proculus": {
+    }, "Proculus": {
         "bio": "Proculus to postać związana z historią prawa rzymskiego, choć niewiele o nim wiadomo. Był on prawdopodobnie rzymskim prawnikiem żyjącym w II wieku n.e., który pisał na temat prawa i był autorem jednego z komentarzy do XII tablic. Niestety, większość jego dzieł nie przetrwała do dzisiejszych czasów. Proculus miał być jednym z nauczycieli prawa, a jego dzieła były uważane za ważne źródło informacji na temat prawa rzymskiego. Wspominał o nim m.in. rzymski prawnik i historyk Pomponius w swoim dziele 'Institutiones'. Jego komentarz do XII tablic był jednym z wielu komentarzy do tego zbioru praw rzymskich, ale niestety nie przetrwał do naszych czasów w całości. Wiadomo jednak, że zawierał interpretację poszczególnych przepisów zawartych w XII tablicach. Mimo że o Proculusie nie wiadomo wiele, to można przypuszczać, że był on jednym z wielu rzymskich prawników, którzy przyczynili się do rozwoju prawa rzymskiego i do jego wpływu na dzisiejsze systemy prawne na całym świecie.",
         "start": 0,
         "end": 0},
     "TERTULLIANUS": {
-        "bio": "?",
-        "start": 0,
-        "end": 0
+        "bio": "Być może chodzi o sławnego Tertulliana, wczesnochrześcijańskiego autora, apologetę i teologa, uważanego za jednego z najważniejszych pisarzy wczesnego Kościoła. Żył on około 160-225 roku n.e. i był jednym z pierwszych chrześcijańskich pisarzy, którzy pisali po łacinie. Tertulian urodził się w Kartaginie (w dzisiejszej Tunezji) i był prawnikiem z wykształcenia. Po nawróceniu na chrześcijaństwo około 197 roku n.e., zrezygnował z prawa i poświęcił się pisaniu i obronie wiary chrześcijańskiej. Jego pisma są ważnym źródłem informacji na temat wczesnego chrześcijaństwa i wpłynęły na rozwój teologii. Był autorem prac takich jak 'Apologia przeciwko poganom' (Apologeticum), w której bronił chrześcijaństwa przed zarzutami i atakami ze strony pogańskich krytyków, oraz 'Przeciwko heretykom' (Adversus Haereses), w którym polemizował z różnymi herezjami i sektami.",
+        "start": 150,
+        "end": 250
     },
     "TRYPHONINUS": {
         "bio": "Nie zachowało się wiele informacji na temat Tryphoninusa, rzymskiego prawnika żyjącego w III wieku n.e. Wiadomo jednak, że był autorem dzieła 'De Publicis Judiciis et iudicum officiis' (O sprawach publicznych i obowiązkach sędziów), które jest cytowane przez późniejszych rzymskich prawników, takich jak Modestinus i Iulianus. 'De Publicis Judiciis et iudicum officiis' było traktatem na temat prawa rzymskiego, który skupiał się na sprawach związanych z sądownictwem i obowiązkami sędziów. Zawierał informacje na temat tego, jakie kwalifikacje powinien posiadać sędzia, jakie powinny być zasady prowadzenia rozpraw sądowych, a także jakie powinny być kary za różne przestępstwa. Tryphoninus odnosił się również do kwestii związanych z przestępstwami popełnionymi przez urzędników państwowych, a także do roli prawa w utrzymywaniu porządku w społeczeństwie. Jego dzieło jest uważane za ważne źródło informacji na temat prawa rzymskiego i sądownictwa w okresie późnego cesarstwa. Jednakże, nie wiadomo wiele na temat jego życia ani dokładnej daty urodzenia i śmierci.",
@@ -90,9 +91,119 @@ jurists = {
         "start": 170,
         "end": 223
     },
-    "Venuleius Saturninus": {
-        "bio": "Nie ma zbyt wiele informacji na temat Veluleiusa Saturninusa, a jedynymi źródłami są odniesienia do niego w dziełach innych rzymskich prawników, takich jak Ulpianus i Gaius. Wiadomo, że Saturninus był rzymskim prawnikiem działającym w II wieku naszej ery, a jego nazwisko wskazuje, że pochodził z rodziny Saturninów. Saturninus jest znany przede wszystkim ze swojego dzieła zatytułowanego Institutiones, które było podręcznikiem prawa rzymskiego. Według Ulpianusa, dzieło to było napisane w bardzo prosty sposób, przez co cieszyło się popularnością wśród studentów prawa. Gaius także odwołuje się do Saturninusa w swoim dziele Institutiones, co świadczy o tym, że był on uważany za autorytet w dziedzinie prawa rzymskiego. Niestety, większość dzieł Saturninusa nie przetrwała do naszych czasów, a jego nazwisko jest jedynie wspominane przez innych prawników rzymskich. Mimo to, jego wpływ na rozwój prawa rzymskiego był ważny i miał wpływ na kolejne pokolenia prawników.",
+
+    "Africanus": {
+        "bio": "Sextus Caecilius Africanus był jednym z wczesnych rzymskich jurystów, którzy działali w II wieku n.e. Znany był ze swojej wiedzy w dziedzinie prawa cywilnego. Jego prace obejmowały różne dziedziny prawa, takie jak prawo rodzinne, prawo własności i prawo zobowiązań. Najbardziej znane dzieło Africanusa nosiło tytuł 'Libri XVIII ex Digestis'. Była to praca, w której zgromadził i skomentował prawnicze decyzje i opinie innych jurystów. Jego wkład do prawa rzymskiego polegał na analizie i interpretacji prawniczych źródeł oraz na rozwijaniu prawa w swoim czasie. Ważnym aspektem działalności Africanusa była również edukacja prawnicza. Prowadził szkołę prawniczą, w której kształcił przyszłych prawników i prawniczych teoretyków. Był znany ze swojego autorytetu i wpływu na rozwój prawa rzymskiego.",
         "start": 100,
         "end": 200
+    },
+    "Mauricianus": {
+        "bio": "Być może tożsamy z Iuniusem Mauricianusem, autorem komentarza do Lex Iulia et Papia, które także zostało wykorzystane w Digestach",
+        "start": 0,
+        "end": 0
+    },
+    "Iunius Mauricianus": {
+        "bio": "Być może tożsamy z Mauricianusem, autorem traktatu o karach, również cytowanych w Digestach. Poza tym nie są znane żadne informacje na temat tego jurysty."
+    },
+    "Iustus Papirius": {
+        "bio": "Niczego nie wiadomo na temat tego jurysty, poza tym, że był autorem prac wykorzystanych w Digestach",
+        "start": 0,
+        "end": 0
+    },
+    "Scaevola": {
+        "bio": "Pod tym imieniem kryją się w digestach co najmiej dwaj juryści: Quintus Cervidius Scaevola oraz Quintus Mucius Scaevola. Quintus Cervidius Scaevola był rzymskim prawnikiem w 2 wieku n.e. Zarówno Historia Augusta, jak i Tabula Banasitana świadczą o tym, że Scaevola był doradcą Marka Aureliusza. Poza tym, że Papinianus był jego uczniem, niewiele więcej wiadomo o życiu tego Scaevoli. Quintus Mucius Scaevola, był ważną postacią w dziedzinie prawa rzymskiego w starożytnym Rzymie. Scaevola był członkiem wpływowej rzymskiej rodziny, a jego działalność przypadała na II wiek p.n.e. Quintus Mucius Scaevola pełnił wiele wysokich urzędów w Rzymie, w tym konsula (uważa się, że był konsulem w 95 p.n.e.) oraz pontifeksa maksymusa, który był najwyższym kapłanem Rzymu. Był także nauczycielem i mentorem wielu późniejszych prawników. Scaevola jest znany przede wszystkim ze swojej działalności jako jurysta i prawnik. Był jednym z pierwszych prawników, którzy zaczęli pisać komentarze na temat prawa rzymskiego.",
+        "start": -100,
+        "end": 200
+    },
+    "Furius Anthianus": {
+        "bio": "Furiusz Anthianus (lub ewentualnie Furius Anthus) był rzymskim jurystą, którego okres życia i pracy przypadł nie później niż czasy cesarza Aleksandra Sewera, czyli III wieku naszej ery. Poza tym nie wiadomo na jego temat nic więcej",
+        "start": 200,
+        "end": 300
+
+    },
+    "Aemilius Macer": {
+        "bio": "Aemilius Macer był rzymskim prawnikiem działającym w III wieku n.e. Poza tym nie wiadomo na jego temat nic więcej.",
+        "start": 200,
+        "end": 300
+
+    },
+    "Labeo": {
+        "bio": "Marcus Antistius Labeo (ur. ok. 42 r. p.n.e., zm. 10/11 r. n.e.) – rzymski prawnik, syn Kwintusa Antistiusa Labeo i uczeń Gaiusa Trebatiusa Testy. W młodym wieku osiągnął urząd pretora, jednak jego kariera polityczna nie rozwinęła się dalej. Jako zagorzały republikanin, otwarcie okazywał niechęć do dyktatorskich rządów Oktawiana Augusta. Niekiedy celowo doprowadzał cesarza do złości podczas posiedzeń senatu. August odwdzięczył się pomijając pewną kandydaturę Labeona na stanowisko konsula i zamiast niego wywyższając do tego honoru jego rywala Gaiusa Ateiusa Capito, wiernego nowemu reżimowi prawnika. Nie znajdując dla siebie miejsca w politycznej rzeczywistości pryncypatu, Labeo poświęcił się jurysprudencji. Owocem jego pracy był ogromny dorobek pisarski – ok. 400 dzieł, cenionych i cytowanych przez późniejszych jurystów (m.in. Gaiusa, Ulpianusa i Paulusa). W Digestach Justyniana znajduje się poświęcony mu pochlebny fragment, zakończony konkluzją, że 'wprowadził wiele innowacji' (plurima innovare instituit D.1.2.2.47). Wysiłki Labeona nie ograniczały się do sfery prawa. Posiadał rozległą wiedzę i pisał prace z takich dziedzin jak dialektyka, gramatyka i etymologia (swoją doskonałą znajomość łacińskiego języka i jego historii miał wykorzystywać regularnie przy rozwiązywaniu sporów i udzielaniu porad prawnych). Jednocześnie Labeo prowadził działalność pedagogiczną – każdego roku przez sześć miesięcy przebywał w Rzymie ze swoimi uczniami i zajmował się ich edukacją, by na następnych sześć miesięcy wyjechać i poświęcić się całkowicie pisaniu. Tradycyjnie przypisuje się mu założenie szkoły prawniczej Prokulianów, nazwanej od imienia Prokulusa, ucznia Labeona i późniejszego przywódcy szkoły.",
+        "start": -42,
+        "end": 11
+    },
+    "Aburnius Valens": {
+        "bio": "Lucius Fulvius Aburnius Valens, syn Gaiusa Aburniusa Valensa, który był rzymskim senatorem urodzonym w I i II wieku po Chrystusie, a w 109 został konsulem. Lucius Fulvius Aburnius Valens był prawnikiem i następcą Iavolenusa, zwierzchnika sabińskiej szkoły prawa.",
+        "start": 100,
+        "end": 200
+    },
+    "Alfenus Varus": {
+        "bio": "Alfenus Varus żył około I wieku p.n.e., był on uczniem Serwiusza Sulpicjusza Rufusa i jedynym uczniem Serwiusza. Nic o nim nie wiadomo poza historią zachowaną przez scholialistę Heleniusa Acrona, w jego notatkach na temat satyr Horacego. Miał pochodzić z Cremony, przybył do Rzymu, aby zostać uczniem Serwiusza, osiągnął godność konsulatu i został uhonorowany publicznym pogrzebem. Pomponius stwierdza również, że Varus osiągnął konsulat, ale to nie dowodzi, że reszta historii scholiasty jest prawdziwa.",
+        "start": -100,
+        "end": 0
+    },
+    "Nerva": {
+        "bio": "Marcus Cocceius Nerva (przed 5 p.n.e – 33 n.e.) był członkiem świty cesarza rzymskiego Tyberiusza i znanym prawnikiem. Był synem Marcusa Cocceiusa Nerwy i dziadkiem cesarza Nerwy. W 24 roku n.e. Tyberiusz mianował go szefem kuratorów wodnych, trzyosobowej komisji odpowiedzialnej za zaopatrzenie Rzymu w wodę. W 33 roku zagłodził się na śmierć pomimo próśb Tyberiusza. W wyjaśnieniu Tacyt pisze: „Ci, którzy znali jego myśli, mówili, że gdy przyjrzał się bliżej nędzy państwa, wybrał w gniewie i przerażeniu honorową śmierć, póki był jeszcze bezpieczny i nienaruszony”.",
+        "start": -5,
+        "end": 33
+
+    },
+    "Terentius Clemens": {
+        "bio": "Działał w drugim wieku naszej ery, poza tym nic o nim nie wiadomo.",
+        "start": 100,
+        "end": 200
+    },
+
+    "Venuleius Saturninus": {
+        "bio": "Nie wiadomo niemal niczego na temat tego jurysty, oprócz faktu autorstwa dzieł cytowanych w Digestach. Żył i działał najpewniej w drugim wieku naszej ery",
+        "start": 100,
+        "end": 200},
+    "Volusius Maecianus": {
+        "bio": "Lucius Volusius Maecianus (ok. 110 – 175) był rzymskim prawnikiem, który doradzał cesarzowi Antoninusowi Piusowi w sprawach prawnych, a także kształcił w tej dziedzinie jego syna, przyszłego Marka Aureliusza. Pochodzący ze stanu ekwickiego Maecianus sprawował szereg urzędów cesarskich, których kulminacją był urząd prefekta Egiptu w 161 r.. Maecianus był konsulem zastępczym około 166 r n.e. Jego karierę możemy prześledzić z inskrypcji ustawionej w Ostii ku czci Maecianusa.",
+        "start": 110,
+        "end": 175
+    },
+    "Iulius Aquila": {
+        "bio": "Daty jego życia są nieznane, chociaż prawdopodobnie żył za panowania Septymiusza Sewera lub przed nim, ponieważ w cytowanej w Digestach pracy wydaje opinię na temat kwestii, która wydaje się być po raz pierwszy rozstrzygnięta przez Sewera (D.26.7.34). Być może jest to ta sama osoba, co Lucjusz Juliusz Akwila, który napisał de Etrusca disciplina, lub ten Akwila, który za Septymiusza Sewera był prefektem Egiptu i zasłynął prześladowaniem chrześcijan.",
+        "start": 100,
+        "end": 200
+    },
+    "Rutilius Maximus": {
+        "bio": "Nie wiadomo niczego na temat tego jurysty, pochodzącego ze sławnej gens Rutilia.",
+        "start": 0,
+        "end": 0
+    },
+    "Claudius Saturninus": {
+        "bio": "Nie wiadomo na temat tego jurysty niczego pewnego. Być może jest on tożsamy z Claudiusem, którego kilka notatek jest również cytowanych w Digestach",
+        "start": 0,
+        "end": 0
+    },
+    "Claudius": {
+        "bio": "Nie wiadomo na temat tego jurysty niczego pewnego. Być może jest on tożsamy z Claudiusem Saturninusem, którego traktad De poenis cytowany jest również w Digestach",
+        "start": 0,
+        "end": 0
+    },
+    "Ignotus": {
+        "bio": "Czyli nieznany. W adresie do kilku ustaw brak jest imienia autora",
+        "start": 0,
+        "end": 0
+    },
+    "Arrius Menander": {
+        "bio": "Arrius Menander był ważnym późno klasycznym jurystą. Żył w III w n.e. Dokładne miejsce i data jego urodzenia nie są znane. Prawdopodobnie zginął w lipcu 213 roku podczas kampanii germańskiej. Wiadomo, że był radcą prawnym (consiliarius Augusti) oraz członkiem stałej, specjalistycznej Rady Prawnej Państwa (consilium) za czasów Septymiusza Sewera. Po tym, jak Karakalla objął wyłączną władzę, Arrius Menander został prawdopodobnie mianowany szefem Kancelarii Cesarskiej (a libellis) w grudniu 211 r. W ten sposób zastąpił zhańbionego Papinianusa. Arrius Menander najwyraźniej zajmował się przede wszystkim rzymskim prawem wojskowym. Arrius Menander był obok Papiniana rówieśnikiem Ulpiana, który wspominał o nim w swoich traktatach i którego przypominał stylem.",
+        "start": 150,
+        "end": 250
+    },
+    "Tarruntenus Paternus": {
+        "bio": "Publius Taruttienus Paternus (zm. 182). Był prefektem pretorian (177 lub 179–182), senatorem i wybitnym prawnikiem w czasach Marka Aureliusza i Kommodusa. W 171 brał udział w wojnach markomańskich, gdy towarzyszył cesarzowi w walkach z Germanami nad Dunajem. Pełnił funkcję sekretarza (ab epistulis Latinis) w kancelarii Marka Aureliusza. Prowadził rozmowy z celtyckimi Kotynami, którzy nie chcieli walczyć przeciwko Markomanom. Według datowanej na 6 lipca 177 inskrypcji Tabula Banasitana należał do rady cesarskiej Marka Aureliusza (consilium principis) i wtedy prawdopodobnie został prefektem pretorian wspólnie z Baseuszem Rufusem. W 179 dowodził, już bez wątpienia jako prefekt pretorian, oddziałami rzymskimi w walkach przeciwko Scytom. Prawdopodobnie za osiągnięte zwycięstwo w wojnie ze Scytami otrzymał od senatu odznaki konsularne (ornameta consularia) i został uhonorowany posągiem na Forum Trajana. W 182 Paternus wziął udział w nieudanym spisku na życie Kommodusa, który zawiązali Marek Ummidiusz Kwadratus, siostrzeniec Marka Aureliusza i Lucylla, siostra Kommodusa. Paternus napisał dzieło dotyczące wojskowości pod tytułem De re militari lub Militarium, które nie zachowało się, ale było jednym ze źródeł dla podręcznika wojskowości Flawiusza Wegecjusza Renatusa. Paternus był wybitnym prawnikiem o czym świadczy określenie go przez Wegecjusza jako diligentissimus iuris militaris adsertor, czyli najwybitniejszego znawcy prawa wojskowego.",
+        "start": 100,
+        "end": 182
+    },
+    "Aelius Gallus": {
+        "bio": "Gaius Aelius Gallus. Jest pomniejszym prawnikiem późnej republiki. Poza tym niewiele o nim wiadomo.",
+        "start": -100,
+        "end": 0
     }
+
+
+
 }

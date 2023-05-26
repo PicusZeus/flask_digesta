@@ -1,25 +1,32 @@
+.digesta_stats_opera__title {
+    text-align: center;
+    margin-top: 8rem;
+}
 
-.opera_stats__options {
+.digesta_stats_opera__info {
+    text-align: center;
+}
+.digesta_stats_opera__options {
+    margin-top: 1rem;
     display: flex;
+    justify-content: center;
 }
-.opera_stats__options label {
-    background-color: white;
-    font-size: 1.1rem;
-    padding: 0.3rem 0 0.3rem 0.3rem;
-    background-color: rgba(255, 255, 255, 0);
-    white-space: nowrap;
 
-
+.digesta_stats_opera__options label {
+    /*font-size: 1.1rem;*/
+    /*padding: 0.3rem 0 0.3rem 0.3rem;*/
+    /*white-space: nowrap;*/
 
 }
 
-.opera_stats__options select {
+.digesta_stats_opera__options select {
     /*border-style: none;*/
-    font-size: 1.1rem;
+    /*font-size: 1.1rem;*/
+    background: none;
     font-style: inherit;
-    padding: 0.3rem 0.3rem 0.3rem 0;
+    /*padding: 0.3rem 0.3rem 0.3rem 0;*/
     border: none;
-    flex-grow: 1;
+    /*flex-grow: 1;*/
     font-weight: bold;
-    background-color: rgba(255, 255, 255, 0);
+    /*background-color: rgba(255, 255, 255, 0);*/
 }

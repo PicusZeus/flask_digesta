@@ -1,6 +1,5 @@
 import {Bar} from "react-chartjs-2";
 import {Chart as ChartJS} from 'chart.js/auto'
-import classes from "./OperaCoverageChart.module.css"
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {useRef} from "react";
 import {useNavigate} from "react-router-dom";
@@ -47,7 +46,7 @@ const OperaCoverageChart = ({opera}) => {
     }
 
 
-    const height = opera.length * 40
+    const height = opera.length
 
     return (
         <>

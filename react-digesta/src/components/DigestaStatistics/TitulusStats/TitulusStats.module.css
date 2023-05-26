@@ -1,0 +1,23 @@
+.titulus_stats__title {
+    text-align: center;
+    margin-top: 8rem;
+}
+
+.titulus_stats__subtitle {
+    text-align: center;
+}
+
+.titulus_stats__info {
+    text-align: center;
+}
+
+.titulus_stats__options {
+    display: flex;
+    justify-content: center;
+}
+
+.titulus_stats__options > select {
+    background: none;
+    border: none;
+    font-weight: bold;
+}

@@ -61,13 +61,13 @@ const BookStats = () => {
     return (
         <>
 
-            {stats && <h1 className={classes.book_stats__title}>{stats.book.book_latin_name}</h1>}
-            {stats && <h2 className={classes.book_stats__subtitle}>KSIĘGA {stats.book.book_nr}</h2>}
-            <h3 className={classes.book_stats__info}>Tytuły i ich udział w objętości księgi</h3>
+            <h1 className={classes.book_stats__title}>{stats.book.book_latin_name}</h1>
+             <h2 className={classes.book_stats__subtitle}>KSIĘGA {stats.book.book_nr}</h2>
+            <h3 className={classes.book_stats__info}>Tytuły i ich udział w objętości księgi {stats.book.book_nr}</h3>
             <h3 className={classes.book_stats__info}>Wybierz tytuł, dla którego chcesz poznać dalsze statystyki</h3>
             {stats && <BookShareChart tituli={stats.tituli_book_share}/>}
-            <h3 className={classes.book_stats__info}>Juryści i ich udział w objętości księgi</h3>
-            <h3 className={classes.book_stats__info}>Wybierz jurystę, dla którego chcesz poznać dalsze statystyki w ramach tej księgi</h3>
+            <h3 className={classes.book_stats__info}>Juryści i ich udział w objętości księgi {stats.book.book_nr}</h3>
+            <h3 className={classes.book_stats__info}>Wybierz jurystę, dla którego chcesz poznać dalsze statystyki w ramach księgi {stats.book.book_nr}</h3>
             <form className={classes.book_stats__options}>
                 <label htmlFor="selectJurs">Zobacz jurystów z udziałem w księdze</label>
                 <select id="selectJurs" onChange={onOptionJr}>
@@ -80,8 +80,8 @@ const BookStats = () => {
             {stats && <BookAuthorshipChart authors={authorsSets[authorshipSetIndex]} book_id={stats.book.id}/>}
 
 
-            <h3 className={classes.book_stats__info}>Dzieła jurystów i ich udział w objętości księgi</h3>
-            <h3 className={classes.book_stats__info}>Wybierz pracę, dla której chcesz poznać dalsze statystyki w ramach tej księgi</h3>
+            <h3 className={classes.book_stats__info}>Dzieła jurystów i ich udział w objętości księgi {stats.book.book_nr}</h3>
+            <h3 className={classes.book_stats__info}>Wybierz pracę, dla której chcesz poznać dalsze statystyki w ramach księgi {stats.book.book_nr}</h3>
             <form className={classes.book_stats__options}>
                 <label htmlFor="selectOpera">Zobacz prace z udziałem w księdze</label>
                 <select id="selectOpera" onChange={onOptionOp}>
