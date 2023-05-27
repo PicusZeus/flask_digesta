@@ -31,7 +31,6 @@ const TituliAuthorshipShareChart = ({tituli}) => {
         if (points.length > 0) {
             const index = points[0].index
             const titulus_id = tituli[index].titulus.id
-            // console.log(book_id)
             navigate(titulus_id.toString()
         )}
     }

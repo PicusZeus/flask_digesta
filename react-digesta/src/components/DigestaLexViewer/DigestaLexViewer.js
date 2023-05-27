@@ -61,11 +61,9 @@ const DigestaLexViewer = () => {
         dispatch(digestaActions.setChosenOpusLiberId(lex.opus.id))
         // dispatch()
     }
-    console.log(paragraphiDic)
 
 
 
-    console.log(paragraphiKeys, params.paragraphus_id, paragraphi)
     const lex_id = parseInt(params.lex_id)
 
     let nextUrl = `/digesta/${lex_id + 1}`
@@ -103,7 +101,6 @@ const DigestaLexViewer = () => {
 
         dispatch(digestaActions.setChosenTitulusId(lex.titulus.id))
         dispatch(uiActions.setActiveSection("digestaNav"))
-        console.log(lex.titulus.id, lex.titulus.book.id, "dispatching")
     }
 
 

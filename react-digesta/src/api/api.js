@@ -37,7 +37,6 @@ export const getComments = (id, username) => {
     }
 }
 export const postComment = ({newComment, isPrivate, id, repliedId}) => {
-    console.log(id, 'id')
     const token = tokenService.getLocalAccessToken()
     return api.post(`comment/paragraphus/${id}`, {
         comment: newComment,
@@ -70,7 +69,6 @@ export const saveEditedComment = ({newText, id}) => {
 }
 
 export const likeComment = (comment_id) => {
-    console.log(comment_id, "COMID")
     const token = TokenService.getLocalAccessToken()
     return api.post("like", {
         comment_id: comment_id
@@ -258,6 +256,5 @@ export const getOpusStats = (id) => {
 }
 
 export const getOpusBookStats = (opus_id, book_id) => {
-    console.log(`stats/digesta/opera/${opus_id}/${book_id}`)
     return api.get(`stats/digesta/opera/${opus_id}/${book_id}`).then(response=>response.data)
 }

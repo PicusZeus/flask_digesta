@@ -24,7 +24,6 @@ const DigestaJurist = () => {
     const dispatch = useDispatch()
     const opera = location.pathname.split("/").includes("opera")
     const {data: juristData, isFetching} = useQuery(getJuristQuery(params.jurysta_id))
-    console.log(juristData, 'jurdata')
 
     const digesta = location.pathname.split("/").includes("digesta")
     const juristId = parseInt(juristData.id)
@@ -81,10 +80,11 @@ const DigestaJurist = () => {
             {openOutlet && <div className={classes.main_jurist__outlet_desktop}>
                 <Outlet/>
             </div>}
-            {jurist_info}
             <div className={classes.main_jurist__outlet_mobile}>
                 <Outlet/>
             </div>
+            {jurist_info}
+
         </div>
     )
 }

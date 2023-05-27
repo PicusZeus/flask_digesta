@@ -19,6 +19,7 @@
 
 .paragraph_text__container div:first-letter {
     initial-letter: 2 1;
+
     margin-right: 0.25rem;
     /*color: orange;*/
 }

@@ -1,5 +1,5 @@
 import classes from "./DigestaStats.module.css"
-import {Link, Outlet, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Button from "../../../components/UI/button/Button"
 const DigestaStats = () => {
 
@@ -41,7 +41,7 @@ const DigestaStats = () => {
                     <h3 className={classes.main_subtitle}>Cytuje się w nich</h3>
                     <ul className={classes.main_items}>
                         <li>43 jurystów</li>
-                        <li>315 prace jurystów</li>
+                        <li>279 prace jurystów</li>
                     </ul>
                     <p className={classes.main_info}> Należy jednak nadmienić, że niektóre imiona pomniejszych Jurystów mogą odnosić się do tego
                         samego
@@ -108,8 +108,6 @@ const DigestaStats = () => {
 
             </div>
 
-
-            {/*<Outlet/>*/}
 
         </div>
     )

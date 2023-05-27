@@ -20,9 +20,8 @@ const DigestaTocDesktopLex = ({address, lex, legesLength, path}) => {
     useEffect(()=>{
         if (ref.current && chosenLexId === lex.id) {
             ref.current.scrollIntoView({behavior: "smooth", block: "start"})
-        console.log('EFFECT')
         }
-    },[chosenLexId])
+    },[lex.id, chosenLexId])
 
     const onClickHandler = () => {
         dispatch(digestaActions.setChosenLexId(lex.id))

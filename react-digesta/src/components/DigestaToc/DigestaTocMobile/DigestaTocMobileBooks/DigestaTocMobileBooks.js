@@ -15,19 +15,17 @@ const DigestaTocMobileBooks = (props) => {
         dispatch(digestaActions.setChosenBookId(parseInt(event.target.value)))
         navigate(url)
     }
-    //
+    const chosenBook = toc.filter(b=>b.id === chosenBookId).shift()
     return (
         <>
 
             <TocMobile onOption={onOptionChangeHandler}>
-                <option value={''}>Wybierz księgę</option>
+                <option value={''}>{chosenBook ? chosenBook.book_latin_name : "Wybierz księgę"}</option>
                 {toc && toc.map(book => (<option key={book.id} value={book.id}>{book.book_latin_name}</option>))}
                 })}
             </TocMobile>
 
-            {chosenBookId ? <DigestaTocMobileBook url={url} tituli={toc.filter((book) => {
-                return (book.id === chosenBookId)
-            })[0].tituli}/> : false}
+            {chosenBook ? <DigestaTocMobileBook url={url} tituli={chosenBook.tituli}/> : false}
         </>
     )
 }

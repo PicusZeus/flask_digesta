@@ -1,5 +1,5 @@
 import classes from "./DigestaTocDesktopJuristDigestaTitulus.module.css"
-import {useEffect, useRef, useState} from "react";
+import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import NotificationService from "../../../../services/notification.service";
 import DigestaTocDesktopLex from "../DigestaTocDesktopLex/DigestaTocDesktopLex";
@@ -10,14 +10,9 @@ import Spinner from "../../../UI/spinner/Spinner";
 
 const DigestaTocDesktopJuristDigestaTitulus = ({titulus, author_id}) => {
     const chosenTitulusId = useSelector(state => state.digesta.chosenTitulusId)
-    const ref = useRef(null)
     const [titulusMenuOpen, setTitulusMenuOpen] = useState(chosenTitulusId === titulus.id)
 
-    useEffect(()=>{
-        if (chosenTitulusId === titulus.id && ref.current) {
-            ref.current.scrollIntoView({behavior: "smooth", block: "start"})
-        }
-    })
+
     const dispatch = useDispatch()
     const notificationSetter = new NotificationService(dispatch)
 
@@ -40,7 +35,7 @@ const DigestaTocDesktopJuristDigestaTitulus = ({titulus, author_id}) => {
 
     return (
 
-        <li ref={ref} className={classes.titulus_main}>
+        <li className={classes.titulus_main}>
             <div className={classes.titulus__line}>&nbsp;</div>
 
             <div className={classes.titulus_group}>

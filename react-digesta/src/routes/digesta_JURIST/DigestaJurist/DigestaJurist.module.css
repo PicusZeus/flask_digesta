@@ -2,11 +2,13 @@
 
 .main_jurist__redirections {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     margin-bottom: 3rem;
 
 
 }
+
 
 .main_jurist__redirections a {
     text-decoration: none;
@@ -18,13 +20,28 @@
     /*width: 14rem;*/
     border: 2px solid black;
     padding: 0.5rem;
-    margin: 3rem;
+    margin: 0.5rem;
     flex: 1 1 0;
        background-color: rgba(255,255, 255, 0.8);
     border-radius: 25px;
     font-weight: bold;
     font-size: 1rem;
 }
+
+@media (min-width: 600px) {
+   .main_jurist__redirections {
+    display: flex;
+       flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 3rem; }
+
+    .main_jurist__redirections a {
+       margin: 3rem;
+    }
+
+}
+
+
 
 .main_jurist__redirections a span {
 
@@ -41,6 +58,7 @@
 
 .main_jurist__title_group {
     display: flex;
+    margin: 0 0.5rem;
 }
 
 .pie {

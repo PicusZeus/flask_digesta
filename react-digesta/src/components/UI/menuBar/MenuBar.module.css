@@ -33,7 +33,7 @@
 .toggle_button__bar {
     width: 100%;
     height: 0.2rem;
-    background: black;
+    background: white;
     display: block;
     margin: 0.6rem 0;
 }

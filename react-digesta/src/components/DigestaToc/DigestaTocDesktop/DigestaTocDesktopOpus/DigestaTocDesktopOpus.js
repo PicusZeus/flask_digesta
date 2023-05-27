@@ -7,7 +7,6 @@ import {digestaActions} from "../../../../store/digesta-slice";
 const DigestaTocDesktopOpus = ({opus, lexPath}) => {
     const chosenOpusId = useSelector(state => state.digesta.chosenOpusId)
     const [menuLibriOpen, setMenuLibriOpen] = useState(chosenOpusId === opus.id)
-    // const ref = useRef(null)
     const dispatch = useDispatch()
 
 
@@ -23,8 +22,7 @@ const DigestaTocDesktopOpus = ({opus, lexPath}) => {
 
     const libri = opus.libri
     libri.sort((a, b)=>{return parseInt(a.liber)-parseInt(b.liber)})
-    console.log(libri, "LIBRI")
-    // const singleBook = opus.libri.length === 1 && opus.libri[0].liber === "0"
+
     return (
         <li>
             <button className={classes.main_toc__opus} onClick={openOpusHandler}>

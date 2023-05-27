@@ -16,17 +16,19 @@ const DigestaTocMobileBook = (props) => {
 
     const tituli = props.tituli
 
+    const chosenTitulus = tituli.filter(t=>t.id===chosenTitulusId)
+
     return (
         <>
             <TocMobile onOption={onOptionChangeHandler}>
 
-                <option value={''}>Wybierz Tytuł</option>
+                <option value={''}>{chosenTitulus ? `${chosenTitulus.number} ${chosenTitulus.title_lat}` : "Wybierz Tytuł"}</option>
 
                 {tituli && tituli.map(titulus => (
                     <option key={titulus.id} value={titulus.id}>{titulus.number} {titulus.title_lat}</option>))}
                 })}
             </TocMobile>
-            {chosenTitulusId ? <DigestaTocMobileTitulus url={url} id={chosenTitulusId}/> : false}
+            {chosenTitulus ? <DigestaTocMobileTitulus url={url} id={chosenTitulusId}/> : false}
         </>
     )
 }

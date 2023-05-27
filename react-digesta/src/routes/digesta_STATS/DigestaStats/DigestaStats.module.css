@@ -6,13 +6,24 @@
 }
 
 .main_title {
-    margin: 10rem 5rem 2rem 5rem;
-    text-indent: 3rem;
+    margin: 10rem 1rem 2rem 1rem;
+    text-indent: 1rem;
     text-align: justify;
+    font-size: 1.5rem;
 }
 
 .main_title:first-letter {
     initial-letter: 2 1;
+}
+
+
+@media (min-width: 600px) {
+    .main_title {
+        margin: 10rem 5rem 2rem 5rem;
+        text-indent: 3rem;
+        text-align: justify;
+        font-size: 2rem;
+    }
 }
 
 .main_info__container {
@@ -49,7 +60,6 @@
 }
 
 
-
 .main_items > li {
     font-size: 1.4rem;
 }
@@ -69,6 +79,8 @@
 .main_actions {
     display: flex;
     justify-content: space-around;
+    flex-direction: column;
+    margin-bottom: 5rem;
 }
 
 .main_actions a {
@@ -78,4 +90,11 @@
     color: inherit;
 }
 
+@media (min-width: 600px) {
+    .main_actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
 
+}
