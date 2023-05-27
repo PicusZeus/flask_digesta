@@ -48,6 +48,6 @@ class OpusLibriModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     opus_id = db.Column(db.Integer, db.ForeignKey("opera.id"), unique=False, nullable=False)
     opus = db.relationship("OpusModel", back_populates="libri")
-    liber = db.Column(db.Integer, nullable=False)
+    liber = db.Column(db.String(256), nullable=False)
     leges = db.relationship("DigestaLexModel", back_populates="opus")
     __table_args__ = (UniqueConstraint('opus_id', 'liber'),)

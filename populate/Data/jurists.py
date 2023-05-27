@@ -25,7 +25,7 @@ jurists = {
         "start": 300,
         "end": 400},
     "Iavolenus": {
-        "bio": "avolenus był rzymskim prawnikiem, który żył w I wieku n.e. i był znany ze swojej biegłości w dziedzinie prawa prywatnego. Jego imię i nazwisko brzmią Marcus Antistius Labeo, ale był bardziej znany jako Iavolenus. Iavolenus był uczniem słynnego rzymskiego prawnika Trebatiusa Testy, który był bliskim przyjacielem Cycerona. Iavolenus był znany ze swojego konserwatywnego podejścia do prawa i często podważał interpretacje prawa swojego czasu. Był znanym przeciwnikiem Sabinianów, którzy byli jego rywalami w kwestiach prawnych. Iavolenus napisał wiele dzieł z dziedziny prawa, ale większość z nich nie przetrwała do naszych czasów. Jego prace były cenne ze względu na ich opisy praktyk prawnych swojego czasu. Jego 'Commentarii ad legem Iuliam et Papiam' jest jednym z niewielu dzieł, które przetrwały do naszych czasów i stanowi cenny źródło informacji na temat prawa rzymskiego w okresie Cesarstwa. Jego prace miały znaczący wpływ na rozwój prawa rzymskiego. Jego interpretacje prawa były często przytaczane przez innych prawników i miały wpływ na rozwój różnych gałęzi prawa rzymskiego, w tym prawa cywilnego i prawa zobowiązań.",
+        "bio": "Iavolenus był rzymskim prawnikiem, który żył w I wieku n.e. i był znany ze swojej biegłości w dziedzinie prawa prywatnego. Jego imię i nazwisko brzmią Marcus Antistius Labeo, ale był bardziej znany jako Iavolenus. Iavolenus był uczniem słynnego rzymskiego prawnika Trebatiusa Testy, który był bliskim przyjacielem Cycerona. Iavolenus był znany ze swojego konserwatywnego podejścia do prawa i często podważał interpretacje prawa swojego czasu. Był znanym przeciwnikiem Sabinianów, którzy byli jego rywalami w kwestiach prawnych. Iavolenus napisał wiele dzieł z dziedziny prawa, ale większość z nich nie przetrwała do naszych czasów. Jego prace były cenne ze względu na ich opisy praktyk prawnych swojego czasu. Jego 'Commentarii ad legem Iuliam et Papiam' jest jednym z niewielu dzieł, które przetrwały do naszych czasów i stanowi cenny źródło informacji na temat prawa rzymskiego w okresie Cesarstwa. Jego prace miały znaczący wpływ na rozwój prawa rzymskiego. Jego interpretacje prawa były często przytaczane przez innych prawników i miały wpływ na rozwój różnych gałęzi prawa rzymskiego, w tym prawa cywilnego i prawa zobowiązań.",
         "start": 0,
         "end": 100},
     "Iulianus": {
@@ -37,7 +37,7 @@ jurists = {
         "bio": "Licinnius Rufinus był rzymskim prawnikiem żyjącym w IV wieku n.e. Jego dokładne daty życia nie są znane, ale wiadomo, że pracował w Rzymie za czasów cesarza Konstantyna Wielkiego. W swoich pracach Rufinus często odwoływał się do wcześniejszych autorów, takich jak Ulpian, Paulus czy Papinian, ale jednocześnie wprowadzał wiele nowych koncepcji i interpretacji prawa. Rufinus miał również wpływ na rozwój prawa kanonicznego, ponieważ jego komentarze i interpretacje prawa rzymskiego były często wykorzystywane przez prawników kościelnych. W ten sposób przyczynił się do rozwoju kodyfikacji prawa kanonicznego i wprowadzenia elementów prawa rzymskiego do prawa kościelnego.",
         "start": 300,
         "end": 400},
-    "Macer": {
+    "AEMILIUS MACER": {
         "bio": "Macer był rzymskim prawnikiem, żyjącym prawdopodobnie w II wieku n.e. Jego imię i nazwisko to Lucius Licinius Lucullus Macer. Więcej informacji o nim nie zachowało się w źródłach pisanych. Macer jest znany przede wszystkim ze swojego dzieła pt. 'De Falsis Dicationibus', czyli 'O fałszywych zeznaniach'. Jest to dzieło z dziedziny prawa karnego, które omawia kwestie dotyczące świadectw i dowodów w procesach sądowych, w szczególności w sprawach o zeznanie nieprawdy. ",
         "start": 100,
         "end": 200
@@ -103,7 +103,9 @@ jurists = {
         "end": 0
     },
     "Iunius Mauricianus": {
-        "bio": "Być może tożsamy z Mauricianusem, autorem traktatu o karach, również cytowanych w Digestach. Poza tym nie są znane żadne informacje na temat tego jurysty."
+        "bio": "Być może tożsamy z Mauricianusem, autorem traktatu o karach, również cytowanych w Digestach. Poza tym nie są znane żadne informacje na temat tego jurysty.",
+        "start": 0,
+        "end": 0
     },
     "Iustus Papirius": {
         "bio": "Niczego nie wiadomo na temat tego jurysty, poza tym, że był autorem prac wykorzystanych w Digestach",

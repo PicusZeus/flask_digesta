@@ -18,9 +18,9 @@ const OperaCoverageChart = ({opera}) => {
         labels: opera.map(opus => {
             let author = ''
             if (opus.author) {author=opus.author.name}
-            let label = `${author} Libri ${opus.title_lat}`.trim()
+            let label = `${author} ${opus.title_lat}`.trim()
             if (opus.opus) {
-               label = `${author} Libri ${opus.opus.title_lat}`.trim()
+               label = `${author} ${opus.opus.title_lat}`.trim()
             }
 
             return splitLabels(label, 2)

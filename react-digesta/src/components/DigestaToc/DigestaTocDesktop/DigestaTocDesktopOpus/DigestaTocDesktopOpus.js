@@ -20,16 +20,20 @@ const DigestaTocDesktopOpus = ({opus, lexPath}) => {
     }
     const libriLength = opus.libri.length
 
-    const singleBook = opus.libri.length === 1 && opus.libri[0].liber === "0"
+
+    const libri = opus.libri
+    libri.sort((a, b)=>{return parseInt(a.liber)-parseInt(b.liber)})
+    console.log(libri, "LIBRI")
+    // const singleBook = opus.libri.length === 1 && opus.libri[0].liber === "0"
     return (
         <li>
             <button className={classes.main_toc__opus} onClick={openOpusHandler}>
-                <p>{!singleBook ? "Libri" : "Liber"} {opus.title_lat}</p><p>{opus.author.name}</p>
+                <p>{opus.title_lat}</p><p>{opus.author.name}</p>
             </button>
 
             {menuLibriOpen && <div className={classes.main_toc__libri}>
                 <ul className={classes.main_toc__libri_items}>
-                    {opus.libri.map((liber) => (
+                    {libri.map((liber) => (
                         <DigestaTocDesktopOpusLiber key={liber.id} liber={liber} libriLength={libriLength}
                                                     lexPath={lexPath}/>))}
                 </ul>

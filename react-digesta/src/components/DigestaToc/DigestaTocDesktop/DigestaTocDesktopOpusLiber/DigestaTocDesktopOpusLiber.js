@@ -7,7 +7,7 @@ import {useQuery} from "@tanstack/react-query";
 import {getLegesOpus} from "../../../../api/api";
 import {digestaActions} from "../../../../store/digesta-slice";
 import Spinner from "../../../UI/spinner/Spinner";
-
+import {isNumeric} from "../../../../services/helpers";
 const DigestaTocDesktopOpusLiber = ({liber, libriLength, lexPath}) => {
     const ref = useRef(null)
     const chosenOpusLiberId = useSelector(state => state.digesta.chosenOpusLiberId)
@@ -50,7 +50,7 @@ const DigestaTocDesktopOpusLiber = ({liber, libriLength, lexPath}) => {
             <div className={classes.liber_group}>
                 <div>&nbsp;</div>
                 <button onClick={openLiberHandler}>
-                    Księga {liber.liber}
+                    {isNumeric(liber.liber) ? "Liber" : ''} {liber.liber}
                 </button>
 
 

@@ -9,7 +9,7 @@ roman_ordinal_numeral = {'primo': 1,
                          'septuagesimo': 70, 'octogesimo': 80, 'nonagesimo': 90,
                          'tricensimo': 30, 'quadragensimo': 40, 'quinquagensimo': 50,
                          'sexagensimo': 60, "vigensimo": 20, "vincensimo": 20, "vincesimo": 20,
-                         'septuagensimo': 70, 'octogensimo': 80, 'octagensimo': 80, 'octagesimo': 80, 'nonagensimo': 90, 'singulari': 0,
+                         'septuagensimo': 70, 'octogensimo': 80, 'octagensimo': 80, 'octagesimo': 80, 'nonagensimo': 90, 'singulari': 1,
                          'centensimo': 100, 'centesimo': 100,  "......": 0}
 
 roman_number_pattern = "^[IVXLC]*([IVXLC])$"
@@ -77,4 +77,6 @@ def rom_ord_num_to_num(numbers: list):
             num_int += romanToInt(number)
         else:
             raise Exception
+        if num_int == 0:
+            num_int = 1
     return num_int

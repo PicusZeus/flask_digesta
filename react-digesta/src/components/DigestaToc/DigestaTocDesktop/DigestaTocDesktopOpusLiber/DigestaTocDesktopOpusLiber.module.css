@@ -29,7 +29,7 @@
 .liber_group > button {
     margin-top: 1rem;
     width: 6rem;
-    height: 2rem;
+    /*height: 2rem;*/
     /*border: solid 2px black;*/
     border: 5px solid #942343;
     border-radius: 10px 0 0 10px;

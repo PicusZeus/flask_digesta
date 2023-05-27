@@ -18,7 +18,7 @@ const BookOperaShareChart = ({opera, book_id}) => {
         labels: opera.map(opus => {
             let author = ''
             if (opus.opus.author) {author = opus.opus.author.name}
-            const label = `${author} libri ${opus.opus.title_lat}`.trim()
+            const label = `${author} ${opus.opus.title_lat}`.trim()
             return splitLabels(label, 2)
         }),
         datasets: [{

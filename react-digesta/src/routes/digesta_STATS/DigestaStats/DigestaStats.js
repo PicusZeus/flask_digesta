@@ -40,12 +40,12 @@ const DigestaStats = () => {
                     <h2 className={classes.main_subtitle}>Digesta są kompilacją prac wcześniejszej jurysprudencji</h2>
                     <h3 className={classes.main_subtitle}>Cytuje się w nich</h3>
                     <ul className={classes.main_items}>
-                        <li>54 jurystów</li>
-                        <li>384 prace jurystów</li>
+                        <li>43 jurystów</li>
+                        <li>315 prace jurystów</li>
                     </ul>
                     <p className={classes.main_info}> Należy jednak nadmienić, że niektóre imiona pomniejszych Jurystów mogą odnosić się do tego
                         samego
-                        Jurysty, oraz, co występuje z pewnością częściej, że wiele prac o podobnych tytułach mogą
+                        jurysty, oraz, co występuje z pewnością częściej, że wiele prac o podobnych tytułach mogą
                         odnosić się do tego
                         samego dzieła. Co więcej wydaje się, że wiele cytowań pochodzi nie bezpośrednio z danych prac,
                         ale
