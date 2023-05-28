@@ -21,7 +21,7 @@ from flask_cors import cross_origin
 blp = Blueprint("Users", "users", description="Operations on users")
 
 
-@blp.route("/register")
+@blp.route("/api/register")
 class UserRegister(MethodView):
     @blp.arguments(UserRegisterSchema)
     def post(self, user_data):
@@ -44,7 +44,7 @@ class UserRegister(MethodView):
         return {"message": "User created successfully."}, 201
 
 
-@blp.route("/login")
+@blp.route("/api/login")
 class UserLogin(MethodView):
     @cross_origin()
     @blp.arguments(UserSchema)
@@ -70,7 +70,7 @@ class UserLogin(MethodView):
         abort(401, message="Invalid credentials.")
 
 
-@blp.route("/refresh")
+@blp.route("/api/refresh")
 class TokenRefresh(MethodView):
     @jwt_required(refresh=True)
     def post(self):
@@ -80,7 +80,7 @@ class TokenRefresh(MethodView):
         return {"access_token": new_token}
 
 
-@blp.route("/logout")
+@blp.route("/api/logout")
 class UserLogout(MethodView):
     @jwt_required()
     def get(self):
@@ -89,7 +89,7 @@ class UserLogout(MethodView):
         return {"message": "Successfully logged out."}
 
 
-@blp.route("/user/<int:user_id>")
+@blp.route("/api/user/<int:user_id>")
 class User(MethodView):
     @blp.response(200, UserSchema)
     def get(self, user_id):

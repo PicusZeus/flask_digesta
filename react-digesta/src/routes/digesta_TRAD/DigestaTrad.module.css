@@ -65,6 +65,7 @@
     .trad_main__outlet {
         /*flex-grow: 1;*/
         margin-left: 17rem;
+        width: calc(100% - 17rem);
     }
 
     .trad_main__title {

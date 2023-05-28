@@ -36,7 +36,7 @@ const TituliCoverage = ({tituli, jurysta_id, book_id}) => {
             dispatch(digestaActions.setChosenTitulusId(titulus_id))
             dispatch(digestaActions.setChosenJuristId(jurysta_id))
             dispatch(uiActions.setActiveSection("juristsNav"))
-            const url = `/jurysci/${jurysta_id}/digesta/${jurysta_id}#id=howdy`
+            const url = `/jurysci/${jurysta_id}/digesta/${jurysta_id}`
             navigate(url)
         }
     }

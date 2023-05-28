@@ -55,6 +55,8 @@
     .opera_main__outlet {
 
         margin-left: 15rem;
+        width: calc(100% - 15rem);
+        flex-grow: 1;
 
     }
     .opera_main__title {
