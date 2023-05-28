@@ -10,8 +10,6 @@
 
 .spinner {
 
-    /*display: table-cell;*/
-    /*vertical-align: middle;*/
     opacity: 0;
     margin: auto 1rem;
     width: 8rem;
@@ -23,7 +21,6 @@
     animation-duration: 1s, 100ms;
     animation-timing-function: ease-in-out, linear;
     animation-iteration-count: infinite, 1;
-    /*-webkit-animation: spin 1s ease-in-out infinite;*/
     animation-fill-mode: forwards;
     animation-delay: 1s;
 }
