@@ -18,7 +18,7 @@ blp = Blueprint("digesta", __name__, description="Operations on digesta")
 #         return books
 
 
-@blp.route("/digesta/leges/<int:lex_id>")
+@blp.route("/api/digesta/leges/<int:lex_id>")
 class DigestaLex(MethodView):
 
     @blp.response(200, FullLexSchema())
@@ -29,7 +29,7 @@ class DigestaLex(MethodView):
         return lex_data
 
 
-@blp.route("/digesta/paragraphi/<int:paragraphus_id>")
+@blp.route("/api/digesta/paragraphi/<int:paragraphus_id>")
 class DigestaParagraphus(MethodView):
     @blp.response(200, ParagraphusSchema())
     def get(self, paragraphus_id):
@@ -37,7 +37,7 @@ class DigestaParagraphus(MethodView):
         return paragraphus_data
 
 
-@blp.route("/digesta/titulus/leges/<int:titulus_id>")
+@blp.route("/api/digesta/titulus/leges/<int:titulus_id>")
 class DigestaTitulus(MethodView):
     @blp.response(200, LexTocSchema(many=True))
     def get(self, titulus_id):
@@ -45,7 +45,7 @@ class DigestaTitulus(MethodView):
         return leges
 
 
-@blp.route("/digesta/opus/leges/<int:liber_id>")
+@blp.route("/api/digesta/opus/leges/<int:liber_id>")
 class DigestaOpusLiber(MethodView):
     @blp.response(200, LexOpusSchema(many=True))
     def get(self, liber_id):
@@ -53,7 +53,7 @@ class DigestaOpusLiber(MethodView):
         return leges
 
 
-@blp.route("/digesta/books")
+@blp.route("/api/digesta/books")
 class DigestaBooksToc(MethodView):
 
     @cross_origin()
@@ -63,7 +63,7 @@ class DigestaBooksToc(MethodView):
         return books_data
 
 
-@blp.route("/digesta/books/author/<int:author_id>")
+@blp.route("/api/digesta/books/author/<int:author_id>")
 class DigestaBooksAuthorToc(MethodView):
 
     @blp.response(200, PlainBookSchema(many=True))
@@ -73,7 +73,7 @@ class DigestaBooksAuthorToc(MethodView):
         return data
 
 
-@blp.route("/digesta/tituli/author/<int:book_id>/<int:author_id>")
+@blp.route("/api/digesta/tituli/author/<int:book_id>/<int:author_id>")
 class DigestaTituliAuthorToc(MethodView):
 
     @blp.response(200, PlainTitulusSchema(many=True))
@@ -82,7 +82,7 @@ class DigestaTituliAuthorToc(MethodView):
         return data
 
 
-@blp.route("/digesta/titulus/leges/author/<int:titulus_id>/<int:author_id>")
+@blp.route("/api/digesta/titulus/leges/author/<int:titulus_id>/<int:author_id>")
 class DigestaTitulusLegesAuthorToc(MethodView):
 
     @blp.response(200, LexTocSchema(many=True))
@@ -91,7 +91,7 @@ class DigestaTitulusLegesAuthorToc(MethodView):
         return data
 
 
-@blp.route("/digesta/lat")
+@blp.route("/api/digesta/lat")
 class DigestaLatinSearch(MethodView):
     @cross_origin()
     @blp.arguments(SearchTermSchema)
@@ -103,7 +103,7 @@ class DigestaLatinSearch(MethodView):
         return paragraphi
 
 
-@blp.route("/digesta/pl")
+@blp.route("/api/digesta/pl")
 class DigestaLatinSearch(MethodView):
 
     @cross_origin()

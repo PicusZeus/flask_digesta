@@ -10,21 +10,21 @@ from schemas import AuthorSchema, PlainAuthorSchema, DigestaLexSchema, JuristInf
 blp = Blueprint("authors", __name__, description="Operations on authors")
 
 
-@blp.route("/authors")
+@blp.route("/api/authors")
 class AuthorsAll(MethodView):
     @blp.response(200, PlainAuthorSchema(many=True))
     def get(self):
         return AuthorModel.query.order_by(AuthorModel.name).all()
 
 
-@blp.route("/authors/<int:author_id>")
+@blp.route("/api/authors/<int:author_id>")
 class Author(MethodView):
     @blp.response(200, JuristInfoSchema())
     def get(self, author_id):
         author = AuthorModel.query.get_or_404(author_id)
         return author
 
-@blp.route("/authors/digesta/<int:author_id>")
+@blp.route("/api/authors/digesta/<int:author_id>")
 class AuthorDigesta(MethodView):
     @cross_origin()
     @blp.response(200, DigestaLexSchema(many=True))
@@ -34,7 +34,7 @@ class AuthorDigesta(MethodView):
         return author_digesta
 
 
-@blp.route("/authors/<int:start>/<int:end>")
+@blp.route("/api/authors/<int:start>/<int:end>")
 class AuthorByAge(MethodView):
     @cross_origin()
     @blp.response(200, AuthorSchema(many=True))

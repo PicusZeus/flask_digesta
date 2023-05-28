@@ -3,14 +3,22 @@ import tokenService from "../services/token.service";
 import TokenService from "../services/token.service";
 import {json} from "react-router-dom";
 
-export default axios.create({
-    baseURL: process.env.REACT_APP_BASE_API_URL
-});
 
 
-const api = axios.create({
-    baseURL: process.env.REACT_APP_BASE_API_URL
+
+
+let api = axios.create({
+    baseURL: "/api/"
+})
+if (process.env.REACT_APP_BASE_API_URL) {
+   api = axios.create({
+    baseURL: process.env.REACT_APP_BASE_API_URL + "/api/"
 });
+}
+
+export default api
+
+
 
 export const deleteComment = (id) => {
     const token = tokenService.getLocalAccessToken()

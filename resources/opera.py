@@ -6,7 +6,7 @@ from schemas import OpusTocSchema
 blp = Blueprint("opera", __name__, description="operations on opera jurisprudentiorum")
 
 
-@blp.route("/opera/<int:opus_id>")
+@blp.route("/api/opera/<int:opus_id>")
 class Opus(MethodView):
     @blp.response(200, OpusTocSchema)
     def get(self, opus_id):
@@ -14,7 +14,7 @@ class Opus(MethodView):
         return opera_data
 
 
-@blp.route("/opera")
+@blp.route("/api/opera")
 class Opera(MethodView):
     @blp.response(200, OpusTocSchema(many=True))
     def get(self):
@@ -22,7 +22,7 @@ class Opera(MethodView):
         return opera_data
 
 
-@blp.route("/opera/jurist/<int:jurist_id>")
+@blp.route("/api/opera/jurist/<int:jurist_id>")
 class OperaByJurist(MethodView):
     @blp.response(200, OpusTocSchema(many=True))
     def get(self, jurist_id):

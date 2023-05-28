@@ -31,7 +31,9 @@ def create_app(db_url=None):
     app.config["OPENAPI_URL_PREFIX"] = "/"
     app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger-ui"
     app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL', "sqlite:///data.db")
+    # app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL', "sqlite:///data.db")
+    # app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL')
+    app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://hello_flask:hello_flask@db/hello_flask'
     app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=6)
     app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
@@ -107,3 +109,4 @@ def create_app(db_url=None):
     return app
 
 
+app = create_app()

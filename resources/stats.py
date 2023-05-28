@@ -4,18 +4,17 @@ from db import db
 from models import DigestaBookModel, AuthorModel, OpusModel,\
     BookAuthorshipModel, OpusBookCoverageModel, TitulusAuthorshipModel,\
     DigestaTitulusModel, OpusTitulusCoverageModel
-from schemas import DigestaStatsSchema, DigestaBookStatsSchema,\
+from schemas import DigestaBookStatsSchema,\
     DigestaTitulusStatsSchema, BookShareSchema, JuristAuthorshipSchema,\
-    JuristBookAuthorshipSchema, JuristStatsMainSchema, JuristStatsBookSchema,\
-    JuristStatsTitulusSchema, OpusCoverageSchema,\
+    JuristStatsMainSchema, JuristStatsBookSchema,\
+    JuristStatsTitulusSchema,\
     OpusAuthorCoverageSchema, OpusBooksStatsSchema, OpusBookStatsSchema
 
 
 blp = Blueprint("stats", __name__, description="Operations on statistic data")
 
 
-
-@blp.route("/stats/digesta/books")
+@blp.route("/api/stats/digesta/books")
 class DigestaBooksStats(MethodView):
 
     @blp.response(200, BookShareSchema(many=True))
@@ -26,7 +25,7 @@ class DigestaBooksStats(MethodView):
 
         return books
 
-@blp.route("/stats/digesta/jurists")
+@blp.route("/api/stats/digesta/jurists")
 class DigestaJuristsStats(MethodView):
 
     @blp.response(200, JuristAuthorshipSchema(many=True))
@@ -37,7 +36,7 @@ class DigestaJuristsStats(MethodView):
 
         return jurists
 
-@blp.route("/stats/digesta/jurists/<int:jurysta_id>")
+@blp.route("/api/stats/digesta/jurists/<int:jurysta_id>")
 class DigestaJuristStats(MethodView):
 
     @blp.response(200, JuristStatsMainSchema())
@@ -49,7 +48,7 @@ class DigestaJuristStats(MethodView):
         return {"books": books, "opera": opera, "jurist": jurist}
 
 
-@blp.route("/stats/digesta/jurists/<int:jurysta_id>/<int:book_id>")
+@blp.route("/api/stats/digesta/jurists/<int:jurysta_id>/<int:book_id>")
 class DigestaJuristBookStats(MethodView):
 
     @blp.response(200, JuristStatsBookSchema())
@@ -71,7 +70,7 @@ class DigestaJuristBookStats(MethodView):
 
         }
 
-@blp.route("/stats/digesta/jurists/<int:jurysta_id>/<int:book_id>/<int:titulus_id>")
+@blp.route("/api/stats/digesta/jurists/<int:jurysta_id>/<int:book_id>/<int:titulus_id>")
 class DigestaJuristTitulusStats(MethodView):
     @blp.response(200, JuristStatsTitulusSchema())
     def get(self, jurysta_id, book_id, titulus_id):
@@ -88,7 +87,7 @@ class DigestaJuristTitulusStats(MethodView):
         }
 
 
-@blp.route("/stats/digesta/books/<int:book_id>")
+@blp.route("/api/stats/digesta/books/<int:book_id>")
 class DigestaBooksStats(MethodView):
 
     @blp.response(200, DigestaBookStatsSchema())
@@ -105,7 +104,7 @@ class DigestaBooksStats(MethodView):
 
         }
 
-@blp.route("/stats/digesta/tituli/<int:titulus_id>")
+@blp.route("/api/stats/digesta/tituli/<int:titulus_id>")
 class DigestaTitulusStats(MethodView):
 
     @blp.response(200, DigestaTitulusStatsSchema())
@@ -121,7 +120,7 @@ class DigestaTitulusStats(MethodView):
             "titulus": titulus
         }
 
-@blp.route("/stats/digesta/opera")
+@blp.route("/api/stats/digesta/opera")
 class DigestaOperaSchema(MethodView):
 
     @blp.response(200, OpusAuthorCoverageSchema(many=True))
@@ -130,7 +129,7 @@ class DigestaOperaSchema(MethodView):
 
         return opera
 
-@blp.route("/stats/digesta/opera/<int:opus_id>")
+@blp.route("/api/stats/digesta/opera/<int:opus_id>")
 class DigestaOpusSchema(MethodView):
 
     @blp.response(200, OpusBooksStatsSchema())
@@ -140,7 +139,7 @@ class DigestaOpusSchema(MethodView):
 
         return {"books": books, "opus": opus}
 
-@blp.route("/stats/digesta/opera/<int:opus_id>/<int:book_id>")
+@blp.route("/api/stats/digesta/opera/<int:opus_id>/<int:book_id>")
 class DigestaOpusBookSchema(MethodView):
 
     @blp.response(200, OpusBookStatsSchema())

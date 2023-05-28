@@ -190,7 +190,7 @@ def insert_opera_books(file_name):
 
             opus = OpusModel.query.filter(OpusModel.title_lat == opus_title_lat, OpusModel.author_id == author_id).one()
 
-            opus_liber = OpusLibriModel(opus_id=opus.id, liber=opus_book_nr)
+            opus_liber = OpusLibriModel(opus_id=opus.id, liber=str(opus_book_nr))
             db.session.add(opus_liber)
             try:
                 db.session.commit()
@@ -220,13 +220,13 @@ def insert_leges(file_name, book):
             opus = OpusModel.query.filter_by(title_lat=lex['opus']['title_lat'], author_id=author_id).one()
             opus_id = opus.id
             opus_liber = OpusLibriModel.query.filter(OpusLibriModel.opus_id == opus_id,
-                                                     OpusLibriModel.liber == liber).one()
+                                                     OpusLibriModel.liber == str(liber)).one()
 
             lex = DigestaLexModel(address_lat=address_lat,
                                   address_pl=address_pl,
                                   # text_lat=text_lat,
                                   # text_pl=text_pl,
-                                  lex_nr=lex_nr,
+                                  lex_nr=str(lex_nr),
                                   titulus_id=titulus_id,
                                   author_id=author_id,
                                   opus_id=opus_liber.id)
@@ -250,7 +250,7 @@ def insert_paragraphi(file_name, book):
         titulus_id = titulus.id
         for lex_nr in book_data[titulus_nr]['leges']:
 
-            lex = DigestaLexModel.query.filter(DigestaLexModel.lex_nr == lex_nr,
+            lex = DigestaLexModel.query.filter(DigestaLexModel.lex_nr == str(lex_nr),
                                                DigestaLexModel.titulus_id == titulus_id).first()
 
             for paragraph_nr, content_lat in book_data[titulus_nr]['leges'][lex_nr]['content_lat'].items():

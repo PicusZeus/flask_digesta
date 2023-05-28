@@ -13,7 +13,7 @@ from sqlalchemy.sql.expression import false
 blp = Blueprint("Comments", "comments", description="Operations on comments")
 
 
-@blp.route("/comments")
+@blp.route("/api/comments")
 class AllCommentsByUser(MethodView):
     @jwt_required()
     @blp.response(200, CommentSchema(many=True))
@@ -24,7 +24,7 @@ class AllCommentsByUser(MethodView):
         return comments
 
 
-@blp.route("/comment/<int:comment_id>")
+@blp.route("/api/comment/<int:comment_id>")
 class Comment(MethodView):
 
     @jwt_required()
@@ -69,7 +69,7 @@ class Comment(MethodView):
         return {"status": 403, "message": "No such comment or user privilege required."}
 
 
-@blp.route("/comment/commented")
+@blp.route("/api/comment/commented")
 class CommentedParagraphs(MethodView):
 
     @jwt_required()
@@ -82,7 +82,7 @@ class CommentedParagraphs(MethodView):
         return paragraphi
 
 
-@blp.route("/comment/paragraphus/<int:paragraphus_id>")
+@blp.route("/api/comment/paragraphus/<int:paragraphus_id>")
 class CommentByLex(MethodView):
 
     @jwt_required(optional=True)
@@ -124,7 +124,7 @@ class CommentByLex(MethodView):
         return comment
 
 
-@blp.route("/comment/comments/<int:replied_id>")
+@blp.route("/api/comment/comments/<int:replied_id>")
 class RepliesByComment(MethodView):
 
     @jwt_required(optional=True)
@@ -162,7 +162,7 @@ class RepliesByComment(MethodView):
         return comments
 
 
-@blp.route("/like")
+@blp.route("/api/like")
 class Likes(MethodView):
 
     @jwt_required()
