@@ -39,6 +39,10 @@ import OpusBookStats, {loader as opusBookStatsLoader} from "./components/Digesta
 import JuristTitulusStats, {
     loader as juristTitulusStatsLoader
 } from "./components/DigestaStatistics/JuristTitulusStats/JuristTitulusStats";
+import {Provider} from "react-redux";
+import store from "./store";
+
+
 
 const queryClient = new QueryClient()
 
@@ -227,11 +231,14 @@ const router = createBrowserRouter(
 const App = () => {
 
     return (
+ // <Provider store={store}>
         <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router}/>
-            <ReactQueryDevtools/>
-        </QueryClientProvider>
 
+                <RouterProvider router={router}/>
+                <ReactQueryDevtools/>
+
+        </QueryClientProvider>
+       // </Provider>
 
     )
 }

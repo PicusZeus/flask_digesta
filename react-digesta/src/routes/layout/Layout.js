@@ -5,8 +5,9 @@ import MenuBar from "../../components/UI/menuBar/MenuBar.js";
 import classes from "./Layout.module.css";
 import tokenService from "../../services/token.service";
 import {logout} from "../../store/auth-actions";
-import {useDispatch} from "react-redux";
+import {Provider, useDispatch} from "react-redux";
 import {authActions} from "../../store/auth-slice";
+import store from "../../store";
 
 const Layout = () => {
     const token = tokenService.getLocalAccessToken()
@@ -36,7 +37,6 @@ const Layout = () => {
             </main>
             <Footer/>
         </>
-
     )
 }
 export default Layout
