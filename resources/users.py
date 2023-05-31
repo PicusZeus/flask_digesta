@@ -46,7 +46,6 @@ class UserRegister(MethodView):
 
 @blp.route("/api/login")
 class UserLogin(MethodView):
-    @cross_origin()
     @blp.arguments(UserSchema)
     @blp.response(200, UserLoginSchema)
     def post(self, user_data):

@@ -179,7 +179,11 @@ export const getJuristOpera = (id) => {
 }
 
 export const getJurists = () => {
-    return api.get("authors").then((response) => {
+    return api.get("authors", {
+        headers: {
+            Accept: 'application/json'
+        }
+    }).then((response) => {
         return response.data
     }).catch(() => {
             throw json(
