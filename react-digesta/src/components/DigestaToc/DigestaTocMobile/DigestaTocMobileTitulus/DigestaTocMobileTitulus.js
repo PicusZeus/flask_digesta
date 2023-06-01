@@ -12,7 +12,6 @@ const DigestaTocMobileTitulus = ({ id }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const notificationSetter = new NotificationService(dispatch);
-
   const { data: leges, isFetching } = useQuery({
     queryKey: ["digesta", "titulus", "leges", id],
     queryFn: () => getLeges(id),

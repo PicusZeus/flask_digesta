@@ -6,15 +6,19 @@ import { digestaActions } from "../../../../store/digesta-slice";
 
 const DigestaTocDesktopOpus = ({ opus, lexPath }) => {
   const chosenOpusId = useSelector((state) => state.digesta.chosenOpusId);
-  const [menuLibriOpen, setMenuLibriOpen] = useState(chosenOpusId === opus.id);
+  // const [menuLibriOpen, setMenuLibriOpen] = useState(chosenOpusId === opus.id);
   const dispatch = useDispatch();
 
   const openOpusHandler = () => {
-    if (!menuLibriOpen) {
-      dispatch(digestaActions.setChosenOpusId(opus.id));
-      dispatch(digestaActions.setChosenOpusLiberId(null));
+    if (chosenOpusId === opus.id) {
+       dispatch(digestaActions.setChosenOpusId(null));
+    } else {
+        dispatch(digestaActions.setChosenOpusId(opus.id));
+        dispatch(digestaActions.setChosenOpusLiberId(null));
     }
-    setMenuLibriOpen((current) => !current);
+
+    // }
+    // setMenuLibriOpen((current) => !current);
   };
   const libriLength = opus.libri.length;
 
@@ -30,7 +34,7 @@ const DigestaTocDesktopOpus = ({ opus, lexPath }) => {
         <p>{opus.author.name}</p>
       </button>
 
-      {menuLibriOpen && (
+      {chosenOpusId === opus.id && (
         <div className={classes.main_toc__libri}>
           <ul className={classes.main_toc__libri_items}>
             {libri.map((liber) => (

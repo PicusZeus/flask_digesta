@@ -15,9 +15,10 @@ const DigestaTocMobileBook = (props) => {
   };
 
   const tituli = props.tituli;
+  tituli.sort((a, b) => {return a.number - b.number})
 
-  const chosenTitulus = tituli.filter((t) => t.id === chosenTitulusId);
-
+  const chosenTitulus = tituli.filter((t) => t.id === chosenTitulusId)[0];
+  console.log(chosenTitulus, "chosen")
   return (
     <>
       <TocMobile onOption={onOptionChangeHandler}>
@@ -34,11 +35,9 @@ const DigestaTocMobileBook = (props) => {
           ))}
         })}
       </TocMobile>
-      {chosenTitulus ? (
+      {chosenTitulusId ? (
         <DigestaTocMobileTitulus url={url} id={chosenTitulusId} />
-      ) : (
-        false
-      )}
+      ) : false}
     </>
   );
 };

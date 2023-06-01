@@ -1,9 +1,11 @@
 import Modal from "../UI/modal/Modal";
 import classes from "./CommentedParagraphiModal.module.css";
 
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { uiActions } from "../../store/ui-slice";
+import {useQuery} from "@tanstack/react-query";
+import tokenService from "../../services/token.service";
 
 const CommentedParagraphiModal = ({
   commentedParagraphi,
@@ -12,12 +14,20 @@ const CommentedParagraphiModal = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user_id = tokenService.getUserId()
+
+
+  // const paragraphi = useQuery(()=>{
+  //   queryKey: ["commentedParagraphi", user_id]
+  // })
   const onClickHandler = (url) => {
     dispatch(uiActions.setActiveSection("digestaNav"));
     onClose();
     onCloseMobileMenu(false);
     navigate(url);
+
   };
+  console.log(commentedParagraphi, 'com')
   return (
     <Modal onClose={onClose}>
       <ul className={classes.list}>

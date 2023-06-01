@@ -6,10 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { getLeges } from "../../../../api/api";
 import Spinner from "../../../UI/spinner/Spinner";
+import {digestaActions} from "../../../../store/digesta-slice";
 
 const DigestaTocDesktopTitulus = ({ titulus }) => {
   const chosenTitulusId = useSelector((state) => state.digesta.chosenTitulusId);
-  const [titulusMenuOpen, setTitulusMenuOpen] = useState(false);
+  // const [titulusMenuOpen, setTitulusMenuOpen] = useState(false);
   const dispatch = useDispatch();
 
   const notificationSetter = new NotificationService(dispatch);
@@ -30,7 +31,11 @@ const DigestaTocDesktopTitulus = ({ titulus }) => {
   }
 
   const openTitulusHandler = () => {
-    setTitulusMenuOpen((current) => !current);
+    if (titulus.id === chosenTitulusId) {
+      dispatch(digestaActions.setChosenTitulusId(null))
+    } else {
+      dispatch(digestaActions.setChosenTitulusId(titulus.id))
+    }
   };
   return (
     <li className={classes.titulus_main}>
@@ -42,7 +47,7 @@ const DigestaTocDesktopTitulus = ({ titulus }) => {
           <p>{titulus.title_lat}</p>
         </button>
       </div>
-      {(titulusMenuOpen || titulus.id === chosenTitulusId) && leges && (
+      {(titulus.id === chosenTitulusId) && leges && (
         <div className={classes.titulus__leges_group}>
           <ul>
             {leges.map((lex) => (

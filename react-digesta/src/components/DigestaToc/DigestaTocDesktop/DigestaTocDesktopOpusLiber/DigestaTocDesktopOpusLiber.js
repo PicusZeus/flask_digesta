@@ -14,9 +14,9 @@ const DigestaTocDesktopOpusLiber = ({ liber, libriLength, lexPath }) => {
     (state) => state.digesta.chosenOpusLiberId
   );
 
-  const [openLegesMenu, setOpenLegesMenu] = useState(
-    chosenOpusLiberId === liber.id
-  );
+  // const [openLegesMenu, setOpenLegesMenu] = useState(
+  //   chosenOpusLiberId === liber.id
+  // );
   const dispatch = useDispatch();
   const notificationSetter = new NotificationService(dispatch);
   const liberLineClasses = [classes.liber__line];
@@ -33,10 +33,14 @@ const DigestaTocDesktopOpusLiber = ({ liber, libriLength, lexPath }) => {
   });
 
   const openLiberHandler = () => {
-    if (!openLegesMenu) {
+    if (liber.id === chosenOpusLiberId) {
+      dispatch(digestaActions.setChosenOpusLiberId(null))
+    } else {
       dispatch(digestaActions.setChosenOpusLiberId(liber.id));
+
     }
-    setOpenLegesMenu((current) => !current);
+    // }
+    // setOpenLegesMenu((current) => !current);
   };
   useEffect(() => {
     if (chosenOpusLiberId === liber.id && ref.current) {
@@ -61,7 +65,7 @@ const DigestaTocDesktopOpusLiber = ({ liber, libriLength, lexPath }) => {
           {isNumeric(liber.liber) ? "Liber" : ""} {liber.liber}
         </button>
       </div>
-      {openLegesMenu && leges && (
+      {chosenOpusLiberId === liber.id && leges && (
         <div className={classes.liber__leges_group}>
           <ul className={classes.liber__leges_group__items}>
             {leges.map((lex) => {

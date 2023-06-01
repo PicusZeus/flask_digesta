@@ -10,7 +10,7 @@ import Spinner from "../../../UI/spinner/Spinner";
 
 const DigestaTocDesktopJuristDigestaBook = ({ book, author_id }) => {
   const chosenBookId = useSelector((state) => state.digesta.chosenBookId);
-  const [bookMenuOpen, setBookMenuOpen] = useState(chosenBookId === book.id);
+  // const [bookMenuOpen, setBookMenuOpen] = useState(chosenBookId === book.id);
   const dispatch = useDispatch();
   const notificationSetter = new NotificationService(dispatch);
 
@@ -29,19 +29,22 @@ const DigestaTocDesktopJuristDigestaBook = ({ book, author_id }) => {
     return <Spinner />;
   }
 
-  const openTituliHandler = () => {
-    if (!bookMenuOpen) {
+  const openBookHandler = () => {
+    if (book.id === chosenBookId) {
+      dispatch(digestaActions.setChosenBookId(null))
+    } else {
       dispatch(digestaActions.setChosenBookId(book.id));
+
     }
-    setBookMenuOpen((current) => !current);
+
   };
 
   return (
     <li>
-      <button className={classes.main_toc__book} onClick={openTituliHandler}>
+      <button className={classes.main_toc__book} onClick={openBookHandler}>
         <span className={classes.bookCut}>Liber {book.book_nr}</span>
       </button>
-      {bookMenuOpen && (
+      {chosenBookId === book.id && (
         <div className={classes.main_toc__tituli}>
           <div>&nbsp;</div>
           <ul className={classes.main_toc__tituli_items}>

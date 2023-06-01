@@ -10,9 +10,9 @@ import Spinner from "../../../UI/spinner/Spinner";
 
 const DigestaTocDesktopJuristDigestaTitulus = ({ titulus, author_id }) => {
   const chosenTitulusId = useSelector((state) => state.digesta.chosenTitulusId);
-  const [titulusMenuOpen, setTitulusMenuOpen] = useState(
-    chosenTitulusId === titulus.id
-  );
+  // const [titulusMenuOpen, setTitulusMenuOpen] = useState(
+  //   chosenTitulusId === titulus.id
+  // );
 
   const dispatch = useDispatch();
   const notificationSetter = new NotificationService(dispatch);
@@ -31,10 +31,13 @@ const DigestaTocDesktopJuristDigestaTitulus = ({ titulus, author_id }) => {
   }
 
   const openTitulusHandler = () => {
-    setTitulusMenuOpen((current) => !current);
-    if (!titulusMenuOpen) {
+    // setTitulusMenuOpen((current) => !current);
+    if (titulus.id === chosenTitulusId) {
+      dispatch(digestaActions.setChosenTitulusId(null))
+    } else {
       dispatch(digestaActions.setChosenTitulusId(titulus.id));
     }
+    // }
   };
   const path = `/jurysci/digesta/${author_id}/`;
 
@@ -50,7 +53,7 @@ const DigestaTocDesktopJuristDigestaTitulus = ({ titulus, author_id }) => {
           <p>{titulus.title_lat}</p>
         </button>
       </div>
-      {titulusMenuOpen && leges && (
+      {chosenTitulusId === titulus.id && leges && (
         <div className={classes.titulus__leges_group}>
           <ul>
             {leges.map((lex) => (

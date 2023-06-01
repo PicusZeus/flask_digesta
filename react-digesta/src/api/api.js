@@ -304,3 +304,7 @@ export const getOpusBookStats = (opus_id, book_id) => {
     .get(`stats/digesta/opera/${opus_id}/${book_id}`)
     .then((response) => response.data);
 };
+
+export const getCommentedParagraphi = () => {
+  return api.get("commentedParagraphi").then(r=>r.data)
+}
