@@ -136,3 +136,4 @@ dmypy.json
 certificates
 *.env
 .env_postgres.dev
+coverage

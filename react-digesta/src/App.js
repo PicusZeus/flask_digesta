@@ -231,14 +231,14 @@ const router = createBrowserRouter(
 const App = () => {
 
     return (
- // <Provider store={store}>
+ <Provider store={store}>
         <QueryClientProvider client={queryClient}>
 
                 <RouterProvider router={router}/>
                 <ReactQueryDevtools/>
 
         </QueryClientProvider>
-       // </Provider>
+       </Provider>
 
     )
 }
