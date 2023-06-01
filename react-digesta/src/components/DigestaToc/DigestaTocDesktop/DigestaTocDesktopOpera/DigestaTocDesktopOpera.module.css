@@ -1,19 +1,18 @@
 .main_toc {
-    min-height: calc(100vh - 5rem);
-    background: white;
-    padding-bottom: 6rem;
-    /*margin-bottom: 6rem;*/
-    width: 100%;
-
+  min-height: calc(100vh - 5rem);
+  background: white;
+  padding-bottom: 6rem;
+  /*margin-bottom: 6rem;*/
+  width: 100%;
 }
 
 .main_toc__title {
-    margin-top: 0;
-    padding-top: 1rem
+  margin-top: 0;
+  padding-top: 1rem;
 }
 
 .main_toc__items {
-    list-style: none;
-    padding-left: 1rem;
-    text-align: left;
+  list-style: none;
+  padding-left: 1rem;
+  text-align: left;
 }

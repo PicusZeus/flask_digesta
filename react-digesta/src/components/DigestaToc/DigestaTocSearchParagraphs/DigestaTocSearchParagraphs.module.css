@@ -1,59 +1,56 @@
 .found_items {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .found_items h1 {
-
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 1rem 2rem;
-
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 1rem 2rem;
 }
 .actions {
-    display: flex;
-    /*align-content: center;*/
-    align-items: stretch;
+  display: flex;
+  /*align-content: center;*/
+  align-items: stretch;
 }
 .button {
-    margin: auto;
-    /*display: block;*/
-    display: block;
-    max-width: 8rem;
-    flex: 1 1 0;
-    border-radius: 5px;
-    font-weight: bold;
+  margin: auto;
+  /*display: block;*/
+  display: block;
+  max-width: 8rem;
+  flex: 1 1 0;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
-.button:hover, .button:active {
-    background: #cccccc;
-    cursor: pointer;
+.button:hover,
+.button:active {
+  background: #cccccc;
+  cursor: pointer;
 }
 
 .found_items h1 span {
-    font-style: italic;
+  font-style: italic;
 }
 
-
 @media (min-width: 600px) {
-    .found_items h1 {
-        width: 90vw;
-        text-align: center;
-
-    }
-    /*.found_items {*/
-    /*    display: flex;*/
-    /*    flex-wrap: wrap;*/
-    /*    align-content: space-around;*/
-    /*}*/
+  .found_items h1 {
+    width: 90vw;
+    text-align: center;
+  }
+  /*.found_items {*/
+  /*    display: flex;*/
+  /*    flex-wrap: wrap;*/
+  /*    align-content: space-around;*/
+  /*}*/
 }
 
 .title {
-    text-align: center;
+  text-align: center;
 }
 
 .title span {
-    font-size: larger;
-    font-style: italic;
+  font-size: larger;
+  font-style: italic;
 }

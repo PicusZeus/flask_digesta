@@ -1,61 +1,53 @@
-
 .opera_main {
-    text-align: center;
-    /*background-color: rgba(255, 255, 255, 0.2);*/
-    min-height: calc(100vh - 9rem);
+  text-align: center;
+  /*background-color: rgba(255, 255, 255, 0.2);*/
+  min-height: calc(100vh - 9rem);
 }
 
 .opera_main__title {
-
-    padding-top: 2rem;
-    /*background: linear-gradient(180deg, rgba(1, 1, 4, 0.8) 0%, rgba(41, 43, 15, 0.8) 65%, rgba(255, 255, 255, 0) 100%);*/
-    color: black;
-    font-size: 2rem;
-    font-weight: bold;
-    font-family: inherit;
+  padding-top: 2rem;
+  /*background: linear-gradient(180deg, rgba(1, 1, 4, 0.8) 0%, rgba(41, 43, 15, 0.8) 65%, rgba(255, 255, 255, 0) 100%);*/
+  color: black;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: inherit;
 }
-
 
 .opera_main__container {
-    display: flex;
-    flex-direction: column;
-
+  display: flex;
+  flex-direction: column;
 }
 
-
 .opera__mobile_toc {
-    display: block;
+  display: block;
 }
 
 .opera__desktop_toc {
-    display: none;
+  display: none;
 }
 
 @media (min-width: 600px) {
-    .opera__mobile_toc {
-        display: none;
-    }
+  .opera__mobile_toc {
+    display: none;
+  }
 
-    .opera_main__container {
-        flex-direction: row;
-    }
+  .opera_main__container {
+    flex-direction: row;
+  }
 
-    .opera__desktop_toc {
-        display: block;
-        width: 15rem;
-        position: fixed;
-        overflow-y: scroll;
-        height: calc(100% - 4rem);
-    }
+  .opera__desktop_toc {
+    display: block;
+    width: 15rem;
+    position: fixed;
+    overflow-y: scroll;
+    height: calc(100% - 4rem);
+  }
 
-    .opera_main__outlet {
-
-        margin-left: 15rem;
-        width: calc(100% - 15rem);
-
-    }
-    .opera_main__title {
-        display: none;
-    }
-
+  .opera_main__outlet {
+    margin-left: 15rem;
+    width: calc(100% - 15rem);
+  }
+  .opera_main__title {
+    display: none;
+  }
 }

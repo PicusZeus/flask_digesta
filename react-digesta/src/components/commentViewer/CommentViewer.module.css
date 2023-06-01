@@ -1,112 +1,99 @@
 .comment_item {
-
-    display: block;
+  display: block;
 }
 .comment_container {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .comment_item__left {
-    /*color: white*/
-    display: flex;
-    flex-direction: column;
+  /*color: white*/
+  display: flex;
+  flex-direction: column;
 }
 
-
 .comment_item__left span {
-
-
-    color: black;
-    font-size: 2rem;
-    height: 4rem;
-    line-height: 4rem;
+  color: black;
+  font-size: 2rem;
+  height: 4rem;
+  line-height: 4rem;
 }
 
 .comment_item__left div {
-
-    width: 2px;
-    background: black;
-    margin: 1rem auto;
-    flex-grow: 1;
-
+  width: 2px;
+  background: black;
+  margin: 1rem auto;
+  flex-grow: 1;
 }
 
 .comment_item__container {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .comment_item__user_info {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 4rem;
-
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 4rem;
 }
 
 .comment_item__user_info p {
-    display: block;
-    text-align: left;
-    margin: 0;
-    font-size: 0.8rem;
+  display: block;
+  text-align: left;
+  margin: 0;
+  font-size: 0.8rem;
 }
 
 .comment_item__user_info div {
-    text-align: left;
+  text-align: left;
 
-    font-size: 0.7rem;
-    margin-right: 2rem
-
-
+  font-size: 0.7rem;
+  margin-right: 2rem;
 }
 
 .comment_item__text {
-    text-decoration: none;
-    border: none;
-    border-bottom: 2px solid black;
-    width: 100%;
-    resize: none;
-    word-wrap: break-word;
-    background: rgba(255, 255, 255, 0.1);
-    font-size: 1rem;
-
+  text-decoration: none;
+  border: none;
+  border-bottom: 2px solid black;
+  width: 100%;
+  resize: none;
+  word-wrap: break-word;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 1rem;
 }
 
 .comment_item__actions {
-    display: flex;
-    justify-content: space-around;
-
+  display: flex;
+  justify-content: space-around;
 }
 
 .comment_item__actions button {
-    padding: 0;
-    margin: 0;
-    position: relative;
-    border: none;
-    background: rgba(255, 255, 255, 0);
-    font-size: 1rem;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  border: none;
+  background: rgba(255, 255, 255, 0);
+  font-size: 1rem;
 }
 
 .likes_num {
-    font-size: 0.5rem;
+  font-size: 0.5rem;
 }
 
 .comment_item__actions button .tooltiptext {
-    visibility: hidden;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  visibility: hidden;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-    color: black;
-    text-align: center;
-    font-size: 0.7rem;
-    position: absolute;
-    z-index: 1;
+  color: black;
+  text-align: center;
+  font-size: 0.7rem;
+  position: absolute;
+  z-index: 1;
 }
 .comment_item__actions button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 .comment_item__actions button:hover .tooltiptext {
-    visibility: visible;
+  visibility: visible;
 }
-
-

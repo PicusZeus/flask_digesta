@@ -1,32 +1,31 @@
 .digesta_stats_opera__title {
-    text-align: center;
-    margin-top: 8rem;
+  text-align: center;
+  margin-top: 8rem;
 }
 
 .digesta_stats_opera__info {
-    text-align: center;
+  text-align: center;
 }
 .digesta_stats_opera__options {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
 .digesta_stats_opera__options label {
-    /*font-size: 1.1rem;*/
-    /*padding: 0.3rem 0 0.3rem 0.3rem;*/
-    /*white-space: nowrap;*/
-
+  /*font-size: 1.1rem;*/
+  /*padding: 0.3rem 0 0.3rem 0.3rem;*/
+  /*white-space: nowrap;*/
 }
 
 .digesta_stats_opera__options select {
-    /*border-style: none;*/
-    /*font-size: 1.1rem;*/
-    background: none;
-    font-style: inherit;
-    /*padding: 0.3rem 0.3rem 0.3rem 0;*/
-    border: none;
-    /*flex-grow: 1;*/
-    font-weight: bold;
-    /*background-color: rgba(255, 255, 255, 0);*/
+  /*border-style: none;*/
+  /*font-size: 1.1rem;*/
+  background: none;
+  font-style: inherit;
+  /*padding: 0.3rem 0.3rem 0.3rem 0;*/
+  border: none;
+  /*flex-grow: 1;*/
+  font-weight: bold;
+  /*background-color: rgba(255, 255, 255, 0);*/
 }

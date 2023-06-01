@@ -1,28 +1,26 @@
 .new_comment {
-    /*border: 2px solid black;*/
-    margin: 1rem;
-    /*background-color: rgba(0, 0, 0, 0);*/
-
+  /*border: 2px solid black;*/
+  margin: 1rem;
+  /*background-color: rgba(0, 0, 0, 0);*/
 }
 
 @media (min-width: 600px) {
-    .new_comment {
-        /*width: 80%;*/
-        /*margin: 1rem auto 2rem auto;*/
-        /*max-width: 38rem;*/
-        margin: 0;
-        /*height: 55vh;*/
-        /*width: 75vw;*/
-        /*width: 100%;*/
-        /*display: block;*/
-    }
+  .new_comment {
+    /*width: 80%;*/
+    /*margin: 1rem auto 2rem auto;*/
+    /*max-width: 38rem;*/
+    margin: 0;
+    /*height: 55vh;*/
+    /*width: 75vw;*/
+    /*width: 100%;*/
+    /*display: block;*/
+  }
 }
 
-.new_comment__header  {
-    margin-top: 1rem;
-    position: relative;
+.new_comment__header {
+  margin-top: 1rem;
+  position: relative;
 }
-
 
 /*.button_close span {*/
 /*    font-size: 1.5rem;*/
@@ -33,62 +31,57 @@
 /*}*/
 
 .new_comment__header label {
-    flex-grow: 1;
-    text-align: left;
-    margin: 0.3rem;
-    color: white;
+  flex-grow: 1;
+  text-align: left;
+  margin: 0.3rem;
+  color: white;
 }
 .new_comment__action {
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    flex-grow: 1;
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  flex-grow: 1;
 }
 
 .new_comment__action label {
-    font-size: 0.6rem;
+  font-size: 0.6rem;
 }
-
 
 .new_comment__container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .new_comment__text {
-    border-radius: 5px;
-    border: 2px solid black;
-    text-decoration: none;
-    flex-grow: 1;
-    /*margin: 0.4rem;*/
-    /*min-height: 38vh;*/
-    /*width: 80%;*/
-    /*margin: 1rem;*/
-    padding: 0.5rem;
-    resize: none;
-    /*background: rgba(255, 255, 255, 0.4);*/
-    background: white;
-    overflow-y: auto;
-    word-wrap: break-word;
-
+  border-radius: 5px;
+  border: 2px solid black;
+  text-decoration: none;
+  flex-grow: 1;
+  /*margin: 0.4rem;*/
+  /*min-height: 38vh;*/
+  /*width: 80%;*/
+  /*margin: 1rem;*/
+  padding: 0.5rem;
+  resize: none;
+  /*background: rgba(255, 255, 255, 0.4);*/
+  background: white;
+  overflow-y: auto;
+  word-wrap: break-word;
 }
 
-
-
 .new_comment__icons {
-    display: flex;
+  display: flex;
 }
 
 .new_comment__icons button {
-
-    padding: 0;
-    margin: auto;
-    display: block;
-    font-size: 1.4rem;
-    border: none;
-    color: black;
-    background: rgba(255, 255, 255, 0);
+  padding: 0;
+  margin: auto;
+  display: block;
+  font-size: 1.4rem;
+  border: none;
+  color: black;
+  background: rgba(255, 255, 255, 0);
 }
 
 .new_comment__icons button:hover {
-    cursor: pointer;
-    color: grey;
+  cursor: pointer;
+  color: grey;
 }

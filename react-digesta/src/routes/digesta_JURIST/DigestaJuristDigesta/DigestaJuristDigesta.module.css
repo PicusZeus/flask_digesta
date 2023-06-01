@@ -1,52 +1,57 @@
 .mobile_toc {
-    display: block;
+  display: block;
 }
 
 .desktop_toc {
-    display: none
+  display: none;
 }
 
 .toc_outlet {
-    /*width: 17rem;*/
-    width: 100%;
+  /*width: 17rem;*/
+  width: 100%;
 }
-
 
 @media (min-width: 600px) {
-    .desktop_toc {
-        display: block;
-        width: 14rem;
-        position: fixed;
-        overflow-y: scroll;
-        height: calc(100% - 4rem);
-        /*background: black;*/
-    }
-/*    .toc_outlet {*/
-/*    width: 17rem;*/
-/*    !*width: 100%;*!*/
-/*}*/
-    .mobile_toc {
-        display: none;
-    }
+  .desktop_toc {
+    display: block;
+    width: 14rem;
+    position: fixed;
+    overflow-y: scroll;
+    height: calc(100% - 4rem);
+    /*background: black;*/
+  }
+  /*    .toc_outlet {*/
+  /*    width: 17rem;*/
+  /*    !*width: 100%;*!*/
+  /*}*/
+  .mobile_toc {
+    display: none;
+  }
 
-    .toc_container {
-        display: flex;
-        width: 100%;
-    }
+  .toc_container {
+    display: flex;
+    width: 100%;
+  }
 
-    .toc_outlet {
-        /*width: 100%;*/
-        /*width: 15rem;*/
-        margin-left: 14rem;
-        /*flex-grow: 1;*/
-    }
+  .toc_outlet {
+    /*width: 100%;*/
+    /*width: 15rem;*/
+    margin-left: 14rem;
+    /*flex-grow: 1;*/
+  }
 }
 
-
 .main_title {
-    font-size: 1.6rem;
-    margin: 1rem;
-    padding: 1rem;
-    /*width: 100vw;*/
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(221, 221, 221, 0.5) 28%, rgba(255, 255, 255, 0.6) 50%, rgba(230, 230, 230, 0.5) 76%, rgba(0, 0, 0, 0) 100%);
+  font-size: 1.6rem;
+  margin: 1rem;
+  padding: 1rem;
+  /*width: 100vw;*/
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(221, 221, 221, 0.5) 28%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(230, 230, 230, 0.5) 76%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }

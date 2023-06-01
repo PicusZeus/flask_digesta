@@ -1,71 +1,64 @@
 .paragraph_text__container {
-    display: flex;
-    margin: 1rem;
+  display: flex;
+  margin: 1rem;
 }
 
-
 .paragraph_text__container div {
-    flex-grow: 1;
-    flex-basis: 0;
-    padding: 0.5rem;
-    font-size: 1.1rem;
-    text-align: justify;
-    font-family: Playfair, serif;
-    text-indent: 20px;
-    word-break: normal;
-    /*initial-letter: 2;*/
-    /*width: 50%;*/;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  text-align: justify;
+  font-family: Playfair, serif;
+  text-indent: 20px;
+  word-break: normal;
+  /*initial-letter: 2;*/
+  /*width: 50%;*/
 }
 
 .paragraph_text__container div:first-letter {
-    initial-letter: 2 1;
+  initial-letter: 2 1;
 
-    margin-right: 0.25rem;
-    /*color: orange;*/
+  margin-right: 0.25rem;
+  /*color: orange;*/
 }
 
 .paragraph_text__container div i {
-    display: block;
-    margin-top: 0.5rem;
-    font-weight: bold;
-    text-align: center;
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: bold;
+  text-align: center;
 }
 
 .paragraph_text__container div table {
-    display: flex;
-    overflow: auto;
-    flex-direction: column;
-    border: 2px solid rgba(0, 0, 0, 0);
-    max-width: 40vw;
+  display: flex;
+  overflow: auto;
+  flex-direction: column;
+  border: 2px solid rgba(0, 0, 0, 0);
+  max-width: 40vw;
 }
 
 .paragraph_text__container div table tr {
-    display: flex;
+  display: flex;
 }
 
 .paragraph_text__container div table tr td {
-    /*min-width: 0;*/
-    font-size: 0.7rem;
-    padding: 0.5rem;
-    flex: 1 1 0;
-    width: 0;;
-    overflow-wrap: break-word;
-    border: 1px black solid;
-    hyphens: auto;
-
+  /*min-width: 0;*/
+  font-size: 0.7rem;
+  padding: 0.5rem;
+  flex: 1 1 0;
+  width: 0;
+  overflow-wrap: break-word;
+  border: 1px black solid;
+  hyphens: auto;
 }
-
 
 .paragraph_comments__container {
-    display: flex;
-    flex-direction: column;
-    margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
 }
-
-
-
 
 .paragraph_logout {
-    margin: auto;
+  margin: auto;
 }
-

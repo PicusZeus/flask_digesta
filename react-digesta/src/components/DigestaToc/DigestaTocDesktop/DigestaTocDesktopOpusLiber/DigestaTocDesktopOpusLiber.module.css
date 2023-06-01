@@ -1,103 +1,98 @@
 .liber_main {
-    position: relative;
+  position: relative;
 }
 
 .liber__line {
-    width: 2px;
-    height: calc(100% + 2rem);
-    background: black;
-    position: absolute;
+  width: 2px;
+  height: calc(100% + 2rem);
+  background: black;
+  position: absolute;
 }
 
 .liber__line_single {
-    height: 2rem;
+  height: 2rem;
 }
 
-
 .liber_group {
-    display: flex;
-    position: relative;
+  display: flex;
+  position: relative;
 }
 
 .liber_group > div {
-    margin-top: 2rem;
-    width: 1rem;
-    height: 2px;
-    background: black;
+  margin-top: 2rem;
+  width: 1rem;
+  height: 2px;
+  background: black;
 }
 
 .liber_group > button {
-    margin-top: 1rem;
-    width: 6rem;
-    /*height: 2rem;*/
-    /*border: solid 2px black;*/
-    border: 5px solid #942343;
-    border-radius: 10px 0 0 10px;
-    border-right-style: none;
-    background: #fffff0;
+  margin-top: 1rem;
+  width: 6rem;
+  /*height: 2rem;*/
+  /*border: solid 2px black;*/
+  border: 5px solid #942343;
+  border-radius: 10px 0 0 10px;
+  border-right-style: none;
+  background: #fffff0;
 }
 
 .liber__leges_group {
-    display: flex;
-    position: relative;
-    margin-left: 2rem;
+  display: flex;
+  position: relative;
+  margin-left: 2rem;
 }
 
 .liber__leges_group > div {
-    width: 2px;
-    height: calc(100% - 1.5rem);
-    background: black;
-    position: absolute;
+  width: 2px;
+  height: calc(100% - 1.5rem);
+  background: black;
+  position: absolute;
 }
 
 .liber__leges_group > ul {
-    padding: 0;
-    list-style: none;
+  padding: 0;
+  list-style: none;
 }
 
 .liber__leges_group > ul > li {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .liber__lex_link {
-    display: block;
-    text-decoration: none;
-    text-align: center;
-    width: 6rem;
-    border: 1px solid black;
-    font-size: 0.8rem;
-    font-family: inherit;
-    color: black;
-    padding: 0.2rem;
-    background: white;
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  width: 6rem;
+  border: 1px solid black;
+  font-size: 0.8rem;
+  font-family: inherit;
+  color: black;
+  padding: 0.2rem;
+  background: white;
 }
 
 .liber__lex_group {
-    margin-top: 0.5rem;
-    display: flex;
+  margin-top: 0.5rem;
+  display: flex;
 }
 
 .liber__lex_group > span {
-    width: 1rem;
-    height: 2px;
-    background: black;
-    align-self: center;
-
+  width: 1rem;
+  height: 2px;
+  background: black;
+  align-self: center;
 }
 
 .liber__leges_group__items > li > div:first-of-type {
-    /*background: red;*/
-    height: calc(100% + 2.5rem);
-
+  /*background: red;*/
+  height: calc(100% + 2.5rem);
 }
 
 .liber__leges_group__items > li:only-child > div:first-of-type {
-    /*background: red;*/
-    height: 2rem;
-
+  /*background: red;*/
+  height: 2rem;
 }
 
-
 .liber__leges_group__items > li > div:last-of-type > div {
-    height: calc(100% - 1.7rem);
+  height: calc(100% - 1.7rem);
 }

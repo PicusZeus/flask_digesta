@@ -4,12 +4,11 @@ import uiSlice from "./ui-slice";
 import digestaSlice from "./digesta-slice";
 
 const store = configureStore({
-    reducer: {
-        auth: authSlice.reducer,
-        ui: uiSlice.reducer,
-        digesta: digestaSlice.reducer
-    }
-})
+  reducer: {
+    auth: authSlice.reducer,
+    ui: uiSlice.reducer,
+    digesta: digestaSlice.reducer,
+  },
+});
 
-export default store
-
+export default store;

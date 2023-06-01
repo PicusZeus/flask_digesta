@@ -1,19 +1,18 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    /*font-family: "Montserrat", sans-serif;*/
-    margin: 0;
-    position: relative;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.7) 100%, transparent),
+  /*font-family: "Montserrat", sans-serif;*/
+  margin: 0;
+  position: relative;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 100%, transparent),
     url("assets/library_s.jpg");
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
-    font-family: 'Playfair', serif;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  font-family: "Playfair", serif;
 
-    /*background: linear-gradient(to top, rgba(80, 68, 18, 0.6) 10%, transparent),*/
-    /*url("assets/library.jpg") center/cover no-repeat border-box, #ff1b68;*/
-
+  /*background: linear-gradient(to top, rgba(80, 68, 18, 0.6) 10%, transparent),*/
+  /*url("assets/library.jpg") center/cover no-repeat border-box, #ff1b68;*/
 }

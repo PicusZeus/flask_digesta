@@ -1,6 +1,3 @@
-
-
-
 .form {
   background-color: grey;
   left: 50%;
@@ -13,11 +10,9 @@
 }
 
 @media (min-width: 600px) {
-
- .form {
-   width: 30rem;
- }
-
+  .form {
+    width: 30rem;
+  }
 }
 
 .form label {
@@ -27,7 +22,6 @@
   color: white;
   font-weight: bold;
 }
-
 
 .form input {
   margin: auto;
@@ -48,7 +42,6 @@
   gap: 0.5rem;
 }
 
-
 .actions button {
   cursor: pointer;
   font: inherit;
@@ -59,7 +52,8 @@
   color: white;
 }
 
-.actions button:hover, .button:hover {
+.actions button:hover,
+.button:hover {
   background-color: white;
   color: black;
 }

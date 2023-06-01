@@ -1,21 +1,19 @@
 .main_jurist {
-    /*padding: 0.5rem;*/
-
+  /*padding: 0.5rem;*/
 }
 
 .main_jurist__link {
-    text-decoration: none;
-    font-weight: bold;
-    color: black;
-    display: block;
-    text-align: center;
-    padding: 0.5rem;
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  display: block;
+  text-align: center;
+  padding: 0.5rem;
 
-    border-bottom: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
-
 .chosen {
-    background: black;
-    color: white
+  background: black;
+  color: white;
 }

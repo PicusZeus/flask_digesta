@@ -1,91 +1,83 @@
-
-
 .lex_main {
-    position: relative;
+  position: relative;
 }
 
 .lex__line {
-     width: 2px;
-    height: calc(100% + 2rem);
-    background: black;
-    position: absolute;
-    margin-bottom: 1rem;
+  width: 2px;
+  height: calc(100% + 2rem);
+  background: black;
+  position: absolute;
+  margin-bottom: 1rem;
 }
 
 .lex__line_single_lex {
-    height: 2rem;
+  height: 2rem;
 }
 
 .lex_group {
-    display: flex;
+  display: flex;
 }
 
 .lex_group > div {
-    align-self: flex-end;
-    margin-bottom: 0.5rem;
-    width: 3rem;
-    height: 2px;
-    background: black;
+  align-self: flex-end;
+  margin-bottom: 0.5rem;
+  width: 3rem;
+  height: 2px;
+  background: black;
 }
 
 .lex_group > a {
-    margin-top: 1rem;
-    text-decoration: none;
-    border: 1px solid black;
-    padding: 0.3rem;
-    font-size: 0.8rem;
-    color: black;
-    width: 5rem;
-    height: 1.6rem;
-    text-align: center;
-
+  margin-top: 1rem;
+  text-decoration: none;
+  border: 1px solid black;
+  padding: 0.3rem;
+  font-size: 0.8rem;
+  color: black;
+  width: 5rem;
+  height: 1.6rem;
+  text-align: center;
 }
 
 .paragraphi_group {
-    margin: 0 0 0 4rem;
-    display: flex;
-    position: relative;
+  margin: 0 0 0 4rem;
+  display: flex;
+  position: relative;
 }
 
 .paragraphi_group > div {
-    position: absolute;
-    height: calc(100% - 0.8rem);
-    width: 2px;
-    background: black;
+  position: absolute;
+  height: calc(100% - 0.8rem);
+  width: 2px;
+  background: black;
 }
 
 .paragraphi_group > ul {
-    padding: 0;
-    list-style: none;
-
+  padding: 0;
+  list-style: none;
 }
 
 .paragraphus_group {
-    display: flex;
-    margin-top: 0.4rem;
+  display: flex;
+  margin-top: 0.4rem;
 }
 
 .paragraphus_group > span {
-    align-self: center;
-    width: 1.5rem;
-    height: 2px;
-    background: black;
+  align-self: center;
+  width: 1.5rem;
+  height: 2px;
+  background: black;
 }
 
 .paragraphus_group > a {
-    text-decoration: none;
-    border: 1px solid black;
-    padding: 0.3rem;
-    font-size: 0.8rem;
-    color: black;
-    width: 2rem;
-    height: 1.6rem;
-    text-align: center;
+  text-decoration: none;
+  border: 1px solid black;
+  padding: 0.3rem;
+  font-size: 0.8rem;
+  color: black;
+  width: 2rem;
+  height: 1.6rem;
+  text-align: center;
 }
-
-
 
 .lex_group__paragraphi_group > div {
-
 }
-

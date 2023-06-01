@@ -1,13 +1,11 @@
-import classes from "./TocMobile.module.css"
+import classes from "./TocMobile.module.css";
 
-
-const TocMobile = ({onOption, children}) => {
-
-    return (
+const TocMobile = ({ onOption, children }) => {
+  return (
     <select id="toc" className={classes.toc} onChange={onOption}>
-        {children}
+      {children}
     </select>
-    )
-}
+  );
+};
 
-export default TocMobile
+export default TocMobile;

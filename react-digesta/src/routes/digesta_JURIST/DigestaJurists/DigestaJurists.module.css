@@ -1,65 +1,64 @@
 .jurists_main {
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.2);
-    min-height: calc(100vh - 9rem);
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  min-height: calc(100vh - 9rem);
 }
 
 .jurists_main__title {
-    padding: 1rem;
-    font-size: 1.5rem;
-    margin: auto;
+  padding: 1rem;
+  font-size: 1.5rem;
+  margin: auto;
 }
 
 .jurists_main__container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .jurists_main__title {
-    padding-top: 2rem;
-    /*background: linear-gradient(180deg, rgba(1, 1, 4, 0.8) 0%, rgba(41, 43, 15, 0.8) 65%, rgba(255, 255, 255, 0) 100%);*/
-    color: black;
-    font-size: 2rem;
-    font-weight: bold;
-    font-family: inherit;
+  padding-top: 2rem;
+  /*background: linear-gradient(180deg, rgba(1, 1, 4, 0.8) 0%, rgba(41, 43, 15, 0.8) 65%, rgba(255, 255, 255, 0) 100%);*/
+  color: black;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: inherit;
 }
 
 .jurists_main__mobile_toc {
-    display: block;
+  display: block;
 }
 
 .jurists_main__desktop_toc {
-    display: none;
+  display: none;
 }
 
 @media (min-width: 600px) {
-    /*.jurists_main__title {*/
-    /*    display: none;*/
-    /*}*/
+  /*.jurists_main__title {*/
+  /*    display: none;*/
+  /*}*/
 
-    .jurists_main__mobile_toc {
-        display: none;
-    }
+  .jurists_main__mobile_toc {
+    display: none;
+  }
 
-    .jurists_main__container {
-        flex-direction: row;
-    }
+  .jurists_main__container {
+    flex-direction: row;
+  }
 
-    .jurists_main__desktop_toc {
-        display: block;
-        width: 12rem;
-        position: fixed;
-        overflow-y: scroll;
-        height: calc(100% - 4rem);
-    }
-    .jurists_main__outlet {
-        margin-left: 12rem;
-        /*width: 100%;*/
-        flex-grow: 1;
-    }
+  .jurists_main__desktop_toc {
+    display: block;
+    width: 12rem;
+    position: fixed;
+    overflow-y: scroll;
+    height: calc(100% - 4rem);
+  }
+  .jurists_main__outlet {
+    margin-left: 12rem;
+    /*width: 100%;*/
+    flex-grow: 1;
+  }
 
-    .jurists_main__title {
-        display: none
-    }
+  .jurists_main__title {
+    display: none;
+  }
 }
-

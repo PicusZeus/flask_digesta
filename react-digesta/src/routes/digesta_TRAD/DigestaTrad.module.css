@@ -1,11 +1,7 @@
-
-
-
-
 .trad_main {
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.2);
-    min-height: calc(100vh - 9rem);
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  min-height: calc(100vh - 9rem);
 }
 
 /*.trad_main__title {*/
@@ -15,61 +11,56 @@
 /*    margin: auto;*/
 /*}*/
 
-
 .trad_main__container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-
-
 .trad_main__title {
-    padding-top: 2rem;
-    /*background: white;*/
-    /*background: linear-gradient(180deg, rgba(1,1,4, 0.8) 0%, rgba(41,43,15, 0.8) 65%, rgba(255,255,255,0) 100%);*/
-    color: black;
-    font-size: 2rem;
-    font-weight: bold;
-    font-family: inherit;
+  padding-top: 2rem;
+  /*background: white;*/
+  /*background: linear-gradient(180deg, rgba(1,1,4, 0.8) 0%, rgba(41,43,15, 0.8) 65%, rgba(255,255,255,0) 100%);*/
+  color: black;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: inherit;
 }
 
 .trad_main__mobile_toc {
-    display: block;
+  display: block;
 }
 
 .trad_main__desktop_toc {
-    display: none;
+  display: none;
 }
 
 .trad_main__outlet {
-    width: 100%;
+  width: 100%;
 }
 
 @media (min-width: 600px) {
-    .trad_main__mobile_toc {
-        display: none;
-    }
+  .trad_main__mobile_toc {
+    display: none;
+  }
 
-    .trad_main__container {
-        flex-direction: row;
-    }
-    .trad_main__desktop_toc {
-        display: block;
-        width: 17rem;
-        position: fixed;
-        overflow-y: scroll;
-        height: calc(100% - 4rem);
+  .trad_main__container {
+    flex-direction: row;
+  }
+  .trad_main__desktop_toc {
+    display: block;
+    width: 17rem;
+    position: fixed;
+    overflow-y: scroll;
+    height: calc(100% - 4rem);
+  }
 
-    }
+  .trad_main__outlet {
+    /*flex-grow: 1;*/
+    margin-left: 17rem;
+    width: calc(100% - 17rem);
+  }
 
-    .trad_main__outlet {
-        /*flex-grow: 1;*/
-        margin-left: 17rem;
-        width: calc(100% - 17rem);
-    }
-
-    .trad_main__title {
-        display: none;
-    }
+  .trad_main__title {
+    display: none;
+  }
 }
-

@@ -26,8 +26,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-
     "eject": "react-scripts eject",
+    "format": "prettier --write \"**/*.{js,jsx,css,scss}\"",
     "coverage": "react-scripts test --coverage --watchAll --collectCoverageFrom='src/components/**/*.{js,jsx}' --collectCoverageFrom='src/routes/**/*.{js,jsx}'"
   },
   "eslintConfig": {
@@ -57,6 +57,12 @@
         "statements": -10
       }
     },
-    "transformIgnorePatterns": ["node_modules/(?!axios/.*)"]
+    "transformIgnorePatterns": [
+      "node_modules/(?!axios/.*)"
+    ]
+  },
+  "devDependencies": {
+    "msw": "^1.2.1",
+    "prettier": "2.8.8"
   }
 }

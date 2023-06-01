@@ -1,27 +1,25 @@
 .main_lookup {
-    padding: 5rem 0 5rem 0;
-    background: rgba(255, 255, 255, 0.5);
-    min-height: 100vh;
+  padding: 5rem 0 5rem 0;
+  background: rgba(255, 255, 255, 0.5);
+  min-height: 100vh;
 }
 
-
 .main_lookup__title {
-    text-align: center;
-
+  text-align: center;
 }
 
 .main_lookup__subtitle {
-    text-align: center;
+  text-align: center;
 }
 
 .search_form {
-    width: 90%;
-    margin: auto;
+  width: 90%;
+  margin: auto;
 }
 
 @media (min-width: 600px) {
-    .search_form {
-        width: 30rem;
-        margin: auto;
-    }
+  .search_form {
+    width: 30rem;
+    margin: auto;
+  }
 }

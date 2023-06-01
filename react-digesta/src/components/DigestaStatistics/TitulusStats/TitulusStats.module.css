@@ -1,35 +1,33 @@
 .titulus_stats__title {
-    text-align: center;
-    margin-top: 8rem;
+  text-align: center;
+  margin-top: 8rem;
 }
 
 .titulus_stats__subtitle {
-    text-align: center;
+  text-align: center;
 }
 
 .titulus_stats__info {
-    text-align: center;
+  text-align: center;
 }
 
-
-
 .titulus_stats__options {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (min-width: 600px) {
-    .titulus_stats__options {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
+  .titulus_stats__options {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
 }
 
 .titulus_stats__options > select {
-    background: none;
-    border: none;
-    font-weight: bold;
+  background: none;
+  border: none;
+  font-weight: bold;
 }

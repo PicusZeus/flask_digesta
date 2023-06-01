@@ -1,100 +1,89 @@
 .main_lex {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-    /*background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(221, 221, 221, 0.8) 28%, rgba(255, 255, 255, 0.9) 50%, rgba(230, 230, 230, .8) 76%, rgba(0, 0, 0, 0) 100%);*/
-    width: 100%;
-    /*flex-grow: 1;*/
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  /*background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(221, 221, 221, 0.8) 28%, rgba(255, 255, 255, 0.9) 50%, rgba(230, 230, 230, .8) 76%, rgba(0, 0, 0, 0) 100%);*/
+  width: 100%;
+  /*flex-grow: 1;*/
 }
 
-
 .main_lex__title h1 {
-    font-family: inherit;
-    font-weight: bold;
-    font-size: 2.5rem;
-    flex-grow: 1;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 2.5rem;
+  flex-grow: 1;
 }
 
 .main_lex__title h4 {
-    font-family: inherit;
-    font-weight: bold;
-    font-size: 1.1rem;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
-
 .main_lex__redirections {
-    display: flex;
-    /*flex-direction: column;*/
-    justify-content: space-around;
-    text-align: center;
-
-
+  display: flex;
+  /*flex-direction: column;*/
+  justify-content: space-around;
+  text-align: center;
 }
 
 .main_lex__redirections a {
-    text-decoration: none;
-    color: black;
-    margin: auto;
-    font-weight: bold;
-    font-style: italic;
-    /*text-align: center;*/
-    /*padding: 1rem;*/
-    /*margin: 1rem 2rem;*/
-    /*margin-top: 1rem;*/
-    /*text-align: center;*/
-    /*display: table-cell;*/
-    /*vertical-align: middle;*/
-    /*width: 50%;*/
-    /*align-items: center;*/
-
-
+  text-decoration: none;
+  color: black;
+  margin: auto;
+  font-weight: bold;
+  font-style: italic;
+  /*text-align: center;*/
+  /*padding: 1rem;*/
+  /*margin: 1rem 2rem;*/
+  /*margin-top: 1rem;*/
+  /*text-align: center;*/
+  /*display: table-cell;*/
+  /*vertical-align: middle;*/
+  /*width: 50%;*/
+  /*align-items: center;*/
 }
 
 .main_lex__redirections button {
-    margin: 2rem;
-    border: 1px black solid;
-    padding: 1rem;
-    font-weight: bolder;
+  margin: 2rem;
+  border: 1px black solid;
+  padding: 1rem;
+  font-weight: bolder;
 
-    flex-grow: 1;
-    text-align: center;
+  flex-grow: 1;
+  text-align: center;
 
-    box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
-    border-radius: 5px;
+  box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  border-radius: 5px;
 }
 
-
 .main_lex__text {
-    margin: 1rem;
+  margin: 1rem;
 }
 
 .main_lex__text p {
-    display: block;
-    text-align: justify;
+  display: block;
+  text-align: justify;
 }
 
 @media (min-width: 600px) {
-    .main_lex__mobile_toc {
-        display: none;
-    }
+  .main_lex__mobile_toc {
+    display: none;
+  }
 }
 
 .main_lex__next {
-    display: flex;
-    justify-content: space-between;
-
+  display: flex;
+  justify-content: space-between;
 }
 
 .main_lex__next_redirection {
-
-    display: table;
-    margin: 1rem;
-
+  display: table;
+  margin: 1rem;
 }
 
 .main_lex__next_redirection a {
-    display: table-cell;
-    vertical-align: middle;
-    margin: 0.5rem;
-    color: black
-
+  display: table-cell;
+  vertical-align: middle;
+  margin: 0.5rem;
+  color: black;
 }
