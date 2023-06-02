@@ -4,6 +4,7 @@ import BooksAuthorshipChart from "../../../components/charts/BooksAuthorshipChar
 import { useState } from "react";
 import Spinner from "../../../components/UI/spinner/Spinner";
 import classes from "./DigestaStatsJurists.module.css";
+import { Chart as ChartJS } from "chart.js/auto";
 
 const getJuristsStatsQuery = () => {
   return {

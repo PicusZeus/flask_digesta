@@ -14,3 +14,11 @@ afterEach(() => server.resetHandlers())
 
 // Clean up after the tests are finished.
 afterAll(() => server.close())
+
+HTMLCanvasElement.prototype.getContext = () => {
+  // return whatever getContext has to return
+};
+
+jest.mock('react-chartjs-2', () => ({
+  Bar: () => null
+}));

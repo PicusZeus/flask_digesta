@@ -3,8 +3,8 @@ import classes from "./Spinner.module.css";
 
 const Spinner = () => {
   return (
-    <div className={classes.spinner_container}>
-      <div className={classes.spinner}></div>
+    <div data-testid="spinner" className={classes.spinner_container}>
+      <div  className={classes.spinner}></div>
     </div>
   );
 };

@@ -16,7 +16,6 @@ const DigestaStatsOpera = () => {
   const [chartOperaIndex, setChartOperaIndex] = useState(0);
 
   const { data: opera, isFetching } = useQuery(getOperaStatsQuery());
-
   if (isFetching) {
     return <Spinner />;
   }
