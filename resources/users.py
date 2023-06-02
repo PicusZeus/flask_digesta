@@ -14,7 +14,7 @@ from sqlalchemy import or_
 from db import db
 from blocklist import BLOCKLIST
 from models import UserModel, DigestaParagraphusModel
-from schemas import UserSchema, UserRegisterSchema, UserLoginSchema
+from schemas import UserSchema, UserRegisterSchema, UserLoginSchema, CommentedParagraphusSchema
 from flask_cors import cross_origin
 
 
@@ -68,6 +68,18 @@ class UserLogin(MethodView):
                     "paragraphi": paragraphi}
 
         abort(401, message="Invalid credentials.")
+
+@blp.route("/api/commentedParagraphi")
+class CommentedParagraphi(MethodView):
+
+    @jwt_required()
+    @cross_origin()
+    @blp.response(200, CommentedParagraphusSchema(many=True))
+    def get(self):
+        current_user_id = get_jwt_identity()
+
+        paragraphi = DigestaParagraphusModel.query.filter(DigestaParagraphusModel.comments.any(user_id=current_user_id)).all()
+        return paragraphi
 
 
 @blp.route("/api/refresh")

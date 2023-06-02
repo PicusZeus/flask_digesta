@@ -9,6 +9,8 @@ let api = axios.create({
 if (process.env.REACT_APP_BASE_API_URL) {
   api = axios.create({
     baseURL: process.env.REACT_APP_BASE_API_URL + "/api/",
+       // baseURL:  "/api/",
+
   });
 }
 
@@ -21,7 +23,7 @@ export const deleteComment = (id) => {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-  });
+  }).then(r=>r.data);
 };
 
 export const getComments = (id, username) => {
@@ -233,6 +235,7 @@ export const getBooks = () => {
   return api
     .get("digesta/books")
     .then((response) => {
+
       return response.data;
     })
     .catch(() => {
@@ -305,6 +308,10 @@ export const getOpusBookStats = (opus_id, book_id) => {
     .then((response) => response.data);
 };
 
-export const getCommentedParagraphi = () => {
-  return api.get("commentedParagraphi").then(r=>r.data)
+export const getCommentedParagraphi = (token) => {
+  return api.get("commentedParagraphi", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  }).then(r=>r.data)
 }

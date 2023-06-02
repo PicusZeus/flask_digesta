@@ -1,5 +1,4 @@
 import { Pie } from "react-chartjs-2";
-import { splitLabels } from "../../../services/helpers";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
 const AuthorPieChart = ({ authorship, author }) => {

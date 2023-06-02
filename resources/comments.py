@@ -5,7 +5,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from models import CommentModel, DigestaParagraphusModel, LikeModel
 from db import db
 from schemas import CommentSaveSchema, CommentSchema, CommentUpdateSchema, \
-    PlainCommentSchema, DeleteResponseSchema, CommentedParagraphiSchema, LikeSaveSchema
+    PlainCommentSchema, DeleteResponseSchema, CommentedParagraphiSchema, LikeSaveSchema, CommentedParagraphusSchema
 from datetime import datetime
 from sqlalchemy import or_
 from sqlalchemy.sql.expression import false
@@ -54,7 +54,7 @@ class Comment(MethodView):
         return {"message": user_id}, 403
 
     @jwt_required()
-    @blp.response(200, DeleteResponseSchema())
+    @blp.response(200, CommentedParagraphusSchema(many=True))
     def delete(self, comment_id):
         user_id = get_jwt_identity()
         comment = CommentModel.query.filter(CommentModel.id == comment_id, CommentModel.user_id == user_id).first()
@@ -64,7 +64,7 @@ class Comment(MethodView):
             db.session.commit()
             new_commented_paragraphi = DigestaParagraphusModel.query.filter(
                 DigestaParagraphusModel.comments.any(user_id=user_id))
-            return {"status": 200, "message": "Item deleted.", "commentedParagraphi": new_commented_paragraphi}
+            return  new_commented_paragraphi
 
         return {"status": 403, "message": "No such comment or user privilege required."}
 
@@ -96,7 +96,7 @@ class CommentByLex(MethodView):
 
     @jwt_required()
     @blp.arguments(CommentSaveSchema())
-    @blp.response(200, PlainCommentSchema())
+    @blp.response(200, CommentedParagraphusSchema(many=True))
     def post(self, data, paragraphus_id):
         user_id = get_jwt_identity()
         comment_content = data["comment"]
@@ -117,11 +117,12 @@ class CommentByLex(MethodView):
         db.session.add(comment)
         db.session.commit()
 
-        comments = CommentModel.query \
-            .filter(CommentModel.paragraphus_id == paragraphus_id) \
-            .filter(or_(CommentModel.private == false(), CommentModel.user_id == user_id)).all()
-
-        return comment
+        # comments = CommentModel.query \
+        #     .filter(CommentModel.paragraphus_id == paragraphus_id) \
+        #     .filter(or_(CommentModel.private == false(), CommentModel.user_id == user_id)).all()
+        paragraphi = DigestaParagraphusModel.query.filter(
+            DigestaParagraphusModel.comments.any(user_id=user_id)).all()
+        return paragraphi
 
 
 @blp.route("/api/comment/comments/<int:replied_id>")
