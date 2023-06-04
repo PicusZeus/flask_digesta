@@ -61,7 +61,7 @@ const OperaCoverageChart = ({ opera }) => {
       <ChartContainer height={height}>
         <Bar
           onClick={onClickHandler}
-          ref={chartRef}
+          refs={chartRef}
           data={dataAbove}
           options={options}
           plugins={plugins}

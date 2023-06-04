@@ -15,8 +15,6 @@ const DigestaStatsDigesta = () => {
     if (isFetching) {
         return <Spinner/>;
     }
-   // return <Spinner/>;
-
     return (
         <>
             <h1 className={classes.digesta_stats__title}>Digesta seu Pandecta</h1>

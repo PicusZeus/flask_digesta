@@ -1,6 +1,7 @@
+import {Chart as ChartJs} from "chart.js";
+
 import { Pie } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
-
 const AuthorPieChart = ({ authorship, author }) => {
   const data = {
     labels: [author, "pozostali juryści"],

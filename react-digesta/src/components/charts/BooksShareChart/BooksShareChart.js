@@ -51,7 +51,7 @@ const BooksShareChart = ({ books }) => {
   return (
     <ChartContainer height={height}>
       <Bar
-        ref={chartRef}
+        refs={chartRef}
         onClick={clickHandler}
         data={data}
         options={options}

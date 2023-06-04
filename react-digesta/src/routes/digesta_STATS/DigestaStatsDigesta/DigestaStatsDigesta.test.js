@@ -3,35 +3,35 @@ import DigestaStatsDigesta, {loader} from "./DigestaStatsDigesta";
 import {waitFor} from "@testing-library/react";
 import {MemoryRouter} from "react-router-dom";
 
-const useQuery = jest.fn()
+// const useQuery = jest.fn()
 describe("DigestaStatsDigesta", () => {
-    beforeEach(() => {
-        useQuery.mockReturnValue({
-            data: null,
-            isFetching: false,
-        });
-    });
+    // beforeEach(() => {
+    //     useQuery.mockReturnValue({
+    //         data: null,
+    //         isFetching: false,
+    //     });
+    // });
     test("renders spinner while fetching data", async () => {
-        useQuery.mockReturnValue({
-            data: null,
-            isFetching: true,
-        });
+        // useQuery.mockReturnValue({
+        //     data: null,
+        //     isFetching: true,
+        // });
         render(<DigestaStatsDigesta/>);
         const spinner = await screen.findByTestId("spinner")
         expect(spinner).toBeInTheDocument()
     })
 
     test("renders data when fetched successfully", async () => {
-        const mockStats = [
-            {title: "Book 1", share: 0.5},
-            {title: "Book 2", share: 0.3},
-            {title: "Book 3", share: 0.2},
-        ];
-
-        useQuery.mockReturnValue({
-            data: mockStats,
-            isFetching: false,
-        });
+        // const mockStats = [
+        //     {title: "Book 1", share: 0.5},
+        //     {title: "Book 2", share: 0.3},
+        //     {title: "Book 3", share: 0.2},
+        // ];
+        //
+        // useQuery.mockReturnValue({
+        //     data: mockStats,
+        //     isFetching: false,
+        // });
 
         render(<MemoryRouter><DigestaStatsDigesta/></MemoryRouter>);
 

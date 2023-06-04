@@ -22,6 +22,7 @@ const DigestaJuristOpera = () => {
     return <Spinner />;
   }
 
+
   const lexPath = `/jurysci/opera/${params.jurysta_id}/`;
   return (
     <div className={classes.opera_main}>

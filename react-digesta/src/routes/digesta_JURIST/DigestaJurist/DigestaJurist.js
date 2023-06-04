@@ -22,12 +22,13 @@ const DigestaJurist = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const opera = location.pathname.split("/").includes("opera");
+  const juristId = parseInt(params.jurysta_id);
   const { data: juristData, isFetching } = useQuery(
     getJuristQuery(params.jurysta_id)
   );
 
   const digesta = location.pathname.split("/").includes("digesta");
-  const juristId = parseInt(juristData.id);
+
   const [openOutlet, setOpenHandler] = useState(false);
   const pathDigestaJurist = "digesta/" + juristId;
   const pathOperaJurist = "opera/" + juristId;
@@ -38,7 +39,6 @@ const DigestaJurist = () => {
       setOpenHandler(true);
     }
   }, [digesta, opera, juristId]);
-
   if (isFetching) {
     return <Spinner />;
   }
@@ -90,7 +90,7 @@ const DigestaJurist = () => {
       <div className={classes.main_jurist__outlet_mobile}>
         <Outlet />
       </div>
-      {jurist_info}
+      {juristData && jurist_info}
     </div>
   );
 };

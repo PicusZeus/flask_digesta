@@ -4,35 +4,16 @@ import {waitFor} from "@testing-library/react";
 import {MemoryRouter} from "react-router-dom";
 
 
-const useQuery = jest.fn()
 describe("DigestaStatsJurists", () => {
-    beforeEach(() => {
-        useQuery.mockReturnValue({
-            data: null,
-            isFetching: false,
-        });
-    });
+
     test("renders spinner while fetching data", async () => {
-        useQuery.mockReturnValue({
-            data: null,
-            isFetching: true,
-        });
+
         render(<DigestaStatsJurists/>);
         const spinner = await screen.findByTestId("spinner")
         expect(spinner).toBeInTheDocument()
     });
     test("renders data when fetched successfully", async () => {
-        const mockAuthors = [
-            {name: "Author 1", authorship: 0.5},
-            {name: "Author 2", authorship: 0.3},
-            {name: "Author 3", authorship: 0.2},
 
-        ];
-
-        useQuery.mockReturnValue({
-            data: mockAuthors,
-            isFetching: false,
-        });
 
         render(<MemoryRouter> <DigestaStatsJurists/></MemoryRouter>);
 

@@ -315,3 +315,18 @@ export const getCommentedParagraphi = (token) => {
     }
   }).then(r=>r.data)
 }
+
+export const getSearchedParagraphi = (searched_term, lang) => {
+
+      return api.post(
+        `digesta/${lang}`,
+        {
+          searched_term: searched_term,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then(r=>r.data);
+    };
