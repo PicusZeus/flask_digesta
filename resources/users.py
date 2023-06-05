@@ -101,6 +101,7 @@ class UserLogout(MethodView):
         return {"message": "Successfully logged out."}
 
 
+
 @blp.route("/api/user/<int:user_id>")
 class User(MethodView):
     @blp.response(200, UserSchema)

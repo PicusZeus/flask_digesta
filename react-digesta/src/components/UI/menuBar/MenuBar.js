@@ -20,7 +20,8 @@ const MenuBar = () => {
     useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const loggedIn = useSelector((state) => state.auth.username);
+  // const loggedIn = useSelector((state) => state.auth.username);
+  const loggedIn = tokenService.getUserId()
   const logging = useSelector((state) => state.ui.logging);
   const registering = useSelector((state) => state.ui.registering);
   const notification = useSelector((state) => state.ui.notification);
@@ -30,7 +31,6 @@ const MenuBar = () => {
   const token = tokenService.getLocalAccessToken();
   // const [activeSection, setActiveSection] = useState('')
   const activeSection = useSelector((state) => state.ui.activeSection);
-
   const digestaNav = [classes.main_nav__item];
   const juristsNav = [classes.main_nav__item];
   const operaNav = [classes.main_nav__item];
