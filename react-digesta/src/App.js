@@ -63,7 +63,7 @@ import JuristTitulusStats, {
 import {Provider} from "react-redux";
 import store from "./store";
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 export const router = createBrowserRouter([
     {

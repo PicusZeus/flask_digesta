@@ -7,37 +7,24 @@ import {refreshToken} from "../../store/auth-actions";
 import tokenService from "../../services/token.service";
 import {useRef} from "react";
 import classes from "./NewComment.module.css";
-import {useMutation} from "@tanstack/react-query";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {adjustHeight} from "../../services/helpers";
 import {postComment} from "../../api/api";
 import {uiActions} from "../../store/ui-slice";
 
 const NewComment = ({
                         paragraphus_id,
-                        onClose,
-                        type,
                         username,
-                        queryClient,
+                        // queryClient,
                     }) => {
+    const queryClient = useQueryClient()
     const [isPrivate, setIsPrivate] = useState(false);
     const newComment = useRef("");
 
     const dispatch = useDispatch();
     const notificationSetter = new NotificationService(dispatch);
 
-    const updateCommentedParagrahi = (paragraphus) => {
-        const refresh_token = tokenService.getLocalRefreshToken();
-        const commentedParagraphi = tokenService.getCommentedParagraphi();
-        if (
-            commentedParagraphi.filter((par) => par.id === paragraphus.id).length ===
-            0
-        ) {
-            commentedParagraphi.push(paragraphus);
-            TokenService.updateCommentedParagraphi(commentedParagraphi);
-            dispatch(authActions.setCommentedParagraphi(commentedParagraphi));
-        }
-        refreshToken(refresh_token);
-    };
+
 
     const postCommentMutation = useMutation({
         mutationFn: ({newComment, isPrivate}) =>
@@ -55,21 +42,15 @@ const NewComment = ({
         },
 
 
-        //   updateCommentedParagrahi(data);
-        //   queryClient.invalidateQueries(
-        //     ["comment", "paragraphus", username, paragraphus_id],
-        //     { exact: false }
-        //   );
-        // },
 
-        onSuccess: (data) => {
+
+        onSuccess: async (data) => {
             notificationSetter.setNotificationSuccess(
                 "Sukces",
                 "Komentarz zamieszczony",
             )
             dispatch(authActions.setCommentedParagraphi(data))
-            queryClient.invalidateQueries({ queryKey: ["comment", "paragraphus", paragraphus_id]})
-            // tokenService.updateCommentedParagraphi(data)
+            await queryClient.invalidateQueries({ queryKey: ["comment", "paragraphus", paragraphus_id]})
 
         },
         onError: (e) => {

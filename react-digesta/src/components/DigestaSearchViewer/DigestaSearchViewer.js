@@ -47,7 +47,7 @@ const DigestaSearchViewer = ({ paragraph, searchedTerm, lang }) => {
           {paragraph.lex.lex_nr}.{paragraph.key}
         </p>
         <p>In titulo {paragraph.lex.titulus.title_lat}</p>
-        <p>{paragraph.lex.address_lat}</p>
+        <p data-testid="address">{paragraph.lex.address_lat}</p>
       </button>
       <div className={classes.found_item__texts}>
         {showResult && <div className={classes.found_item__text}>{res}</div>}

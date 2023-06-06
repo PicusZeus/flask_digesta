@@ -5,7 +5,6 @@ import { useState } from "react";
 const DigestaTocSearchParagraphs = ({ paragraphi, searchedTerm, lang }) => {
   // let results
   const [paragraphiSorted, setParagraphiSorted] = useState(false);
-
   const sortByAuthorHandler = () => {
     const sorted = [...paragraphi];
     sorted.sort((a, b) => a.lex.author.name.localeCompare(b.lex.author.name));

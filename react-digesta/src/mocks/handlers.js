@@ -218,6 +218,102 @@ export const handlers = [
             )
         }
     ),
+    rest.get("http://localhost/api/comment/comments/1",
+        (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json([{
+                    "comment": "testComment12",
+                    "date": "2023-06-05T22:02:53.848813",
+                    "id": 26,
+                    "likes": [],
+                    "private": false,
+                    "user": {
+                        "id": 1,
+                        "username": "picus"
+                    }
+                },
+                    {
+                        "comment": "testComment13",
+                        "date": "2023-06-05T22:02:53.848813",
+                        "id": 27,
+                        "likes": [],
+                        "private": true,
+                        "user": {
+                            "id": 1,
+                            "username": "picus"
+                        }
+                    },
+                    {
+                        "comment": "testComment14",
+                        "date": "2023-06-05T22:02:53.848813",
+                        "id": 28,
+                        "likes": [],
+                        "private": false,
+                        "user": {
+                            "id": 1,
+                            "username": "picus"
+                        }
+                    }
+                ])
+            )
+        }),
+    rest.post("http://localhost/api/like",
+        (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json([])
+            )
+        }
+    ),
+    rest.get("http://localhost/api/comment/comments/28",
+        (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json([])
+            )
+        }
+    ),
+    rest.get("http://localhost/api/comment/comments/27",
+        (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json([])
+            )
+        }
+    ),
+    rest.get("http://localhost/api/comment/comments/26",
+        (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json([])
+            )
+        }
+    ),
+    rest.delete("http://localhost/api/comment/26",
+        (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json([])
+            )
+        }
+    ),
+    rest.post("http://localhost/api/comment/paragraphus/0",
+        (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json([])
+            )
+        }
+    ),
+    rest.post("http://localhost/api/comment/paragraphus/1",
+          (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json([])
+            )
+        }
+        ),
     rest.get(
         "api/digesta/tituli/author/56/10246",
         (req, res, ctx) => {

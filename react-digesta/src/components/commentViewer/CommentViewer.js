@@ -6,7 +6,7 @@ import NotificationService from "../../services/notification.service";
 
 import Confirmation from "../UI/confirmation/Confirmation";
 import classes from "./CommentViewer.module.css";
-import { useMutation } from "@tanstack/react-query";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 import RepliesViewer from "../repliesViewer/RepliesViewer";
 import { saveEditedComment, likeComment } from "../../api/api";
 import { createPrettyDate, adjustHeight } from "../../services/helpers";
@@ -16,8 +16,9 @@ const CommentViewer = ({
   comment,
   username,
   onDelete,
-  queryClient,
+  // queryClient,
 }) => {
+  const queryClient = useQueryClient()
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(comment.likes.length);
   const [deleteDialog, setDeleteDialog] = useState(false);

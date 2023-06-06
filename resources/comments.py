@@ -64,7 +64,7 @@ class Comment(MethodView):
             db.session.commit()
             new_commented_paragraphi = DigestaParagraphusModel.query.filter(
                 DigestaParagraphusModel.comments.any(user_id=user_id))
-            return  new_commented_paragraphi
+            return new_commented_paragraphi
 
         return {"status": 403, "message": "No such comment or user privilege required."}
 
