@@ -14,9 +14,7 @@ const DigestaTocDesktopOpusLiber = ({ liber, libriLength, lexPath }) => {
     (state) => state.digesta.chosenOpusLiberId
   );
 
-  // const [openLegesMenu, setOpenLegesMenu] = useState(
-  //   chosenOpusLiberId === liber.id
-  // );
+
   const dispatch = useDispatch();
   const notificationSetter = new NotificationService(dispatch);
   const liberLineClasses = [classes.liber__line];

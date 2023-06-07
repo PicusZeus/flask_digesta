@@ -31,9 +31,7 @@ let chosenTitulus = false;
 
   if (isSuccess) {
     chosenTitulus = tituli.filter((t) => t.id === chosenTitulusId)[0];
-    console.log(chosenTitulus, 'CHOSEN', chosenTitulusId, tituli)
   }
-     console.log(chosenTitulus, 'CHOSEN 2')
 
 
 

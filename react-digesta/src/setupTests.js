@@ -18,7 +18,7 @@ afterAll(() => server.close())
 HTMLCanvasElement.prototype.getContext = () => {
   // return whatever getContext has to return
 };
-
+window.HTMLElement.prototype.scrollIntoView = jest.fn()
 jest.mock('react-chartjs-2', () => ({
   Bar: () => null,
   Pie: () => null

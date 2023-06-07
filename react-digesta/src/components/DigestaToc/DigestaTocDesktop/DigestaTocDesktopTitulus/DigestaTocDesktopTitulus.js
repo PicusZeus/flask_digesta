@@ -1,4 +1,3 @@
-import { useState } from "react";
 import DigestaTocDesktopLex from "../DigestaTocDesktopLex/DigestaTocDesktopLex";
 import classes from "./DigestaTocDesktopTitulus.module.css";
 import NotificationService from "../../../../services/notification.service";
@@ -31,7 +30,9 @@ const DigestaTocDesktopTitulus = ({ titulus }) => {
   }
 
   const openTitulusHandler = () => {
+    console.log(chosenTitulusId, titulus.id)
     if (titulus.id === chosenTitulusId) {
+      console.log('NULL')
       dispatch(digestaActions.setChosenTitulusId(null))
     } else {
       dispatch(digestaActions.setChosenTitulusId(titulus.id))
