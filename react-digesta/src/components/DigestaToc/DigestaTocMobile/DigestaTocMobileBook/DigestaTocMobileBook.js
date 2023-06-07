@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { digestaActions } from "../../../../store/digesta-slice";
 import { useNavigate } from "react-router-dom";
 import TocMobile from "../../../UI/TocMobile/TocMobile";
-const DigestaTocMobileBook = (props) => {
-  const url = props.url;
+const DigestaTocMobileBook = ({url, tituli}) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,15 +13,13 @@ const DigestaTocMobileBook = (props) => {
     navigate(url);
   };
 
-  const tituli = props.tituli;
   tituli.sort((a, b) => {return a.number - b.number})
 
   const chosenTitulus = tituli.filter((t) => t.id === chosenTitulusId)[0];
-  console.log(chosenTitulus, "chosen")
   return (
     <>
       <TocMobile onOption={onOptionChangeHandler}>
-        <option value={""}>
+        <option key='default_title_key' value={""} >
           {chosenTitulus
             ? `${chosenTitulus.number} ${chosenTitulus.title_lat}`
             : "Wybierz Tytuł"}

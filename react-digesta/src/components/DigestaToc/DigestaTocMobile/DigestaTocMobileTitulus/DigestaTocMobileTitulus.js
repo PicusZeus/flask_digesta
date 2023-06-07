@@ -8,7 +8,6 @@ import { useQuery } from "@tanstack/react-query";
 import Spinner from "../../../UI/spinner/Spinner";
 
 const DigestaTocMobileTitulus = ({ id }) => {
-  // const [leges, setLeges] = useState([])
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const notificationSetter = new NotificationService(dispatch);

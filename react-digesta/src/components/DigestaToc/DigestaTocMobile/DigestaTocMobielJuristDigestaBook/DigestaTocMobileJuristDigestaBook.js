@@ -2,7 +2,6 @@ import TocMobile from "../../../UI/TocMobile/TocMobile";
 import DigestaTocMobileJuristDigestaTitulus from "../DigestaTocMobileJuristDigestaTitulus/DigestaTocMobileJuristDigestaTitulus";
 import { getTituliAuthor } from "../../../../api/api";
 import { useDispatch, useSelector } from "react-redux";
-import NotificationService from "../../../../services/notification.service";
 import { useQuery } from "@tanstack/react-query";
 import Spinner from "../../../UI/spinner/Spinner";
 import { digestaActions } from "../../../../store/digesta-slice";
@@ -10,10 +9,7 @@ import { digestaActions } from "../../../../store/digesta-slice";
 const DigestaTocMobileJuristDigestaBook = ({ book_id, author_id }) => {
   const chosenTitulusId = useSelector((state) => state.digesta.chosenTitulusId);
   const dispatch = useDispatch();
-  const notificationSetter = new NotificationService(dispatch);
-  const onOptionChangeHandler = (event) => {
-    dispatch(digestaActions.setChosenTitulusId(parseInt(event.target.value)));
-  };
+let chosenTitulus = false;
 
   const {
     data: tituli,
@@ -22,19 +18,24 @@ const DigestaTocMobileJuristDigestaBook = ({ book_id, author_id }) => {
   } = useQuery({
     queryKey: ["digesta", "tituli", "author", book_id, author_id],
     queryFn: () => getTituliAuthor(book_id, author_id),
-    onError: () => {
-      notificationSetter.setNotificationError(
-        "Błąd ładowania",
-        "Nie udało się załadować tytułów"
-      );
-    },
+    onSuccess: (data) => {
+     chosenTitulus = data.filter((t) => t.id === chosenTitulusId)[0];
+    }
+
   });
 
-  let chosenTitulus = false;
+  const onOptionChangeHandler = (event) => {
+    dispatch(digestaActions.setChosenTitulusId(parseInt(event.target.value)));
+  };
+
 
   if (isSuccess) {
-    chosenTitulus = tituli.filter((t) => t.id === chosenTitulusId).shift();
+    chosenTitulus = tituli.filter((t) => t.id === chosenTitulusId)[0];
+    console.log(chosenTitulus, 'CHOSEN', chosenTitulusId, tituli)
   }
+     console.log(chosenTitulus, 'CHOSEN 2')
+
+
 
   if (isFetching) {
     return <Spinner />;

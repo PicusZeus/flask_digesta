@@ -5,12 +5,11 @@ import { digestaActions } from "../../../../store/digesta-slice";
 import { useNavigate } from "react-router-dom";
 import TocMobile from "../../../UI/TocMobile/TocMobile";
 
-const DigestaTocMobileBooks = (props) => {
-  const url = props.url;
+const DigestaTocMobileBooks = ({toc, url}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const chosenBookId = useSelector((state) => state.digesta.chosenBookId);
-  const toc = props.toc;
+
   const onOptionChangeHandler = (event) => {
     dispatch(digestaActions.setChosenBookId(parseInt(event.target.value)));
     navigate(url);
@@ -19,7 +18,7 @@ const DigestaTocMobileBooks = (props) => {
   return (
     <>
       <TocMobile onOption={onOptionChangeHandler}>
-        <option value={""}>
+        <option value={""} key='default_option'>
           {chosenBook ? chosenBook.book_latin_name : "Wybierz księgę"}
         </option>
         {toc &&
@@ -33,9 +32,7 @@ const DigestaTocMobileBooks = (props) => {
 
       {chosenBook ? (
         <DigestaTocMobileBook url={url} tituli={chosenBook.tituli} />
-      ) : (
-        false
-      )}
+      ) : false}
     </>
   );
 };

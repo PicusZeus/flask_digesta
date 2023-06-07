@@ -2,6 +2,7 @@ import {render, screen} from "../../../../test-utils";
 import DigestaTocSearchParagraphs from "./DigestaTocSearchParagraphs";
 import userEvent from "@testing-library/user-event";
 import {findAllByTestId} from "@testing-library/react";
+import {act} from "react-dom/test-utils";
 
 describe("DigestaTocSearchParagraphs", () => {
     const paragraphi = [
@@ -97,7 +98,7 @@ describe("DigestaTocSearchParagraphs", () => {
         const user = userEvent.setup()
 
         const sortByAuthorButton = screen.getByText("Posortuj według jurystów");
-        await user.click(sortByAuthorButton);
+        await act(async ()=>{ await user.click(sortByAuthorButton)});
 
         const leges = await screen.findAllByTestId("address")
 

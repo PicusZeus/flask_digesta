@@ -203,6 +203,27 @@ export const handlers = [
         }
     ),
     rest.get(
+        "http://localhost/api/digesta/tituli/author/2/1",
+        (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json([])
+            )
+        }
+    ),
+    rest.get(
+        "http://localhost/api/digesta/tituli/author/1/1",
+        (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json([
+                    {id: 1, number: 1, title_lat: 'Titulus 1'},
+                    {id: 2, number: 2, title_lat: 'Titulus 2'},
+                ])
+            )
+        }
+    ),
+    rest.get(
         "http://localhost/api/authors/10246",
         (req, res, ctx) => {
             return res(
@@ -307,13 +328,113 @@ export const handlers = [
         }
     ),
     rest.post("http://localhost/api/comment/paragraphus/1",
-          (req, res, ctx) => {
+        (req, res, ctx) => {
             return res(
                 ctx.status(200),
                 ctx.json([])
             )
         }
-        ),
+    ),
+    rest.get("http://localhost/api/digesta/titulus/leges/1",
+        (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json([
+                    {
+                        "id": 1,
+                        "lex_nr": "1",
+                        "paragraphi": [
+                            {
+                                "id": 2,
+                                "key": "1."
+                            },
+                            {
+                                "id": 3,
+                                "key": "2."
+                            },
+                            {
+                                "id": 4,
+                                "key": "3."
+                            },
+                            {
+                                "id": 5,
+                                "key": "4."
+                            },
+                            {
+                                "id": 1,
+                                "key": "pr"
+                            }
+                        ]
+                    }
+                ])
+            )
+        }
+    ),
+    rest.get("http://localhost/api/digesta/opus/leges/1",
+        (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json([{
+                    "id": 5566,
+                    "lex_nr": "22",
+                    "paragraphi": [
+                        {
+                            "id": 11335,
+                            "key": "1."
+                        },
+                        {
+                            "id": 11334,
+                            "key": "pr"
+                        }
+                    ],
+                    "titulus": {
+                        "book": {
+                            "book_latin_name": "LIBER TRIGESIMUS QUARTUS",
+                            "book_nr": 34,
+                            "book_polish_name": "KSIĘGA TRZYDZIESTA CZWARTA",
+                            "id": 40
+                        },
+                        "id": 344,
+                        "number": 1,
+                        "title_lat": "ALIMENTIS VEL CIBARIIS LEGATIS",
+                        "title_pl": "O ZAPISACH ŚRODKÓW UTRZYMANIA LUB POŻYWIENIA"
+                    }
+                },
+                    {
+                        "id": 5247,
+                        "lex_nr": "12",
+                        "paragraphi": [
+                            {
+                                "id": 10599,
+                                "key": "pr"
+                            }
+                        ],
+                        "titulus": {
+                            "book": {
+                                "book_latin_name": "LIBER TRIGESIMUS SECUNDUS",
+                                "book_nr": 32,
+                                "book_polish_name": "KSIĘGA TRZYDZIESTA DRUGA",
+                                "id": 38
+                            },
+                            "id": 333,
+                            "number": 1,
+                            "title_lat": "DE LEGATIS ET FIDEICOMMISSIS",
+                            "title_pl": "O ZAPISACH I FIDEIKOMISACH"
+                        }
+                    }])
+            )
+        }
+    ),
+    rest.get("http://localhost/api/digesta/titulus/leges/author/1/1",
+        (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json([
+                    {id: 1, lex_nr: '1'},
+                    {id: 2, lex_nr: '2'},])
+            )
+        }
+    ),
     rest.get(
         "api/digesta/tituli/author/56/10246",
         (req, res, ctx) => {
