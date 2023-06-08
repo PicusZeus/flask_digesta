@@ -430,8 +430,8 @@ export const handlers = [
             return res(
                 ctx.status(200),
                 ctx.json([
-                    {id: 1, lex_nr: '1'},
-                    {id: 2, lex_nr: '2'},])
+                    {id: 1, lex_nr: '1', paragraphi: []},
+                    {id: 2, lex_nr: '2', paragraphi: []},])
             )
         }
     ),

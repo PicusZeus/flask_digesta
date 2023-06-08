@@ -6,11 +6,9 @@ import {digestaActions} from "../../../../store/digesta-slice";
 const DigestaTocDesktopBook = ({ book }) => {
   const dispatch = useDispatch()
   const chosenBookId = useSelector((state) => state.digesta.chosenBookId);
-  // const [bookMenuOpen, setBookMenuOpen] = useState(book.id === chosenBookId);
-  // const tituli = book.tituli;
+
 
   const openTituliHandler = () => {
-    // setBookMenuOpen((current) => !current);
     if (chosenBookId === book.id) {
       dispatch(digestaActions.setChosenBookId(null))
     } else {

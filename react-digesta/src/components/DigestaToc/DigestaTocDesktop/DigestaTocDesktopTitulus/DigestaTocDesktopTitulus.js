@@ -30,9 +30,7 @@ const DigestaTocDesktopTitulus = ({ titulus }) => {
   }
 
   const openTitulusHandler = () => {
-    console.log(chosenTitulusId, titulus.id)
     if (titulus.id === chosenTitulusId) {
-      console.log('NULL')
       dispatch(digestaActions.setChosenTitulusId(null))
     } else {
       dispatch(digestaActions.setChosenTitulusId(titulus.id))

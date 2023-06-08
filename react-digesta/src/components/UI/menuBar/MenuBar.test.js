@@ -9,7 +9,8 @@ import {initialState as authSlice} from "../../../store/auth-slice";
 import {initialState as digestaSlice} from "../../../store/digesta-slice";
 import userEvent from "@testing-library/user-event";
 import {act} from "react-dom/test-utils";
-
+import  * as redux from 'react-redux'
+const actual = actualUseSelector
 
 
 jest.mock('react-redux', () => ({
@@ -72,7 +73,9 @@ describe("MenuBar loggedIn", () => {
 describe("MenuBar loggedOut", () => {
 
     test('logging and registering modal opens and renders correctly', async () => {
-        useSelector.mockImplementation(()=>actualUseSelector)
+
+        const newRedux = jest.requireActual('react-redux')
+        useSelector.mockImplementation(newRedux.useSelector)
 
         const user = userEvent.setup()
         render(<MemoryRouter><MenuBar/></MemoryRouter>)
@@ -81,7 +84,7 @@ describe("MenuBar loggedOut", () => {
             name: /rejestracja/i
         })
         expect(regButton).toBeInTheDocument()
-        await user.click(regButton)
+        await act(async ()=>{await user.click(regButton)})
 
 
         const passwordLabel = await screen.findByText(/Stwórz hasło \(min. 8 znaków\)/i)
@@ -89,7 +92,7 @@ describe("MenuBar loggedOut", () => {
         const logButton = screen.getByRole('button', {
             name: /logowanie/i
         })
-        await user.click(logButton)
+        await act(async ()=>{user.click(logButton)})
         const loginLabel = await screen.findByText(/Podaj nazwę użytkownika/i)
         expect(loginLabel).toBeInTheDocument()
 
