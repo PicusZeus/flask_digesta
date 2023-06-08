@@ -12,11 +12,8 @@ import { saveEditedComment, likeComment } from "../../api/api";
 import { createPrettyDate, adjustHeight } from "../../services/helpers";
 
 const CommentViewer = ({
-  paragraphus_id,
   comment,
-  username,
   onDelete,
-  // queryClient,
 }) => {
   const queryClient = useQueryClient()
   const [liked, setLiked] = useState(false);
@@ -31,6 +28,7 @@ const CommentViewer = ({
   const commentText = useRef(comment);
 
   const user_id = tokenService.getUserId();
+  console.log(user_id !== comment.user.id.toString(), user_id, comment.user.id)
   useEffect(() => {
     if (
       comment.likes.filter((like) => like.user_id === parseInt(user_id))
@@ -92,6 +90,11 @@ const CommentViewer = ({
 
   const commentCreatedTime = createPrettyDate(comment.date);
 
+  const onDeleteHandler = () => {
+    setDeleteDialog(false)
+    onDelete(comment.id)
+  }
+
   return (
     <>
       {deleteDialog && (
@@ -99,7 +102,7 @@ const CommentViewer = ({
           cancelAction={() => setDeleteDialog(false)}
           title=""
           message=""
-          confirmAction={() => onDelete(comment.id)}
+          confirmAction={onDeleteHandler}
         />
       )}
       <li className={classes.comment_item}>
@@ -145,7 +148,7 @@ const CommentViewer = ({
                   disabled={!user_id}
                   className="material-symbols-outlined"
                 >
-                  {" "}
+                  {/*{" "}*/}
                   reply
                   <span className={classes.tooltiptext}>odpowiedz</span>
                 </button>

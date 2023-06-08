@@ -8,7 +8,6 @@ import { digestaActions } from "../../store/digesta-slice";
 import { useDispatch } from "react-redux";
 import { getLex } from "../../api/api";
 import { uiActions } from "../../store/ui-slice";
-import { useEffect } from "react";
 
 const getLexQuery = (id) => {
   return {

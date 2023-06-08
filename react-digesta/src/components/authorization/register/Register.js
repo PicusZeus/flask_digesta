@@ -1,16 +1,17 @@
 import classes from "./Register.module.css";
 import Modal from "../../UI/modal/Modal";
 import { useDispatch } from "react-redux";
-import { uiActions } from "../../../store/ui-slice";
 import { useState } from "react";
 import { register } from "../../../store/auth-actions";
 
-const Register = (props) => {
+const Register = ({onClose}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [passwordTest, setPasswordTest] = useState("");
 
+  let confirmButtonClasses = [classes.button, classes.button_inactive]
+  let disabledSubmit = true
   let classes_password = [];
   let classes_email = [];
   const checkPassword = (password, passwordTest) => {
@@ -29,10 +30,12 @@ const Register = (props) => {
     classes_email.push(classes.error);
   }
   const dispatch = useDispatch();
-  const closeModalHandler = (event) => {
-    event.preventDefault();
-    dispatch(uiActions.registeringToggle());
-  };
+
+  if (username.length > 2 && checkEmail(email) && checkPassword(password, passwordTest)) {
+    disabledSubmit = false
+    confirmButtonClasses = [classes.button]
+  }
+
 
   const registerHandler = (event) => {
     event.preventDefault();
@@ -42,7 +45,7 @@ const Register = (props) => {
   };
 
   return (
-    <Modal onClose={props.onClose}>
+    <Modal onClose={onClose}>
       <form method="post" onSubmit={registerHandler} className={classes.form}>
         <p>
           <label htmlFor="username">Nazwa użytkownika</label>
@@ -89,11 +92,12 @@ const Register = (props) => {
           <button
             type="button"
             className={classes.button}
-            onClick={closeModalHandler}
+            onClick={onClose}
+
           >
             Zamknij
           </button>
-          <button type="submit">Submit</button>
+          <button className={confirmButtonClasses.join(' ')} type="submit" disabled={disabledSubmit}>Prześlij</button>
         </p>
       </form>
     </Modal>

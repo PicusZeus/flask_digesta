@@ -2,7 +2,10 @@ import classes from "./Login.module.css";
 import { useRef, useEffect } from "react";
 import Modal from "../../UI/modal/Modal";
 import { useDispatch } from "react-redux";
-import { loggingIn } from "../../../store/auth-actions";
+import {loggingIn} from "../../../store/auth-actions";
+
+
+
 
 const Login = ({ onClose }) => {
   const password = useRef();
