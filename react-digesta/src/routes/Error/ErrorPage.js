@@ -16,7 +16,6 @@ const ErrorPage = () => {
       <MenuBar />
       <section className={classes.main_error}>
         <h1 className={classes.main_error__title}>Coś poszło nie tak</h1>
-        <h2>BŁĄD SIECI</h2>
         <h2>{message}</h2>
         <h3>Kod błędu {errorCode}</h3>
       </section>

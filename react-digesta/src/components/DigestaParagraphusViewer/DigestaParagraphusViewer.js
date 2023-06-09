@@ -21,7 +21,6 @@ const DigestaParagraphusViewer = ({ paragraphus }) => {
       </section>
       <section className={classes.paragraph_comments__container}>
         <CommentsViewer
-          paragraphus={paragraphus}
           paragraphus_id={paragraphus.id}
           repliedId={null}
         />

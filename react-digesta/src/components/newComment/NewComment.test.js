@@ -2,7 +2,6 @@ import { render, screen } from "../../../test-utils"
 import NewComment from './NewComment';
 import userEvent from "@testing-library/user-event";
 import {act} from "react-dom/test-utils";
-import {useDispatch} from "react-redux";
 
 
 

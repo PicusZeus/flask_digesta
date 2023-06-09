@@ -1,4 +1,3 @@
-// import "./Spinner.module.css"
 import classes from "./Spinner.module.css";
 
 const Spinner = () => {

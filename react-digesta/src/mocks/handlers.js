@@ -435,12 +435,115 @@ export const handlers = [
             )
         }
     ),
-    rest.get(
-        "api/digesta/tituli/author/56/10246",
+    rest.get("http://localhost/api/digesta/leges/1",
         (req, res, ctx) => {
             return res(
                 ctx.status(200),
-                ctx.json([])
+                ctx.json({
+                    "address_lat": "ULPIANUS libro primo institutionum",
+                    "address_pl": "ULPIANUS w księdze pierwszej Instytucji",
+                    "author": {
+                        "id": 1,
+                        "name": "ULPIANUS"
+                    },
+                    "id": 1,
+                    "lex_nr": "1",
+                    "opus": {
+                        "id": 1,
+                        "liber": "1",
+                        "opus": {
+                            "id": 1,
+                            "title_lat": "Libri institutionum",
+                            "title_pl": "Instytucji"
+                        }
+                    },
+                    "paragraphi": [
+                        {
+                            "id": 2,
+                            "key": "1.",
+                            "text_lat": " Cuius merito quis nos sacerdotes appellet: iustitiam namque colimus et boni et aequi notitiam profitemur, aequum ab iniquo separantes, licitum ab illicito discernentes, bonos non solum metu poenarum, verum etiam praemiorum quoque exhortatione efficere cupientes, veram nisi fallor philosophiam, non simulatam affectantes.",
+                            "text_pl": ""
+                        },
+                        {
+                            "id": 3,
+                            "key": "2.",
+                            "text_lat": " Huius studii duae sunt positiones, publicum et privatum. publicum ius est quod ad statum rei Romanae spectat, privatum quod ad singulorum utilitatem: sunt enim quaedam publice utilia, quaedam privatim. publicum ius in sacris, in sacerdotibus, in magistratibus constitit. privatum ius tripertitum est: collectum etenim est ex naturalibus praeceptis aut gentium aut civilibus.",
+                            "text_pl": ""
+                        },
+
+                        {
+                            "id": 1,
+                            "key": "pr",
+                            "text_lat": " Iuri operam daturum prius nosse oportet, unde nomen iuris descendat. est autem a iustitia appellatum: nam, ut eleganter Celsus definit, ius est ars boni et aequi.",
+                            "text_pl": ""
+                        }
+                    ],
+                    "titulus": {
+                        "book": {
+                            "book_latin_name": "LIBER PRIMUS",
+                            "book_nr": 1,
+                            "book_polish_name": "KSIĘGA PIERWSZA",
+                            "id": 1
+                        },
+                        "id": 1,
+                        "number": 1,
+                        "title_lat": "DE IUSTITIA ET IURE",
+                        "title_pl": "O SPRAWIEDLIWOŚCI I PRAWIE"
+                    }
+                })
+            )
+        }
+    ),
+    rest.get(
+        "http://localhost/api/digesta/paragraphi/2",
+        (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json({
+                    "id": 2,
+                    "key": "1.",
+                    "text_lat": " Cuius merito quis nos sacerdotes appellet: iustitiam namque colimus et boni et aequi notitiam profitemur, aequum ab iniquo separantes, licitum ab illicito discernentes, bonos non solum metu poenarum, verum etiam praemiorum quoque exhortatione efficere cupientes, veram nisi fallor philosophiam, non simulatam affectantes.",
+                    "text_pl": ""
+                })
+            )
+        }
+    ),
+    rest.get("http://localhost/api/comment/paragraphus/1",
+       (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json(
+              [{id: 1, user: {id: 1, username: 'testUser'}, likes: []}, {id: 2, user: {id: 1, username: 'testUser'}, likes: []}]
+                )
+            )
+        }
+
+    ),
+    rest.get("http://localhost/api/comment/comments/2",
+       (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json(
+                    [{
+                    "comment": "testComment12",
+                    "date": "2023-06-05T22:02:53.848813",
+                    "id": 444,
+                    "likes": [],
+                    "private": false,
+                    "user": {
+                        "id": 1,
+                        "username": "picus"
+                    }}]
+                )
+            )
+        }
+    ),
+       rest.get("http://localhost/api/comment/comments/444",
+       (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json([]
+                )
             )
         }
     ),

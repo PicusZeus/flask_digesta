@@ -2,8 +2,9 @@ import Modal from "../UI/modal/Modal";
 import classes from "./CommentedParagraphiModal.module.css";
 
 import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {uiActions} from "../../store/ui-slice";
+import tokenService from "../../services/token.service";
 
 
 const CommentedParagraphiModal = ({
@@ -12,9 +13,7 @@ const CommentedParagraphiModal = ({
                                   }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const commentedParagraphi = useSelector(state=>state.auth.commentedParagraphi)
-
-    console.log(commentedParagraphi, 'Dom')
+    const commentedParagraphi = tokenService.getCommentedParagraphi()
 
     const onClickHandler = (url) => {
         dispatch(uiActions.setActiveSection("digestaNav"));
@@ -23,7 +22,6 @@ const CommentedParagraphiModal = ({
         navigate(url);
 
     };
-    console.log(commentedParagraphi, 'com')
     return (
         <Modal onClose={onClose}>
             <ul className={classes.list}>

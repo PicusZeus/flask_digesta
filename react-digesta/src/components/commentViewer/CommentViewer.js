@@ -28,7 +28,6 @@ const CommentViewer = ({
   const commentText = useRef(comment);
 
   const user_id = tokenService.getUserId();
-  console.log(user_id !== comment.user.id.toString(), user_id, comment.user.id)
   useEffect(() => {
     if (
       comment.likes.filter((like) => like.user_id === parseInt(user_id))
@@ -185,7 +184,6 @@ const CommentViewer = ({
             </div>
             <RepliesViewer
               repliedId={comment.id}
-              queryClient={queryClient}
               onCloseReply={() => setIsReplaying(false)}
               reply={isReplying}
             />

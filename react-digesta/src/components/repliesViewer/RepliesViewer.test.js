@@ -3,9 +3,7 @@ import RepliesViewer from "./RepliesViewer";
 import userEvent from "@testing-library/user-event";
 import tokenService from "../../services/token.service";
 import {act} from "react-dom/test-utils";
-import {QueryClient} from "@tanstack/react-query";
 import {queryClient} from "../../App";
-// const queryClient = new QueryClient()
 
 
 jest.mock("../../services/token.service", () => {

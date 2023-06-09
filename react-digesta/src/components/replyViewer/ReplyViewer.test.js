@@ -3,7 +3,6 @@ import ReplyViewer from "./ReplyViewer";
 import userEvent from "@testing-library/user-event";
 import {act} from "react-dom/test-utils";
 import tokenService from "../../services/token.service";
-import {findByText} from "@testing-library/react";
 
 jest.mock("../../services/token.service", () => {
     return {

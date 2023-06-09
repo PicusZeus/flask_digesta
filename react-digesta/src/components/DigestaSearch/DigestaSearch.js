@@ -1,15 +1,15 @@
 import classes from "./DigestaSearch.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { digestaActions } from "../../store/digesta-slice";
+// import { useDispatch, useSelector } from "react-redux";
+// import { digestaActions } from "../../store/digesta-slice";
 import {useRef} from "react";
 
 const DigestaSearch = ({onClick}) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const lang = "lat";
     const sRef = useRef('')
-  const setLanguageHandler = (event) => {
-    dispatch(digestaActions.setLang(event.target.value));
-  };
+  // const setLanguageHandler = (event) => {
+  //   dispatch(digestaActions.setLang(event.target.value));
+  // };
 
   return (
     <>

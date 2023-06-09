@@ -1,7 +1,6 @@
 import {render, screen} from "../../../../test-utils";
 import DigestaTocSearchParagraphs from "./DigestaTocSearchParagraphs";
 import userEvent from "@testing-library/user-event";
-import {findAllByTestId} from "@testing-library/react";
 import {act} from "react-dom/test-utils";
 
 describe("DigestaTocSearchParagraphs", () => {

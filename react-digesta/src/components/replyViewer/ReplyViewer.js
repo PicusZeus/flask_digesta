@@ -115,7 +115,6 @@ const ReplyViewer = ({ reply,
           repliedId={reply.id}
           onCloseReply={() => setIsReplaying(false)}
           reply={isReplying}
-          queryClient={queryClient}
         />
       </li>
     </>

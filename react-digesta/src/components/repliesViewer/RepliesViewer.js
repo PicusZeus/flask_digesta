@@ -13,7 +13,6 @@ const RepliesViewer = ({
                            repliedId,
                            reply,
                            onCloseReply,
-                           // queryClient
                        }) => {
     const queryClient = useQueryClient()
     const username = useSelector((state) => state.auth.username);

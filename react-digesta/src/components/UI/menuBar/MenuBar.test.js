@@ -9,8 +9,6 @@ import {initialState as authSlice} from "../../../store/auth-slice";
 import {initialState as digestaSlice} from "../../../store/digesta-slice";
 import userEvent from "@testing-library/user-event";
 import {act} from "react-dom/test-utils";
-import  * as redux from 'react-redux'
-const actual = actualUseSelector
 
 
 jest.mock('react-redux', () => ({
