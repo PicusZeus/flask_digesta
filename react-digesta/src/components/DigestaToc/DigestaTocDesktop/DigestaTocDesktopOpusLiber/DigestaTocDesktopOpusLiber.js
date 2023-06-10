@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import classes from "./DigestaTocDesktopOpusLiber.module.css";
 import DigestaTocDesktopLex from "../DigestaTocDesktopLex/DigestaTocDesktopLex";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +13,6 @@ const DigestaTocDesktopOpusLiber = ({ liber, libriLength, lexPath }) => {
   const chosenOpusLiberId = useSelector(
     (state) => state.digesta.chosenOpusLiberId
   );
-
 
   const dispatch = useDispatch();
   const notificationSetter = new NotificationService(dispatch);
@@ -32,10 +31,9 @@ const DigestaTocDesktopOpusLiber = ({ liber, libriLength, lexPath }) => {
 
   const openLiberHandler = () => {
     if (liber.id === chosenOpusLiberId) {
-      dispatch(digestaActions.setChosenOpusLiberId(null))
+      dispatch(digestaActions.setChosenOpusLiberId(null));
     } else {
       dispatch(digestaActions.setChosenOpusLiberId(liber.id));
-
     }
     // }
     // setOpenLegesMenu((current) => !current);

@@ -4,14 +4,14 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { register } from "../../../store/auth-actions";
 
-const Register = ({onClose}) => {
+const Register = ({ onClose }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [passwordTest, setPasswordTest] = useState("");
 
-  let confirmButtonClasses = [classes.button, classes.button_inactive]
-  let disabledSubmit = true
+  let confirmButtonClasses = [classes.button, classes.button_inactive];
+  let disabledSubmit = true;
   let classes_password = [];
   let classes_email = [];
   const checkPassword = (password, passwordTest) => {
@@ -31,11 +31,14 @@ const Register = ({onClose}) => {
   }
   const dispatch = useDispatch();
 
-  if (username.length > 2 && checkEmail(email) && checkPassword(password, passwordTest)) {
-    disabledSubmit = false
-    confirmButtonClasses = [classes.button]
+  if (
+    username.length > 2 &&
+    checkEmail(email) &&
+    checkPassword(password, passwordTest)
+  ) {
+    disabledSubmit = false;
+    confirmButtonClasses = [classes.button];
   }
-
 
   const registerHandler = (event) => {
     event.preventDefault();
@@ -89,15 +92,16 @@ const Register = ({onClose}) => {
           />
         </p>
         <p className={classes.actions}>
-          <button
-            type="button"
-            className={classes.button}
-            onClick={onClose}
-
-          >
+          <button type="button" className={classes.button} onClick={onClose}>
             Zamknij
           </button>
-          <button className={confirmButtonClasses.join(' ')} type="submit" disabled={disabledSubmit}>Prześlij</button>
+          <button
+            className={confirmButtonClasses.join(" ")}
+            type="submit"
+            disabled={disabledSubmit}
+          >
+            Prześlij
+          </button>
         </p>
       </form>
     </Modal>

@@ -42,3 +42,11 @@ export function isNumeric(str) {
     !isNaN(parseFloat(str))
   ); // ...and ensure strings of whitespace fail
 }
+
+export const createGenJuristName = (name) => {
+  if (name.slice(-1) === "A") {
+    return name.slice(0, -1) + "I";
+  } else {
+    return name + "A";
+  }
+};

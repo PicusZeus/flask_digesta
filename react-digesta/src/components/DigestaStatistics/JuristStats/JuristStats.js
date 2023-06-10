@@ -6,6 +6,7 @@ import OperaCoverageChart from "../../charts/OperaCoverageChart/OperaCoverageCha
 import { useState } from "react";
 import Spinner from "../../UI/spinner/Spinner";
 import classes from "./JuristStats.module.css";
+import { createGenJuristName } from "../../../services/helpers";
 
 const getJuristStatsQuery = (id) => {
   return {
@@ -32,6 +33,9 @@ const JuristStats = () => {
     const index = parseInt(e.target.value);
     setOperaSetIndex(index);
   };
+
+  const genJuristName = createGenJuristName(stats.jurist.name);
+
   return (
     <>
       {stats && (
@@ -40,17 +44,17 @@ const JuristStats = () => {
         </h1>
       )}
       <h2 className={classes.jurist_stats__info}>
-        Udział prac {stats.jurist.name}A w poszczególnych księgach
+        Udział prac {genJuristName} w poszczególnych księgach
       </h2>
       <h3 className={classes.jurist_stats__info}>
         Wybierz księgę, dla której chcesz poznać spis i udział prac{" "}
-        {stats.jurist.name}A
+        {genJuristName}
       </h3>
       {stats && <BooksAuthorshipShareChart books={stats.books} />}
 
       {stats && (
         <h2 className={classes.jurist_stats__info}>
-          Prace {stats.jurist.name}A i ich udział w Digestach
+          Prace {genJuristName} i ich udział w Digestach
         </h2>
       )}
       <h3 className={classes.jurist_stats__info}>

@@ -1,6 +1,6 @@
 import classes from "./Notification.module.css";
 
-const Notification = ({status, title, message}) => {
+const Notification = ({ status, title, message }) => {
   let specialClasses = "";
 
   if (status === "error") {

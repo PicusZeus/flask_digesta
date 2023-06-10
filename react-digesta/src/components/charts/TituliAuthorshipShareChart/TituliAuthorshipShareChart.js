@@ -1,10 +1,7 @@
-import { Bar } from "react-chartjs-2";
-import { useRef } from "react";
-import { Chart as ChartJS } from "chart.js/auto";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { options } from "../chartOptions";
-import ChartContainer from "../ChartContainer/ChartContainer";
-import ChartDataLabels from "chartjs-plugin-datalabels";
+import MyBar from "../MyBar/MyBar";
 import { splitLabels } from "../../../services/helpers";
 
 const TituliAuthorshipShareChart = ({ tituli }) => {
@@ -37,19 +34,16 @@ const TituliAuthorshipShareChart = ({ tituli }) => {
       navigate(titulus_id.toString());
     }
   };
-  const plugins = [ChartDataLabels];
 
   const height = tituli.length;
   return (
-    <ChartContainer height={height}>
-      <Bar
-        onClick={clickHandler}
-        ref={chartRef}
-        data={data}
-        options={options}
-        plugins={plugins}
-      />
-    </ChartContainer>
+    <MyBar
+      height={height}
+      ref={chartRef}
+      onClick={clickHandler}
+      data={data}
+      options={options}
+    />
   );
 };
 

@@ -2,9 +2,10 @@ import { useParams } from "react-router-dom";
 import { getJuristBookStats } from "../../../api/api";
 import { useQuery } from "@tanstack/react-query";
 import TituliAuthorshipShareChart from "../../charts/TituliAuthorshipShareChart/TituliAuthorshipShareChart";
-import OperaBookShare from "../../charts/BookOperaShareChart/BookOperaShareChart";
+import OperaBookShareChart from "../../charts/BookOperaShareChart/BookOperaShareChart";
 import Spinner from "../../UI/spinner/Spinner";
 import classes from "./JuristBookStats.module.css";
+import { createGenJuristName } from "../../../services/helpers";
 
 const getJuristBookStatsQuery = (jurysta_id, book_id) => {
   return {
@@ -21,6 +22,8 @@ const JuristBookStats = () => {
     return <Spinner />;
   }
 
+  const genJuristName = createGenJuristName(stats.author.name);
+
   return (
     <>
       {stats && (
@@ -30,14 +33,13 @@ const JuristBookStats = () => {
       )}
       {stats && (
         <h3 className={classes.jurist_book_stats__info}>
-          Udział prac {stats.author.name}A w objętości księgi{" "}
-          {stats.book.book_nr}
+          Udział prac {genJuristName} w objętości księgi {stats.book.book_nr}
         </h3>
       )}
       {stats && (
         <h3 className={classes.jurist_book_stats__info}>
           Wybierz tytuł, dla którego chcesz poznać dodatkowe statystyki dla{" "}
-          {stats.author.name}A
+          {genJuristName}
         </h3>
       )}
       <div className={classes.chart}>
@@ -45,7 +47,7 @@ const JuristBookStats = () => {
       </div>
       {stats && (
         <h3 className={classes.jurist_book_stats__info}>
-          Prace {stats.author.name}A w księdze {stats.book.book_nr}
+          Prace {genJuristName} w księdze {stats.book.book_nr}
         </h3>
       )}
       <h3 className={classes.jurist_book_stats__info}>
@@ -54,7 +56,7 @@ const JuristBookStats = () => {
       </h3>
       <div className={classes.chart}>
         {stats && (
-          <OperaBookShare opera={stats.opera} book_id={stats.book.id} />
+          <OperaBookShareChart opera={stats.opera} book_id={stats.book.id} />
         )}
       </div>
     </>

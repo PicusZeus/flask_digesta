@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import classes from "./DropDownStatistics.module.css";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";

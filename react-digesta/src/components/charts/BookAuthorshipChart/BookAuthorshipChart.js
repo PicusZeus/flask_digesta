@@ -1,10 +1,7 @@
-import { Bar } from "react-chartjs-2";
 import { splitLabels } from "../../../services/helpers";
-import { Chart as ChartJS } from "chart.js/auto";
-import ChartDataLabels from "chartjs-plugin-datalabels";
 import { options } from "../chartOptions";
-import ChartContainer from "../ChartContainer/ChartContainer";
-import { useRef } from "react";
+import MyBar from "../MyBar/MyBar";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const BookAuthorshipChart = ({ authors, book_id, titulus_id }) => {
@@ -27,8 +24,6 @@ const BookAuthorshipChart = ({ authors, book_id, titulus_id }) => {
     ],
   };
 
-  const plugins = [ChartDataLabels];
-
   const height = data.labels.length;
 
   const clickHandler = (e) => {
@@ -49,15 +44,13 @@ const BookAuthorshipChart = ({ authors, book_id, titulus_id }) => {
     }
   };
   return (
-    <ChartContainer height={height}>
-      <Bar
-        onClick={clickHandler}
-        ref={chartRef}
-        data={data}
-        options={options}
-        plugins={plugins}
-      />
-    </ChartContainer>
+    <MyBar
+      height={height}
+      ref={chartRef}
+      onClick={clickHandler}
+      data={data}
+      options={options}
+    />
   );
 };
 

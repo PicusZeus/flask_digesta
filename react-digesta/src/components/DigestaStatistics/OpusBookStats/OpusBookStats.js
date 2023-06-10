@@ -2,9 +2,9 @@ import { getOpusBookStats } from "../../../api/api";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import TituliCoverage from "../../charts/TituliCoverage/TituliCoverage";
-import { useRef } from "react";
 import Spinner from "../../UI/spinner/Spinner";
 import classes from "./OpusBookStats.module.css";
+import { createGenJuristName } from "../../../services/helpers";
 
 const getOpusBookStatsQuery = (opus_id, book_id) => {
   return {
@@ -21,14 +21,15 @@ const OpusBookStats = () => {
   if (isFetching) {
     return <Spinner />;
   }
+  const genJuristName = createGenJuristName(stats.opus.author.name);
+
   return (
     <>
       <h1 className={classes.opus_book_stats__title}>
-        Libri {stats.opus.title_lat} {stats.opus.author.name}A w księdze{" "}
-        {stats.book.book_nr}
+        {stats.opus.title_lat} {genJuristName} w księdze {stats.book.book_nr}
       </h1>
       <h3 className={classes.opus_book_stats__info}>
-        Wybierz tytuł i zobacz jego zawartość dla {stats.opus.author.name}A
+        Wybierz tytuł i zobacz jego zawartość dla {genJuristName}
       </h3>
       {stats && (
         <TituliCoverage

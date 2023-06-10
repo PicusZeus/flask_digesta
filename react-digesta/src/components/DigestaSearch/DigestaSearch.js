@@ -1,12 +1,12 @@
 import classes from "./DigestaSearch.module.css";
 // import { useDispatch, useSelector } from "react-redux";
 // import { digestaActions } from "../../store/digesta-slice";
-import {useRef} from "react";
+import { useRef } from "react";
 
-const DigestaSearch = ({onClick}) => {
+const DigestaSearch = ({ onClick }) => {
   // const dispatch = useDispatch();
   const lang = "lat";
-    const sRef = useRef('')
+  const sRef = useRef("");
   // const setLanguageHandler = (event) => {
   //   dispatch(digestaActions.setLang(event.target.value));
   // };
@@ -32,7 +32,10 @@ const DigestaSearch = ({onClick}) => {
         />
         <input type="hidden" id="lang" name="lang" value={lang} />
       </div>
-      <button className={classes.form__submit} onClick={(e)=>onClick(e, sRef.current.value)}>
+      <button
+        className={classes.form__submit}
+        onClick={(e) => onClick(e, sRef.current.value)}
+      >
         Szukaj
       </button>
     </>

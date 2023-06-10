@@ -6,16 +6,12 @@ import NotificationService from "../../services/notification.service";
 
 import Confirmation from "../UI/confirmation/Confirmation";
 import classes from "./CommentViewer.module.css";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import RepliesViewer from "../repliesViewer/RepliesViewer";
 import { saveEditedComment, likeComment } from "../../api/api";
 import { createPrettyDate, adjustHeight } from "../../services/helpers";
 
-const CommentViewer = ({
-  comment,
-  onDelete,
-}) => {
-  const queryClient = useQueryClient()
+const CommentViewer = ({ comment, onDelete }) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(comment.likes.length);
   const [deleteDialog, setDeleteDialog] = useState(false);
@@ -90,9 +86,9 @@ const CommentViewer = ({
   const commentCreatedTime = createPrettyDate(comment.date);
 
   const onDeleteHandler = () => {
-    setDeleteDialog(false)
-    onDelete(comment.id)
-  }
+    setDeleteDialog(false);
+    onDelete(comment.id);
+  };
 
   return (
     <>

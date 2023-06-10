@@ -18,11 +18,9 @@ const BookStats = () => {
   const [authorshipSetIndex, setAuthorshipSetIndex] = useState(0);
   const [operaSetIndex, setOperaSetIndex] = useState(0);
   const params = useParams();
-
   const { data: stats, isFetching } = useQuery(
     getBookStatsQuery(params.book_id)
   );
-
   if (isFetching) {
     return <Spinner />;
   }

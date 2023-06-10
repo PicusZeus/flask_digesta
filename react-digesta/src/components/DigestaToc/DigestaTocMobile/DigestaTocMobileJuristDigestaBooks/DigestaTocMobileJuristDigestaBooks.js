@@ -19,7 +19,7 @@ const DigestaTocMobileJuristDigestaBooks = ({ books, author_id }) => {
   return (
     <>
       <TocMobile onOption={onOptionChangeHandler}>
-        <option value={""} key='default_book'>
+        <option value={""} key="default_book">
           {chosenBook ? chosenBook.book_latin_name : "Wybierz księgę"}
         </option>
         {sortedBooks.map((book) => (
@@ -35,7 +35,9 @@ const DigestaTocMobileJuristDigestaBooks = ({ books, author_id }) => {
           book_id={chosenBookId}
           author_id={author_id}
         />
-      ) : false}
+      ) : (
+        false
+      )}
     </>
   );
 };

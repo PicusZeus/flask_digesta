@@ -9,10 +9,10 @@ const DigestaTocDesktopOpus = ({ opus, lexPath }) => {
 
   const openOpusHandler = () => {
     if (chosenOpusId === opus.id) {
-       dispatch(digestaActions.setChosenOpusId(null));
+      dispatch(digestaActions.setChosenOpusId(null));
     } else {
-        dispatch(digestaActions.setChosenOpusId(opus.id));
-        dispatch(digestaActions.setChosenOpusLiberId(null));
+      dispatch(digestaActions.setChosenOpusId(opus.id));
+      dispatch(digestaActions.setChosenOpusLiberId(null));
     }
 
     // }

@@ -37,7 +37,6 @@
   gap: 0.5rem;
 }
 
-
 .button {
   cursor: pointer;
   font: inherit;
@@ -48,13 +47,10 @@
   color: white;
 }
 
-
 .button:hover {
   background-color: white;
   color: black;
 }
-
-
 
 .actions a {
   background-color: transparent;
@@ -72,8 +68,7 @@
   border: 1px solid darkgray;
 }
 .button_inactive:hover {
-   background: grey;
+  background: grey;
   color: darkgray;
   border: 1px solid darkgray;
-
 }

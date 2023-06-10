@@ -1,19 +1,15 @@
-
 import { useState } from "react";
 import RepliesViewer from "../repliesViewer/RepliesViewer";
 import classes from "./ReplyViewer.module.css";
 import { createPrettyDate } from "../../services/helpers";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { likeComment } from "../../api/api";
 import { useDispatch } from "react-redux";
 import NotificationService from "../../services/notification.service";
 import tokenService from "../../services/token.service";
 import Confirmation from "../UI/confirmation/Confirmation";
 
-const ReplyViewer = ({ reply,
-                       onDelete,
-}) => {
-  const queryClient = useQueryClient()
+const ReplyViewer = ({ reply, onDelete }) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(reply.likes.length);
   const [deleteDialog, setDeleteDialog] = useState(false);
@@ -51,9 +47,9 @@ const ReplyViewer = ({ reply,
     likeCommentMutation.mutate(reply.id);
   };
   const onDeleteConfirmation = (id) => {
-    onDelete(id)
-    setDeleteDialog(false)
-  }
+    onDelete(id);
+    setDeleteDialog(false);
+  };
 
   const commentCreatedTime = createPrettyDate(reply.date);
   return (

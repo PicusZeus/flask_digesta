@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import BooksOpusCoverage from "../../charts/BooksOpusCoverage/BooksOpusCoverage";
 import Spinner from "../../UI/spinner/Spinner";
 import classes from "./OpusStats.module.css";
+import { createGenJuristName } from "../../../services/helpers";
 
 const getOpusStatsQuery = (id) => {
   return {
@@ -11,6 +12,7 @@ const getOpusStatsQuery = (id) => {
     queryFn: () => getOpusStats(id),
   };
 };
+
 const OpusStats = () => {
   const params = useParams();
   const { data: stats, isFetching } = useQuery(
@@ -20,10 +22,11 @@ const OpusStats = () => {
   if (isFetching) {
     return <Spinner />;
   }
+  const genJuristName = createGenJuristName(stats.opus.author.name);
   return (
     <>
       <h1 className={classes.opus_stats__title}>
-        Libri {stats.opus.title_lat} {stats.opus.author.name}A
+        {stats.opus.title_lat} {genJuristName}
       </h1>
       <h3 className={classes.opus_stats__info}>
         Wybierz księgę, dla której chcesz zobaczyć udział tej pracy w tytułach

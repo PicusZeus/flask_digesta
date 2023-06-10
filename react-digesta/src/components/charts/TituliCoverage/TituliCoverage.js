@@ -1,10 +1,7 @@
-import { Bar } from "react-chartjs-2";
 import { options } from "../chartOptions";
-import ChartDataLabels from "chartjs-plugin-datalabels";
-import ChartContainer from "../ChartContainer/ChartContainer";
+import MyBar from "../MyBar/MyBar";
 import { splitLabels } from "../../../services/helpers";
-import { Chart as ChartJS } from "chart.js/auto";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { digestaActions } from "../../../store/digesta-slice";
@@ -27,7 +24,7 @@ const TituliCoverage = ({ tituli, jurysta_id, book_id }) => {
     ],
   };
 
-  const onClickHandler = (e) => {
+  const clickHandler = (e) => {
     const points = chartRef.current.getElementsAtEventForMode(
       e,
       "nearest",
@@ -45,19 +42,16 @@ const TituliCoverage = ({ tituli, jurysta_id, book_id }) => {
       navigate(url);
     }
   };
-  const plugins = [ChartDataLabels];
 
   const height = tituli.length;
   return (
-    <ChartContainer height={height}>
-      <Bar
-        onClick={onClickHandler}
-        ref={chartRef}
-        data={data}
-        options={options}
-        plugins={plugins}
-      />
-    </ChartContainer>
+    <MyBar
+      height={height}
+      ref={chartRef}
+      onClick={clickHandler}
+      data={data}
+      options={options}
+    />
   );
 };
 

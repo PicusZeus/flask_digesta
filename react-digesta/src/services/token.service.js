@@ -25,7 +25,7 @@ class TokenService {
 
   updateCommentedParagraphi(newParagraphi) {
     if (newParagraphi) {
-      console.log('UPDATED')
+      console.log("UPDATED");
       localStorage.setItem(
         "commented_paragraphi",
         JSON.stringify(newParagraphi)

@@ -29,12 +29,10 @@ const DigestaTocDesktopJuristDigestaBook = ({ book, author_id }) => {
 
   const openBookHandler = () => {
     if (book.id === chosenBookId) {
-      dispatch(digestaActions.setChosenBookId(null))
+      dispatch(digestaActions.setChosenBookId(null));
     } else {
       dispatch(digestaActions.setChosenBookId(book.id));
-
     }
-
   };
 
   return (

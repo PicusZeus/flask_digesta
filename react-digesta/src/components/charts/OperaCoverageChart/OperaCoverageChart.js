@@ -1,10 +1,7 @@
-import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS } from "chart.js/auto";
-import ChartDataLabels from "chartjs-plugin-datalabels";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { options } from "../chartOptions";
-import ChartContainer from "../ChartContainer/ChartContainer";
+import MyBar from "../MyBar/MyBar";
 import { splitLabels } from "../../../services/helpers";
 
 const OperaCoverageChart = ({ opera }) => {
@@ -14,7 +11,7 @@ const OperaCoverageChart = ({ opera }) => {
   const chartRef = useRef(null);
   const navigate = useNavigate();
 
-  const dataAbove = {
+  const data = {
     labels: opera.map((opus) => {
       let author = "";
       if (opus.author) {
@@ -35,9 +32,7 @@ const OperaCoverageChart = ({ opera }) => {
     ],
   };
 
-  const plugins = [ChartDataLabels];
-
-  const onClickHandler = (e) => {
+  const clickHandler = (e) => {
     const points = chartRef.current.getElementsAtEventForMode(
       e,
       "nearest",
@@ -57,17 +52,13 @@ const OperaCoverageChart = ({ opera }) => {
   const height = opera.length;
 
   return (
-    <>
-      <ChartContainer height={height}>
-        <Bar
-          onClick={onClickHandler}
-          refs={chartRef}
-          data={dataAbove}
-          options={options}
-          plugins={plugins}
-        />
-      </ChartContainer>
-    </>
+    <MyBar
+      height={height}
+      ref={chartRef}
+      onClick={clickHandler}
+      data={data}
+      options={options}
+    />
   );
 };
 

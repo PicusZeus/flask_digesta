@@ -4,16 +4,11 @@ import TokenService from "../../services/token.service";
 import NotificationService from "../../services/notification.service";
 import { useRef } from "react";
 import classes from "./NewReply.module.css";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postComment } from "../../api/api";
 import { adjustHeight } from "../../services/helpers";
-const NewReply = ({
-  onUpdate,
-  onClose,
-  repliedId,
-  username,
-}) => {
-  const queryClient = useQueryClient()
+const NewReply = ({ onUpdate, onClose, repliedId, username }) => {
+  const queryClient = useQueryClient();
   const newComment = useRef("");
   const dispatch = useDispatch();
   const notificationSetter = new NotificationService(dispatch);
@@ -83,15 +78,13 @@ const NewReply = ({
         placeholder="Treść odpowiedzi"
       />
       <div className={classes.new_reply__action}>
-
-          <button
-            className="material-symbols-outlined"
-            type="submit"
-            disabled={!username}
-          >
-            send
-          </button>
-
+        <button
+          className="material-symbols-outlined"
+          type="submit"
+          disabled={!username}
+        >
+          send
+        </button>
       </div>
     </form>
   );

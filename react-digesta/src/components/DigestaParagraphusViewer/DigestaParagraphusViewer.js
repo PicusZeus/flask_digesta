@@ -20,10 +20,7 @@ const DigestaParagraphusViewer = ({ paragraphus }) => {
         {/*<div>{polText}</div>*/}
       </section>
       <section className={classes.paragraph_comments__container}>
-        <CommentsViewer
-          paragraphus_id={paragraphus.id}
-          repliedId={null}
-        />
+        <CommentsViewer paragraphus_id={paragraphus.id} repliedId={null} />
       </section>
     </>
   );

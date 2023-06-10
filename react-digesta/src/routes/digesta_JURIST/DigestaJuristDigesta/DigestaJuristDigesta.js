@@ -4,7 +4,6 @@ import DigestaTocDesktopJuristDigestaBooks from "../../../components/DigestaToc/
 import DigestaTocMobileJuristDigestaBooks from "../../../components/DigestaToc/DigestaTocMobile/DigestaTocMobileJuristDigestaBooks/DigestaTocMobileJuristDigestaBooks";
 import { useQuery } from "@tanstack/react-query";
 import { getJuristBooks } from "../../../api/api";
-import { useSelector } from "react-redux";
 import Spinner from "../../../components/UI/spinner/Spinner";
 
 const getJuristBooksQuery = (id) => {

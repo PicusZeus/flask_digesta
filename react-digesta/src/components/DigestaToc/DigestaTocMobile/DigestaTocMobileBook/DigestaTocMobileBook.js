@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { digestaActions } from "../../../../store/digesta-slice";
 import { useNavigate } from "react-router-dom";
 import TocMobile from "../../../UI/TocMobile/TocMobile";
-const DigestaTocMobileBook = ({url, tituli}) => {
-
+const DigestaTocMobileBook = ({ url, tituli }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const chosenTitulusId = useSelector((state) => state.digesta.chosenTitulusId);
@@ -13,13 +12,15 @@ const DigestaTocMobileBook = ({url, tituli}) => {
     navigate(url);
   };
 
-  tituli.sort((a, b) => {return a.number - b.number})
+  tituli.sort((a, b) => {
+    return a.number - b.number;
+  });
 
   const chosenTitulus = tituli.filter((t) => t.id === chosenTitulusId)[0];
   return (
     <>
       <TocMobile onOption={onOptionChangeHandler}>
-        <option key='default_title_key' value={""} >
+        <option key="default_title_key" value={""}>
           {chosenTitulus
             ? `${chosenTitulus.number} ${chosenTitulus.title_lat}`
             : "Wybierz Tytuł"}
@@ -34,7 +35,9 @@ const DigestaTocMobileBook = ({url, tituli}) => {
       </TocMobile>
       {chosenTitulusId ? (
         <DigestaTocMobileTitulus url={url} id={chosenTitulusId} />
-      ) : false}
+      ) : (
+        false
+      )}
     </>
   );
 };

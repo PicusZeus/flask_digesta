@@ -20,7 +20,6 @@ const CommentsViewer = ({ paragraphus_id, repliedId }) => {
   const dispatch = useDispatch();
   const notificationSetter = new NotificationService(dispatch);
 
-
   const deleteMutation = useMutation({
     mutationFn: (id) => deleteComment(id),
     onMutate: () => {
@@ -31,11 +30,13 @@ const CommentsViewer = ({ paragraphus_id, repliedId }) => {
     },
     onSuccess: (data) => {
       notificationSetter.setNotificationSuccess("Sukces", "Komentarz usunięto");
-      queryClient.invalidateQueries({queryKey: [ "comment", "paragraphus", paragraphus_id]})
+      queryClient.invalidateQueries({
+        queryKey: ["comment", "paragraphus", paragraphus_id],
+      });
       // queryClient.invalidateQuery(queryKey: [
 
       // ]);
-      dispatch(authActions.setCommentedParagraphi(data))
+      dispatch(authActions.setCommentedParagraphi(data));
     },
     onError: () => {
       notificationSetter.setNotificationError(
@@ -49,7 +50,7 @@ const CommentsViewer = ({ paragraphus_id, repliedId }) => {
   };
 
   const { data: comments, isFetching } = useQuery({
-    queryKey: ["comment", "paragraphus", paragraphus_id, username ],
+    queryKey: ["comment", "paragraphus", paragraphus_id, username],
     queryFn: () => getComments(paragraphus_id, username),
     onError: (e) => {
       if (e.response.status === 401) {

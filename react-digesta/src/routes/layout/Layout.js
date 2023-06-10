@@ -5,9 +5,8 @@ import MenuBar from "../../components/UI/menuBar/MenuBar.js";
 import classes from "./Layout.module.css";
 import tokenService from "../../services/token.service";
 import { logout } from "../../store/auth-actions";
-import { Provider, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth-slice";
-import store from "../../store";
 
 const Layout = () => {
   const token = tokenService.getLocalAccessToken();
@@ -19,7 +18,7 @@ const Layout = () => {
   useEffect(() => {
     if (token === "EXPIRED") {
       logout(token);
-    } else {
+    } else if (token) {
       setTimeout(() => {
         logout(token);
       }, tokenDuration);

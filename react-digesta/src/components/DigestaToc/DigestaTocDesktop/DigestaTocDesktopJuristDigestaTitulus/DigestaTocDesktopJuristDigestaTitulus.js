@@ -14,7 +14,6 @@ const DigestaTocDesktopJuristDigestaTitulus = ({ titulus, author_id }) => {
   const { data: leges, isFetching } = useQuery({
     queryKey: ["digesta", "titulus", "leges", "author", titulus.id, author_id],
     queryFn: () => getLegesAuthor(titulus.id, author_id),
-
   });
   if (isFetching) {
     return <Spinner />;
@@ -22,7 +21,7 @@ const DigestaTocDesktopJuristDigestaTitulus = ({ titulus, author_id }) => {
 
   const openTitulusHandler = () => {
     if (titulus.id === chosenTitulusId) {
-      dispatch(digestaActions.setChosenTitulusId(null))
+      dispatch(digestaActions.setChosenTitulusId(null));
     } else {
       dispatch(digestaActions.setChosenTitulusId(titulus.id));
     }

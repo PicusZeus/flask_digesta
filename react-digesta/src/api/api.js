@@ -9,8 +9,7 @@ let api = axios.create({
 if (process.env.REACT_APP_BASE_API_URL) {
   api = axios.create({
     baseURL: process.env.REACT_APP_BASE_API_URL + "/api/",
-       // baseURL:  "/api/",
-
+    // baseURL:  "/api/",
   });
 }
 
@@ -18,12 +17,14 @@ export default api;
 
 export const deleteComment = (id) => {
   const token = tokenService.getLocalAccessToken();
-  return api.delete("comment/" + id, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-  }).then(r=>r.data);
+  return api
+    .delete("comment/" + id, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+    .then((r) => r.data);
 };
 
 export const getComments = (id, username) => {
@@ -235,7 +236,6 @@ export const getBooks = () => {
   return api
     .get("digesta/books")
     .then((response) => {
-
       return response.data;
     })
     .catch(() => {
@@ -309,24 +309,27 @@ export const getOpusBookStats = (opus_id, book_id) => {
 };
 
 export const getCommentedParagraphi = (token) => {
-  return api.get("commentedParagraphi", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    }
-  }).then(r=>r.data)
-}
+  return api
+    .get("commentedParagraphi", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((r) => r.data);
+};
 
 export const getSearchedParagraphi = (searched_term, lang) => {
-
-      return api.post(
-        `digesta/${lang}`,
-        {
-          searched_term: searched_term,
+  return api
+    .post(
+      `digesta/${lang}`,
+      {
+        searched_term: searched_term,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      ).then(r=>r.data);
-    };
+      }
+    )
+    .then((r) => r.data);
+};

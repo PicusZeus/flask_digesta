@@ -1,10 +1,7 @@
-import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS } from "chart.js/auto";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { options } from "../chartOptions";
-import ChartContainer from "../ChartContainer/ChartContainer";
-import ChartDataLabels from "chartjs-plugin-datalabels";
+import MyBar from "../MyBar/MyBar";
 
 const BooksOpusCoverage = ({ books }) => {
   const navigate = useNavigate();
@@ -21,7 +18,7 @@ const BooksOpusCoverage = ({ books }) => {
     ],
   };
 
-  const onClickHandler = (e) => {
+  const clickHandler = (e) => {
     const points = chartRef.current.getElementsAtEventForMode(
       e,
       "nearest",
@@ -34,19 +31,16 @@ const BooksOpusCoverage = ({ books }) => {
       navigate(book_id.toString());
     }
   };
-  const plugins = [ChartDataLabels];
   const height = data.labels.length;
 
   return (
-    <ChartContainer height={height}>
-      <Bar
-        onClick={onClickHandler}
-        ref={chartRef}
-        data={data}
-        options={options}
-        plugins={plugins}
-      />
-    </ChartContainer>
+    <MyBar
+      height={height}
+      ref={chartRef}
+      onClick={clickHandler}
+      data={data}
+      options={options}
+    />
   );
 };
 

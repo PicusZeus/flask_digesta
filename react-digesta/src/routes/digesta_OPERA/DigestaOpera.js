@@ -20,7 +20,6 @@ const DigestaOpera = () => {
     return <Spinner />;
   }
 
-
   return (
     <div className={classes.opera_main}>
       <h1 className={classes.opera_main__title}>Prace cytowane w Digestach</h1>

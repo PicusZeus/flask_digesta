@@ -1,11 +1,8 @@
-import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS } from "chart.js/auto";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import ChartDataLabels from "chartjs-plugin-datalabels";
 import { splitLabels } from "../../../services/helpers";
 import { options } from "../chartOptions";
-import ChartContainer from "../ChartContainer/ChartContainer";
+import MyBar from "../MyBar/MyBar";
 
 const BooksShareChart = ({ tituli }) => {
   const chartRef = useRef(null);
@@ -23,7 +20,6 @@ const BooksShareChart = ({ tituli }) => {
     ],
   };
 
-  const plugins = [ChartDataLabels];
 
   const navigate = useNavigate();
   // })
@@ -44,15 +40,13 @@ const BooksShareChart = ({ tituli }) => {
   const height = tituli.length;
 
   return (
-    <ChartContainer height={height}>
-      <Bar
-        ref={chartRef}
-        onClick={clickHandler}
-        data={data}
-        options={options}
-        plugins={plugins}
-      />
-    </ChartContainer>
+    <MyBar
+      height={height}
+      ref={chartRef}
+      onClick={clickHandler}
+      data={data}
+      options={options}
+    />
   );
 };
 
