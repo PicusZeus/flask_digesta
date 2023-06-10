@@ -1,4 +1,4 @@
-import { Chart as ChartJs } from "chart.js";
+import "chart.js/auto";
 
 import { Pie } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";

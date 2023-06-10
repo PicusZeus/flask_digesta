@@ -2,6 +2,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+
 import Layout from "./routes/layout/Layout";
 import Main from "./routes/main/Main";
 import DigestaJurists, {
