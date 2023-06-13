@@ -49,7 +49,6 @@ def create_app():
     api.register_blueprint(comments_blp)
     api.register_blueprint(statistics_blp)
 
-    app.config["JWT_SECRET_KEY"] = "picus"
     jwt = JWTManager(app)
 
     @jwt.token_in_blocklist_loader
