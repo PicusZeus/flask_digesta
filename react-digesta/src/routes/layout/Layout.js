@@ -7,7 +7,7 @@ import tokenService from "../../services/token.service";
 import { logout } from "../../store/auth-actions";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth-slice";
-
+import {CookieConsent} from "react-cookie-consent";
 
 const Layout = () => {
   const token = tokenService.getLocalAccessToken();
@@ -33,6 +33,7 @@ const Layout = () => {
       <main className={classes.main}>
         <Outlet />
       </main>
+      <CookieConsent debug={false}>Strona korzysta z plików cookie w celu podniesienia komfortu użytkownika.</CookieConsent>
       <Footer />
     </>
   );

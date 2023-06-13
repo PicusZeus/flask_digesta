@@ -19,7 +19,7 @@ from resources.comments import blp as comments_blp
 from resources.stats import blp as statistics_blp
 
 
-def create_app(db_url=None):
+def create_app():
     app = Flask(__name__)
     CORS(app)
     load_dotenv()
@@ -31,10 +31,10 @@ def create_app(db_url=None):
     app.config["OPENAPI_URL_PREFIX"] = "/"
     app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger-ui"
     app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
-    # app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL', "sqlite:///data.db")
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL')
     # app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL')
-    app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://hello_flask:hello_flask@db/hello_flask'
-    app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+    # app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get()
+    app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET")
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=6)
     app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
